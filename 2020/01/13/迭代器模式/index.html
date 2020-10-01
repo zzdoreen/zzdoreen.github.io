@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    事件循环相关-异步输出顺序问题 |  
+    【第七章】 迭代器模式 |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -47,7 +47,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-await相关题目"
+  id="post-迭代器模式"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -58,18 +58,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  事件循环相关-异步输出顺序问题
+  【第七章】 迭代器模式
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2020/10/01/await%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/" class="article-date">
-  <time datetime="2020-10-01T03:37:33.589Z" itemprop="datePublished">2020-10-01</time>
+      <a href="/2020/01/13/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time datetime="2020-01-13T07:16:00.000Z" itemprop="datePublished">2020-01-13</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/ES6/">ES6</a> / <a class="article-category-link" href="/categories/ES6/async-await/">async/await</a> / <a class="article-category-link" href="/categories/ES6/async-await/promise/">promise</a>
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
   </div>
   
 <div class="word_count">
@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">644</span>
+            <span class="post-count">708</span>
         </span>
     </span>
 
@@ -86,7 +86,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">2 min</span>
+            <span class="post-count">3 min</span>
         </span>
     </span>
 </div>
@@ -101,39 +101,28 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="题目出处"><a href="#题目出处" class="headerlink" title="题目出处"></a><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000016329715">题目出处</a></h2><blockquote>
-<p>通过这个题目 大概搞懂了 async/await 的实际意义<br>也可以复习下事件循环机制</p>
+  <h2 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h2><blockquote>
+<p>提供一种 “顺序访问” 一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。<br>迭代模式可以把迭代的过程从业务逻辑中分离出来，在使用迭代器模式之后，即使不关心对象的内部构造，也可以按顺序方位其中的每个元素。</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;async1 start&quot;</span>);</span><br><span class="line">    <span class="keyword">await</span> async2();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;async1 end&quot;</span>);  <span class="comment">// 相当于async2这个promise对象的一个 .then()</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">&quot;async2&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;script start&quot;</span>);  </span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;settimeout&quot;</span>);</span><br><span class="line">&#125;,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">async1();   </span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;promise1&quot;</span>);   </span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;promise2&quot;</span>);</span><br><span class="line">&#125;); </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;script end&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 整体同步的执行顺序</span></span><br><span class="line"><span class="comment"> * 1. console.log(&quot;script start&quot;)   -&gt; 输出 “ script start ”</span></span><br><span class="line"><span class="comment"> *  </span></span><br><span class="line"><span class="comment"> *  * setTimeout() 进入异步队列 *</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 2. async1()  </span></span><br><span class="line"><span class="comment"> *      -&gt; 输出 “ async1 start ” </span></span><br><span class="line"><span class="comment"> *      -&gt; 进入 async2() 输出 “ async2 ”</span></span><br><span class="line"><span class="comment"> *      -&gt; await等待async2()函数返回一个promise实例 将 console.log(&#x27;async1 end&#x27;) 放入异步队列</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 3. promise()</span></span><br><span class="line"><span class="comment"> *      -&gt; 输出 “ promise1 ” </span></span><br><span class="line"><span class="comment"> *      -&gt; resolve() 进入异步队列</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 4. console.log(&quot;script end&quot;)   -&gt; 输出 “ script end ”</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 异步队列：</span></span><br><span class="line"><span class="comment"> * setTimeout()               </span></span><br><span class="line"><span class="comment"> * console.log(&#x27;async1 end&#x27;)  </span></span><br><span class="line"><span class="comment"> * resolve()                  </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 按宏 / 微任务 顺序输出</span></span><br><span class="line"><span class="comment"> * console.log(&#x27;async1 end&#x27;)  // 微任务 1  -&gt;   async1 end</span></span><br><span class="line"><span class="comment"> * resolve()                  // 微任务 2  -&gt;  promise2</span></span><br><span class="line"><span class="comment"> * setTimeout()               // 宏任务 1  -&gt;   settimeout</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<p>自己实现一个迭代器：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> each = <span class="function"><span class="keyword">function</span>(<span class="params">ary,callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;ary.length;i++)&#123;</span><br><span class="line">        callback.call(<span class="literal">null</span>,i,ary[i])   <span class="comment">// 把下标和元素当作参数传给callback函数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">each([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],<span class="function"><span class="keyword">function</span>(<span class="params">i,n</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log([i,n])</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="内部迭代器"><a href="#内部迭代器" class="headerlink" title="内部迭代器"></a>内部迭代器</h2><blockquote>
+<p>上面编写的 each 函数属于内部迭代器，each 函数的内部已经定义好了迭代规则，它完全接手整个迭代过程，外部只需要一次初始调用。  </p>
+</blockquote>
+<p>内部迭代器在调用的时候非常方便，外界不用关心迭代器内部的实现，跟迭代器的交互也仅仅是一次初始调用，但这也刚好是内部迭代器的缺点。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 内部迭代器实现 比较两个数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">ary1,ary2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ary1.length != ary2.length)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;不相等&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    each(ary1,<span class="function"><span class="keyword">function</span>(<span class="params">i,n</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(ary2[i]!=n)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;不相等&#x27;</span>) <span class="comment">// console.log(&#x27;不相等&#x27;)</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;相等&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line">compare([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) <span class="comment">// 相等</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="async-await"><a href="#async-await" class="headerlink" title="async / await"></a>async / await</h2><blockquote>
-<p>通过看起来是同步的代码来执行 async(异步) 操作。<br>await阻塞功能，相当于一个 .then()的功能，await后一般是跟的异步操作，加上之后 只有等他执行完之后，后面的代码才能进行<br>本质还是promise 属于微任务</p>
+<h2 id="外部迭代器"><a href="#外部迭代器" class="headerlink" title="外部迭代器"></a>外部迭代器</h2><blockquote>
+<p>外部迭代器必须显式地请求迭代下一个元素。<br>外部迭代器增加了一些调用的复杂度，但相对也增强了迭代器的灵活性，我们可以手工控制迭代的过程或者顺序。</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">await</span> otherAsyncFunc();</span><br><span class="line">    <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 等价于:</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">asyncFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> otherAsyncFunc().then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(result);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="事件循环机制-EventLoop"><a href="#事件循环机制-EventLoop" class="headerlink" title="事件循环机制 (EventLoop)"></a>事件循环机制 (EventLoop)</h2><blockquote>
-<p>JavaScript是单线程的 ( 所有在主线程执行 )<br>事件轮询机制：同步任务完成后，执行异步队列  </p>
-</blockquote>
-<p><b style='color:red'>单线程特点:</b>   </p>
-<ol>
-<li>代码从上至下以此执行  </li>
-<li>同步（ 会阻塞后面代码的执行 ） &amp; 异步 ( 主线程同步任务之后触发执行 )  </li>
-<li>同步代表：alert()  console.log()  赋值语句  </li>
-<li>异步代表：定时器  事件的回调(  xx.onclick=function(){}  ) promise</li>
-</ol>
-<img src='/images/eventLoop.png'>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Iterator = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> current = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> next = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        current +=<span class="number">1</span>     </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> isDone = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> current &gt;= obj.length</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> getCurrentItem = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> obj[current]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        next: next,</span><br><span class="line">        isDone: isDone,</span><br><span class="line">        getCurrentItem: getCurrentItem</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 外部迭代器实现 比较两个数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">Iterator1,Iterator2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(!Iterator1.isDone()&amp;&amp;!Iterator2.isDone())&#123;</span><br><span class="line">        <span class="keyword">if</span>(Iterator1.getCurrentItem() !== Iterator2.getCurrentItem())&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;不相等&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        Iterator1.next()</span><br><span class="line">        Iterator2.next()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;相等&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> Iterator1 = Iterator([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line"><span class="keyword">var</span> Iterator2 = Iterator([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line">compare(Iterator1,Iterator2)   <span class="comment">// 相等</span></span><br></pre></td></tr></table></figure>
 
-<p><b style='color:red'>事件循环:</b>  </p>
-<ol>
-<li>所有同步任务都在主线程上执行，形成一个执行栈</li>
-<li>主线程之外，还存在一个”消息队列”。只要异步操作执行完成，就到消息队列中排队</li>
-<li>一旦执行栈中的所有同步任务执行完毕，系统就会按次序读取消息队列中的异步任务，于是被读取的异步任务结束等待状态，进入执行栈，开始执行</li>
-<li>主线程不断重复上面的第三步</li>
-</ol>
-<h2 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h2><blockquote>
-<p>微任务和宏任务皆为异步任务，但是微任务的优先级高于宏任务。</p>
+<h2 id="迭代类数组对象和字面量对象"><a href="#迭代类数组对象和字面量对象" class="headerlink" title="迭代类数组对象和字面量对象"></a>迭代类数组对象和字面量对象</h2><blockquote>
+<p>类数组：arguments<br>字面量对象：{‘0’:’a’,’1’:’b’}</p>
 </blockquote>
-<img src='/images/task.png'>
-<img src='/images/tasks.png'> 
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">each</span>(<span class="params">obj,callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> value,</span><br><span class="line">    i=<span class="number">0</span>,</span><br><span class="line">    length = obj.length,</span><br><span class="line">    isArray = isArraylike(obj); <span class="comment">//假装封装好了一个判断是否是类数组的方法</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(isArray)&#123;    <span class="comment">// 迭代类数组</span></span><br><span class="line">        <span class="keyword">for</span>(;i&lt;length;i++)&#123;</span><br><span class="line">            value = callback.call(<span class="literal">null</span>,i,obj[i])</span><br><span class="line">            <span class="keyword">if</span>(value === <span class="literal">false</span>)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(i <span class="keyword">in</span> obj)&#123;</span><br><span class="line">            value = callback.call(<span class="literal">null</span>,i,obj[i])</span><br><span class="line">            <span class="keyword">if</span>(value === <span class="literal">false</span>)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> obj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="中止迭代器"><a href="#中止迭代器" class="headerlink" title="中止迭代器"></a>中止迭代器</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> each = <span class="function"><span class="keyword">function</span>(<span class="params">ary,callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;ary.length;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(callback(i,ary[i]) === <span class="literal">false</span>)&#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">each([<span class="number">11</span>,<span class="number">21</span>,<span class="number">31</span>,<span class="number">41</span>,<span class="number">51</span>],<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&gt;<span class="number">30</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(n)</span><br><span class="line">&#125;) <span class="comment">// 11 21</span></span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>
@@ -185,7 +174,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/10/01/await%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/01/13/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -196,19 +185,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2020/10/01/clip-path/" class="article-nav-link">
+      <a href="/2020/01/14/3d%E6%95%88%E6%9E%9C/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            clip-path
+            CSS实现3D效果
           
         </div>
       </a>
     
     
-      <a href="/2020/10/01/3d%E6%95%88%E6%9E%9C/" class="article-nav-link">
+      <a href="/2020/01/08/vue-element-admin%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86&%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">CSS实现3D效果</div>
+        <div class="article-nav-title">vue-element-admin权限管理&amp;动态路由配置</div>
       </a>
     
   </nav>
@@ -329,6 +318,10 @@
     
     <li class="nav-item">
       <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
     </li>
     
     <li class="nav-item">

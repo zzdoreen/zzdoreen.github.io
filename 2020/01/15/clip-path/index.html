@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    【第七章】 迭代器模式 |  
+    clip-path |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -47,7 +47,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-迭代器模式"
+  id="post-clip-path"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -58,18 +58,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  【第七章】 迭代器模式
+  clip-path
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2020/10/01/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" class="article-date">
-  <time datetime="2020-10-01T03:37:33.639Z" itemprop="datePublished">2020-10-01</time>
+      <a href="/2020/01/15/clip-path/" class="article-date">
+  <time datetime="2020-01-15T07:16:00.000Z" itemprop="datePublished">2020-01-15</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+    <a class="article-category-link" href="/categories/CSS/">CSS</a>
   </div>
   
 <div class="word_count">
@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">708</span>
+            <span class="post-count">558</span>
         </span>
     </span>
 
@@ -86,7 +86,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">3 min</span>
+            <span class="post-count">2 min</span>
         </span>
     </span>
 </div>
@@ -101,28 +101,48 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h2><blockquote>
-<p>提供一种 “顺序访问” 一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。<br>迭代模式可以把迭代的过程从业务逻辑中分离出来，在使用迭代器模式之后，即使不关心对象的内部构造，也可以按顺序方位其中的每个元素。</p>
+  <h2 id="发现了一个有意思的CSS属性"><a href="#发现了一个有意思的CSS属性" class="headerlink" title="发现了一个有意思的CSS属性"></a>发现了一个有意思的CSS属性</h2><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/clip-path">属性详情</a><br><a target="_blank" rel="noopener" href="https://www.html.cn/tool/css-clip-path/">clip-path生成器</a></p>
+<blockquote>
+<p>clip-path ： 创建一个只有元素的部分区域可以显示的剪切区域</p>
 </blockquote>
-<p>自己实现一个迭代器：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> each = <span class="function"><span class="keyword">function</span>(<span class="params">ary,callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;ary.length;i++)&#123;</span><br><span class="line">        callback.call(<span class="literal">null</span>,i,ary[i])   <span class="comment">// 把下标和元素当作参数传给callback函数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">each([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],<span class="function"><span class="keyword">function</span>(<span class="params">i,n</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log([i,n])</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="内部迭代器"><a href="#内部迭代器" class="headerlink" title="内部迭代器"></a>内部迭代器</h2><blockquote>
-<p>上面编写的 each 函数属于内部迭代器，each 函数的内部已经定义好了迭代规则，它完全接手整个迭代过程，外部只需要一次初始调用。  </p>
-</blockquote>
-<p>内部迭代器在调用的时候非常方便，外界不用关心迭代器内部的实现，跟迭代器的交互也仅仅是一次初始调用，但这也刚好是内部迭代器的缺点。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 内部迭代器实现 比较两个数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">ary1,ary2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ary1.length != ary2.length)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;不相等&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    each(ary1,<span class="function"><span class="keyword">function</span>(<span class="params">i,n</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(ary2[i]!=n)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;不相等&#x27;</span>) <span class="comment">// console.log(&#x27;不相等&#x27;)</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;相等&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line">compare([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) <span class="comment">// 相等</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 我没有接触过svg 所以只写了几个我觉得能常用的属性*/</span></span><br><span class="line"><span class="selector-tag">clip-path</span>: <span class="selector-tag">circle</span>( 50% <span class="selector-tag">at</span> 50% 50%);     <span class="comment">/* 剪裁成 【圆形】 第一个参数是 圆半径 at 圆心坐标*/</span></span><br><span class="line"><span class="selector-tag">clip-path</span>: <span class="selector-tag">ellipse</span>( 50% 25% <span class="selector-tag">at</span> 50% 50%);    <span class="comment">/*剪裁成 【椭圆】 第一个参数是 横向半径 第二个是 纵向半径 at 圆心坐标  当半径一致 相当于圆*/</span></span><br><span class="line"><span class="selector-tag">clip-path</span>: <span class="selector-tag">polygon</span>( 50% 0,0 100%,100% 100%);    <span class="comment">/* 剪裁成任意形状 后跟每个点坐标  这是个三角形 注意点连接的顺序！ 如下：*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<img src='/images/clippath.png' width='400px'/>  
 
-<h2 id="外部迭代器"><a href="#外部迭代器" class="headerlink" title="外部迭代器"></a>外部迭代器</h2><blockquote>
-<p>外部迭代器必须显式地请求迭代下一个元素。<br>外部迭代器增加了一些调用的复杂度，但相对也增强了迭代器的灵活性，我们可以手工控制迭代的过程或者顺序。</p>
+<h2 id="可以实现的效果"><a href="#可以实现的效果" class="headerlink" title="可以实现的效果"></a>可以实现的效果</h2><blockquote>
+<p>我感觉比伪类方便  可以代替圆角之类的  也可以结合动画之类的</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Iterator = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> current = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> next = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        current +=<span class="number">1</span>     </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> isDone = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> current &gt;= obj.length</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> getCurrentItem = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> obj[current]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        next: next,</span><br><span class="line">        isDone: isDone,</span><br><span class="line">        getCurrentItem: getCurrentItem</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 外部迭代器实现 比较两个数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">Iterator1,Iterator2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(!Iterator1.isDone()&amp;&amp;!Iterator2.isDone())&#123;</span><br><span class="line">        <span class="keyword">if</span>(Iterator1.getCurrentItem() !== Iterator2.getCurrentItem())&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;不相等&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        Iterator1.next()</span><br><span class="line">        Iterator2.next()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;相等&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> Iterator1 = Iterator([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line"><span class="keyword">var</span> Iterator2 = Iterator([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line">compare(Iterator1,Iterator2)   <span class="comment">// 相等</span></span><br></pre></td></tr></table></figure>
+<style>
+.clipPath{
+    width:150px;
+    height: 150px;
+    background-image: url('/images/avatar.jpg'); 
+    background-size:100% 100%;
+    display:inline-block;  
+}
+.clipPath.dv1{
+    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
+}
+.clipPath.dv2{
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+.clipPath.dv3{
+    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
+}
+.clipPath.dv4{
+    /* clip-path: ellipse(100% 100% at 0% 0%); */
+    clip-path: circle(100% at 0% 0%);
+}
+.clipPath.dv5{
+  clip-path: polygon(0% 0%, 0% 100%, 25% 100%, 25% 25%, 75% 25%, 75% 75%, 25% 75%, 25% 100%, 100% 100%, 100% 0%);
+}
+</style>
+<div class="clipPath dv1"></div>
+<div class="clipPath dv2"></div>
+<div class="clipPath dv3"></div>
+<div class="clipPath dv4"></div>
+<div class="clipPath dv5"></div>
 
-<h2 id="迭代类数组对象和字面量对象"><a href="#迭代类数组对象和字面量对象" class="headerlink" title="迭代类数组对象和字面量对象"></a>迭代类数组对象和字面量对象</h2><blockquote>
-<p>类数组：arguments<br>字面量对象：{‘0’:’a’,’1’:’b’}</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">each</span>(<span class="params">obj,callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> value,</span><br><span class="line">    i=<span class="number">0</span>,</span><br><span class="line">    length = obj.length,</span><br><span class="line">    isArray = isArraylike(obj); <span class="comment">//假装封装好了一个判断是否是类数组的方法</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(isArray)&#123;    <span class="comment">// 迭代类数组</span></span><br><span class="line">        <span class="keyword">for</span>(;i&lt;length;i++)&#123;</span><br><span class="line">            value = callback.call(<span class="literal">null</span>,i,obj[i])</span><br><span class="line">            <span class="keyword">if</span>(value === <span class="literal">false</span>)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(i <span class="keyword">in</span> obj)&#123;</span><br><span class="line">            value = callback.call(<span class="literal">null</span>,i,obj[i])</span><br><span class="line">            <span class="keyword">if</span>(value === <span class="literal">false</span>)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> obj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="中止迭代器"><a href="#中止迭代器" class="headerlink" title="中止迭代器"></a>中止迭代器</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> each = <span class="function"><span class="keyword">function</span>(<span class="params">ary,callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;ary.length;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(callback(i,ary[i]) === <span class="literal">false</span>)&#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">each([<span class="number">11</span>,<span class="number">21</span>,<span class="number">31</span>,<span class="number">41</span>,<span class="number">51</span>],<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&gt;<span class="number">30</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(n)</span><br><span class="line">&#125;) <span class="comment">// 11 21</span></span><br></pre></td></tr></table></figure> 
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">width</span><span class="selector-pseudo">:150px</span>;</span></span><br><span class="line">    height: 150px;</span><br><span class="line">    background-image: url(&#x27;/images/avatar.jpg&#x27;); </span><br><span class="line"><span class="css">    <span class="selector-tag">background-size</span><span class="selector-pseudo">:100</span>% 100%;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">display</span><span class="selector-pseudo">:inline-block</span>;  </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv1</span>&#123;</span></span><br><span class="line">    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv2</span>&#123;</span></span><br><span class="line">    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv3</span>&#123;</span></span><br><span class="line">    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv4</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="comment">/* clip-path: ellipse(100% 100% at 0% 0%); 效果一致*/</span></span></span><br><span class="line">    clip-path: circle(100% at 0% 0%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv5</span>&#123;</span></span><br><span class="line">  clip-path: polygon(0% 0%, 0% 100%, 25% 100%, 25% 25%, 75% 25%, 75% 75%, 25% 75%, 25% 100%, 100% 100%, 100% 0%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv3&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv4&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv5&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>
@@ -174,7 +194,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/10/01/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/01/15/clip-path/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -185,19 +205,19 @@
    
   <nav class="article-nav">
     
-      <a href="/2020/10/01/%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E8%80%85%E6%A8%A1%E5%BC%8F/" class="article-nav-link">
+      <a href="/2020/01/16/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F/" class="article-nav-link">
         <strong class="article-nav-caption">上一篇</strong>
         <div class="article-nav-title">
           
-            【第八章】 发布-订阅模式
+            【第九章】 命令模式
           
         </div>
       </a>
     
     
-      <a href="/2020/10/01/vue%E4%B8%AD%E7%9A%84key%E5%B1%9E%E6%80%A7/" class="article-nav-link">
+      <a href="/2020/01/14/%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E8%80%85%E6%A8%A1%E5%BC%8F/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">vue的key属性</div>
+        <div class="article-nav-title">【第八章】 发布-订阅模式</div>
       </a>
     
   </nav>
@@ -318,6 +338,10 @@
     
     <li class="nav-item">
       <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
     </li>
     
     <li class="nav-item">
