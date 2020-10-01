@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+     
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      
+<section class="cover">
+    
+      
+      <a class="forkMe" href="https://github.com/Shen-Yu/hexo-theme-ayer"
+        target="_blank"><img width="149" height="149" src="/images/forkme.png"
+          class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+    
+  <div class="cover-frame">
+    <div class="bg-box">
+      <img src="/images/bg.jpg" alt="image frame" />
+    </div>
+    <div class="cover-inner text-center text-white">
+      <h1><a href="/">Doreen&#39;s Blog</a></h1>
+      <div id="subtitle-box">
+        
+        <span id="subtitle"></span>
+        
+      </div>
+      <div>
+        
+      </div>
+    </div>
+  </div>
+  <div class="cover-learn-more">
+    <a href="javascript:void(0)" class="anchor"><i class="ri-arrow-down-line"></i></a>
+  </div>
+</section>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js"></script>
+
+
+<!-- Subtitle -->
+
+  <script>
+    try {
+      var typed = new Typed("#subtitle", {
+        strings: ['hello world', '愿你一生努力，一生被爱', '想要的都拥有，得不到的都释怀'],
+        startDelay: 0,
+        typeSpeed: 200,
+        loop: true,
+        backSpeed: 100,
+        showCursor: true
+      });
+    } catch (err) {
+      console.log(err)
+    }
+  </script>
+  
+<div id="main">
+  <section class="outer">
+  
+  
+
+<div class="notice" style="margin-top:50px">
+    <i class="ri-heart-fill"></i>
+    <div class="notice-content" id="broad"></div>
+</div>
+<script type="text/javascript">
+    fetch('https://v1.hitokoto.cn')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById("broad").innerHTML = data.hitokoto;
+        })
+        .catch(console.error)
+</script>
+
+<style>
+    .notice {
+        padding: 20px;
+        border: 1px dashed #e6e6e6;
+        color: #969696;
+        position: relative;
+        display: inline-block;
+        width: 100%;
+        background: #fbfbfb50;
+        border-radius: 10px;
+    }
+
+    .notice i {
+        float: left;
+        color: #999;
+        font-size: 16px;
+        padding-right: 10px;
+        vertical-align: middle;
+        margin-top: -2px;
+    }
+
+    .notice-content {
+        display: initial;
+        vertical-align: middle;
+    }
+</style>
+  
+  <article class="articles">
+    
+    
+    
+    
+    <article
+  id="post-第四章__单例模式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/25/%E7%AC%AC%E5%9B%9B%E7%AB%A0__%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"
+    >【第四章】单例模式</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/25/%E7%AC%AC%E5%9B%9B%E7%AB%A0__%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time datetime="2019-12-25T02:21:42.000Z" itemprop="datePublished">2019-12-25</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>定义： 保证一个类仅有一个实例，并提供一个访问它的全局访问点。在 JavaScript 开发中，单例模式的用途同样非常广泛。试想一下，当我们单击登录按钮的时候，页面中会出现一个登录浮窗，而这个登录浮窗是唯一的，无论单击多少次登录按钮，这个浮窗都只会被创建一次，那么这个登录浮窗就适合用单例模式来创建。</p>
+</blockquote>
+<p><b style="color:Red">核心：确保只有一个实例，并提供全局访问</b></p>
+<ol>
+<li><p>实现单例模式</p>
+<blockquote>
+<p>用一个变量来标志当前是否已经为某个类创建过对象，如果是，则在下一次获取该类的实例时，直接返回之前创建的对象</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Singleton = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name</span><br><span class="line">    <span class="built_in">this</span>.instance = <span class="literal">null</span>    <span class="comment">//存放已经生成的实例对象</span></span><br><span class="line">&#125;</span><br><span class="line">Singleton.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line">Singleton.getInstance = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">this</span>.instance)&#123;</span><br><span class="line">        <span class="built_in">this</span>.instance = <span class="keyword">new</span> Singleton(name)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.instance</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = Singleton.getInstance(<span class="string">&#x27;doreen&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> b = Singleton.getInstance(<span class="string">&#x27;sherry&#x27;</span>)</span><br><span class="line">a.getName()     <span class="comment">//doreen</span></span><br><span class="line">b.getName()     <span class="comment">//doreen</span></span><br><span class="line"><span class="built_in">console</span>.log(a === b)     <span class="comment">//true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
+</li>
+<li><p>透明的单例模式</p>
+<blockquote>
+<p>使用的时候要和普通类一样通过new去创建实例</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 利用闭包的方式 让变量存在局部</span></span><br><span class="line"><span class="keyword">var</span> CreateDiv = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> instance </span><br><span class="line">    <span class="keyword">var</span> CreateDiv = <span class="function"><span class="keyword">function</span>(<span class="params">html</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance)&#123;</span><br><span class="line">            <span class="keyword">return</span> instance</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.html = html</span><br><span class="line">        <span class="built_in">this</span>.init()</span><br><span class="line">        <span class="keyword">return</span> instance = <span class="built_in">this</span></span><br><span class="line">    &#125;</span><br><span class="line">    CreateDiv.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">        div.innerHTML = <span class="built_in">this</span>.html</span><br><span class="line">        <span class="built_in">document</span>.body.appendChild(div)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> CreateDiv;</span><br><span class="line">&#125;)()</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> CreateDiv(<span class="string">&#x27;doreen&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> CreateDiv(<span class="string">&#x27;sherry&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(a === b)    <span class="comment">// true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
+</li>
+<li><p>用代理实现单例模式</p>
+<blockquote>
+<p>CreateDiv变成普通类，它跟proxySingletonCreateDiv组合起来可以达到单例模式的效果</p>
+</blockquote>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> CreateDiv = <span class="function"><span class="keyword">function</span>(<span class="params">html</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.html = html</span><br><span class="line">    <span class="built_in">this</span>.init()</span><br><span class="line">&#125;</span><br><span class="line">CreateDiv.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">    div.innerHTML = <span class="built_in">this</span>.html</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(div)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//代理类 proxySingletonCreateDiv</span></span><br><span class="line"><span class="keyword">var</span> proxySingletonCreateDiv = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> instance</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">html</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!instance)&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> CreateDiv(html)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> proxySingletonCreateDiv(<span class="string">&#x27;doreen&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> proxySingletonCreateDiv(<span class="string">&#x27;sherry&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(a===b)  <span class="comment">// true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>惰性单例</p>
+<blockquote>
+<p>是在需要的时候才创建对象实例</p>
+</blockquote>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 创建一个登录框  需要登录的时候才动态创建登录框*/</span></span><br><span class="line"><span class="keyword">var</span> createLoginLayer = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> div</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!div) &#123;</span><br><span class="line">            div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">            div.innerHTML = <span class="string">&#x27;登录框&#x27;</span></span><br><span class="line">            div.style.display = <span class="string">&#x27;none&#x27;</span></span><br><span class="line">            <span class="built_in">document</span>.body.appendChild(div)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> div</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> loginLayer = createLoginLayer()</span><br></pre></td></tr></table></figure></li>
+<li><p>通用的惰性单例</p>
+<blockquote>
+<p>惰性单例存在的问题  </p>
+<ol>
+<li>违反单一职责原则，创建对象和管理单例的逻辑都放在createLoginLayer对象内部</li>
+<li>如果下次需要创建页面中唯一的iframe，或者script标签，用来跨域请求数据，就必须如法炮制，把createLoginLayer函数几乎照抄一遍  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> createIframe = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> iframe</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!iframe)&#123;</span><br><span class="line">            iframe = <span class="built_in">document</span>.createElement(<span class="string">&#x27;iframe&#x27;</span>)</span><br><span class="line">            iframe.style.display = <span class="string">&#x27;none&#x27;</span></span><br><span class="line">            <span class="built_in">document</span>.body.appendChild(iframe)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> iframe</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="comment">//  把代码抽离出来</span></span><br><span class="line"><span class="comment">//  公用的部分 单例逻辑</span></span><br><span class="line"><span class="keyword">var</span> getSingle = <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> result || (result = fn.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  创建对象的方法</span></span><br><span class="line"><span class="keyword">var</span> createLoginLayer = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">    div.innerHTML = <span class="string">&#x27;登录框&#x27;</span></span><br><span class="line">    div.style.display = <span class="string">&#x27;none&#x27;</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChil(div)</span><br><span class="line">    <span class="keyword">return</span> div</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> createSingleLoginLayer = getSingle(createLoginLayer)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-第三章__闭包和高阶函数"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/24/%E7%AC%AC%E4%B8%89%E7%AB%A0__%E9%97%AD%E5%8C%85%E5%92%8C%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0/"
+    >【第三章】闭包和高阶函数</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/24/%E7%AC%AC%E4%B8%89%E7%AB%A0__%E9%97%AD%E5%8C%85%E5%92%8C%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0/" class="article-date">
+  <time datetime="2019-12-24T02:21:42.000Z" itemprop="datePublished">2019-12-24</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="闭包作用"><a href="#闭包作用" class="headerlink" title="闭包作用"></a>闭包作用</h2><h4 id="封装变量"><a href="#封装变量" class="headerlink" title="封装变量"></a>封装变量</h4><blockquote>
+<p>把不需要暴露在全局的变量封装成 “私有变量”  </p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//计算乘积一般方法</span></span><br><span class="line"><span class="keyword">var</span> mult = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;l=<span class="built_in">arguments</span>.length;i&lt;l;i++)&#123;</span><br><span class="line">        a *= <span class="built_in">arguments</span>[i]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">对于相同的参数来说，每次进行计算是一种浪费</span></span><br><span class="line"><span class="comment">所以可以加入缓存机制来提高这个函数的性能</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">var</span> cache = &#123;&#125;</span><br><span class="line"><span class="keyword">var</span> mult = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.join.call(<span class="built_in">arguments</span>, <span class="string">&#x27;,&#x27;</span>) </span><br><span class="line">    <span class="comment">//args = &#x27;1,2,3&#x27;  类数组使用join方法</span></span><br><span class="line">    <span class="keyword">if</span> (cache[args]) &#123;</span><br><span class="line">        <span class="keyword">return</span> cache[args]+<span class="string">&#x27;[]&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line">    <span class="keyword">var</span> l = <span class="built_in">arguments</span>.length;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>;  i &lt; l; i++) &#123;</span><br><span class="line">        a *= <span class="built_in">arguments</span>[i]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cache[args] = a </span><br><span class="line">    <span class="comment">// cache = &#123; &#x27;1,2,3&#x27;: 6 ,...&#125;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(mult(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>))  <span class="comment">// 6</span></span><br><span class="line"><span class="built_in">console</span>.log(mult(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>))  <span class="comment">// 6[] 不进行再次循环 直接取cache内存的值</span></span><br><span class="line"><span class="built_in">console</span>.log(mult(<span class="number">1</span>,<span class="number">2</span>,<span class="number">5</span>))  <span class="comment">// 10</span></span><br><span class="line"><span class="built_in">console</span>.log(cache)  <span class="comment">// &#123; &#x27;1,2,3&#x27;: 6 ,&#x27;1,2,5&#x27;: 10&#125;          </span></span><br><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">虽然 cache 只在mult函数中使用</span></span><br><span class="line"><span class="comment">但是 被放在了全局变量中 不能被释放</span></span><br><span class="line"><span class="comment">实现在mult中</span></span><br><span class="line"><span class="comment">通过闭包的方式实现 */</span></span><br><span class="line"><span class="keyword">var</span> mult = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> cache = &#123;&#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.join.call(<span class="built_in">arguments</span>, <span class="string">&#x27;,&#x27;</span>) </span><br><span class="line">        <span class="keyword">if</span> (cache[args]) &#123;</span><br><span class="line">            <span class="keyword">return</span> cache[args]+<span class="string">&#x27;[]&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line">        <span class="keyword">var</span> l = <span class="built_in">arguments</span>.length;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>;  i &lt; l; i++) &#123;</span><br><span class="line">            a *= <span class="built_in">arguments</span>[i]</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cache[args] = a </span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"><span class="comment">//提炼函数</span></span><br><span class="line"><span class="keyword">var</span> mult = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> cache = &#123;&#125;</span><br><span class="line">    <span class="keyword">var</span> calculate = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> a = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,l=<span class="built_in">arguments</span>.length;i&lt;l;i++)&#123;</span><br><span class="line">            a *= <span class="built_in">arguments</span>[i] </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> args = <span class="built_in">Array</span>.prototype.join.call(<span class="built_in">arguments</span>,<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">        <span class="keyword">if</span>( args <span class="keyword">in</span> cache )&#123;</span><br><span class="line">            <span class="keyword">return</span> cache[args]</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> cache[args] = calculate.apply(<span class="literal">null</span>,<span class="built_in">arguments</span>)</span><br><span class="line">        <span class="comment">//用apply主要是因为arguments是一个数组 更方便传参 不需要处理类型</span></span><br><span class="line">        <span class="comment">//es6也可以直接用 calculate(...arguments)</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="延长局部变量的寿命"><a href="#延长局部变量的寿命" class="headerlink" title="延长局部变量的寿命"></a>延长局部变量的寿命</h4><blockquote>
+<p>变量一直处于被引用状态 所以不会释放缓存？</p>
+</blockquote>
+<h2 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h2><blockquote>
+<p>需要满足的条件</p>
+<ol>
+<li>函数可以作为参数被传递</li>
+<li>函数可以作为返回值输出</li>
+</ol>
+</blockquote>
+<h4 id="函数作为参数传递"><a href="#函数作为参数传递" class="headerlink" title="函数作为参数传递"></a>函数作为参数传递</h4><ol>
+<li><p>回调函数</p>
+<blockquote>
+<p>回调函数的应用不仅只在异步请求中，当一个函数不适合执行一些请求时，我们也可以把这些请求封装成一个函数，并把它作为参数传递给另外一个函数，“委托”给另外一个函数来执行。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> appendDiv = <span class="function"><span class="keyword">function</span> (<span class="params">callback</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; <span class="number">100</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line">        div.innerHTML = i;</span><br><span class="line">        <span class="built_in">document</span>.body.appendChild(div);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">typeof</span> callback === <span class="string">&#x27;function&#x27;</span>) &#123;</span><br><span class="line">            callback(div);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">appendDiv(<span class="function"><span class="keyword">function</span> (<span class="params">node</span>) </span>&#123;</span><br><span class="line">    node.style.display = <span class="string">&#x27;none&#x27;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>Array.prototype.sort<br>Array.prototype.sort 接受一个函数当作参数，这个函数里面封装了数组元素的排序规则。从Array.prototype.sort 的使用可以看到，我们的目的是对数组进行排序，这是不变的部分；而使用什么规则去排序，则是可变的部分。把可变的部分封装在函数参数里，动态传入Array.prototype.sort，使 Array.prototype.sort 方法成为了一个非常灵活的方法，代码如下 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//从小到大排列</span></span><br><span class="line">[ <span class="number">1</span>, <span class="number">4</span>, <span class="number">3</span> ].sort( <span class="function"><span class="keyword">function</span>(<span class="params"> a, b </span>)</span>&#123; </span><br><span class="line">    <span class="keyword">return</span> a - b;</span><br><span class="line">&#125;)  <span class="comment">//  [1,3,4]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//从大到小排序</span></span><br><span class="line">[ <span class="number">1</span>, <span class="number">4</span>, <span class="number">3</span> ].sort( <span class="function"><span class="keyword">function</span>(<span class="params"> a, b </span>)</span>&#123; </span><br><span class="line">    <span class="keyword">return</span> b - a;</span><br><span class="line">&#125;)  <span class="comment">//  [4,3,1]</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+<h4 id="函数作为返回值输出"><a href="#函数作为返回值输出" class="headerlink" title="函数作为返回值输出"></a>函数作为返回值输出</h4></li>
+<li><p>判断数据的类型</p>
+<blockquote>
+<p>通过 Object.prototype.toString.call(obj) 判断数据类型（最好的方法）</p>
+</blockquote>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> isType = <span class="function"><span class="keyword">function</span>(<span class="params">type</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Object</span>.prototype.toString.call(obj) == <span class="string">&#x27;[object &#x27;</span>+type+<span class="string">&#x27;]&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">isType(<span class="string">&#x27;String&#x27;</span>)(<span class="string">&#x27;a&#x27;</span>)   <span class="comment">//true</span></span><br><span class="line">isType(<span class="string">&#x27;Array&#x27;</span>)([<span class="number">1</span>,<span class="number">2</span>]])   <span class="comment">//true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-第二章_this、call和apply"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/23/%E7%AC%AC%E4%BA%8C%E7%AB%A0_this%E3%80%81call%E5%92%8Capply/"
+    >【第二章】this、call和apply</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/23/%E7%AC%AC%E4%BA%8C%E7%AB%A0_this%E3%80%81call%E5%92%8Capply/" class="article-date">
+  <time datetime="2019-12-23T02:00:00.000Z" itemprop="datePublished">2019-12-23</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="this"><a href="#this" class="headerlink" title="this"></a>this</h2><blockquote>
+<p>指向一个对象。具体指向哪一个对象是在运行时基于函数的执行环境动态绑定的，而非函数被声明时的环境。  </p>
+</blockquote>
+<h4 id="执行上下文："><a href="#执行上下文：" class="headerlink" title="执行上下文："></a>执行上下文：</h4><blockquote>
+<p>JavaScript引擎在JavaScript代码正式执行之前会先创建执行环境，在执行环境中作预处理工作</p>
+</blockquote>
+<ul>
+<li><p>工作内容:<br>  1.创建空对象<br>  2.该空对象用于收集变量、函数，函数的参数<br>  3.创建作用域链<br>  4.确定this的指向 </p>
+</li>
+<li><p>执行上下文栈:<br>  1.在全局代码执行之前，JavaScript引擎就会创建一个栈来存储管理所有的执行上下文对象<br>  2.在全局执行上下文确定后，将其添加到栈中（压栈）<br>  3.在函数执行上下文创建后，将其添加到栈中（压栈）<br>  4.在当前函数执行完后，将栈顶的对象移除（出栈）<br>  5.当所有的代码执行完后，栈中只剩下window</p>
+</li>
+<li><p>this指向<br>  1.作为对象的方法调用 <b style='color:red'>指向对象</b><br>  2.作为普通函数调用  <b style='color:red'>指向全局对象(window)</b><br>  3.构造函数调用  <b style='color:red'>指向实例对象</b><br>  4.Function.prototype.call或Function.prototype.apply调用  <b style='color:red'>指向第一个参数对象</b>  </p>
+  <img src='/images/this_pic.png'/>
+
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.作为对象的方法调用</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a : <span class="number">1</span>,</span><br><span class="line">    getA : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="built_in">this</span> === obj )  <span class="comment">//true</span></span><br><span class="line">        <span class="built_in">console</span>.log( <span class="built_in">this</span>.a )  <span class="comment">// 1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//2.作为普通函数调用</span></span><br><span class="line"><span class="built_in">window</span>.name = <span class="string">&#x27;globalName&#x27;</span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name : <span class="string">&#x27;localName&#x27;</span>,</span><br><span class="line">    getName : <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> getName = obj.getName</span><br><span class="line">getName()   <span class="comment">//globalName</span></span><br><span class="line">obj.getName()   <span class="comment">//localName</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//3.构造函数调用</span></span><br><span class="line"><span class="keyword">var</span> Obj = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = <span class="string">&#x27;doreen&#x27;</span></span><br><span class="line">    <span class="built_in">this</span>.age = <span class="number">11</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = <span class="keyword">new</span> Obj()</span><br><span class="line">obj.name = <span class="string">&#x27;sherry&#x27;</span></span><br><span class="line"><span class="built_in">console</span>.log(obj)  <span class="comment">//sherry</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//4.Function.prototype.call或Function.prototype.apply调用 </span></span><br><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    name: <span class="string">&#x27;doreen&#x27;</span>,</span><br><span class="line">    getName: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;</span><br><span class="line">    name: <span class="string">&#x27;sherry&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(obj.getName())  <span class="comment">//doreen</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.getName.call(obj2)) <span class="comment">//sherry</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2 id="call和apply"><a href="#call和apply" class="headerlink" title="call和apply"></a>call和apply</h2><ul>
+<li>call和apply的区别  <blockquote>
+<p>call多个参数  .call(对象,…)<br>apply是两个参数 .apply(对象,数组)</p>
+</blockquote>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> func = <span class="function"><span class="keyword">function</span>(<span class="params">a,b,c</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log([a,b,c])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func.call(<span class="literal">null</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>)   <span class="comment">//[1,2,3]</span></span><br><span class="line">func.apply(<span class="literal">null</span>,[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])    <span class="comment">//[1,2,3]</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>call和apply的用途  </p>
+<ol>
+<li><p>改变this指向  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">    name: <span class="string">&#x27;doreen&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;</span><br><span class="line">    name: <span class="string">&#x27;sherry&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> <span class="built_in">window</span>.name = <span class="string">&#x27;winow&#x27;</span></span><br><span class="line"><span class="keyword">var</span> getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">getName() <span class="comment">//window</span></span><br><span class="line">getName.call(obj1) <span class="comment">//doreen</span></span><br><span class="line">getName.call(obj2) <span class="comment">//sherry</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Function.prototype.bind  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 实现方法</span></span><br><span class="line"><span class="built_in">Function</span>.prototype.bind = <span class="function"><span class="keyword">function</span>(<span class="params">context</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> obj = <span class="built_in">this</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> obj.apply(context,<span class="built_in">arguments</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 延迟执行，call和apply是改变this之后直接执行函数，而bind是返回一个函数 需要在调用才能执行  </p>
+</li>
+<li><p>借用其他对象的方法  </p>
+</li>
+</ol>
+<ul>
+<li><p>场景一 “ 借用构造函数 ” 实现继承</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> A = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> B = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    A.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>)</span><br><span class="line">&#125;</span><br><span class="line">B.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> B(<span class="string">&#x27;doreen&#x27;</span>)</span><br><span class="line">b.getName() <span class="comment">//doreen</span></span><br></pre></td></tr></table></figure></li>
+<li><p>场景二 处理 “ 类数组对象 ”</p>
+<blockquote>
+<p>函数的参数列表 arguments 是一个类数组对象，虽然它也有“下标”，但它并非真正的数组，所以也不能像数组一样，进行排序操作或者往集合里添加一个新的元素。这种情况下，我们常常会借用 Array.prototype 对象上的方法。</p>
+</blockquote>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">     <span class="built_in">Array</span>.prototype.push.call(<span class="built_in">arguments</span>,<span class="number">3</span>)</span><br><span class="line">     <span class="built_in">console</span>.log(<span class="built_in">arguments</span>) <span class="comment">//[1,2,3]</span></span><br><span class="line"> &#125;)(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">/*数组的特性</span></span><br><span class="line"><span class="comment"> 1.对象本身要可以存取属性</span></span><br><span class="line"><span class="comment"> 2.对象的length属性可读写</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-第一章_面向对象的JavaScript"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/19/%E7%AC%AC%E4%B8%80%E7%AB%A0_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84JavaScript/"
+    >【第一章】面向对象的JavaScript</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/19/%E7%AC%AC%E4%B8%80%E7%AB%A0_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84JavaScript/" class="article-date">
+  <time datetime="2019-12-19T02:21:42.000Z" itemprop="datePublished">2019-12-19</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="动态类型语言和鸭子类型"><a href="#动态类型语言和鸭子类型" class="headerlink" title="动态类型语言和鸭子类型"></a>动态类型语言和鸭子类型</h2><blockquote>
+<p>编程语言按照数据类型 可以分为 静态类型语言和动态类型语言  </p>
+</blockquote>
+<pre>
+        <b style='color:red'>静态类型语言：</b>声明时确定变量类型
+            <span style='color:red'>优：</span>
+            1. 在编译时就能发现类型不匹配的错误，提前避免程序在运行期间有可能发生的一些错误。[提高可靠性]
+            2. 如果在程序中明确地规定了数据类型，编译器还可以针对这些信息对程序进行一些优化工作，提高程序执行速度。
+            <span style='color:red'>缺：</span>
+            1. 具有强迫性 不够灵活
+            2. 类型的声明会增加代码量 分散业务逻辑这个重点
+        <b style='color:red'>动态类型语言：</b>赋值时确定变量类型（JavaScript）
+            <span style='color:red'>优：</span>
+            1. 简化代码量 侧重点更能集中在业务逻辑上面
+            2. 代码灵活性增强
+            <span style='color:red'>缺：</span>
+            1. 无法保证变量的类型 [可靠性低]
+
+</pre>
+
+<blockquote>
+<p>动态语言和鸭子类型的关系  </p>
+</blockquote>
+<p><b style='color:red'>鸭子类型概念：</b>如果它走起路来像鸭子，叫起来也是鸭子，那么它就是鸭子（关注的是has a xx 而不是 is a xx）</b></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    我的理解：</span></span><br><span class="line"><span class="comment">    动态语言无法保证变量的类型</span></span><br><span class="line"><span class="comment">    那么只要他所赋值的变量有某种类型的特性 那么它就是某一类型</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//书中的例子</span></span><br><span class="line"><span class="keyword">var</span> duck = &#123;    <span class="comment">//鸭子</span></span><br><span class="line">    voice: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;嘎嘎嘎&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> chicken = &#123;     <span class="comment">//鸡</span></span><br><span class="line">    voice: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;嘎嘎嘎&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Ducks = []   <span class="comment">//鸭子类型</span></span><br><span class="line"><span class="keyword">var</span> joinDucks = <span class="function"><span class="keyword">function</span>(<span class="params">animal</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>( animal &amp;&amp; <span class="keyword">typeof</span> animal.voice === <span class="string">&#x27;function&#x27;</span> )&#123;</span><br><span class="line">        Ducks.push(animal)</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;恭喜加入鸭子类型&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">joinDucks(duck) <span class="comment">//恭喜加入鸭子类型</span></span><br><span class="line">joinDucks(chicken) <span class="comment">//恭喜加入鸭子类型</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><blockquote>
+<p>对象继承类的属性/方法 但是可以对属性/方法进行针对性的改变<br>就是构造函数根据传入的变量不同，对同一方法，有不同的返回结果</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Animal = <span class="function"><span class="keyword">function</span>(<span class="params"> sound </span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.sound = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(sound)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> duck = <span class="keyword">new</span> Animal(<span class="string">&#x27;嘎嘎嘎&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> chicken = <span class="keyword">new</span> Animal(<span class="string">&#x27;咯咯咯&#x27;</span>)</span><br><span class="line">duck.sound()    <span class="comment">//嘎嘎嘎</span></span><br><span class="line">chicken.sound() <span class="comment">//咯咯咯</span></span><br></pre></td></tr></table></figure>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><blockquote>
+<p>封装的目的就是将信息隐藏 不在乎过程 只要能使用</p>
+</blockquote>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-工作吐槽"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/18/%E5%B7%A5%E4%BD%9C%E5%90%90%E6%A7%BD/"
+    >工作吐槽</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/18/%E5%B7%A5%E4%BD%9C%E5%90%90%E6%A7%BD/" class="article-date">
+  <time datetime="2019-12-18T02:21:42.000Z" itemprop="datePublished">2019-12-18</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%90%90%E6%A7%BD/">吐槽</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <pre>
+之前我只是觉得在学校的小组任务是最低效率
+没想到 在实习之后感觉工作上也是最低效率。。。
+公司时间是朝九晚六
+但是 真的能在九点之前到的 可能就三四个人
+然后 那些没能及时赶到的
+到了之后还要吃早餐 emm
+这些好像不关我工作什么事情
+但是 这是最坑的是我们的项目要后端服务器启动了才能登陆进页面!!!
+我试着改了些内容 还是不行 也找不到解决方案
+所以 早到之后 我干不了任何与工作相关的事情
+
+还有就是 他们几乎每天工作日还要开站会(没什么实质意义的走流程浪费时间的会议)
+可能是9：20人基本到齐 吃完早餐
+开始开站会 大概要 9：40或者10点钟才能开始我的工作
+
+之前说了我需要后台开服务器才能进行页面的修改
+他后台有时候调接口啥啥啥的时不时会猝不及防的关闭服务器
+这个结果就是 我改着改着bug 突然就不能启动了
+此时只想口吐芬芳 然后对着登陆界面发呆
+
+之前这样被组长看到了 还特意给我说
+如果这种情况发生了 可以去看看另外一个项目 改一些bug啥的
+内心ps（服务器关了 我看什么？还是登陆界面啊）
+
+这篇吐槽就是在等服务器开启的时候写得
+</pre> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-异步请求-数据传递"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/17/%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82-%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92/"
+    >异步请求-数据传递</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/17/%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82-%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92/" class="article-date">
+  <time datetime="2019-12-17T02:21:42.000Z" itemprop="datePublished">2019-12-17</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/bug%E6%94%B6%E9%9B%86%E7%AB%99/">bug收集站</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="解决了一个困扰了一天的bug"><a href="#解决了一个困扰了一天的bug" class="headerlink" title="解决了一个困扰了一天的bug"></a>解决了一个困扰了一天的bug</h2><blockquote>
+<p>基本信息描述</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">就是一个创建主题的界面  </span><br><span class="line">在没有进行操作的时候 第一次进入需要弹框进行填写 数据库用户名和密码等操作  </span><br><span class="line">填写完之后会返回一个数据库表名的数组  </span><br><span class="line">弹框是一个子组件 通过获取信息有没有存储在本地来判断是否是第一次操作  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>我的基本思路</p>
+</blockquote>
+<pre>  
+1.当弹框信息填写完毕 提交之后 会请求接口获取 <b style="color:red">数据库表数组</b>
+2.请求成功之后 将数组信息存放到 <b style="color:red">sessionStorage</b> 里面
+3.通过 <b style="color:red">$emit</b>在点击确定按钮的时候 把信息发送给父组件 关闭弹框
+4.然后父组件就可以直接获取到信息并且渲染出来
+</pre>
+<hr>
+<blockquote>
+<p>bug描述</p>
+</blockquote>
+<pre>
+问题就在于 子组件是基于父组件而存在的  
+父组件是渲染完成之后 才会显示的子组件
+在点击确定按钮的时候 发送请求是<b style="color:red">异步</b>的
+所以会先执行$emit操作和弹框关闭操作
+所以传递过去的值 是空的!!!
+<span style="color:gray;font-size:12px">
+/**
+在父组件 可以正常打印 但是就是不能渲染在页面上
+一开始 我以为是因为传的是对象 不能渲染页面用 $set 但没有任何作用
+然后我就觉得是父组件获取数据太快 用定时器的方法来异步获取数据 也不行
+
+后面以为是传值的原因 用了vuex，refs啥啥啥的 都没有成功
+
+后面在弹框组件内 保存按钮的函数下打印数据 发现打印的值为空！这个时候才定位到错误源
+*/</span>
+</pre>
+
+<blockquote>
+<p>解决</p>
+</blockquote>
+<pre>
+原因我猜想是请求接口是异步的，所以用$emit传递的时候 数据还没有被赋值
+所以用setTimeout延迟操作了200ms
+同样弹框状态也要和$emit一样延迟
+然后父组件就可以正常获取到数据了
+</pre>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-vuex多模块配置"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/16/vuex%E5%A4%9A%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE/"
+    >vue-element-admin中vuex多模块问题</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/16/vuex%E5%A4%9A%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2019-12-16T02:00:00.000Z" itemprop="datePublished">2019-12-16</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/bug%E6%94%B6%E9%9B%86%E7%AB%99/">bug收集站</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>store的配置文件</p>
+<blockquote>
+<p>src/store/index.js  </p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"><span class="keyword">import</span> getters <span class="keyword">from</span> <span class="string">&#x27;./getters&#x27;</span></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line"><span class="comment">// https://webpack.js.org/guides/dependency-management/#requirecontext</span></span><br><span class="line"> <span class="keyword">const</span> modulesFiles = <span class="built_in">require</span>.context(<span class="string">&#x27;./modules&#x27;</span>, <span class="literal">true</span>, <span class="regexp">/\.js$/</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// you do not need `import app from &#x27;./modules/app&#x27;`</span></span><br><span class="line"><span class="comment">// it will auto require all vuex module from modules file</span></span><br><span class="line"><span class="comment">// 大概理解下 不用去一个一个模块的导入 他已经写好了方法 来遍历modules文件下的各个子模块</span></span><br><span class="line"> <span class="keyword">const</span> modules = modulesFiles.keys().reduce(<span class="function">(<span class="params">modules, modulePath</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// set &#x27;./app.js&#x27; =&gt; &#x27;app&#x27;</span></span><br><span class="line">  <span class="keyword">const</span> moduleName = modulePath.replace(<span class="regexp">/^\.\/(.*)\.\w+$/</span>, <span class="string">&#x27;$1&#x27;</span>)</span><br><span class="line">  <span class="keyword">const</span> value = modulesFiles(modulePath)</span><br><span class="line">  modules[moduleName] = value.default</span><br><span class="line">  <span class="keyword">return</span> modules</span><br><span class="line">&#125;, &#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  modules,  <span class="comment">//引入全部子模块</span></span><br><span class="line">  getters</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>modules文件中存放的是各个小模块，分割store，每个模块内部都可以有自己的state、mutation、action、getter</p>
+<blockquote>
+<p>src/store/modules/subject.js</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = &#123;</span><br><span class="line">  DBNames: []</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> mutations = &#123;</span><br><span class="line">  changedb(state, db) &#123;</span><br><span class="line">    state.DBNames = db</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  namespaced: <span class="literal">true</span>, <span class="comment">//独立的命名空间 模块内部的action、mutation、getter被注册在独立的命名空间内  false 则注册在全局</span></span><br><span class="line">  state,</span><br><span class="line">  mutations</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用方式：<br>①直接使用</p>
+<blockquote>
+<p>在需要的 .vue 文件的&lt;script&gt;内的合适位置</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//this.$store.state.模块名.变量名</span></span><br><span class="line"><span class="built_in">this</span>.$store.state.subject.DBNames</span><br><span class="line"></span><br><span class="line"><span class="comment">//this.$store.commit( &#x27;模块名/函数名&#x27; , 参数 )</span></span><br><span class="line"><span class="built_in">this</span>.$store.commit(<span class="string">&#x27;subject/changedb&#x27;</span>,<span class="string">&#x27;lll&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr>
+<p>②配合辅助函数  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; mapState,mapMutations &#125; <span class="keyword">from</span> <span class="string">&quot;vuex&quot;</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">computed: &#123;</span><br><span class="line">    ...mapState(&#123;  </span><br><span class="line">      name: <span class="function"><span class="params">state</span> =&gt;</span> state.subject.DBNames</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    ...mapState(<span class="string">&#x27;subject&#x27;</span>,&#123;  </span><br><span class="line">      name: <span class="function"><span class="params">state</span> =&gt;</span> state.DBNames</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用  this.name</span></span><br><span class="line"></span><br><span class="line">methods: &#123;</span><br><span class="line">    ...mapMutations(&#123;</span><br><span class="line">      dbChange: <span class="string">&#x27;subject/changedb&#x27;</span>   <span class="comment">// 改变的函数名:&#x27; 模块名/函数名 &#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line"></span><br><span class="line">    ...mapMutations(<span class="string">&#x27;subject&#x27;</span>,&#123;</span><br><span class="line">      dbChange: <span class="string">&#x27;changedb&#x27;</span>   <span class="comment">// 改变的函数名:&#x27; 模块名/函数名 &#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用  this.dbChange(参数)</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>③配合模块辅助函数使用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createNamespacedHelpers &#125; <span class="keyword">from</span> <span class="string">&quot;vuex&quot;</span></span><br><span class="line"><span class="keyword">const</span> &#123; mapState,mapMutations &#125; = createNamespacedHelpers(<span class="string">&#x27;subject&#x27;</span>)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"><span class="comment">//调用方法和②一样</span></span><br><span class="line">computed: &#123;</span><br><span class="line">    ...mapState(&#123;</span><br><span class="line">      name: <span class="function"><span class="params">state</span> =&gt;</span> state.DBNames</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    ...mapMutations(&#123;</span><br><span class="line">      dbChange: <span class="string">&#x27;changedb&#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-秋招记录"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/14/%E7%A7%8B%E6%8B%9B%E8%AE%B0%E5%BD%95/"
+    >秋招记录</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/14/%E7%A7%8B%E6%8B%9B%E8%AE%B0%E5%BD%95/" class="article-date">
+  <time datetime="2019-12-14T02:21:42.000Z" itemprop="datePublished">2019-12-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>11.28<br>三方的流程弄完寄去公司 我的秋招正式结束<br>因为是明年七月入职 为了给自己留条后路<br>所以我又马不停蹄的找了份实习<br>12.2<br>入职 现在是我实习的第二个星期</p>
+<hr>
+<p>秋招那几个月对我来说真的十分痛苦 度日如年<br>以前说考研是孤军奋战 现在看来找工作才是<br>我们一个班30个人 考研考公的占80%<br>我去交就业协议的时候 我们系加上我就三个人<br>我连找个一起去宣讲会的人都没有<br>周末对着电脑、手机不知道干嘛<br>想了想还是记录、整理一下秋招这几个月的心路历程<br>从大概大二的时候有想从事前端方面的工作的想法<br>大三两个学期 基本都是在学相关的内容<br>虽然说学习时间很充裕<br>可能我自己也不是这块料 在加上自学要学好本来就比较难<br>我现在掌握的 了解的还是很局限<br>升大四的那个暑假在家一个多月基本都在准备工作相关的东西<br>忙着补习算法、数据结构、网络相关的内容，刷题、看视频、看面经、查公司、投简历<br>虽然没有在学校的学习效率高 但也是靠着自制力坚持下来了<br>貌似在八月底有了第一个大公司的面试(shopee)<br>这是我第一次感受到了严重的打击<br>内心在问自己 “我是怎么敢去报大厂的？我有什么资格和那么多优秀的人去竞争？我怎么这么垃圾？……”<br>从那之后我基本没有怎么投过大公司后来收到的大厂笔试或者面试几乎都是在这之前投递的简历<br>但是坏情绪也没有持续很久 因为秋招才刚刚开始 觉得还有机会<br>九月份是面试最多的时间有过几家公司的面试<br>因为基本都在主城面试 所以基本都是来来回回的坐车、坐车，是真的身心俱疲<br>每次等待结果的过程都很焦虑<br>通过了会开心的睡不着，没通过会伤心的睡不着<br>最后都没有一个好的结果  </p>
+<p>到了十月的时候 整个人几乎每天都是崩溃的状态<br>那应该是我有史以来过的最丧的国庆<br>什么都不想干，也没有什么事可以干<br>国庆过后仿佛秋招已经宣告结束<br>什么消息都没有 翻遍了各种求职的软件 也找不到能投递的公司<br>大公司进不去 小公司不要我  </p>
+<p>说来也巧 每次机会的到来和失去基本都是在同一时间段<br>十月中下旬的时候 有两家公司几乎同时找的我<br>一家技术面 面了我一个小时 两轮hr面 最后一面终面总监告诉我第二天hr要和我谈薪资 我以为稳了<br>刚好第二天第二家公司二面<br>第二天大老远跑去成都面完 就知道自己凉了<br>一直激动的等着第一家公司hr来和我谈薪资<br>然而一天、两天……并没有结果<br>大概意识到我是因为性格原因被涮了<br>这两家公司是我在面试里体验最不好的<br>一家给你开空头支票吊着你，一家cto十分自大看不起人<br>行吧 我惹不起 也不适合与这种领导沟通  </p>
+<p>后面一段时间就基本放弃了 准备考完试就去长沙的那家小公司上班<br>但是人生就是起起落落<br>11月3号早上6:30出发去本部参加了双选会<br>投了八份简历 只有一家回复<br>而就是那家技术面的前一天又有两家公司找了我 并且安排了面试<br>又很不巧的时间撞上了<br>那一天我面了三家公司( 常德、深圳、成都 )<br>深圳的那次面试真的又让我意识到自己的浅薄<br>面试官之前是腾讯的，算法转的后端转前端<br>很不一样的面试体验问的问题我的题库基本没有涉及<br>基本都是从一个更深层次的维度去问你问题的<br>真的让我找回了shopee面试的那种压迫感<br>感觉度秒如年<br>想快点结束但是没想到过了<br>并且约了第二天二面<br>然而就在同一天成都的hr过来和我谈薪资了<br>真的挺开心的 终于有一份像样的offer<br>既激动又紧张  </p>
+<p>直到现在我还是没有安全感<br>明年体检通过后才能入职<br>如果我能成功入职当然是值得开心的但是没有呢？那我怎么办?  </p>
+<p>没有工作经验<br>没有了应届毕业生这个条件<br>没有了学校的资源<br>……</p>
+<p>我不知道如果真的走到那天<br>我还能不能有那么强大的内心承受这么大的压力<br>我真的不想在重来一次了<br>我真的很累了  </p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+  </article>
+  
+
+  
+  <nav class="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+  </nav>
+  
+</section>
+</div>
+
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2020
+        <i class="ri-heart-fill heart_icon"></i> John Doe
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.bmp.ovh/imgs/2020/04/9093acc7c93b3786.png" alt="Doreen&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+
+<script src="/js/clickBoom2.js"></script>
+
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Dart基础语法 |  
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-dart"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Dart基础语法
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/10/01/dart/" class="article-date">
+  <time datetime="2020-10-01T03:37:33.595Z" itemprop="datePublished">2020-10-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/dart/">dart</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">2.7k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">12 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><blockquote>
+<p>支持类型推断，可以不必指定类型  </p>
+</blockquote>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/*</span></span><br><span class="line"><span class="comment">  数据类型</span></span><br><span class="line"><span class="comment">  int / double / String / bool / List / Maps</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"> <span class="keyword">var</span> name = <span class="string">&#x27;doreen&#x27;</span>  <span class="comment">// 再次赋值的时候类型需要一致</span></span><br><span class="line"> <span class="built_in">String</span> name = <span class="string">&#x27;sherry&#x27;</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">// 模板字符串 也可以是 &quot;&quot;&quot; ... &quot;&quot;&quot; </span></span><br><span class="line"> <span class="built_in">String</span> str = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string"> hello,</span></span><br><span class="line"><span class="string"> thank you</span></span><br><span class="line"><span class="string"> &#x27;&#x27;&#x27;</span></span><br><span class="line"> <span class="built_in">print</span>( name +<span class="string">&quot; &quot;</span>+ str ) </span><br><span class="line"> <span class="comment">// =&gt; print(&quot;$name $str&quot;)</span></span><br><span class="line"></span><br><span class="line"> <span class="built_in">int</span> age = <span class="number">13</span></span><br><span class="line"> <span class="built_in">bool</span> flag = <span class="keyword">true</span> / <span class="keyword">false</span> (只能是这两个值)</span><br><span class="line"> <span class="keyword">var</span> arr = [<span class="string">&#x27;aa&#x27;</span>]  <span class="comment">// =&gt; var arr = new List() arr.add(&#x27;aa&#x27;)  </span></span><br><span class="line"> <span class="comment">// new List(&lt;string&gt;) 指定list的类型 </span></span><br><span class="line"></span><br><span class="line"> <span class="comment">// Maps类型和Object类似</span></span><br><span class="line"> <span class="keyword">var</span> person = &#123;</span><br><span class="line">     <span class="string">&quot;name&quot;</span>:<span class="string">&quot;doreen&quot;</span>,</span><br><span class="line">     <span class="string">&quot;age&quot;</span>:<span class="number">20</span></span><br><span class="line"> &#125;</span><br><span class="line"> <span class="built_in">print</span>(person[<span class="string">&#x27;age&#x27;</span>]) <span class="comment">// 不能通过person.age</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> <span class="built_in">Map</span>() <span class="comment">// new 可以省略</span></span><br><span class="line">person[<span class="string">&quot;name&quot;</span>] = <span class="string">&quot;sherry&quot;</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">// const 定义之后不能被修改的变量</span></span><br><span class="line"> <span class="keyword">const</span> PI = <span class="number">3.14159</span></span><br><span class="line"></span><br><span class="line"> <span class="comment">// final 基本与const一致</span></span><br><span class="line"> <span class="keyword">final</span> PI = <span class="number">3.14159</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">// 区别： final是惰性初始化，使用的时候才会被赋值 （需要通过方法 赋值给常量的时候只能用final）</span></span><br><span class="line"> <span class="keyword">final</span> a = <span class="keyword">new</span> <span class="built_in">DateTime</span>.now() <span class="comment">// √</span></span><br><span class="line"> <span class="keyword">const</span> a = <span class="keyword">new</span> <span class="built_in">DateTime</span>.now() <span class="comment">// ×</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="类型判断"><a href="#类型判断" class="headerlink" title="类型判断"></a>类型判断</h3><blockquote>
+<p>is 关键词判断<br> <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(str <span class="keyword">is</span> <span class="built_in">String</span>)&#123; ... &#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="List常用属性和方法"><a href="#List常用属性和方法" class="headerlink" title="List常用属性和方法"></a>List常用属性和方法</h3> <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">属性:</span><br><span class="line">   .length        长度</span><br><span class="line">   .reversed      翻转(返回的字符串)</span><br><span class="line">   .isEmpty       是否为空</span><br><span class="line">   .isNotEmpty     是否不为空</span><br><span class="line"></span><br><span class="line">方法:</span><br><span class="line">   .add()           增加一个</span><br><span class="line">   .addAll([])      增加多个</span><br><span class="line">   .indexOf()       查找  传入具体值 </span><br><span class="line">   .remove()        删除  传入具体值</span><br><span class="line">   .removeAt()      删除  传入具体索引</span><br><span class="line">   .fillRange(start,end,value)     修改(替换)</span><br><span class="line">   .insert(index,value)        指定位置插入</span><br><span class="line">   .insertAll(index,list)      指定位置插入<span class="built_in">List</span></span><br><span class="line">   .toList()       其他类型转换成<span class="built_in">List</span></span><br><span class="line">   .join()         <span class="built_in">List</span>转换成字符串</span><br><span class="line">   .split()        字符串转换成<span class="built_in">List</span></span><br><span class="line">   .forEach()      遍历</span><br><span class="line">   .map()           </span><br><span class="line">   .where()        筛选符合条件的集合  </span><br><span class="line">   .any()          有一个满足条件返回<span class="keyword">true</span></span><br><span class="line">   .every()        所有满足条件 返回<span class="keyword">true</span></span><br><span class="line"></span><br><span class="line">   myList.forEach((value)&#123;</span><br><span class="line">       <span class="built_in">print</span>(value)</span><br><span class="line">   &#125;)</span><br><span class="line">   myList.map((value)&#123;</span><br><span class="line">       <span class="keyword">return</span> value*<span class="number">2</span></span><br><span class="line">   &#125;)</span><br><span class="line">   myList.map((value)&#123;</span><br><span class="line">       <span class="keyword">return</span> value&gt;<span class="number">2</span></span><br><span class="line">   &#125;)</span><br><span class="line">   myList.any((value)&#123;</span><br><span class="line">       <span class="keyword">return</span> value&gt;<span class="number">2</span></span><br><span class="line">   &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Maps常用属性和方法"><a href="#Maps常用属性和方法" class="headerlink" title="Maps常用属性和方法"></a>Maps常用属性和方法</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">属性:</span><br><span class="line">    .keys           获取所有key值</span><br><span class="line">    .values         获取所有value值</span><br><span class="line">    .isEmpty</span><br><span class="line">    .isNotEmpty</span><br><span class="line"></span><br><span class="line">方法:</span><br><span class="line">    .remove(key)    删除指定key的数据</span><br><span class="line">    .addAll(&#123;...&#125;)  合并映射  给映射内增加属性</span><br><span class="line">    .containsValue()  查看映射内的值  返回<span class="keyword">true</span>/<span class="keyword">false</span></span><br><span class="line">    .forEach()</span><br><span class="line">    .map()</span><br><span class="line">    .where()</span><br><span class="line">    .any()</span><br><span class="line">    .every()</span><br></pre></td></tr></table></figure>
+<h2 id="流程控制语句"><a href="#流程控制语句" class="headerlink" title="流程控制语句"></a>流程控制语句</h2> <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(age&gt;=<span class="number">18</span>)&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;成年人&#x27;</span>);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;未成年人&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> item <span class="keyword">in</span> flyObject)&#123;</span><br><span class="line">    <span class="built_in">print</span>(item);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">int</span> i=<span class="number">0</span>;i&lt;<span class="number">10</span>;i++)&#123;</span><br><span class="line">    <span class="built_in">print</span>(i);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(i&gt;<span class="number">10</span>)&#123;</span><br><span class="line">    i-=<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// switch case ,break,continue</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><blockquote>
+<p>返回类型 方法名称 （参数,…）{  方法体  return 返回值; }  </p>
+</blockquote>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"> <span class="built_in">int</span> fibonacci( <span class="built_in">int</span> n )&#123;</span><br><span class="line">     <span class="keyword">if</span>( n==<span class="number">0</span> || n==<span class="number">1</span> ) <span class="keyword">return</span> n;</span><br><span class="line">     <span class="keyword">return</span> fibonacci(n<span class="number">-1</span>) - fibonacci(n<span class="number">-2</span>)</span><br><span class="line">     <span class="comment">// 返回值类型为 数字</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="keyword">void</span> fun()&#123;</span><br><span class="line">     <span class="comment">// 没有返回值 / 不指定返回值类型</span></span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可选参数用 [] 表示，默认参数直接用赋值语句</span></span><br><span class="line"> <span class="built_in">String</span> printUserInfo(<span class="built_in">String</span> username,[<span class="built_in">String</span> sex=<span class="string">&#x27;女&#x27;</span>,<span class="built_in">int</span> age])&#123;</span><br><span class="line">     <span class="keyword">if</span>(age!=<span class="keyword">null</span>)&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="string">&#x27;<span class="subst">$username</span> ----- <span class="subst">$age</span> ----- <span class="subst">$sex</span>&#x27;</span>;</span><br><span class="line">     &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="string">&#x27;<span class="subst">$username</span>&#x27;</span>;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 命名参数用 &#123;&#125; 表示，默认参数直接用赋值语句</span></span><br><span class="line">  <span class="built_in">String</span> printUserInfo(<span class="built_in">String</span> username,&#123; <span class="built_in">int</span> age,<span class="built_in">String</span> sex=<span class="string">&#x27;女&#x27;</span> &#125;)&#123;</span><br><span class="line">     <span class="keyword">if</span>(age!=<span class="keyword">null</span>)&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="string">&#x27;<span class="subst">$username</span> ----- <span class="subst">$age</span> ----- <span class="subst">$sex</span>&#x27;</span>;</span><br><span class="line">     &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">         <span class="keyword">return</span> <span class="string">&#x27;<span class="subst">$username</span>&#x27;</span>;</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="comment">// 通过 key: value 的方式填写参数</span></span><br><span class="line"> printUserInfo(<span class="string">&#x27;doreen&#x27;</span>,age:<span class="number">20</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h2><blockquote>
+<p>通过import关键字来访问其他库中的内容</p>
+</blockquote>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;demo.dart&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="类（Class）"><a href="#类（Class）" class="headerlink" title="类（Class）"></a>类（Class）</h2><blockquote>
+<p>构造函数可以写多个<br> 默认构造函数—实例化的时候调用 (一个)<br> 命名构造函数—通过类调用 (多个)  </p>
+</blockquote>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">如果想要写成私有属性/方法</span></span><br><span class="line"><span class="comment">就需要把类单独抽离成一个文件 引入使用</span></span><br><span class="line"><span class="comment">并且在定义属性/方法的时候在名字前面加上 _</span></span><br><span class="line"><span class="comment">eg: </span></span><br><span class="line"><span class="comment">String _name;</span></span><br><span class="line"><span class="comment">void _getName()&#123;&#125;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">People</span> </span>&#123;</span><br><span class="line">    <span class="built_in">String</span> name;</span><br><span class="line">    <span class="built_in">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> getInfo()&#123;</span><br><span class="line">       <span class="comment">//  print(&#x27;$name---$age&#x27;) =&gt;</span></span><br><span class="line">       <span class="built_in">print</span>(<span class="string">&#x27;<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>---<span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">void</span> setInfo(<span class="built_in">int</span> age) &#123;</span><br><span class="line">       <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 默认构造函数，带有可以直接为成员变量赋值的语法糖</span></span><br><span class="line">    People(<span class="keyword">this</span>.name,<span class="keyword">this</span>.age)</span><br><span class="line">    <span class="comment">/* </span></span><br><span class="line"><span class="comment">    =&gt;</span></span><br><span class="line"><span class="comment">    People(name, age) &#123;</span></span><br><span class="line"><span class="comment">       this.name = name;</span></span><br><span class="line"><span class="comment">       this.age = age;</span></span><br><span class="line"><span class="comment">    &#125; </span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    // 赋默认值</span></span><br><span class="line"><span class="comment">    People():name=&#x27;doreen&#x27;,age=10&#123;&#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 命名构造函数</span></span><br><span class="line">    People.now()&#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;我是命名构造函数&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main()&#123;</span><br><span class="line"> <span class="keyword">var</span> p = <span class="keyword">new</span> People(<span class="string">&#x27;doreen&#x27;</span>, <span class="number">24</span>);</span><br><span class="line"> <span class="comment">// People p = new People(&#x27;jerry&#x27;,9)</span></span><br><span class="line"></span><br><span class="line"> p.getInfo();      <span class="comment">// doreen---24</span></span><br><span class="line"> p.setInfo(<span class="number">18</span>);</span><br><span class="line"> p.getInfo();      <span class="comment">// doreen---18</span></span><br><span class="line"> People.now();     <span class="comment">// 我是命名构造函数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="getter"><a href="#getter" class="headerlink" title="getter"></a>getter</h3><blockquote>
+<p>直接通过访问属性的方式访问方法  </p>
+</blockquote>
+ <figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rect</span> </span>&#123;</span><br><span class="line">    <span class="built_in">num</span> height;</span><br><span class="line">    <span class="built_in">num</span> width;</span><br><span class="line">    Rect(<span class="keyword">this</span>.height,<span class="keyword">this</span>.width);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 类似于计算属性</span></span><br><span class="line">    <span class="keyword">get</span> area &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.height*<span class="keyword">this</span>.width;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    getArea()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.height*<span class="keyword">this</span>.width;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">    Rect r = <span class="keyword">new</span> Rect(<span class="number">10</span>,<span class="number">9</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;面积：<span class="subst">$&#123;r.area&#125;</span>&#x27;</span>);          <span class="comment">//get</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;面积：<span class="subst">$&#123;r.getArea()&#125;</span>&#x27;</span>);     <span class="comment">//方法</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="setter"><a href="#setter" class="headerlink" title="setter"></a>setter</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">class</span> <span class="title">Rect</span> </span>&#123;</span><br><span class="line">    <span class="built_in">num</span> height;</span><br><span class="line">    <span class="built_in">num</span> width;</span><br><span class="line">    Rect(<span class="keyword">this</span>.height,<span class="keyword">this</span>.width);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">set</span> areaHeight(value) &#123;</span><br><span class="line">        <span class="keyword">this</span>.height = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    setHeight(value)&#123;</span><br><span class="line">       <span class="keyword">this</span>.height = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">    Rect r = <span class="keyword">new</span> Rect(<span class="number">10</span>,<span class="number">9</span>)</span><br><span class="line">    </span><br><span class="line">    r.areaHeight = <span class="number">5</span>;</span><br><span class="line">    <span class="built_in">print</span>(r.height);   <span class="comment">// 5</span></span><br><span class="line">    r.setHeight(<span class="number">9</span>);</span><br><span class="line">    <span class="built_in">print</span>(r.height);   <span class="comment">// 9</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="static-静态成员"><a href="#static-静态成员" class="headerlink" title="static 静态成员"></a>static 静态成员</h3><blockquote>
+<p>使用<code>static</code>关键字来实现类级别的变量和函数<br> 静态方法不能访问非静态成员，非静态方法可以访问静态成员<br> 实例化对象不能访问、只能通过类直接访问</p>
+</blockquote>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">People</span> </span>&#123;</span><br><span class="line">    <span class="built_in">String</span> name = <span class="string">&#x27;doreen&#x27;</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">int</span> age = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">void</span> <span class="keyword">show</span>() &#123;</span><br><span class="line">        <span class="built_in">print</span>(age);       <span class="comment">// 访问静态属性</span></span><br><span class="line">        <span class="comment">// print(this.name); × 不能访问非静态属性</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">void</span> printInfo() &#123;</span><br><span class="line">        <span class="keyword">show</span>();         <span class="comment">// 不需要this </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">    <span class="keyword">var</span> p = <span class="keyword">new</span> People();</span><br><span class="line">    <span class="comment">// p.show();    ×</span></span><br><span class="line">    <span class="built_in">print</span>(People.age);  <span class="comment">// 10</span></span><br><span class="line">    People.<span class="keyword">show</span>();      <span class="comment">// 10</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="对象的操作符"><a href="#对象的操作符" class="headerlink" title="对象的操作符"></a>对象的操作符</h3><blockquote>
+<p>?     条件运算符<br>as      类型转换<br>is      类型判断<br>..      级联操作</p>
+</blockquote>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">People p;</span><br><span class="line">p?.printInfo();   <span class="comment">// 如果p为空就不执行</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p1;</span><br><span class="line">p1 = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">p1 = <span class="keyword">new</span> Person();</span><br><span class="line">(p1 <span class="keyword">as</span> Person).printInfo();</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>( p <span class="keyword">is</span> People)  <span class="comment">// 判断对象是否属于xx类</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> Person()</span><br><span class="line">p..name=<span class="string">&#x27;doreen&#x27;</span>    <span class="comment">// 直接换行不需要分号</span></span><br><span class="line"> ..age=<span class="number">9</span></span><br><span class="line"> ..printInfo();</span><br><span class="line"></span><br><span class="line"> <span class="comment">/*</span></span><br><span class="line"><span class="comment"> =&gt; </span></span><br><span class="line"><span class="comment"> p.name = &#x27;doreen&#x27;;</span></span><br><span class="line"><span class="comment"> p.age = 9;</span></span><br><span class="line"><span class="comment"> p.printInfo();</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><blockquote>
+<p>子类使用<code>extends</code>关键词来继承父类<br>子类会继承父类里面可见的属性和方法 但不会继承构造函数<br>子类能复写父类的方法 getter和setter  </p>
+</blockquote>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="built_in">String</span> name=<span class="string">&#x27;doreen&#x27;</span>;</span><br><span class="line">    <span class="built_in">num</span> age=<span class="number">8</span>;</span><br><span class="line">    <span class="keyword">void</span> printInfo()&#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>----<span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    Person(<span class="keyword">this</span>.name,<span class="keyword">this</span>.age)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Women</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="built_in">String</span> sex;</span><br><span class="line">    <span class="comment">// 实例化属性时 赋值给父类</span></span><br><span class="line">    Women(<span class="built_in">String</span> name, <span class="built_in">num</span> age,<span class="keyword">this</span>.sex) : <span class="keyword">super</span>(name, age);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// override表示重写父类方法 建议写上</span></span><br><span class="line">    <span class="meta">@override</span></span><br><span class="line">    <span class="keyword">void</span> printInfo() &#123;</span><br><span class="line">        <span class="comment">// super.printInfo();      // print(&#x27;$&#123;this.name&#125;----$&#123;this.age&#125;&#x27;)</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span>--<span class="subst">$&#123;<span class="keyword">this</span>.sex&#125;</span>--<span class="subst">$&#123;<span class="keyword">this</span>.age&#125;</span>&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 字类方法调用父类方法</span></span><br><span class="line">    <span class="keyword">void</span> run()&#123;</span><br><span class="line">        <span class="keyword">super</span>.printInfo();</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;hhh&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="抽象类"><a href="#抽象类" class="headerlink" title="抽象类"></a>抽象类</h3><blockquote>
+<p>dart抽象类主要用于定义标准，字类可以继承抽象类，也可以实现抽象类接口  </p>
+<ol>
+<li>抽象类通过<code>abstract</code>关键字来定义  </li>
+<li>dart中的抽象方法不能用<code>abstract</code>声明，dart中没有实体方法我们称为抽象方法  </li>
+<li>如果子类继承抽象类必须得实现里面的抽象方法    </li>
+<li>如果把抽象类当作接口实现的话必须得实现抽象类里面定义的所有属性和方法   </li>
+<li>抽象类不能被实例化，只有继承它的子类     </li>
+</ol>
+</blockquote>
+<blockquote>
+<p><code>extends</code>抽象类和<code>implements</code>的区别:  </p>
+<ul>
+<li>如果要复用抽象类型里面的方法，并且要用抽象方法约束子类的话我们就用<code>extends</code>继承抽象类 </li>
+<li>如果只是把抽象类当作标准的话我们就用<code>implements</code>实现抽象类 </li>
+</ul>
+</blockquote>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  eat(); <span class="comment">// 父类定义抽象方法</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 公共(普通)方法 </span></span><br><span class="line">  <span class="keyword">void</span> printInfo()&#123;</span><br><span class="line">      <span class="built_in">print</span>(<span class="string">&#x27;抽象类的普通方法&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Women</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"> <span class="comment">// 子类必须继承抽象方法，并实现</span></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  eat() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;handle eat&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">    <span class="comment">// var a = new Person()  ×  抽象类无法直接被实例化  </span></span><br><span class="line">    <span class="keyword">var</span> doreen = <span class="keyword">new</span> Women();</span><br><span class="line">    doreen.eat();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h3><blockquote>
+<p>允许将子类类型的指针赋值给父类类型的指针，同一个函数调用会有不同的执行效果<br>子类的实例赋值给父类的引用<br>多态就是父类定义一个方法不去实现，让继承他的子类去实现，每个子类有不同的表现</p>
+</blockquote>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  eat(); <span class="comment">// 抽象方法</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Women</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  eat() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;women eat&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  run() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;run&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Men</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  eat() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;men eat&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  Person doreen = <span class="keyword">new</span> Women();    <span class="comment">// 子类的实例赋值给父类的引用</span></span><br><span class="line">  Person jerry = <span class="keyword">new</span> Men();</span><br><span class="line">  doreen.eat();</span><br><span class="line">  <span class="comment">// doreen.run(); ×  </span></span><br><span class="line">  jerry.eat();</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><blockquote>
+<p>dart的接口没有<code>interface</code>关键字定义接口，而是普通类或抽象类都可以作为接口被实现，同样使用<code>implements</code>关键字进行实现<br>如果实现的类是普通类，会将普通类和抽象中的属性的方法全部需要覆写一遍<br>一般都是使用抽象类来实现接口</p>
+</blockquote>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Db</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 当作接口（约定、规范）</span></span><br><span class="line">  <span class="built_in">String</span> uri;</span><br><span class="line">  add(<span class="built_in">String</span> data);</span><br><span class="line">  delete();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 父类型里面定义的子类必须按照父类的规范去实现</span></span><br><span class="line"><span class="comment">// 子类可以自己扩展属性或方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySQL</span> <span class="keyword">implements</span> <span class="title">Db</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String</span> uri;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  add(<span class="built_in">String</span> data) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;MySQL的add方法&#x27;</span> + data);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  delete() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;MySQL的delete方法&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Mongodb</span> <span class="keyword">implements</span> <span class="title">Db</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  <span class="built_in">String</span> uri;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  add(<span class="built_in">String</span> data) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;mongodb的add方法&#x27;</span> + data);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  delete() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;mongodb的delete方法&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="多个接口的实现"><a href="#多个接口的实现" class="headerlink" title="多个接口的实现"></a>多个接口的实现</h3><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">  printA();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123;</span><br><span class="line">  printB();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取A，B类的全部属性和方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> <span class="keyword">implements</span> <span class="title">A</span>, <span class="title">B</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  printA() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;A接口&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  printB() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;B接口&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="mixins"><a href="#mixins" class="headerlink" title="mixins"></a>mixins</h3><blockquote>
+<p>mixins的使用条件：</p>
+<ol>
+<li>作为mixins的类只能继承自Object，不能继承其他类 </li>
+<li>作为mixins的类不能有构造函数</li>
+<li>一个类可以mixins多个mixins类</li>
+</ol>
+</blockquote>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// class C extends A,B &#123;&#125;  × 可以获取多个接口但是不能实现多继承</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// class A extends Aa &#123;&#125; ×  作为mixins的类只能继承自Object，不能继承其他类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span> </span>&#123;</span><br><span class="line">  <span class="built_in">String</span> name=<span class="string">&#x27;a&#x27;</span>;</span><br><span class="line">  <span class="comment">// A(this.name) ×  作为mixins的类不能有构造函数</span></span><br><span class="line">  <span class="keyword">void</span> printA() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;A&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span> </span>&#123;</span><br><span class="line">  <span class="keyword">void</span> printB() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;B&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过with取代extends 相当于继承了A和B </span></span><br><span class="line"><span class="comment">// A和B的顺序 后者会覆盖前者的同样的属性和方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> <span class="title">with</span> <span class="title">A</span>, <span class="title">B</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Person内可以有构造函数，并继承了三者的属性和方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span> <span class="keyword">extends</span> <span class="title">Person</span> <span class="title">with</span> <span class="title">A</span>,<span class="title">B</span> </span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() &#123;</span><br><span class="line">  C c = <span class="keyword">new</span> C();</span><br><span class="line">  c.printA();</span><br><span class="line">  c.printB();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><blockquote>
+<p>解决类、接口、方法的复用性、以及不特定数据类型的支持（类型校验）</p>
+</blockquote>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// T可以用任意字母代替 ，表示泛型（任意类型）</span></span><br><span class="line"><span class="comment">// T---① getData&lt;T&gt;(T----② value) </span></span><br><span class="line"><span class="comment">// ① 对返回的参数进行校验</span></span><br><span class="line"><span class="comment">// ② 对传入的参数进行校验</span></span><br><span class="line"></span><br><span class="line">T getData&lt;T&gt;(T value) &#123;</span><br><span class="line">  <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">void</span> main()&#123;</span><br><span class="line">  <span class="comment">// 在&lt;&gt;内指定参数类型</span></span><br><span class="line">  getData&lt;<span class="built_in">String</span>&gt;(<span class="string">&#x27;hello&#x27;</span>);</span><br><span class="line">  <span class="comment">// getData&lt;String&gt;(123);   ×</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在类中使用泛型</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span>&lt;<span class="title">T</span>&gt;</span>&#123;</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">new</span> A&lt;<span class="built_in">String</span>&gt;()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 在接口中使用泛型</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Cache</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">  getByKey(<span class="built_in">String</span> key);</span><br><span class="line">  <span class="keyword">void</span> setByKey(<span class="built_in">String</span> key, T value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// =&gt;</span></span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">ObjectCache</span> </span>&#123;</span><br><span class="line">  getByKey(<span class="built_in">String</span> key);</span><br><span class="line">  <span class="keyword">void</span> setByKey(<span class="built_in">String</span> key, <span class="built_in">Object</span> value);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">StringCache</span> </span>&#123;</span><br><span class="line">  getByKey(<span class="built_in">String</span> key);</span><br><span class="line">  <span class="keyword">void</span> setByKey(<span class="built_in">String</span> key, <span class="built_in">String</span> value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/10/01/dart/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+      <a href="/2020/10/01/typescript/" class="article-nav-link">
+        <strong class="article-nav-caption">上一篇</strong>
+        <div class="article-nav-title">
+          
+            typescript基础语法
+          
+        </div>
+      </a>
+    
+    
+      <a href="/2020/10/01/clip-path/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">clip-path</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "",
+    app_key: "",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2020
+        <i class="ri-heart-fill heart_icon"></i> John Doe
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.bmp.ovh/imgs/2020/04/9093acc7c93b3786.png" alt="Doreen&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+        <i class="ri-rss-line"></i>
+      </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+
+<script src="/js/clickBoom2.js"></script>
+
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>
