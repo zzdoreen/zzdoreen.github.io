@@ -142,6 +142,88 @@
     
     
     <article
+  id="post-reactHooks"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/23/reactHooks/"
+    >react hook的简单使用</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/04/23/reactHooks/" class="article-date">
+  <time datetime="2020-04-23T04:21:42.000Z" itemprop="datePublished">2020-04-23</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/React/">React</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在不使用class的情况下使用<code>state</code>以及其他react特性<br>=&gt; 不论是有状态组件还是无状态组件都可以用<code>函数</code>来声明</p>
+<h2 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h2><p><code>useState</code>通过在函数组件里调用它来给组件添加一些内部 <code>state</code>。<br><code>useState</code>会返回一对值：<code>当前状态</code> 和 <code>一个让你更新它的函数</code><br>你可以在事件处理函数中或其他一些地方调用这个函数。<br>（类似 this.setState，但是它不会把新的 state 和旧的 state 进行合并）<br><code>useState</code>的参数：state的初始值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 useState</span></span><br><span class="line"><span class="keyword">import</span> React,&#123;useState&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 声明state变量count和更新count的方法setCount   （解构赋值）</span></span><br><span class="line">    <span class="keyword">const</span> [count,setCount] = useState(<span class="number">18</span>)   <span class="comment">// 赋给count的初始值为18</span></span><br><span class="line">    <span class="keyword">return</span>(</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;h3&gt;</span><br><span class="line">                count: &#123;count&#125;  &#123;<span class="comment">/* count的使用 */</span>&#125;</span><br><span class="line">            &lt;/h3&gt;</span><br><span class="line">             &#123;<span class="comment">/* setCount的使用 */</span>&#125;</span><br><span class="line">            &lt;button onClick=&#123;<span class="function">()=&gt;</span>&#123;setCount(count+<span class="number">1</span>)&#125;&#125;&gt;add&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Class 方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="built_in">super</span>(props);</span><br><span class="line">        <span class="built_in">this</span>.state = &#123; </span><br><span class="line">            count: <span class="number">0</span></span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123; </span><br><span class="line">        <span class="keyword">return</span> ( </span><br><span class="line">            &lt;div&gt;</span><br><span class="line">            &lt;h3&gt;</span><br><span class="line">                count: &#123;<span class="built_in">this</span>.state.count&#125;</span><br><span class="line">            &lt;/h3&gt;</span><br><span class="line">            &lt;button onClick=&#123;<span class="function">()=&gt;</span><span class="built_in">this</span>.setState(&#123; <span class="attr">count</span>: <span class="built_in">this</span>.state.count + <span class="number">1</span> &#125;)&#125;&gt;add&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">         );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>声明多个state变量</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// state的值是按顺序存储调用的所以不能对他的声明进行条件判断</span></span><br><span class="line">  <span class="keyword">const</span> [age, setAge] = useState(<span class="number">42</span>);</span><br><span class="line">  <span class="keyword">const</span> [fruit, setFruit] = useState(<span class="string">&#x27;banana&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> [todos, setTodos] = useState([&#123; <span class="attr">text</span>: <span class="string">&#x27;Learn Hooks&#x27;</span> &#125;]);</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>有个问题，我按照官方文档给的示例代码写的时候<br>useState(..)会标红<br>报错：<br><span style='color:red'><br>React Hook “useState” is called in function “test” which is neither a React function component or a custom React Hook function<br></span><br>后面发现是函数命名的问题<br>解决方法：  </p>
+<ol>
+<li>函数名/组件名 首字母大写</li>
+<li>驼峰命名法在前面+use也可 (useTest)</li>
+</ol>
+<h2 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h2><p><code>effect hook</code>在函数组件中执行<code>副作用</code>操作 (异步的)<br><code>副作用</code>: 用来代替生周期、是<code>componentDidMount</code>,<code>componentDidUpdate</code>,<code>componentWillUnmount</code>的组合（替代品）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React,&#123;useState,useEffect&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> [count,setCount] = useState(<span class="number">18</span>)</span><br><span class="line">    <span class="keyword">const</span> [age,setAge] = useState(<span class="number">0</span>)</span><br><span class="line">    useEffect(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">document</span>.title = count</span><br><span class="line">    &#125;,[count])</span><br><span class="line">    <span class="comment">// 可接收第二个参数 只有在 count`改变时`触发更新 类似于computed</span></span><br><span class="line">    <span class="keyword">return</span>(</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;h3&gt;</span><br><span class="line">                count: &#123;count&#125;</span><br><span class="line">            &lt;/h3&gt;</span><br><span class="line">            &lt;h3&gt;</span><br><span class="line">                Age: &#123;age&#125;</span><br><span class="line">            &lt;/h3&gt;</span><br><span class="line">            &lt;button onClick=&#123;<span class="function">()=&gt;</span>&#123;setCount(count+<span class="number">1</span>)&#125;&#125;&gt;add&lt;/button&gt;</span><br><span class="line">             &lt;button onClick=&#123;<span class="function">()=&gt;</span>&#123;setAge(age+<span class="number">10</span>)&#125;&#125;&gt;add&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="useContext"><a href="#useContext" class="headerlink" title="useContext"></a>useContext</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> value = useCotext(MyContext)</span><br></pre></td></tr></table></figure>
+
+<p>接收一个 context 对象（React.createContext 的返回值）<br>并返回该 context 的当前值。<br>当前的 context 值由上层组件中距离当前组件最近的 &lt;MyContext.Provider&gt; 的 value prop 决定。</p>
+<p>当组件上层最近的 &lt;MyContext.Provider&gt; 更新时，该 Hook 会触发重渲染，并使用最新传递给 MyContext provider 的 context value 值。即使祖先使用 React.memo 或 shouldComponentUpdate，也会在组件本身使用 useContext 时重新渲染。</p>
+<blockquote>
+<p>之前在class组件内获取context的例子</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component, createContext &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="comment">// 创建一个context实例对象，默认值为light</span></span><br><span class="line"><span class="keyword">const</span> ThemeContext = createContext(<span class="string">&#x27;light&#x27;</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Text</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        使用provider将当前的值传递给所有子组件，不需要逐级通过props传递</span></span><br><span class="line"><span class="comment">        赋给初始值 dark</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;ThemeContext.Provider value=<span class="string">&#x27;dark&#x27;</span>&gt;</span><br><span class="line">                &lt;Toolbar /&gt;</span><br><span class="line">            &lt;/ThemeContext.Provider&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 中间组件如果没有用到值就不需要传递，通过无状态组件来写</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Toolbar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;ThemeButton /&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 该组件需要用到传递的数据所以要通过class来创建</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThemeButton</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    指定contextType读取当前的theme context，并且将theme的值赋为 dark</span></span><br><span class="line"><span class="comment">    也可通过 &lt;MyContext.Consumer&gt; 来读取</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">static</span> contextType = ThemeContext</span><br><span class="line">    render()&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="comment">// this.context获取context值</span></span><br><span class="line">            &lt;button&gt;&#123;<span class="built_in">this</span>.context&#125;&lt;/button&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Text;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过useContext获取context的例子</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component, createContext, useContext &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> ThemeContext = createContext(<span class="string">&#x27;light&#x27;</span>)</span><br><span class="line"><span class="comment">// ... </span></span><br><span class="line"><span class="comment">// 可以直接通过函数来声明组件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ThemeButton</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> theme = useContext(ThemeContext)  <span class="comment">// 通过useContext接口获取context值</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="comment">// 使用</span></span><br><span class="line">        &lt;button&gt;按钮&#123;theme&#125;&lt;/button&gt;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="useReducer"><a href="#useReducer" class="headerlink" title="useReducer"></a>useReducer</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [state,dispatch] = useReducer(reducer,state)</span><br></pre></td></tr></table></figure>
+<p>和redux的使用方法差不多<br>算是<code>useState</code>的一个替代方案。<br>以前面的例子在通过<code>useReducer</code>去使用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> initialState = &#123;<span class="attr">count</span>: <span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;add&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">count</span>: state.count + <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;del&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">count</span>: state.count - <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [state, dispatch] = useReducer(reducer, initialState);  <span class="comment">// 将state赋值initialState，为dispatch提供对应的reducer</span></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      Count: &#123;state.count&#125;</span><br><span class="line">      &lt;button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123;<span class="attr">type</span>: <span class="string">&#x27;add&#x27;</span>&#125;)&#125;&gt;-&lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123;<span class="attr">type</span>: <span class="string">&#x27;del&#x27;</span>&#125;)&#125;&gt;+&lt;/button&gt;</span><br><span class="line">    &lt;/&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-reactRedux"
   class="article article-type-post"
   itemscope
@@ -1008,97 +1090,6 @@
 <p>closeDoorCommand 中没有包含任何 receiver 的信息，它本身就包揽了执行请求的行为，这跟我们之前看到的命令对象都包含了一个 receiver 是矛盾的。 一般来说，命令模式都会在 command 对象中保存一个接收者来负责真正执行客户的请求，这种情况下命令对象是<strong style='color:red'>“傻瓜式”</strong>的，它只负责把客户的请求转交给接收者来执行，这种模式的好处是请求发起者和请求接收者之间尽可能地得到了解耦。</p>
 <p>但是我们也可以定义一些更“聪明”的命令对象，“聪明”的命令对象可以直接实现请求，这样一来就不再需要接收者的存在，这种“聪明”的命令对象也叫作智能命令。没有接收者的智能命令，退化到和策略模式非常相近，从代码结构上已经无法分辨它们，能分辨的只有它们意图的不同。策略模式指向的问题域更小，所有策略对象的目标总是一致的，它们只是达到这个目标的不同手段，它们的内部实现是针对“算法”而言的。而智能命令模式指向的问题域更广，command对象解决的目标更具发散性。命令模式还可以完成撤销、排队等功能。</p>
  
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-clip-path"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/01/15/clip-path/"
-    >clip-path</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/01/15/clip-path/" class="article-date">
-  <time datetime="2020-01-15T07:16:00.000Z" itemprop="datePublished">2020-01-15</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CSS/">CSS</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="发现了一个有意思的CSS属性"><a href="#发现了一个有意思的CSS属性" class="headerlink" title="发现了一个有意思的CSS属性"></a>发现了一个有意思的CSS属性</h2><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/clip-path">属性详情</a><br><a target="_blank" rel="noopener" href="https://www.html.cn/tool/css-clip-path/">clip-path生成器</a></p>
-<blockquote>
-<p>clip-path ： 创建一个只有元素的部分区域可以显示的剪切区域</p>
-</blockquote>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 我没有接触过svg 所以只写了几个我觉得能常用的属性*/</span></span><br><span class="line"><span class="selector-tag">clip-path</span>: <span class="selector-tag">circle</span>( 50% <span class="selector-tag">at</span> 50% 50%);     <span class="comment">/* 剪裁成 【圆形】 第一个参数是 圆半径 at 圆心坐标*/</span></span><br><span class="line"><span class="selector-tag">clip-path</span>: <span class="selector-tag">ellipse</span>( 50% 25% <span class="selector-tag">at</span> 50% 50%);    <span class="comment">/*剪裁成 【椭圆】 第一个参数是 横向半径 第二个是 纵向半径 at 圆心坐标  当半径一致 相当于圆*/</span></span><br><span class="line"><span class="selector-tag">clip-path</span>: <span class="selector-tag">polygon</span>( 50% 0,0 100%,100% 100%);    <span class="comment">/* 剪裁成任意形状 后跟每个点坐标  这是个三角形 注意点连接的顺序！ 如下：*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<img src='/images/clippath.png' width='400px'/>  
-
-<h2 id="可以实现的效果"><a href="#可以实现的效果" class="headerlink" title="可以实现的效果"></a>可以实现的效果</h2><blockquote>
-<p>我感觉比伪类方便  可以代替圆角之类的  也可以结合动画之类的</p>
-</blockquote>
-<style>
-.clipPath{
-    width:150px;
-    height: 150px;
-    background-image: url('/images/avatar.jpg'); 
-    background-size:100% 100%;
-    display:inline-block;  
-}
-.clipPath.dv1{
-    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
-}
-.clipPath.dv2{
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-}
-.clipPath.dv3{
-    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
-}
-.clipPath.dv4{
-    /* clip-path: ellipse(100% 100% at 0% 0%); */
-    clip-path: circle(100% at 0% 0%);
-}
-.clipPath.dv5{
-  clip-path: polygon(0% 0%, 0% 100%, 25% 100%, 25% 25%, 75% 25%, 75% 75%, 25% 75%, 25% 100%, 100% 100%, 100% 0%);
-}
-</style>
-<div class="clipPath dv1"></div>
-<div class="clipPath dv2"></div>
-<div class="clipPath dv3"></div>
-<div class="clipPath dv4"></div>
-<div class="clipPath dv5"></div>
-
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">width</span><span class="selector-pseudo">:150px</span>;</span></span><br><span class="line">    height: 150px;</span><br><span class="line">    background-image: url(&#x27;/images/avatar.jpg&#x27;); </span><br><span class="line"><span class="css">    <span class="selector-tag">background-size</span><span class="selector-pseudo">:100</span>% 100%;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">display</span><span class="selector-pseudo">:inline-block</span>;  </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv1</span>&#123;</span></span><br><span class="line">    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv2</span>&#123;</span></span><br><span class="line">    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv3</span>&#123;</span></span><br><span class="line">    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv4</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="comment">/* clip-path: ellipse(100% 100% at 0% 0%); 效果一致*/</span></span></span><br><span class="line">    clip-path: circle(100% at 0% 0%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv5</span>&#123;</span></span><br><span class="line">  clip-path: polygon(0% 0%, 0% 100%, 25% 100%, 25% 25%, 75% 25%, 75% 75%, 25% 75%, 25% 100%, 100% 100%, 100% 0%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv3&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv4&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv5&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>
