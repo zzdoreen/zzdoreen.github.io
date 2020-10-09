@@ -261,7 +261,7 @@
 </tr>
 <tr>
 <td><code>beforeUnmount</code></td>
-<td><code>onBeforeUnmount</code></td>
+<td><code>onBeforeUnmount</code>vue2的beforeDestroy</td>
 </tr>
 <tr>
 <td><code>unmounted</code></td>
@@ -269,15 +269,15 @@
 </tr>
 <tr>
 <td><code>errorCaptured</code></td>
-<td><code>onErrorCaptured</code></td>
+<td><code>onErrorCaptured</code>捕获子组件异常</td>
 </tr>
 <tr>
 <td><code>renderTracked</code></td>
-<td><code>onRenderTracked</code></td>
+<td><code>onRenderTracked</code>对变化数据进行跟踪</td>
 </tr>
 <tr>
 <td><code>renderTriggered</code></td>
-<td><code>onRenderTriggered</code></td>
+<td><code>onRenderTriggered</code>精确跟踪触发(有新旧值))</td>
 </tr>
 </tbody></table>
 <h2 id="readonly"><a href="#readonly" class="headerlink" title="readonly"></a>readonly</h2><blockquote>
@@ -293,6 +293,9 @@
 <p>判断是否是<code>readonly</code>类型 返回布尔值</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">isReadonly(state) <span class="comment">// true / false</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="watch"><a href="#watch" class="headerlink" title="watch"></a>watch</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; watch &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// 多个观察对象 watch([val1,val2 ... ],()=&gt;&#123; ... &#125;)</span></span><br><span class="line">    watch(msg, <span class="function">(<span class="params">newV, oldV</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(newV, oldV);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
  
       <!-- reward -->
       
