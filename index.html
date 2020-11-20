@@ -142,6 +142,59 @@
     
     
     <article
+  id="post-代码"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/11/20/%E4%BB%A3%E7%A0%81/"
+    >代码段</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/11/20/%E4%BB%A3%E7%A0%81/" class="article-date">
+  <time datetime="2020-11-20T02:00:00.000Z" itemprop="datePublished">2020-11-20</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 id="filter多条件过滤"><a href="#filter多条件过滤" class="headerlink" title="filter多条件过滤"></a>filter多条件过滤</h3><blockquote>
+<p>前端实现过滤 过滤条件为空的字段需要删除</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> condition = &#123;</span><br><span class="line">    supplierCode: <span class="string">&#x27;123&#x27;</span>,</span><br><span class="line">    materialCode: <span class="string">&#x27;333&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> tableData = [</span><br><span class="line">    &#123;</span><br><span class="line">        supplierCode: <span class="string">&#x27;123&#x27;</span>,</span><br><span class="line">        materialCode: <span class="string">&#x27;333&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        supplierCode: <span class="string">&#x27;123456666&#x27;</span>,</span><br><span class="line">        materialCode: <span class="string">&#x27;333&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> queryTableData = []</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getQueryList</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> tempFilter = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> condition) &#123;</span><br><span class="line">        <span class="keyword">if</span> (condition[key]) &#123;</span><br><span class="line">            tempFilter[key] = condition[key];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    queryTableData = tableData.filter(<span class="function">(<span class="params">item</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> flag = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> i <span class="keyword">in</span> tempFilter) &#123;</span><br><span class="line">            <span class="keyword">if</span> (tempFilter[i]) &#123;</span><br><span class="line">                <span class="keyword">if</span> (item[i] === tempFilter[i]) &#123;</span><br><span class="line">                    flag = <span class="literal">true</span>;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    flag = <span class="literal">false</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (flag) &#123;</span><br><span class="line">            <span class="keyword">return</span> item;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-vue3"
   class="article article-type-post"
   itemscope
@@ -1088,103 +1141,6 @@
 </article>
 
     
-    <article
-  id="post-next"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/05/25/next/"
-    >Next.js</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/05/25/next/" class="article-date">
-  <time datetime="2020-05-25T04:21:42.000Z" itemprop="datePublished">2020-05-25</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/React/">React</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><strong><a target="_blank" rel="noopener" href="https://www.nextjs.cn/docs/getting-started">next中文文档</a></strong>  </p>
-<h2 id="next-js简介"><a href="#next-js简介" class="headerlink" title="next.js简介"></a>next.js简介</h2><blockquote>
-<p>Next.js 是一个轻量级的 React 服务端渲染应用框架。</p>
-</blockquote>
-<ul>
-<li>完善React项目架构，搭建轻松。比如：Webpack配置，服务器启动，路由配置，缓存能力，这些在它内部已经完善的为我们搭建完成了。</li>
-<li>自带数据同步策略，解决服务端渲染最大难点。把服务端渲染好的数据，拿到客户端重用，这个在没有框架的时候，是非常复杂和困难的。有了Next.js，它为我们提供了非常好的解决方法，让我们轻松的就可以实现这些步骤。</li>
-<li>丰富的插件帮开发人员增加各种功能。每个项目的需求都是不一样的，包罗万象。无所不有，它为我们提供了插件机制，让我们可以在使用的时候按需使用。你也可以自己写一个插件，让别人来使用。</li>
-<li>灵活的配置，让开发变的更简单。它提供很多灵活的配置项，可以根据项目要求的不同快速灵活的进行配置。</li>
-</ul>
-<h2 id="创建next-js应用程序"><a href="#创建next-js应用程序" class="headerlink" title="创建next.js应用程序"></a>创建next.js应用程序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 1.安装next的项目的脚手架工具 create-next-app</span><br><span class="line">npm install -g create-next-app</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 2.创建next项目</span><br><span class="line">npx create-next-app xxx</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">xxx</span><br><span class="line">├── README.md</span><br><span class="line">├── node_modules</span><br><span class="line">├── package.json</span><br><span class="line">├── .gitignore</span><br><span class="line">├── public      &#x2F;&#x2F; 公共静态文件存放地</span><br><span class="line">├── components     &#x2F;&#x2F; 组件存放地</span><br><span class="line">└── page    &#x2F;&#x2F; 页面存放地，自动生成路由渲染在服务器</span><br></pre></td></tr></table></figure>
-<h2 id="page的使用"><a href="#page的使用" class="headerlink" title="page的使用"></a>page的使用</h2><p>需要新添加路由则直接在page文件夹下创建新文件<br>eg：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Index</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>hello world<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>打开<code>http://localhost:3000/Index</code>即可访问到相关内容</p>
-<h2 id="component的使用"><a href="#component的使用" class="headerlink" title="component的使用"></a>component的使用</h2><ol>
-<li><p>以创建一个item组件为例</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (&#123;children&#125;)=&gt;&#123;</span><br><span class="line">     &lt;button&gt;&#123;children&#125;&lt;/button&gt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// &#123;children&#125; =&gt; props.children 也可以在里面直接写props 获取的时候 props.children.xx</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在page文件夹下的页面中引入  </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Item <span class="keyword">from</span> <span class="string">&#x27;../components/item&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li><p>使用组件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Item&gt;按钮组件 / &#123;xx&#125;&lt;/Item&gt;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h2 id="路由相关"><a href="#路由相关" class="headerlink" title="路由相关"></a>路由相关</h2><blockquote>
-<p>页面跳转一般有两种形式，第一种是利用标签<Link>,第二种是用js编程的方式进行跳转，也就是利用Router组件。  </p>
-</blockquote>
-<h3 id="标签式导航"><a href="#标签式导航" class="headerlink" title="标签式导航"></a>标签式导航<Link></h3><p>在主页面和可跳转页面都引入link</p>
-<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// home-page</span></span><br><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">&#x27;next/link&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Home=<span class="function">()=&gt;</span>&#123;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;首页&lt;/h1&gt;</span><br><span class="line">        &lt;Link href=<span class="string">&#x27;/pageA&#x27;</span>&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span>&gt;</span>A页面<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/Link&gt;</span><br><span class="line">        &#123;<span class="comment">/*  </span></span><br><span class="line"><span class="comment">            带参数传递</span></span><br><span class="line"><span class="comment">            &lt;Link href=&#x27;/pageA?id=123&#x27;&gt;&lt;a&gt;A页面&lt;/a&gt;&lt;/Link&gt; </span></span><br><span class="line"><span class="comment">            &lt;Link href=&#123;&#123;pathname:&#x27;/pageA&#x27;,query:&#123;id:&#x27;123&#x27;&#125;&#125;&#125;&gt;&lt;a&gt;A页面&lt;/a&gt;&lt;/Link&gt; </span></span><br><span class="line"><span class="comment">        */</span>&#125;</span><br><span class="line">        &lt;Link href=<span class="string">&#x27;/pageB&#x27;</span>&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span>&gt;</span>B页面<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/Link&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ----------</span></span><br><span class="line"><span class="comment">// pageA</span></span><br><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">&#x27;next/link&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (&#123;router&#125;)=&gt;&#123;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;page A&lt;/h1&gt;</span><br><span class="line">        &#123;<span class="comment">/* </span></span><br><span class="line"><span class="comment">            query接收参数</span></span><br><span class="line"><span class="comment">            &lt;span&gt;&#123;router.query.id&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="comment">        */</span>&#125;</span><br><span class="line">        &lt;Link href=<span class="string">&#x27;/&#x27;</span>&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span>&gt;</span>返回首页<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/Link&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// -----------</span></span><br><span class="line"><span class="comment">// pageB</span></span><br><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">&#x27;next/link&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> ()=&gt;&#123;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;page B&lt;/h1&gt;</span><br><span class="line">        &lt;Link href=<span class="string">&#x27;/&#x27;</span>&gt;<span class="xml"><span class="tag">&lt;<span class="name">a</span>&gt;</span>返回首页<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>&lt;/Link&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Router模块进行跳转"><a href="#Router模块进行跳转" class="headerlink" title="Router模块进行跳转"></a>Router模块进行跳转</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Router <span class="keyword">from</span> <span class="string">&#x27;next/router&#x27;</span></span><br><span class="line"><span class="keyword">const</span> Home = <span class="function">()=&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">gotoB</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    Router.push(<span class="string">&#x27;/pageB&#x27;</span>)</span><br><span class="line">    <span class="comment">/* </span></span><br><span class="line"><span class="comment">    带参数传递</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Router.push(&#x27;/pageB?id=123&#x27;)   </span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    Router.push(&#123;</span></span><br><span class="line"><span class="comment">        pathname: &#x27;/pageB&#x27;,</span></span><br><span class="line"><span class="comment">        query: &#123;</span></span><br><span class="line"><span class="comment">            id: &#x27;123&#x27;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">    &#125;)</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> (</span><br><span class="line">    ...</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;button onClick=&#123;<span class="function">()=&gt;</span>&#123;Router.push(<span class="string">&#x27;pageA&#x27;</span>)&#125;&#125;&gt;A页面&lt;/button&gt;</span><br><span class="line">        &lt;button onClick=&#123;gotoB&#125;&gt;B页面&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    ...</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="钩子函数"><a href="#钩子函数" class="headerlink" title="钩子函数"></a>钩子函数</h3><h4 id="routeChangeStart路由发生变化时"><a href="#routeChangeStart路由发生变化时" class="headerlink" title="routeChangeStart路由发生变化时"></a>routeChangeStart路由发生变化时</h4><h4 id="routerChangeComplete路由结束变化时"><a href="#routerChangeComplete路由结束变化时" class="headerlink" title="routerChangeComplete路由结束变化时"></a>routerChangeComplete路由结束变化时</h4><h4 id="beforeHistoryChange浏览器history触发前"><a href="#beforeHistoryChange浏览器history触发前" class="headerlink" title="beforeHistoryChange浏览器history触发前"></a>beforeHistoryChange浏览器history触发前</h4><h4 id="routeChangeError路由跳转发生错误时"><a href="#routeChangeError路由跳转发生错误时" class="headerlink" title="routeChangeError路由跳转发生错误时"></a>routeChangeError路由跳转发生错误时</h4><h4 id="hashChangeStart-hash开始跳转时"><a href="#hashChangeStart-hash开始跳转时" class="headerlink" title="hashChangeStart hash开始跳转时"></a>hashChangeStart hash开始跳转时</h4><h4 id="hashChangeComplete-hash完成跳转时"><a href="#hashChangeComplete-hash完成跳转时" class="headerlink" title="hashChangeComplete hash完成跳转时"></a>hashChangeComplete hash完成跳转时</h4><h2 id="getInitialProps数据获取"><a href="#getInitialProps数据获取" class="headerlink" title="getInitialProps数据获取"></a>getInitialProps数据获取</h2><p>配合axios  </p>
-<ol>
-<li>安装引入axios<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">yarn add axios</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在所需的页面引入axios</span></span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> Home = <span class="function">(<span class="params">&#123;router,list&#125;</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;&gt;</span><br><span class="line">            &lt;div&gt;&#123;list&#125;&lt;/div&gt;</span><br><span class="line">        &lt;/&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> 通过getInitialProps获取数据</span></span><br><span class="line"><span class="comment"> 然后页面通过props.list获取数据，并进行显示</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">Home.getInitialProps = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">await</span> axios(<span class="string">&#x27;http://rap2.taobao.org:38080/app/mock/250724/get/data&#x27;</span>).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> res.data</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="comment">//返回值只能是resolve对象</span></span><br><span class="line">  <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withRouter(Home)</span><br></pre></td></tr></table></figure>
-<h2 id="CSS编写"><a href="#CSS编写" class="headerlink" title="CSS编写"></a>CSS编写</h2></li>
-</ol>
-<ul>
-<li>使用style jsx语法<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在return内部编写</span></span><br><span class="line">&lt;style jsx&gt;</span><br><span class="line">&#123;<span class="string">`</span></span><br><span class="line"><span class="string">    div&#123; color:red &#125;</span></span><br><span class="line"><span class="string">`</span>&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure></li>
-<li>引入CSS文件<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 安装配置相应内容</span></span><br><span class="line">yarn add @zeit/next=css</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在根目录建立next.config.js配置</span></span><br><span class="line"><span class="keyword">const</span> withCss = <span class="built_in">require</span>(<span class="string">&#x27;@zeit/next-css&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">typeof</span> <span class="built_in">require</span> !== <span class="string">&#x27;undefined&#x27;</span>)&#123;</span><br><span class="line">    <span class="built_in">require</span>.extensions[<span class="string">&#x27;.css&#x27;</span>]=<span class="function"><span class="params">file</span>=&gt;</span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = withCss(&#123;&#125;)</span><br></pre></td></tr></table></figure>
-重启项目之后就可以进行使用<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在所需页面引入样式文件</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;../public/test.css&#x27;</span></span><br></pre></td></tr></table></figure>
-
-
-
-
-</li>
-</ul>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
   </article>
   
 
@@ -1284,10 +1240,6 @@
         <i class="ri-search-line"></i>
       </a>
       
-      
-      <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
-        <i class="ri-rss-line"></i>
-      </a>
       
     </li>
   </ul>
