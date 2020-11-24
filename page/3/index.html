@@ -142,6 +142,188 @@
     
     
     <article
+  id="post-方块运动"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/01/16/%E6%96%B9%E5%9D%97%E8%BF%90%E5%8A%A8/"
+    >CSS3 立体轮播</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/01/16/%E6%96%B9%E5%9D%97%E8%BF%90%E5%8A%A8/" class="article-date">
+  <time datetime="2020-01-16T09:16:00.000Z" itemprop="datePublished">2020-01-16</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CSS/">CSS</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="CSS3-立体轮播"><a href="#CSS3-立体轮播" class="headerlink" title="CSS3 立体轮播"></a>CSS3 立体轮播</h2><p> 最近比较迷css，可能是JavaScript看的头疼<br> 可以用作图片轮播，换成小的立方体还可以当做是缓冲动画<br> 效果很好看 就是每次弄 旋转角度、移动位置的时候头疼<br> <del>没有找到方法</del>  就是我空间感不行</p>
+<style>
+    .cubeCover{
+        width: 100px;
+        height: 300px;
+        margin-top: 150px;
+        margin-left: 200px;
+    }
+    .cubeCover .cube{
+        transform-style: preserve-3d;
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transform: rotateY(20deg) rotateX(-20deg) ;
+        animation: move1 6s linear infinite .75s;
+    }
+    .cubeCover .cube div{
+        border: 1px solid #ccc;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+    }
+    .cubeCover .cube div:nth-child(1){
+        transform:translateZ(-150px);
+        background: url('/images/bottom.jpg');
+        background-position: 0 0;
+    }
+    .cubeCover .cube div:nth-child(2){
+        transform: rotateX(90deg) translateZ(150px);
+        background: url('/images/side.jpg');
+        background-position: 0 0;
+    }
+    .cubeCover .cube div:nth-child(3){
+        transform:rotateX(90deg) translateZ(-150px)  ;
+        background: url('/images/top.jpg');
+    }
+    .cubeCover .cube div:nth-child(4){
+        width: 300px;
+        transform: rotateY(90deg) translateZ(-150px);
+        background: lightblue;
+    }
+    .cubeCover .cube div:nth-child(5){
+        width: 300px;
+        transform: rotateY(90deg) translateZ(-50px);
+        background: lightblue;
+    }
+    .cubeCover .cube div:nth-child(6){
+        transform: translateZ(150px);
+        background: url('/images/avatar.jpg');
+        background-position: 0 0;
+    }
+    .cubeCover .cube2{
+        margin-top: -300px;
+        margin-left: 90px;
+        z-index: -1;
+        animation: move1 6s linear infinite .5s;
+    }
+    .cubeCover .cube2 div:nth-child(1),.cubeCover .cube2 div:nth-child(2),.cubeCover .cube2 div:nth-child(3),.cubeCover .cube2 div:nth-child(6){
+        background-position: -100px 0;
+    }
+    .cubeCover .cube3{
+        margin-top: -300px;
+        margin-left: 180px;
+        z-index: -2;
+        animation: move1 6s linear infinite .25s;
+    }
+    .cubeCover .cube3 div:nth-child(1),.cubeCover .cube3 div:nth-child(2),.cubeCover .cube3 div:nth-child(3),.cubeCover .cube3 div:nth-child(6){
+        background-position: -200px 0;
+    }
+    .cubeCover .cube4{
+        margin-top: -300px;
+        margin-left: 270px;
+        z-index: -3;
+        animation: move1 6s linear infinite ;
+    }
+    .cubeCover .cube4 div:nth-child(1),.cubeCover .cube4 div:nth-child(2),.cubeCover .cube4 div:nth-child(3),.cubeCover .cube4 div:nth-child(6){
+        background-position: -300px 0;
+    }
+    @keyframes move1 {
+        12.5%,25%{
+            transform:rotateY(20deg) rotateX(70deg);
+        }
+        42.5%,55%{
+            transform:rotateY(20deg) rotateX(160deg);
+        }
+        62.5%,75%{
+            transform:rotateY(20deg) rotateX(250deg);
+        }
+        92.5%,100%{
+            transform:rotateY(20deg) rotateX(340deg);
+        }
+    }
+</style>
+<div class="cubeCover">
+    <div class="cube">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="cube cube2">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="cube cube3">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="cube cube4">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span>&#123;</span></span><br><span class="line">        width: 100px;</span><br><span class="line">        height: 300px;</span><br><span class="line">        margin-top: 150px;</span><br><span class="line">        margin-left: 200px;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span>&#123;</span></span><br><span class="line">        transform-style: preserve-3d;</span><br><span class="line">        width: 100%;</span><br><span class="line">        height: 100%;</span><br><span class="line">        position: relative;</span><br><span class="line">        transform: rotateY(20deg) rotateX(-20deg) ;</span><br><span class="line"><span class="css">        <span class="selector-tag">animation</span>: <span class="selector-tag">move1</span> 6<span class="selector-tag">s</span> <span class="selector-tag">linear</span> <span class="selector-tag">infinite</span> <span class="selector-class">.75s</span>;</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span>&#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">border</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#ccc</span>;</span></span><br><span class="line">        width: 100%;</span><br><span class="line">        height: 100%;</span><br><span class="line">        position: absolute;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(1)</span>&#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">transform</span><span class="selector-pseudo">:translateZ(-150px)</span>;</span></span><br><span class="line">        background: url(&#x27;/images/bottom.jpg&#x27;);</span><br><span class="line">        background-position: 0 0;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(2)</span>&#123;</span></span><br><span class="line">        transform: rotateX(90deg) translateZ(150px);</span><br><span class="line">        background: url(&#x27;/images/side.jpg&#x27;);</span><br><span class="line">        background-position: 0 0;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(3)</span>&#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">transform</span><span class="selector-pseudo">:rotateX(90deg)</span> <span class="selector-tag">translateZ</span>(<span class="selector-tag">-150px</span>)  ;</span></span><br><span class="line">        background: url(&#x27;/images/top.jpg&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(4)</span>&#123;</span></span><br><span class="line">        width: 300px;</span><br><span class="line">        transform: rotateY(90deg) translateZ(-150px);</span><br><span class="line">        background: lightblue;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(5)</span>&#123;</span></span><br><span class="line">        width: 300px;</span><br><span class="line">        transform: rotateY(90deg) translateZ(-50px);</span><br><span class="line">        background: lightblue;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(6)</span>&#123;</span></span><br><span class="line">        transform: translateZ(150px);</span><br><span class="line">        background: url(&#x27;/images/avatar.jpg&#x27;);</span><br><span class="line">        background-position: 0 0;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube2</span>&#123;</span></span><br><span class="line">        margin-top: -300px;</span><br><span class="line">        margin-left: 90px;</span><br><span class="line">        z-index: -1;</span><br><span class="line"><span class="css">        <span class="selector-tag">animation</span>: <span class="selector-tag">move1</span> 6<span class="selector-tag">s</span> <span class="selector-tag">linear</span> <span class="selector-tag">infinite</span> <span class="selector-class">.5s</span>;</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube2</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(1)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube2</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(2)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube2</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(3)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube2</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(6)</span>&#123;</span></span><br><span class="line">        background-position: -100px 0;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube3</span>&#123;</span></span><br><span class="line">        margin-top: -300px;</span><br><span class="line">        margin-left: 180px;</span><br><span class="line">        z-index: -2;</span><br><span class="line"><span class="css">        <span class="selector-tag">animation</span>: <span class="selector-tag">move1</span> 6<span class="selector-tag">s</span> <span class="selector-tag">linear</span> <span class="selector-tag">infinite</span> <span class="selector-class">.25s</span>;</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube3</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(1)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube3</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(2)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube3</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(3)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube3</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(6)</span>&#123;</span></span><br><span class="line">        background-position: -200px 0;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube4</span>&#123;</span></span><br><span class="line">        margin-top: -300px;</span><br><span class="line">        margin-left: 270px;</span><br><span class="line">        z-index: -3;</span><br><span class="line">        animation: move1 6s linear infinite ;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube4</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(1)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube4</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(2)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube4</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(3)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube4</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(6)</span>&#123;</span></span><br><span class="line">        background-position: -300px 0;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="keyword">@keyframes</span> move1 &#123;</span></span><br><span class="line"><span class="css">        12<span class="selector-class">.5</span>%,25%&#123;</span></span><br><span class="line"><span class="css">            <span class="selector-tag">transform</span><span class="selector-pseudo">:rotateY(20deg)</span> <span class="selector-tag">rotateX</span>(70<span class="selector-tag">deg</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        42<span class="selector-class">.5</span>%,55%&#123;</span></span><br><span class="line"><span class="css">            <span class="selector-tag">transform</span><span class="selector-pseudo">:rotateY(20deg)</span> <span class="selector-tag">rotateX</span>(160<span class="selector-tag">deg</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        62<span class="selector-class">.5</span>%,75%&#123;</span></span><br><span class="line"><span class="css">            <span class="selector-tag">transform</span><span class="selector-pseudo">:rotateY(20deg)</span> <span class="selector-tag">rotateX</span>(250<span class="selector-tag">deg</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        92<span class="selector-class">.5</span>%,100%&#123;</span></span><br><span class="line"><span class="css">            <span class="selector-tag">transform</span><span class="selector-pseudo">:rotateY(20deg)</span> <span class="selector-tag">rotateX</span>(340<span class="selector-tag">deg</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cubeCover&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cube&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cube cube2&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cube cube3&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cube cube4&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-命令模式"
   class="article article-type-post"
   itemscope
@@ -883,451 +1065,13 @@
 </article>
 
     
-    <article
-  id="post-CSS相关"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/12/30/CSS%E7%9B%B8%E5%85%B3/"
-    >CSS相关</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2019/12/30/CSS%E7%9B%B8%E5%85%B3/" class="article-date">
-  <time datetime="2019-12-30T02:21:42.000Z" itemprop="datePublished">2019-12-30</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CSS/">CSS</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <blockquote>
-<p>想闲暇的时候学点CSS动画的实现方法，<br>希望能持续更新 见证自己的成长 ，实现的效果也能越来越复杂好看！</p>
-</blockquote>
-<h1 id="波纹效果"><a href="#波纹效果" class="headerlink" title="波纹效果"></a>波纹效果</h1><style>
-.coverBox{
-    width: 500px;
-    height: 500px;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: black
-}
-.coverBox .box{
-    position: relative;
-    width: 200px;
-    height: 300px;
-    border: 1px solid black;
-    overflow: hidden;
-    background: linear-gradient(#5f2c82,#49a09d);
-}
-.coverBox .box .box-bg{
-    width: 100%;
-    background: white;
-    animation: bg-color 6s ease-out infinite;
-}
-.coverBox .box .wave{
-    position: absolute;
-    top: -100px;
-    left: 50%;
-    margin-left: -125px;
-    width: 250px;
-    height: 250px;
-    background: white;
-    border-radius: 45% 38% 35% 44%;
-    animation: wave3 6s linear infinite;
-}
-.coverBox .box .wave1{
-    background: rgba(255,255,255,0.8);
-    transform: translate(15px);
-    animation: wave1 6s linear infinite;
-}
-.coverBox .box .wave2{
-    background: rgba(255,255,255,0.5);
-    transform: translate(-15px);
-    animation: wave2 6s linear infinite;
-}
-@keyframes bg-color {
-    from{
-        height: 100%
-    }to{
-        height: 0;
-    }
-}
-@keyframes wave1 {
-    0%{
-        transform: translate(0,150px);
-        border-radius: 46% 38% 44% 57%;
-    }50%{
-        border-radius: 33% 50% 66% 47%;
-    }
-    100%{
-        transform: translate(15px,0px) rotate(135deg);
-    } 
-}
-@keyframes wave2 {
-    from{
-        transform: translate(0,150px);
-        border-radius: 46% 48% 34% 37%;
-    }
-    to{
-        transform:translate(-15px,0px) rotate(-135deg);
-    } 
-}
-@keyframes wave3 {
-    from{
-        transform: translate(0,150px);
-        border-radius: 66% 38% 44% 47%;
-
-    }to{
-        transform: rotate(135deg) translate(0,0px);
-    } 
-}
-</style>
-<div class="coverBox">
-    <div class="box">
-        <div class="wave wave1"></div>
-        <div class="wave wave2"></div>
-        <div class="wave wave3"></div>
-        <div class="box-bg"></div>
-    </div>
-</div>
-
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;ie=edge&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>CSS-Wave<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-class">.cover</span>&#123;</span></span><br><span class="line">    width: 500px;</span><br><span class="line">    height: 500px;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">    display: flex;</span><br><span class="line">    justify-content: center;</span><br><span class="line">    align-items: center;</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.cover</span> <span class="selector-class">.box</span>&#123;</span></span><br><span class="line">    position: relative;</span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 300px;</span><br><span class="line">    border: 1px solid black;</span><br><span class="line">    overflow: hidden;</span><br><span class="line"><span class="css">    <span class="selector-tag">background</span>: <span class="selector-tag">linear-gradient</span>(<span class="selector-id">#5f2c82</span>,<span class="selector-id">#49a09d</span>);</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.cover</span> <span class="selector-class">.box-bg</span>&#123;</span></span><br><span class="line">    width: 100%;</span><br><span class="line">    background: white;</span><br><span class="line">    animation: bg-color 6s ease-out infinite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.cover</span> <span class="selector-class">.wave</span>&#123;</span></span><br><span class="line">    position: absolute;</span><br><span class="line">    top: -100px;</span><br><span class="line">    left: 50%;</span><br><span class="line">    margin-left: -125px;</span><br><span class="line">    width: 250px;</span><br><span class="line">    height: 250px;</span><br><span class="line">    background: white;</span><br><span class="line">    border-radius: 45% 38% 35% 44%;</span><br><span class="line">    animation: wave3 6s linear infinite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.cover</span> <span class="selector-class">.wave1</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background</span>: <span class="selector-tag">rgba</span>(255,255,255,0<span class="selector-class">.8</span>);</span></span><br><span class="line">    transform: translate(15px);</span><br><span class="line">    animation: wave1 6s linear infinite;</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.cover</span> <span class="selector-class">.wave2</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background</span>: <span class="selector-tag">rgba</span>(255,255,255,0<span class="selector-class">.5</span>);</span></span><br><span class="line">    transform: translate(-15px);</span><br><span class="line">    animation: wave2 6s linear infinite;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="css"><span class="keyword">@keyframes</span> bg-color &#123;</span></span><br><span class="line">    from&#123;</span><br><span class="line">        height: 100%</span><br><span class="line">    &#125;to&#123;</span><br><span class="line">        height: 0;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="keyword">@keyframes</span> wave1 &#123;</span></span><br><span class="line">    0%&#123;</span><br><span class="line">        transform: translate(0,150px);</span><br><span class="line">        border-radius: 46% 38% 44% 57%;</span><br><span class="line">    &#125;50%&#123;</span><br><span class="line">        border-radius: 33% 50% 66% 47%;</span><br><span class="line">    &#125;</span><br><span class="line">    100%&#123;</span><br><span class="line">        transform: translate(15px,0px) rotate(135deg);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="keyword">@keyframes</span> wave2 &#123;</span></span><br><span class="line">    from&#123;</span><br><span class="line">        transform: translate(0,150px);</span><br><span class="line">        border-radius: 46% 48% 34% 37%;</span><br><span class="line">    &#125;</span><br><span class="line">    to&#123;</span><br><span class="line"><span class="css">        <span class="selector-tag">transform</span><span class="selector-pseudo">:translate(-15px</span>,0<span class="selector-tag">px</span>) <span class="selector-tag">rotate</span>(<span class="selector-tag">-135deg</span>);</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="keyword">@keyframes</span> wave3 &#123;</span></span><br><span class="line">    from&#123;</span><br><span class="line">        transform: translate(0,150px);</span><br><span class="line">        border-radius: 66% 38% 44% 47%;</span><br><span class="line">        </span><br><span class="line">    &#125;to&#123;</span><br><span class="line">        transform: rotate(135deg) translate(0,0px);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cover&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wave wave1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wave wave2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;wave wave3&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box-bg&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="充电动画"><a href="#充电动画" class="headerlink" title="充电动画"></a>充电动画</h1><blockquote>
-<p>核心原理 filter的两个属性 blur（高斯模糊）px、contrast（对比度）%、hue-rotate(色相旋转) deg<br>有个疑问 就是w3c里面查的contrast的单位应该是 % 这个例子里面如果给它加了单位就实现不了了 就直接改变整体的对比度<br>blur(px): 默认为0，数值越大越模糊<br>contrast(%): 0%全黑，100%图像无变化。默认为1，超过100%图像会比原来亮<br>hue-rotate(deg)：0deg图像无变化。默认是0deg。该值虽然没有最大值，超过360deg的值相当于又绕一圈。<br><b style='color:red'>Tips:<br>背景一般选择黑色或者白色，不然会受到contrast和hue-rotate的影响<br>在实现渐变效果的时候 filter: contrast(20) hue-rotate(0deg); 顺序不能变<br></b></p>
-</blockquote>
-<style>
-  /*外层盒子不设置 对比度*/
-  .css-box .test,.test1,.test2,.test3{
-    width: 100px;
-    height: 100px;
-    background: black;
-    position: relative;
-  }
-  .css-box .test::before {
-    content: " ";
-    width: 50px;
-    height: 50px;
-    filter: blur(15px);
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    background: white;
-    position: absolute;
-  }
-  /*外层盒子设置 对比度*/
-  .css-box .test1 { 
-    filter: contrast(20);
-  }
-  .css-box .test1::before {
-    content: " ";
-    width: 50px;
-    height: 50px;
-    filter: blur(15px);
-    left: 0;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    background: white;
-    position: absolute;
-  }
-  /* 内部盒子相遇时*/
-  .css-box .test2 {
-    filter: contrast(20);
-  }
-  .css-box .test2::before {
-    content: " ";
-    width: 50px;
-    height: 50px;
-    filter: blur(5px);
-    left: 50%;
-    top: 50%;
-    border-radius: 50%;
-    margin-left: -25px;
-    margin-top: -25px;
-    background: white;
-    position: absolute;
-  }
-  .css-box .test2::after {
-    content: " ";
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    filter: blur(5px);
-    left: 50%;
-    top: 50%;
-    margin-left: -40px;
-    margin-top: -10px;
-    background: red;
-    position: absolute;
-  }
-  /*内部盒子运动+渐变颜色*/
-  /* filter: contrast(20) hue-rotate(0deg); 顺序不能变*/
-  .css-box .test3 {
-    filter: contrast(20) hue-rotate(0deg);
-    animation: changeColor 5s linear infinite
-  }
-  @keyframes changeColor {
-    100% {
-      filter: contrast(20) hue-rotate(360deg);
-    }
-  }
-  .css-box .test3::before {
-    content: " ";
-    width: 50px;
-    height: 50px;
-    filter: blur(5px);
-    left: 50%;
-    top: 50%;
-    border-radius: 50%;
-    margin-left: -25px;
-    margin-top: -25px;
-    background: rgb(201, 93, 93);
-    position: absolute;
-    animation: bigBallMove 2s linear infinite
-  }
-  .css-box .test3::after {
-    content: " ";
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    filter: blur(5px);
-    left: 50%;
-    top: 50%;
-    margin-left: -40px;
-    margin-top: -10px;
-    background: rgb(201, 93, 93);
-    position: absolute;
-    animation: ballMove 2s linear infinite;
-  }
-  @keyframes ballMove {
-    100% {
-      transform: translateX(70px);
-    }
-  }
-  @keyframes bigBallMove {
-    100% {
-      transform: translateX(-20px);
-    }
-  }
-  .css-box{
-    width: 200px;
-    height: 200px;
-    border: 1px solid #ccc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-  }
-</style>
-
-  <div class="css-box">
-    内部设置高斯模糊 外层盒子不设置 对比度
-    <div class="test"></div>
-  </div>
-  <div class="css-box">
-    外层盒子设置 对比度 <br>
-    （好像是在视觉上抵消内部盒子的高斯模糊）
-    <div class="test1"></div>
-  </div>
-  <div class="css-box">
-    内部盒子相遇时
-    <div class="test2"></div>
-  </div>
-  <div class="css-box">
-    内部盒子运动+渐变颜色<br>
-    （filter: contrast(20) hue-rotate(0deg); 顺序不能变！！！）
-    <div class="test3"></div>
-  </div>
-
-<style>
-  /* 黑幕布 */
-  .filter-mix {
-    width: 300px;
-    height: 350px;
-    filter: contrast(20) hue-rotate(0deg);
-    background: black;
-    animation: bgChange 4s linear infinite;
-    overflow: hidden;
-    border: none;
-  }
-  @keyframes bgChange {
-    100% {
-      filter: contrast(20) hue-rotate(360deg);
-    }
-  }
-  /* 外圈区域 */
-  .filter-mix .box,
-  .filter-mix::before {
-    content: "";
-    position: absolute;
-    width: 130px;
-    height: 130px;
-    left: 50%;
-    top: 60px;
-    margin-left: -65px;
-    border-radius: 50% 35% 66% 47%;
-    background: #0ABFBC;
-    z-index: 2;
-    filter: blur(6px) hue-rotate(0deg);
-    box-sizing: border-box;
-    animation: filterBallMove 4s linear infinite;
-  }
-  .filter-mix .box1 {
-    border-radius: 35% 22% 67% 44%;
-    animation: filterBallMove1 4s linear infinite;
-  }
-  .filter-mix .box2 {
-    border-radius: 55% 42% 37% 44%;
-    animation: filterBallMove 4s linear infinite;
-  }
-  @keyframes filterBallMove {
-    100% {
-      transform: rotate(-360deg);
-    }
-  }
-  @keyframes filterBallMove1 {
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  /* 内部区域 */
-  .filter-mix::after {
-    content: "";
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    left: 50%;
-    top: 65px;
-    margin-left: -60px;
-    border-radius: 50% 48% 54% 45%;
-    background: black;
-    z-index: 2;
-    filter: blur(6px);
-    animation: filterBallMove2 4s linear infinite;
-  }
-  @keyframes filterBallMove2 {
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-  /* 中心文字 */
-  .filter-mix .text {
-    position: absolute;
-    color: white;
-    width: 50px;
-    height: 50px;
-    text-align: center;
-    line-height: 50px;
-    font-size: 30px;
-    left: 50%;
-    top: 95px;
-    margin-left: -25px;
-    z-index: 10;
-  }
-  /* 下方的泡泡 */
-  .filter-mix .pop {
-    position: absolute;
-    width: 25px;
-    height: 25px;
-    background: #0ABFBC;
-    border-radius: 50%;
-    filter: blur(6px);
-  }
-  .filter-mix :nth-child(8) {
-    bottom: 30px;
-    left: 50%;
-    margin-left: -12.5px;
-    animation: popMove 4s linear infinite;
-  }
-  .filter-mix :nth-child(10) {
-    bottom: 30px;
-    left: 50%;
-    margin-left: -10px;
-    animation: popMove 4s 2s linear infinite;
-  }
-  .filter-mix :nth-child(12) {
-    bottom: 30px;
-    left: 50%;
-    animation: popMove 5s linear infinite;
-  }
-  .filter-mix :nth-child(14) {
-    bottom: 40px;
-    left: 40%;
-    margin-left: -12.5px;
-    animation: popMove 3s 1s linear infinite;
-  }
-  .filter-mix :nth-child(16) {
-    bottom: 30px;
-    left: 50%;
-    margin-left: 5px;
-    animation: popMove 7s linear infinite;
-  }
-  /* 底部基座 */
-  .filter-mix .bottomPop {
-    background: #0ABFBC;
-    position: absolute;
-    width: 100px;
-    height: 40px;
-    left: 50%;
-    bottom: -5px;
-    margin-left: -50px;
-    filter: blur(6px);
-    border-radius: 100px 100px 0 0;
-  }
-  @keyframes popMove {
-    100% {
-      transform: translateY(-120px);
-    }
-  }
-</style>
-<p>  成品效果：<br>  <div class="filter-mix"><br>    <div class="box box1"></div><br>    <div class="box box2"></div><br>    <div class="text">9%</div><br>    <div class="pop"></div><br>    <div class="pop"></div><br>    <div class="pop"></div><br>    <div class="pop"></div><br>    <div class="pop"></div><br>    <div class="bottomPop"></div><br>  </div></p>
-<p>代码实现：<br>  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br></pre></td><td class="code"><pre><span class="line">  <span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;ie=edge&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">  <span class="comment">/*外层盒子不设置 对比度*/</span></span></span><br><span class="line"><span class="css">  <span class="selector-class">.test</span> &#123;</span></span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: black;</span><br><span class="line">    position: relative;</span><br><span class="line"><span class="css">    <span class="selector-tag">border</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#ccc</span>;</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="selector-class">.test</span><span class="selector-pseudo">::before</span> &#123;</span></span><br><span class="line">    content: &quot; &quot;;</span><br><span class="line">    width: 50px;</span><br><span class="line">    height: 50px;</span><br><span class="line">    filter: blur(15px);</span><br><span class="line">    left: 0;</span><br><span class="line">    top: 0;</span><br><span class="line">    right: 0;</span><br><span class="line">    bottom: 0;</span><br><span class="line">    margin: auto;</span><br><span class="line">    background: white;</span><br><span class="line">    position: absolute;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="comment">/*外层盒子设置 对比度*/</span></span></span><br><span class="line"><span class="css">  <span class="selector-class">.test1</span> &#123;</span></span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: black;</span><br><span class="line">    filter: contrast(20);</span><br><span class="line">    position: relative;</span><br><span class="line"><span class="css">    <span class="selector-tag">border</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#ccc</span>;</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="selector-class">.test1</span><span class="selector-pseudo">::before</span> &#123;</span></span><br><span class="line">    content: &quot; &quot;;</span><br><span class="line">    width: 50px;</span><br><span class="line">    height: 50px;</span><br><span class="line">    filter: blur(15px);</span><br><span class="line">    left: 0;</span><br><span class="line">    top: 0;</span><br><span class="line">    right: 0;</span><br><span class="line">    bottom: 0;</span><br><span class="line">    margin: auto;</span><br><span class="line">    background: white;</span><br><span class="line">    position: absolute;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="comment">/* 内部盒子相遇时*/</span></span></span><br><span class="line"><span class="css">  <span class="selector-class">.test2</span> &#123;</span></span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: black;</span><br><span class="line">    filter: contrast(20);</span><br><span class="line">    position: relative;</span><br><span class="line"><span class="css">    <span class="selector-tag">border</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#ccc</span>;</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="selector-class">.test2</span><span class="selector-pseudo">::before</span> &#123;</span></span><br><span class="line">    content: &quot; &quot;;</span><br><span class="line">    width: 50px;</span><br><span class="line">    height: 50px;</span><br><span class="line">    filter: blur(5px);</span><br><span class="line">    left: 50%;</span><br><span class="line">    top: 50%;</span><br><span class="line">    border-radius: 50%;</span><br><span class="line">    margin-left: -25px;</span><br><span class="line">    margin-top: -25px;</span><br><span class="line">    background: white;</span><br><span class="line">    position: absolute;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="selector-class">.test2</span><span class="selector-pseudo">::after</span> &#123;</span></span><br><span class="line">    content: &quot; &quot;;</span><br><span class="line">    width: 20px;</span><br><span class="line">    height: 20px;</span><br><span class="line">    border-radius: 50%;</span><br><span class="line">    filter: blur(5px);</span><br><span class="line">    left: 50%;</span><br><span class="line">    top: 50%;</span><br><span class="line">    margin-left: -40px;</span><br><span class="line">    margin-top: -10px;</span><br><span class="line">    background: red;</span><br><span class="line">    position: absolute;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="comment">/*内部盒子运动+渐变颜色*/</span></span></span><br><span class="line"><span class="css">  <span class="comment">/* filter: contrast(20) hue-rotate(0deg); 顺序不能变*/</span></span></span><br><span class="line"><span class="css">  <span class="selector-class">.test3</span> &#123;</span></span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 100px;</span><br><span class="line">    background: black;</span><br><span class="line">    filter: contrast(20) hue-rotate(0deg);</span><br><span class="line">    position: relative;</span><br><span class="line"><span class="css">    <span class="selector-tag">border</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#ccc</span>;</span></span><br><span class="line">    animation: changeColor 5s linear infinite</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="keyword">@keyframes</span> changeColor &#123;</span></span><br><span class="line">    100% &#123;</span><br><span class="line">      filter: contrast(20) hue-rotate(360deg);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="selector-class">.test3</span><span class="selector-pseudo">::before</span> &#123;</span></span><br><span class="line">    content: &quot; &quot;;</span><br><span class="line">    width: 50px;</span><br><span class="line">    height: 50px;</span><br><span class="line">    filter: blur(5px);</span><br><span class="line">    left: 50%;</span><br><span class="line">    top: 50%;</span><br><span class="line">    border-radius: 50%;</span><br><span class="line">    margin-left: -25px;</span><br><span class="line">    margin-top: -25px;</span><br><span class="line">    background: rgb(201, 93, 93);</span><br><span class="line">    position: absolute;</span><br><span class="line">    animation: bigBallMove 2s linear infinite</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="selector-class">.test3</span><span class="selector-pseudo">::after</span> &#123;</span></span><br><span class="line">    content: &quot; &quot;;</span><br><span class="line">    width: 20px;</span><br><span class="line">    height: 20px;</span><br><span class="line">    border-radius: 50%;</span><br><span class="line">    filter: blur(5px);</span><br><span class="line">    left: 50%;</span><br><span class="line">    top: 50%;</span><br><span class="line">    margin-left: -40px;</span><br><span class="line">    margin-top: -10px;</span><br><span class="line">    background: rgb(201, 93, 93);</span><br><span class="line">    position: absolute;</span><br><span class="line">    animation: ballMove 2s linear infinite;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="keyword">@keyframes</span> ballMove &#123;</span></span><br><span class="line">    100% &#123;</span><br><span class="line">      transform: translateX(70px);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="keyword">@keyframes</span> bigBallMove &#123;</span></span><br><span class="line">    100% &#123;</span><br><span class="line">      transform: translateX(-20px);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="css">  <span class="selector-class">.css-box</span>&#123;</span></span><br><span class="line">    width: 200px;</span><br><span class="line">    height: 200px;</span><br><span class="line"><span class="css">    <span class="selector-tag">border</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#ccc</span>;</span></span><br><span class="line">    display: flex;</span><br><span class="line">    justify-content: center;</span><br><span class="line">    align-items: center;</span><br><span class="line">    flex-direction: column;</span><br><span class="line">    display: inline-block;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="css">   <span class="comment">/* 黑幕布 */</span></span></span><br><span class="line"><span class="css">  <span class="selector-class">.filter-mix</span> &#123;</span></span><br><span class="line">    position: absolute;</span><br><span class="line">    top: 50%;</span><br><span class="line">    left: 50%;</span><br><span class="line">    transform: translate(-50%, -50%);</span><br><span class="line">    width: 300px;</span><br><span class="line">    height: 350px;</span><br><span class="line">    filter: contrast(20) hue-rotate(0deg);</span><br><span class="line">    background: black;</span><br><span class="line">    animation: bgChange 4s linear infinite;</span><br><span class="line">    overflow: hidden;</span><br><span class="line">    border: none;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="keyword">@keyframes</span> bgChange &#123;</span></span><br><span class="line">    100% &#123;</span><br><span class="line">      filter: contrast(20) hue-rotate(360deg);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="comment">/* 外圈区域 */</span></span></span><br><span class="line"><span class="css">  <span class="selector-class">.box</span>,</span></span><br><span class="line"><span class="css">  <span class="selector-class">.filter-mix</span><span class="selector-pseudo">::before</span> &#123;</span></span><br><span class="line">    content: &quot;&quot;;</span><br><span class="line">    position: absolute;</span><br><span class="line">    width: 130px;</span><br><span class="line">    height: 130px;</span><br><span class="line">    left: 50%;</span><br><span class="line">    top: 60px;</span><br><span class="line">    margin-left: -65px;</span><br><span class="line">    border-radius: 50% 35% 66% 47%;</span><br><span class="line"><span class="css">    <span class="selector-tag">background</span>: <span class="selector-id">#0ABFBC</span>;</span></span><br><span class="line">    z-index: 2;</span><br><span class="line">    filter: blur(6px) hue-rotate(0deg);</span><br><span class="line">    box-sizing: border-box;</span><br><span class="line">    animation: filterBallMove 4s linear infinite;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="selector-class">.box1</span> &#123;</span></span><br><span class="line">    border-radius: 35% 22% 67% 44%;</span><br><span class="line">    animation: filterBallMove1 4s linear infinite;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="selector-class">.box2</span> &#123;</span></span><br><span class="line">    border-radius: 55% 42% 37% 44%;</span><br><span class="line">    animation: filterBallMove 4s linear infinite;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="keyword">@keyframes</span> filterBallMove &#123;</span></span><br><span class="line">    100% &#123;</span><br><span class="line">      transform: rotate(-360deg);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="keyword">@keyframes</span> filterBallMove1 &#123;</span></span><br><span class="line">    100% &#123;</span><br><span class="line">      transform: rotate(360deg);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="comment">/* 内部区域 */</span></span></span><br><span class="line"><span class="css">  <span class="selector-class">.filter-mix</span><span class="selector-pseudo">::after</span> &#123;</span></span><br><span class="line">    content: &quot;&quot;;</span><br><span class="line">    position: absolute;</span><br><span class="line">    width: 120px;</span><br><span class="line">    height: 120px;</span><br><span class="line">    left: 50%;</span><br><span class="line">    top: 65px;</span><br><span class="line">    margin-left: -60px;</span><br><span class="line">    border-radius: 50% 48% 54% 45%;</span><br><span class="line">    background: black;</span><br><span class="line">    z-index: 2;</span><br><span class="line">    filter: blur(6px);</span><br><span class="line">    animation: filterBallMove2 4s linear infinite;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="keyword">@keyframes</span> filterBallMove2 &#123;</span></span><br><span class="line">    100% &#123;</span><br><span class="line">      transform: rotate(360deg);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="comment">/* 中心文字 */</span></span></span><br><span class="line"><span class="css">  <span class="selector-class">.filter-mix</span> <span class="selector-class">.text</span> &#123;</span></span><br><span class="line">    position: absolute;</span><br><span class="line">    color: white;</span><br><span class="line">    width: 50px;</span><br><span class="line">    height: 50px;</span><br><span class="line">    text-align: center;</span><br><span class="line">    line-height: 50px;</span><br><span class="line">    font-size: 30px;</span><br><span class="line">    left: 50%;</span><br><span class="line">    top: 95px;</span><br><span class="line">    margin-left: -25px;</span><br><span class="line">    z-index: 10;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="comment">/* 下放的泡泡 */</span></span></span><br><span class="line"><span class="css">  <span class="selector-class">.pop</span> &#123;</span></span><br><span class="line">    position: absolute;</span><br><span class="line">    width: 25px;</span><br><span class="line">    height: 25px;</span><br><span class="line"><span class="css">    <span class="selector-tag">background</span>: <span class="selector-id">#0ABFBC</span>;</span></span><br><span class="line">    border-radius: 50%;</span><br><span class="line">    filter: blur(6px);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="selector-class">.filter-mix</span> <span class="selector-pseudo">:nth-child(4)</span> &#123;</span></span><br><span class="line">    bottom: 30px;</span><br><span class="line">    left: 50%;</span><br><span class="line"><span class="css">    <span class="selector-tag">margin-left</span>: <span class="selector-tag">-12</span><span class="selector-class">.5px</span>;</span></span><br><span class="line">    animation: popMove 4s linear infinite;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="selector-class">.filter-mix</span> <span class="selector-pseudo">:nth-child(5)</span> &#123;</span></span><br><span class="line">    bottom: 30px;</span><br><span class="line">    left: 50%;</span><br><span class="line">    margin-left: -10px;</span><br><span class="line">    animation: popMove 4s 2s linear infinite;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="selector-class">.filter-mix</span> <span class="selector-pseudo">:nth-child(6)</span> &#123;</span></span><br><span class="line">    bottom: 30px;</span><br><span class="line">    left: 50%;</span><br><span class="line">    animation: popMove 5s linear infinite;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="selector-class">.filter-mix</span> <span class="selector-pseudo">:nth-child(7)</span> &#123;</span></span><br><span class="line">    bottom: 40px;</span><br><span class="line">    left: 40%;</span><br><span class="line"><span class="css">    <span class="selector-tag">margin-left</span>: <span class="selector-tag">-12</span><span class="selector-class">.5px</span>;</span></span><br><span class="line">    animation: popMove 3s 1s linear infinite;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="selector-class">.filter-mix</span> <span class="selector-pseudo">:nth-child(8)</span> &#123;</span></span><br><span class="line">    bottom: 30px;</span><br><span class="line">    left: 50%;</span><br><span class="line">    margin-left: 5px;</span><br><span class="line">    animation: popMove 7s linear infinite;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="comment">/* 底部基座 */</span></span></span><br><span class="line"><span class="css">  <span class="selector-class">.bottomPop</span> &#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">background</span>: <span class="selector-id">#0ABFBC</span>;</span></span><br><span class="line">    position: absolute;</span><br><span class="line">    width: 100px;</span><br><span class="line">    height: 40px;</span><br><span class="line">    left: 50%;</span><br><span class="line">    bottom: -5px;</span><br><span class="line">    margin-left: -50px;</span><br><span class="line">    filter: blur(6px);</span><br><span class="line">    border-radius: 100px 100px 0 0;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="css">  <span class="keyword">@keyframes</span> popMove &#123;</span></span><br><span class="line">    100% &#123;</span><br><span class="line">      transform: translateY(-120px);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;css-box&quot;</span>&gt;</span></span><br><span class="line">    外层盒子不设置 对比度</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;test&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;css-box&quot;</span>&gt;</span></span><br><span class="line">    外层盒子设置 对比度</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;test1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;css-box&quot;</span>&gt;</span></span><br><span class="line">    内部盒子相遇时</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;test2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;css-box&quot;</span>&gt;</span></span><br><span class="line">    内部盒子运动+渐变颜色</span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;test3&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;filter-mix&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;text&quot;</span>&gt;</span>99%<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;pop &quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;pop&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;pop&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;pop&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;pop&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;bottomPop&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
   </nav>
   
 </section>
