@@ -142,6 +142,172 @@
     
     
     <article
+  id="post-异步请求-数据传递"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/17/%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82-%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92/"
+    >异步请求-数据传递</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/17/%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82-%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92/" class="article-date">
+  <time datetime="2019-12-17T02:21:42.000Z" itemprop="datePublished">2019-12-17</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="解决了一个困扰了一天的bug"><a href="#解决了一个困扰了一天的bug" class="headerlink" title="解决了一个困扰了一天的bug"></a>解决了一个困扰了一天的bug</h2><blockquote>
+<p>基本信息描述</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">就是一个创建主题的界面  </span><br><span class="line">在没有进行操作的时候 第一次进入需要弹框进行填写 数据库用户名和密码等操作  </span><br><span class="line">填写完之后会返回一个数据库表名的数组  </span><br><span class="line">弹框是一个子组件 通过获取信息有没有存储在本地来判断是否是第一次操作  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>我的基本思路</p>
+</blockquote>
+<pre>  
+1.当弹框信息填写完毕 提交之后 会请求接口获取 <b style="color:red">数据库表数组</b>
+2.请求成功之后 将数组信息存放到 <b style="color:red">sessionStorage</b> 里面
+3.通过 <b style="color:red">$emit</b>在点击确定按钮的时候 把信息发送给父组件 关闭弹框
+4.然后父组件就可以直接获取到信息并且渲染出来
+</pre>
+<hr>
+<blockquote>
+<p>bug描述</p>
+</blockquote>
+<pre>
+问题就在于 子组件是基于父组件而存在的  
+父组件是渲染完成之后 才会显示的子组件
+在点击确定按钮的时候 发送请求是<b style="color:red">异步</b>的
+所以会先执行$emit操作和弹框关闭操作
+所以传递过去的值 是空的!!!
+<span style="color:gray;font-size:12px">
+/**
+在父组件 可以正常打印 但是就是不能渲染在页面上
+一开始 我以为是因为传的是对象 不能渲染页面用 $set 但没有任何作用
+然后我就觉得是父组件获取数据太快 用定时器的方法来异步获取数据 也不行
+
+后面以为是传值的原因 用了vuex，refs啥啥啥的 都没有成功
+
+后面在弹框组件内 保存按钮的函数下打印数据 发现打印的值为空！这个时候才定位到错误源
+*/</span>
+</pre>
+
+<blockquote>
+<p>解决</p>
+</blockquote>
+<pre>
+原因我猜想是请求接口是异步的，所以用$emit传递的时候 数据还没有被赋值
+所以用setTimeout延迟操作了200ms
+同样弹框状态也要和$emit一样延迟
+然后父组件就可以正常获取到数据了
+</pre>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-vuex多模块配置"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/16/vuex%E5%A4%9A%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE/"
+    >vue-element-admin中vuex多模块问题</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/16/vuex%E5%A4%9A%E6%A8%A1%E5%9D%97%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2019-12-16T02:00:00.000Z" itemprop="datePublished">2019-12-16</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>store的配置文件</p>
+<blockquote>
+<p>src/store/index.js  </p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">&#x27;vuex&#x27;</span></span><br><span class="line"><span class="keyword">import</span> getters <span class="keyword">from</span> <span class="string">&#x27;./getters&#x27;</span></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line"><span class="comment">// https://webpack.js.org/guides/dependency-management/#requirecontext</span></span><br><span class="line"> <span class="keyword">const</span> modulesFiles = <span class="built_in">require</span>.context(<span class="string">&#x27;./modules&#x27;</span>, <span class="literal">true</span>, <span class="regexp">/\.js$/</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// you do not need `import app from &#x27;./modules/app&#x27;`</span></span><br><span class="line"><span class="comment">// it will auto require all vuex module from modules file</span></span><br><span class="line"><span class="comment">// 大概理解下 不用去一个一个模块的导入 他已经写好了方法 来遍历modules文件下的各个子模块</span></span><br><span class="line"> <span class="keyword">const</span> modules = modulesFiles.keys().reduce(<span class="function">(<span class="params">modules, modulePath</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// set &#x27;./app.js&#x27; =&gt; &#x27;app&#x27;</span></span><br><span class="line">  <span class="keyword">const</span> moduleName = modulePath.replace(<span class="regexp">/^\.\/(.*)\.\w+$/</span>, <span class="string">&#x27;$1&#x27;</span>)</span><br><span class="line">  <span class="keyword">const</span> value = modulesFiles(modulePath)</span><br><span class="line">  modules[moduleName] = value.default</span><br><span class="line">  <span class="keyword">return</span> modules</span><br><span class="line">&#125;, &#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> store = <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">  modules,  <span class="comment">//引入全部子模块</span></span><br><span class="line">  getters</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>modules文件中存放的是各个小模块，分割store，每个模块内部都可以有自己的state、mutation、action、getter</p>
+<blockquote>
+<p>src/store/modules/subject.js</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = &#123;</span><br><span class="line">  DBNames: []</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> mutations = &#123;</span><br><span class="line">  changedb(state, db) &#123;</span><br><span class="line">    state.DBNames = db</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  namespaced: <span class="literal">true</span>, <span class="comment">//独立的命名空间 模块内部的action、mutation、getter被注册在独立的命名空间内  false 则注册在全局</span></span><br><span class="line">  state,</span><br><span class="line">  mutations</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用方式：<br>①直接使用</p>
+<blockquote>
+<p>在需要的 .vue 文件的&lt;script&gt;内的合适位置</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//this.$store.state.模块名.变量名</span></span><br><span class="line"><span class="built_in">this</span>.$store.state.subject.DBNames</span><br><span class="line"></span><br><span class="line"><span class="comment">//this.$store.commit( &#x27;模块名/函数名&#x27; , 参数 )</span></span><br><span class="line"><span class="built_in">this</span>.$store.commit(<span class="string">&#x27;subject/changedb&#x27;</span>,<span class="string">&#x27;lll&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr>
+<p>②配合辅助函数  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; mapState,mapMutations &#125; <span class="keyword">from</span> <span class="string">&quot;vuex&quot;</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">computed: &#123;</span><br><span class="line">    ...mapState(&#123;  </span><br><span class="line">      name: <span class="function"><span class="params">state</span> =&gt;</span> state.subject.DBNames</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    ...mapState(<span class="string">&#x27;subject&#x27;</span>,&#123;  </span><br><span class="line">      name: <span class="function"><span class="params">state</span> =&gt;</span> state.DBNames</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用  this.name</span></span><br><span class="line"></span><br><span class="line">methods: &#123;</span><br><span class="line">    ...mapMutations(&#123;</span><br><span class="line">      dbChange: <span class="string">&#x27;subject/changedb&#x27;</span>   <span class="comment">// 改变的函数名:&#x27; 模块名/函数名 &#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line"></span><br><span class="line">    ...mapMutations(<span class="string">&#x27;subject&#x27;</span>,&#123;</span><br><span class="line">      dbChange: <span class="string">&#x27;changedb&#x27;</span>   <span class="comment">// 改变的函数名:&#x27; 模块名/函数名 &#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//使用  this.dbChange(参数)</span></span><br></pre></td></tr></table></figure>
+<hr>
+<p>③配合模块辅助函数使用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createNamespacedHelpers &#125; <span class="keyword">from</span> <span class="string">&quot;vuex&quot;</span></span><br><span class="line"><span class="keyword">const</span> &#123; mapState,mapMutations &#125; = createNamespacedHelpers(<span class="string">&#x27;subject&#x27;</span>)</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"><span class="comment">//调用方法和②一样</span></span><br><span class="line">computed: &#123;</span><br><span class="line">    ...mapState(&#123;</span><br><span class="line">      name: <span class="function"><span class="params">state</span> =&gt;</span> state.DBNames</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    ...mapMutations(&#123;</span><br><span class="line">      dbChange: <span class="string">&#x27;changedb&#x27;</span></span><br><span class="line">    &#125;),</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-秋招记录"
   class="article article-type-post"
   itemscope
