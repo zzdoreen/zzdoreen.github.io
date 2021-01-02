@@ -142,7 +142,7 @@
     
     
     <article
-  id="post-2020年总结"
+  id="post-await相关题目"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -153,57 +153,58 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2020/01/01/2020%E5%B9%B4%E6%80%BB%E7%BB%93/"
-    >2020年度总结</a> 
+  <a class="article-title" href="/2020/01/08/await%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/"
+    >事件循环相关-异步输出顺序问题</a> 
 </h2>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2020/01/01/2020%E5%B9%B4%E6%80%BB%E7%BB%93/" class="article-date">
-  <time datetime="2020-01-01T02:21:42.000Z" itemprop="datePublished">2020-01-01</time>
+      <a href="/2020/01/08/await%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/" class="article-date">
+  <time datetime="2020-01-08T07:16:00.000Z" itemprop="datePublished">2020-01-08</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
   </div>
    
     </div>
       
     <div class="article-entry" itemprop="articleBody">
        
-  <pre>
-关键词：顺利、平淡
+  <h2 id="题目出处"><a href="#题目出处" class="headerlink" title="题目出处"></a><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000016329715">题目出处</a></h2><blockquote>
+<p>通过这个题目 大概搞懂了 async/await 的实际意义<br>也可以复习下事件循环机制</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;async1 start&quot;</span>);</span><br><span class="line">    <span class="keyword">await</span> async2();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;async1 end&quot;</span>);  <span class="comment">// 相当于async2这个promise对象的一个 .then()</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">&quot;async2&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;script start&quot;</span>);  </span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;settimeout&quot;</span>);</span><br><span class="line">&#125;,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">async1();   </span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;promise1&quot;</span>);   </span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;promise2&quot;</span>);</span><br><span class="line">&#125;); </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;script end&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 整体同步的执行顺序</span></span><br><span class="line"><span class="comment"> * 1. console.log(&quot;script start&quot;)   -&gt; 输出 “ script start ”</span></span><br><span class="line"><span class="comment"> *  </span></span><br><span class="line"><span class="comment"> *  * setTimeout() 进入异步队列 *</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 2. async1()  </span></span><br><span class="line"><span class="comment"> *      -&gt; 输出 “ async1 start ” </span></span><br><span class="line"><span class="comment"> *      -&gt; 进入 async2() 输出 “ async2 ”</span></span><br><span class="line"><span class="comment"> *      -&gt; await等待async2()函数返回一个promise实例 将 console.log(&#x27;async1 end&#x27;) 放入异步队列</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 3. promise()</span></span><br><span class="line"><span class="comment"> *      -&gt; 输出 “ promise1 ” </span></span><br><span class="line"><span class="comment"> *      -&gt; resolve() 进入异步队列</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 4. console.log(&quot;script end&quot;)   -&gt; 输出 “ script end ”</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 异步队列：</span></span><br><span class="line"><span class="comment"> * setTimeout()               </span></span><br><span class="line"><span class="comment"> * console.log(&#x27;async1 end&#x27;)  </span></span><br><span class="line"><span class="comment"> * resolve()                  </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 按宏 / 微任务 顺序输出</span></span><br><span class="line"><span class="comment"> * console.log(&#x27;async1 end&#x27;)  // 微任务 1  -&gt;   async1 end</span></span><br><span class="line"><span class="comment"> * resolve()                  // 微任务 2  -&gt;  promise2</span></span><br><span class="line"><span class="comment"> * setTimeout()               // 宏任务 1  -&gt;   settimeout</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 
-这一年实现了人生路上一个重要的转变
-从学生转换成了打工人 hhh（苦笑
-现在回想起来2020好像没做什么事情 过的糊里糊涂的
+<h2 id="async-await"><a href="#async-await" class="headerlink" title="async / await"></a>async / await</h2><blockquote>
+<p>通过看起来是同步的代码来执行 async(异步) 操作。<br>await阻塞功能，相当于一个 .then()的功能，await后一般是跟的异步操作，加上之后 只有等他执行完之后，后面的代码才能进行<br>本质还是promise 属于微任务</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">await</span> otherAsyncFunc();</span><br><span class="line">    <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 等价于:</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">asyncFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> otherAsyncFunc().then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(result);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="事件循环机制-EventLoop"><a href="#事件循环机制-EventLoop" class="headerlink" title="事件循环机制 (EventLoop)"></a>事件循环机制 (EventLoop)</h2><blockquote>
+<p>JavaScript是单线程的 ( 所有在主线程执行 )<br>事件轮询机制：同步任务完成后，执行异步队列  </p>
+</blockquote>
+<p><b style='color:red'>单线程特点:</b>   </p>
+<ol>
+<li>代码从上至下以此执行  </li>
+<li>同步（ 会阻塞后面代码的执行 ） &amp; 异步 ( 主线程同步任务之后触发执行 )  </li>
+<li>同步代表：alert()  console.log()  赋值语句  </li>
+<li>异步代表：定时器  事件的回调(  xx.onclick=function(){}  ) promise</li>
+</ol>
+<img src='/images/eventLoop.png'>
 
-因为疫情原因在家呆了差不多半年、毕业答辩也是线上草草结束
-还混了个优秀实习生...
-挺不真实的、就这？我大学四年就完了?
-
-七月中旬去了公司培训，体检身体状况还是不行，好在医生很仁慈
-放了我一马，让我能顺利过关、顺利入职
-公司给的专利 kpi 也‘一帆风顺’的通过了
-12月29完成了转正答辩，70%的几率能混的个A。
-
-好像也没什么值得说的了
-从入职工作以来还挺适应的
-实现财务自由的感觉真的挺好
-对比其他同学无止尽的加班 我觉得我这份工作还行
-虽然工资不算高 对我来说足够用了 还有富裕的可以存着
-工作的强度和难度都能接受
-周边的同事也不错 经常‘施舍’一些家乡特产给我
-和同期进来的小伙伴玩的比较好 没实习的时候孤独
-因为和项目组不在一个地方
-省去了很多无用的会议 没人看着管着 美滋滋
-四川这个地方也不错 周边还有好多想去的地方 也在慢慢筹备着
-
-这样的生活已经很满足了 至少关键性的事情都是顺利进行的
-虽然日子过得很平淡、但我也很享受这种平淡的生活
-希望2021也能平安顺意。
-</pre> 
+<p><b style='color:red'>事件循环:</b>  </p>
+<ol>
+<li>所有同步任务都在主线程上执行，形成一个执行栈</li>
+<li>主线程之外，还存在一个”消息队列”。只要异步操作执行完成，就到消息队列中排队</li>
+<li>一旦执行栈中的所有同步任务执行完毕，系统就会按次序读取消息队列中的异步任务，于是被读取的异步任务结束等待状态，进入执行栈，开始执行</li>
+<li>主线程不断重复上面的第三步</li>
+</ol>
+<h2 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h2><blockquote>
+<p>微任务和宏任务皆为异步任务，但是微任务的优先级高于宏任务。</p>
+</blockquote>
+<img src='/images/task.png'>
+<img src='/images/tasks.png'> 
       <!-- reward -->
       
     </div>
