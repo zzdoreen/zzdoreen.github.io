@@ -142,88 +142,6 @@
     
     
     <article
-  id="post-vue-element-admin权限管理&amp;动态路由配置"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/01/08/vue-element-admin%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86&%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/"
-    >vue-element-admin权限管理&amp;动态路由配置</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/01/08/vue-element-admin%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86&%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" class="article-date">
-  <time datetime="2020-01-08T12:00:00.000Z" itemprop="datePublished">2020-01-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/">vue-element-admin模板地址</a></p>
-<blockquote>
-<p>需求: 调用登陆接口之后 后台传递路由数据给前端 进行动态创建和显示  </p>
-</blockquote>
-<blockquote>
-<p>问题: 各种问题 主要是不清楚这个模板的默认权限动态传递的配置</p>
-</blockquote>
-<h3 id="用到的核心文件地址"><a href="#用到的核心文件地址" class="headerlink" title="用到的核心文件地址"></a>用到的核心文件地址</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">src&#x2F;router&#x2F;index.js                     路由</span><br><span class="line">src&#x2F;store&#x2F;modules&#x2F;user.js               用户登录，用户信息、路由信息传递</span><br><span class="line">src&#x2F;permission.js                       信息传递（user -&gt; permission 的中间商）  之前就是一直没注意到这个 导致一直弄不好</span><br><span class="line">src&#x2F;store&#x2F;modules&#x2F;permission.js         权限获取&amp;配置</span><br></pre></td></tr></table></figure>
-<h3 id="src-router-index-js-路由配置"><a href="#src-router-index-js-路由配置" class="headerlink" title="src/router/index.js 路由配置"></a>src/router/index.js 路由配置</h3><blockquote>
-<p>constantRoutes: 不需要动态判断权限的路由 eg：登陆、404等通用页面<br>asyncRoutes：需要动态判断权限并通过addRoutes动态添加的页面  </p>
-</blockquote>
-<p>需要把动态路由先配置好 ‘permission’ 权限要写好<br>到时候才能正确的获取和显示相应的权限</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> constantRoutes = [</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">&#x27;/login&#x27;</span>,</span><br><span class="line">    component: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;@/views/login/index&#x27;</span>),</span><br><span class="line">    hidden: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">    component: Layout,</span><br><span class="line">    redirect: <span class="string">&#x27;/dashboard&#x27;</span>,</span><br><span class="line">    children: [&#123;</span><br><span class="line">      path: <span class="string">&#x27;/dashboard&#x27;</span>,</span><br><span class="line">      name: <span class="string">&#x27;Dashboard&#x27;</span>,</span><br><span class="line">      component: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;@/views/dashboard/index&#x27;</span>),</span><br><span class="line">      meta: &#123; <span class="attr">title</span>: <span class="string">&#x27;首页&#x27;</span>, <span class="attr">icon</span>: <span class="string">&#x27;dashboard&#x27;</span>, <span class="attr">affix</span>: <span class="literal">true</span> &#125;</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> asyncRoutes = [</span><br><span class="line">  <span class="comment">//  待审核</span></span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">&#x27;/toPend&#x27;</span>,</span><br><span class="line">    component: Layout,</span><br><span class="line">    redirect: <span class="string">&#x27;/toPend&#x27;</span>,</span><br><span class="line">    permission: <span class="string">&#x27;toPend&#x27;</span>,</span><br><span class="line">    title: <span class="string">&#x27;待审核&#x27;</span>,</span><br><span class="line">    children: [</span><br><span class="line">      &#123;</span><br><span class="line">        permission: <span class="string">&#x27;toPend&#x27;</span>,</span><br><span class="line">        path: <span class="string">&#x27;/toPendIndex&#x27;</span>,</span><br><span class="line">        component: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;@/views/toPendManagement/toPendIndex&#x27;</span>),</span><br><span class="line">        name: <span class="string">&#x27;toPend&#x27;</span>,</span><br><span class="line">        meta: &#123;</span><br><span class="line">          title: <span class="string">&#x27;待审核&#x27;</span>,</span><br><span class="line">          icon: <span class="string">&#x27;form&#x27;</span>,</span><br><span class="line">          noCache: <span class="literal">false</span> <span class="comment">// 如果设置为true，则不会被 &lt;keep-alive&gt; 缓存(默认 false)</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  ....</span><br><span class="line">  <span class="comment">// 404 page must be placed at the end !!!</span></span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;*&#x27;</span>, <span class="attr">redirect</span>: <span class="string">&#x27;/404&#x27;</span>, <span class="attr">hidden</span>: <span class="literal">true</span> &#125;</span><br><span class="line">]</span><br><span class="line"><span class="keyword">const</span> createRouter = <span class="function">() =&gt;</span> <span class="keyword">new</span> Router(&#123;</span><br><span class="line">  mode: <span class="string">&#x27;history&#x27;</span>, <span class="comment">// require service support</span></span><br><span class="line">  scrollBehavior: <span class="function">() =&gt;</span> (&#123; <span class="attr">y</span>: <span class="number">0</span> &#125;),</span><br><span class="line">  routes: constantRoutes</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = createRouter()</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">resetRouter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> newRouter = createRouter()</span><br><span class="line">  router.matcher = newRouter.matcher <span class="comment">// reset router</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="src-store-modules-user-js-用户登陆获取数据"><a href="#src-store-modules-user-js-用户登陆获取数据" class="headerlink" title="src/store/modules/user.js 用户登陆获取数据"></a>src/store/modules/user.js 用户登陆获取数据</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  正常流程是在login接口获取到 token，存在vuex中 供登陆</span></span><br><span class="line"><span class="comment">  然后在getInfo接口获取到 路由和用户信息 存储并发送出去 供路由的动态配置</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  但是 我们这个项目把getInfo接口取消了 在login接口就直接获取到路由信息</span></span><br><span class="line"><span class="comment">  本来是不需要自己封装info数据的</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">const</span> actions = &#123;</span><br><span class="line">  <span class="comment">// user login</span></span><br><span class="line">  login(&#123;commit&#125;, userInfo) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; username,password &#125; = userInfo</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      login(&#123; <span class="attr">account</span>: username.trim(), <span class="attr">password</span>: password &#125;).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123;</span><br><span class="line">          data</span><br><span class="line">        &#125; = response</span><br><span class="line">        <span class="comment">// 存储到cookie中 ！很重要 不然登陆不了 接口在 src/utils/auth.js</span></span><br><span class="line">        setToken(&#123; <span class="attr">username</span>: <span class="string">&#x27;admin&#x27;</span>, <span class="attr">password</span>: <span class="string">&#x27;admin&#x27;</span> &#125;)  </span><br><span class="line">        <span class="keyword">var</span> info = &#123; <span class="attr">username</span>: <span class="string">&#x27;admin&#x27;</span>, <span class="attr">password</span>: <span class="string">&#x27;admin&#x27;</span>, <span class="attr">roles</span>: [<span class="string">&#x27;admin&#x27;</span>], <span class="attr">routes</span>: data.permission &#125; </span><br><span class="line">         commit(<span class="string">&#x27;SET_TOKEN&#x27;</span>, info)  <span class="comment">// 存储到 vuex 中 数据格式如上 ↑ </span></span><br><span class="line">        resolve()</span><br><span class="line">      &#125;).catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">        reject(error)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  getInfo(&#123; commit,state &#125;) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 可以把这三个写在 info 中 从info里获取</span></span><br><span class="line">      <span class="keyword">const</span> roles = <span class="string">&#x27;admin&#x27;</span></span><br><span class="line">      <span class="keyword">const</span> name = <span class="string">&#x27;Super Admin&#x27;</span></span><br><span class="line">      <span class="keyword">const</span> avatar = <span class="string">&#x27;http://pic.51yuansu.com/pic3/cover/03/47/85/5badd30d6526d_610.jpg&#x27;</span></span><br><span class="line">      commit(<span class="string">&#x27;SET_ROLES&#x27;</span>, roles)</span><br><span class="line">      commit(<span class="string">&#x27;SET_NAME&#x27;</span>, name)</span><br><span class="line">      commit(<span class="string">&#x27;SET_AVATAR&#x27;</span>, avatar) <span class="comment">// 存储在cookie中</span></span><br><span class="line">      resolve(state.token)  <span class="comment">// 发送 info 值 ，传递给 permission</span></span><br><span class="line">     &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// get user info 如果是有info接口的传递方法</span></span><br><span class="line">  <span class="comment">/* getInfo(&#123; commit, state &#125;) &#123;</span></span><br><span class="line"><span class="comment">    return new Promise((resolve, reject) =&gt; &#123;</span></span><br><span class="line"><span class="comment">      getInfo(state.token).then(response =&gt; &#123;</span></span><br><span class="line"><span class="comment">        const &#123; data &#125; = response</span></span><br><span class="line"><span class="comment">        if (!data) &#123;</span></span><br><span class="line"><span class="comment">          reject(&#x27;Verification failed, please Login again.&#x27;)</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        const &#123; roles, name, avatar &#125; = data</span></span><br><span class="line"><span class="comment">        // roles must be a non-empty array</span></span><br><span class="line"><span class="comment">        if (!roles || roles.length &lt;= 0) &#123;</span></span><br><span class="line"><span class="comment">          reject(&#x27;getInfo: roles must be a non-null array!&#x27;)</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        commit(&#x27;SET_ROLES&#x27;, roles)</span></span><br><span class="line"><span class="comment">        commit(&#x27;SET_NAME&#x27;, name)</span></span><br><span class="line"><span class="comment">        commit(&#x27;SET_AVATAR&#x27;, avatar)</span></span><br><span class="line"><span class="comment">        console.log(data)</span></span><br><span class="line"><span class="comment">        resolve(data)</span></span><br><span class="line"><span class="comment">      &#125;).catch(error =&gt; &#123;</span></span><br><span class="line"><span class="comment">        reject(error)</span></span><br><span class="line"><span class="comment">      &#125;)</span></span><br><span class="line"><span class="comment">    &#125;)</span></span><br><span class="line"><span class="comment">  &#125;, */</span></span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  namespaced: <span class="literal">true</span>,</span><br><span class="line">  state,</span><br><span class="line">  mutations,</span><br><span class="line">  actions</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="src-store-modules-permission-js-权限获取"><a href="#src-store-modules-permission-js-权限获取" class="headerlink" title="src/store/modules/permission.js 权限获取"></a>src/store/modules/permission.js 权限获取</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  本来是根据角色roles权限过滤路由,并显示到侧边栏</span></span><br><span class="line"><span class="comment">  roles.</span></span><br><span class="line"><span class="comment">  但是现在是不根据权限 而是后台传递的路由信息 所以不用判断权限 修改为</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">const</span> actions = &#123;</span><br><span class="line">  generateRoutes(&#123; commit &#125;, userinfo) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">       <span class="keyword">const</span> strRoutes = <span class="built_in">JSON</span>.stringify(userinfo.routes)</span><br><span class="line">       <span class="keyword">const</span> accessedRoutes = filterAsyncRoutes(asyncRoutes, strRoutes) <span class="comment">//路由的过滤器 获取相同的路由</span></span><br><span class="line">      commit(<span class="string">&#x27;SET_ROUTES&#x27;</span>, accessedRoutes)</span><br><span class="line">      resolve(accessedRoutes)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="src-permission-js-用户信息传递-amp-配置路由"><a href="#src-permission-js-用户信息传递-amp-配置路由" class="headerlink" title="src/permission.js 用户信息传递&amp;配置路由"></a>src/permission.js 用户信息传递&amp;配置路由</h3><blockquote>
-<p>首先确定userinfo需要的格式  就是getInfo函数传递过来的 resolve(state.token)</p>
-</blockquote>
-<p>path对应的是路由中的permission<br><img src='/images/数据格式.png' >  </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">router.beforeEach(<span class="keyword">async</span>(to, <span class="keyword">from</span>, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (hasToken) &#123;</span><br><span class="line">    <span class="keyword">if</span> (to.path === <span class="string">&#x27;/login&#x27;</span>) &#123;</span><br><span class="line">     ...</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// determine whether the user has obtained his permission roles through getInfo</span></span><br><span class="line">      <span class="keyword">const</span> hasRoles = store.getters.roles &amp;&amp; store.getters.roles.length &gt; <span class="number">0</span></span><br><span class="line">      <span class="keyword">if</span> (hasRoles) &#123;</span><br><span class="line">        next()</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 登录后会走这里获取roles</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="comment">// get user info</span></span><br><span class="line">          <span class="comment">// note: roles must be a object array! such as: [&#x27;admin&#x27;] or ,[&#x27;developer&#x27;,&#x27;editor&#x27;]</span></span><br><span class="line">          <span class="keyword">const</span> userinfo = <span class="keyword">await</span> store.dispatch(<span class="string">&#x27;user/getInfo&#x27;</span>) <span class="comment">//获取用户信息</span></span><br><span class="line">          <span class="comment">// 调用store下module下的permission文件中的generateRoutes方法</span></span><br><span class="line">          <span class="keyword">const</span> accessRoutes = <span class="keyword">await</span> store.dispatch(<span class="string">&#x27;permission/generateRoutes&#x27;</span>, userinfo) <span class="comment">// 获取动态路由</span></span><br><span class="line">          <span class="comment">// dynamically add accessible routes 显示获取到的侧边栏</span></span><br><span class="line">          router.addRoutes(accessRoutes)  <span class="comment">//创建路由</span></span><br><span class="line"></span><br><span class="line">          next(&#123; ...to, <span class="attr">replace</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">        &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">          ...</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="被遗漏的BUG"><a href="#被遗漏的BUG" class="headerlink" title="被遗漏的BUG"></a>被遗漏的BUG</h3><blockquote>
-<p>描述： 登录完成之后，进入操作页面 刷新 又需要重新登录  </p>
-</blockquote>
-<p>原因： 之前这个模板是调用的getInfo接口获取、存储路由信息<br>页面刷新之后 再次调用接口即可获取到路由等信息  </p>
-<p>但是我们把getInfo接口废弃了 路由信息是登陆的时候获取<br>存在vuex中 在getInfo函数内直接使用的vuex存储的数据 并发布出去  </p>
-<p><b style='color:red'>原因就在于 vuex刷新之后 数据就清空了！所以又需要重新登录 获取路由等信息。 </b>   </p>
-<blockquote>
-<p>解决:<br>在login登陆接口之后获取到路由数据<br>通过sessionStorage / localStorage 存放在本地<br>然后在使用 getInfo 函数的时候 不从vuex内获取 从 sessionStorage / localStorage 获取并发送    </p>
-</blockquote>
-<p>注意：在退出登陆的时候 即调用logout接口之前要通过.removeItem()进行删除操作 不然不能正常退出登陆</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
   id="post-await相关题目"
   class="article article-type-post"
   itemscope
@@ -1299,6 +1217,88 @@
 </ul>
 </li>
 </ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-第一章_面向对象的JavaScript"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/19/%E7%AC%AC%E4%B8%80%E7%AB%A0_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84JavaScript/"
+    >【第一章】面向对象的JavaScript</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/19/%E7%AC%AC%E4%B8%80%E7%AB%A0_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84JavaScript/" class="article-date">
+  <time datetime="2019-12-19T02:21:42.000Z" itemprop="datePublished">2019-12-19</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="动态类型语言和鸭子类型"><a href="#动态类型语言和鸭子类型" class="headerlink" title="动态类型语言和鸭子类型"></a>动态类型语言和鸭子类型</h2><blockquote>
+<p>编程语言按照数据类型 可以分为 静态类型语言和动态类型语言  </p>
+</blockquote>
+<pre>
+        <b style='color:red'>静态类型语言：</b>声明时确定变量类型
+            <span style='color:red'>优：</span>
+            1. 在编译时就能发现类型不匹配的错误，提前避免程序在运行期间有可能发生的一些错误。[提高可靠性]
+            2. 如果在程序中明确地规定了数据类型，编译器还可以针对这些信息对程序进行一些优化工作，提高程序执行速度。
+            <span style='color:red'>缺：</span>
+            1. 具有强迫性 不够灵活
+            2. 类型的声明会增加代码量 分散业务逻辑这个重点
+        <b style='color:red'>动态类型语言：</b>赋值时确定变量类型（JavaScript）
+            <span style='color:red'>优：</span>
+            1. 简化代码量 侧重点更能集中在业务逻辑上面
+            2. 代码灵活性增强
+            <span style='color:red'>缺：</span>
+            1. 无法保证变量的类型 [可靠性低]
+
+</pre>
+
+<blockquote>
+<p>动态语言和鸭子类型的关系  </p>
+</blockquote>
+<p><b style='color:red'>鸭子类型概念：</b>如果它走起路来像鸭子，叫起来也是鸭子，那么它就是鸭子（关注的是has a xx 而不是 is a xx）</b></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    我的理解：</span></span><br><span class="line"><span class="comment">    动态语言无法保证变量的类型</span></span><br><span class="line"><span class="comment">    那么只要他所赋值的变量有某种类型的特性 那么它就是某一类型</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//书中的例子</span></span><br><span class="line"><span class="keyword">var</span> duck = &#123;    <span class="comment">//鸭子</span></span><br><span class="line">    voice: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;嘎嘎嘎&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> chicken = &#123;     <span class="comment">//鸡</span></span><br><span class="line">    voice: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;嘎嘎嘎&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> Ducks = []   <span class="comment">//鸭子类型</span></span><br><span class="line"><span class="keyword">var</span> joinDucks = <span class="function"><span class="keyword">function</span>(<span class="params">animal</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>( animal &amp;&amp; <span class="keyword">typeof</span> animal.voice === <span class="string">&#x27;function&#x27;</span> )&#123;</span><br><span class="line">        Ducks.push(animal)</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;恭喜加入鸭子类型&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">joinDucks(duck) <span class="comment">//恭喜加入鸭子类型</span></span><br><span class="line">joinDucks(chicken) <span class="comment">//恭喜加入鸭子类型</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><blockquote>
+<p>对象继承类的属性/方法 但是可以对属性/方法进行针对性的改变<br>就是构造函数根据传入的变量不同，对同一方法，有不同的返回结果</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Animal = <span class="function"><span class="keyword">function</span>(<span class="params"> sound </span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.sound = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(sound)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> duck = <span class="keyword">new</span> Animal(<span class="string">&#x27;嘎嘎嘎&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> chicken = <span class="keyword">new</span> Animal(<span class="string">&#x27;咯咯咯&#x27;</span>)</span><br><span class="line">duck.sound()    <span class="comment">//嘎嘎嘎</span></span><br><span class="line">chicken.sound() <span class="comment">//咯咯咯</span></span><br></pre></td></tr></table></figure>
+<h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><blockquote>
+<p>封装的目的就是将信息隐藏 不在乎过程 只要能使用</p>
+</blockquote>
  
       <!-- reward -->
       
