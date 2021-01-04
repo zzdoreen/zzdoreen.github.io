@@ -142,6 +142,83 @@
     
     
     <article
+  id="post-flutter"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/01/04/flutter/"
+    >Flutter组件封装</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/04/flutter/" class="article-date">
+  <time datetime="2021-01-04T04:21:42.000Z" itemprop="datePublished">2021-01-04</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flutter/">Flutter</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="Flutter组件封装"><a href="#Flutter组件封装" class="headerlink" title="Flutter组件封装"></a>Flutter组件封装</h1><h2 id="封装控件的子项目"><a href="#封装控件的子项目" class="headerlink" title="封装控件的子项目"></a>封装控件的子项目</h2><blockquote>
+<p>通过<code>类</code>来定义子项目，再通过<code>List</code>的<code>泛型</code>来声明变量以供使用</p>
+</blockquote>
+<h3 id="以BottomNavigationBar-底部导航栏-为例"><a href="#以BottomNavigationBar-底部导航栏-为例" class="headerlink" title="以BottomNavigationBar(底部导航栏)为例"></a>以BottomNavigationBar(底部导航栏)为例</h3><h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bottomNavigationBar: BottomNavigationBar(</span><br><span class="line">    ...</span><br><span class="line">    items: [</span><br><span class="line">    BottomNavigationBarItem(title: Text(<span class="string">&#x27;首页&#x27;</span>), icon: Icon(Icons.home)),</span><br><span class="line">    BottomNavigationBarItem(title: Text(<span class="string">&#x27;书籍&#x27;</span>), icon: Icon(Icons.book)),</span><br><span class="line">    BottomNavigationBarItem(</span><br><span class="line">        title: Text(<span class="string">&#x27;我的&#x27;</span>), icon: Icon(Icons.perm_identity)),</span><br><span class="line">    ],</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><ol>
+<li>将<code>BottomNavigationBarItem</code>的内容封装成类,使用的时候需要传入label、iconPath、activeIconPath三个参数<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NavigationIconView</span> </span>&#123;</span><br><span class="line"><span class="comment">// item</span></span><br><span class="line"><span class="keyword">final</span> BottomNavigationBarItem item;</span><br><span class="line"><span class="comment">// title</span></span><br><span class="line"><span class="keyword">final</span> <span class="built_in">String</span> label;</span><br><span class="line"><span class="comment">// icon path</span></span><br><span class="line"><span class="keyword">final</span> IconData iconPath;</span><br><span class="line"><span class="comment">// actived icon path</span></span><br><span class="line"><span class="keyword">final</span> IconData activeIconPath;</span><br><span class="line"></span><br><span class="line">NavigationIconView(&#123;<span class="meta">@required</span> <span class="keyword">this</span>.label, <span class="meta">@required</span> <span class="keyword">this</span>.iconPath, <span class="meta">@required</span> <span class="keyword">this</span>.activeIconPath&#125;)</span><br><span class="line">    : item = BottomNavigationBarItem(</span><br><span class="line">        title: Text(</span><br><span class="line">            label,</span><br><span class="line">            style: TextStyle(color: Colors.black),</span><br><span class="line">        ),</span><br><span class="line">        icon: Icon(</span><br><span class="line">            iconPath,</span><br><span class="line">        ),</span><br><span class="line">        activeIcon: Icon(</span><br><span class="line">            activeIconPath,</span><br><span class="line">            size: <span class="number">30</span>,</span><br><span class="line">        ),</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>在页面中声明变量</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 限定类型，使用 &lt;&gt; 泛型来指定 List 中保存的数据类型为NavigationIconView</span></span><br><span class="line"><span class="built_in">List</span>&lt;NavigationIconView&gt; _navigationIconViews;</span><br><span class="line"></span><br><span class="line">... </span><br><span class="line"></span><br><span class="line"><span class="comment">// 页面初始化的时候对数据进行赋值，按要求传入参数</span></span><br><span class="line">_navigationIconViews = [</span><br><span class="line">    NavigationIconView(label: <span class="string">&#x27;资讯&#x27;</span>, iconPath: Icons.new_releases, activeIconPath: Icons.new_releases),</span><br><span class="line">    NavigationIconView(label: <span class="string">&#x27;动态&#x27;</span>, iconPath: Icons.palette, activeIconPath: Icons.palette),</span><br><span class="line">    NavigationIconView(label: <span class="string">&#x27;发现&#x27;</span>, iconPath: Icons.find_replace, activeIconPath: Icons.find_replace),</span><br><span class="line">    NavigationIconView(label: <span class="string">&#x27;我的&#x27;</span>, iconPath: Icons.person_pin, activeIconPath: Icons.person_pin)</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在BottomNavigationBar控件中使用</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bottomNavigationBar: BottomNavigationBar(</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// view.item =&gt; BottomNavigationBarItem(...)</span></span><br><span class="line">    items: _navigationIconViews.map((view) =&gt; view.item).toList(),</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="封装一个控件"><a href="#封装一个控件" class="headerlink" title="封装一个控件"></a>封装一个控件</h2><ol>
+<li><p>以Drawer(抽屉)为例，创建一个widget，并写入参数</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyDrawer</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line"><span class="keyword">final</span> <span class="built_in">String</span> headImagePath;</span><br><span class="line"><span class="keyword">final</span> <span class="built_in">List</span> meanuTitle;</span><br><span class="line"><span class="keyword">final</span> <span class="built_in">List</span> meanuIcons;</span><br><span class="line">MyDrawer(&#123;Key key, <span class="meta">@required</span> <span class="keyword">this</span>.headImagePath, <span class="meta">@required</span> <span class="keyword">this</span>.meanuTitle, <span class="meta">@required</span> <span class="keyword">this</span>.meanuIcons&#125;)</span><br><span class="line">    : <span class="keyword">assert</span>(headImagePath != <span class="keyword">null</span>),</span><br><span class="line">      <span class="keyword">assert</span>(meanuTitle != <span class="keyword">null</span>),</span><br><span class="line">      <span class="keyword">assert</span>(meanuIcons != <span class="keyword">null</span>),</span><br><span class="line">      <span class="keyword">super</span>(key: key);</span><br><span class="line"></span><br><span class="line"><span class="meta">@override</span></span><br><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Drawer(...)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在页面中使用</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">        ...</span><br><span class="line">        drawer: MyDrawer(</span><br><span class="line">            headImagePath: <span class="string">&#x27;assets/image/xxx.jpg&#x27;</span>,</span><br><span class="line">            meanuIcons: _meanuIcons,</span><br><span class="line">            meanuTitle: _meanuTitle,</span><br><span class="line">        ),</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-2020年总结"
   class="article article-type-post"
   itemscope
@@ -1061,79 +1138,6 @@
 
 <h3 id="mapAction："><a href="#mapAction：" class="headerlink" title="mapAction："></a>mapAction：</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">methods: &#123;</span><br><span class="line">    ...mapActions([</span><br><span class="line">      <span class="string">&#x27;increment&#x27;</span>, <span class="comment">// 将 `this.increment()` 映射为 `this.$store.dispatch(&#x27;increment&#x27;)`</span></span><br><span class="line"></span><br><span class="line">      <span class="comment">// `mapActions` 也支持载荷：</span></span><br><span class="line">      <span class="string">&#x27;incrementBy&#x27;</span> <span class="comment">// 将 `this.incrementBy(amount)` 映射为 `this.$store.dispatch(&#x27;incrementBy&#x27;, amount)`</span></span><br><span class="line">    ]),</span><br><span class="line">    ...mapActions(&#123;</span><br><span class="line">      add: <span class="string">&#x27;increment&#x27;</span> <span class="comment">// 将 `this.add()` 映射为 `this.$store.dispatch(&#x27;increment&#x27;)`</span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
 
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-vue-router"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/10/01/vue-router/"
-    >vue-router的简单使用</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/10/01/vue-router/" class="article-date">
-  <time datetime="2020-10-01T03:37:33.622Z" itemprop="datePublished">2020-10-01</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
-<p>npm i vue-router -S</p>
-</blockquote>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="在src下创建一个router文件夹文件夹内创建index-js文件"><a href="#在src下创建一个router文件夹文件夹内创建index-js文件" class="headerlink" title="在src下创建一个router文件夹文件夹内创建index.js文件"></a>在src下创建一个router文件夹文件夹内创建index.js文件</h3><h3 id="配置路由（index-js）文件"><a href="#配置路由（index-js）文件" class="headerlink" title="配置路由（index.js）文件"></a>配置路由（index.js）文件</h3><ol>
-<li><p>创建组件、引入组件</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Router <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Nav <span class="keyword">from</span> <span class="string">&#x27;../components/Nav.vue&#x27;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>配置路由</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> routes = [</span><br><span class="line">    &#123; <span class="attr">path</span>:<span class="string">&#x27;/nav&#x27;</span>,<span class="attr">component</span>:Nav &#125;, </span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/user/:id&#x27;</span>, <span class="attr">component</span>: User &#125; <span class="comment">// 动态路由</span></span><br><span class="line">    <span class="comment">// ....</span></span><br><span class="line">    &#123; <span class="attr">path</span>:<span class="string">&#x27;*&#x27;</span>,<span class="attr">redirect</span>:<span class="string">&#x27;/nav&#x27;</span> &#125;,   <span class="comment">// 默认跳转路径</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 嵌套路由</span></span><br><span class="line">    &#123; <span class="attr">path</span>: <span class="string">&#x27;/user/:id&#x27;</span>, <span class="attr">component</span>: User,</span><br><span class="line">      children: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="comment">// 当 /user/:id/profile 匹配成功，</span></span><br><span class="line">          <span class="comment">// UserProfile 会被渲染在 User 的 &lt;router-view&gt; 中</span></span><br><span class="line">          path: <span class="string">&#x27;profile&#x27;</span>,</span><br><span class="line">          component: UserProfile</span><br><span class="line">        &#125;,</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>实例化VueRouter并暴露出去</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">    routes</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br></pre></td></tr></table></figure>
-<h3 id="在main-js中引入使用router"><a href="#在main-js中引入使用router" class="headerlink" title="在main.js中引入使用router"></a>在main.js中引入使用router</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入router</span></span><br><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  <span class="comment">// 在vue实例化中使用router </span></span><br><span class="line">  router,</span><br><span class="line">  render: <span class="function"><span class="params">h</span> =&gt;</span> h(App),</span><br><span class="line">&#125;).$mount(<span class="string">&#x27;#app&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2></li>
-</ol>
-<ul>
-<li>声明式方法<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 路由配置的区域</span></span><br><span class="line">&lt;router-link to=<span class="string">&quot;/nav&quot;</span>&gt;nav&lt;/router-link&gt;</span><br><span class="line">&lt;router-link to=<span class="string">&quot;/user/123&quot;</span> &gt;user&lt;/router-link&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 路由需要配置参数 可以通过以下两种方法</span></span><br><span class="line">&lt;router-link</span><br><span class="line">  :to=<span class="string">&quot;&#123;</span></span><br><span class="line"><span class="string">  name:&#x27;tab&#x27;, // index配置的时候就得添加name</span></span><br><span class="line"><span class="string">  query:&#123;</span></span><br><span class="line"><span class="string">    name:&#x27;doreen&#x27;</span></span><br><span class="line"><span class="string">  &#125;,    // 不会刷新 /tab?name=doreen</span></span><br><span class="line"><span class="string">  params:&#123;</span></span><br><span class="line"><span class="string">    id:&#x27;123&#x27; // 会刷新 /tab/123</span></span><br><span class="line"><span class="string">  &#125;</span></span><br><span class="line"><span class="string">&#125;&quot;</span></span><br><span class="line">&gt;tab&lt;/router-link&gt;</span><br><span class="line"></span><br><span class="line">&lt;router-link :to=<span class="string">&quot;&#123; path:&#x27;/tab/&#x27;+id &#125;&quot;</span> &gt;user&lt;/router-link&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 组件内容的显示区域 </span></span><br><span class="line">&lt;router-view /&gt;</span><br></pre></td></tr></table></figure></li>
-<li>编程式导航<blockquote>
-<p>path和params一起写的时候params不生效！</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符串</span></span><br><span class="line">router.push(<span class="string">&#x27;home&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对象</span></span><br><span class="line">router.push(&#123; <span class="attr">path</span>: <span class="string">&#x27;home&#x27;</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 命名的路由</span></span><br><span class="line">router.push(&#123; <span class="attr">name</span>: <span class="string">&#x27;user&#x27;</span>, <span class="attr">params</span>: &#123; <span class="attr">userId</span>: <span class="string">&#x27;123&#x27;</span> &#125;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 带查询参数，变成 /register?plan=private</span></span><br><span class="line">router.push(&#123; <span class="attr">path</span>: <span class="string">&#x27;register&#x27;</span>, <span class="attr">query</span>: &#123; <span class="attr">plan</span>: <span class="string">&#x27;private&#x27;</span> &#125;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在浏览器记录中前进一步，等同于 history.forward()</span></span><br><span class="line">router.go(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 后退一步记录，等同于 history.back()</span></span><br><span class="line">router.go(<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 前进 3 步记录</span></span><br><span class="line">router.go(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果 history 记录不够用，那就默默地失败呗</span></span><br><span class="line">router.go(<span class="number">-100</span>)</span><br><span class="line">router.go(<span class="number">100</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
  
       <!-- reward -->
       

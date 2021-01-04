@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    2020年度总结 |  
+    Flutter组件封装 |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -47,7 +47,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-2020年总结"
+  id="post-flutter"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -58,18 +58,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  2020年度总结
+  Flutter组件封装
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2021/01/01/2020%E5%B9%B4%E6%80%BB%E7%BB%93/" class="article-date">
-  <time datetime="2021-01-01T02:21:42.000Z" itemprop="datePublished">2021-01-01</time>
+      <a href="/2021/01/04/flutter/" class="article-date">
+  <time datetime="2021-01-04T04:21:42.000Z" itemprop="datePublished">2021-01-04</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+    <a class="article-category-link" href="/categories/Flutter/">Flutter</a>
   </div>
   
 <div class="word_count">
@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">438</span>
+            <span class="post-count">389</span>
         </span>
     </span>
 
@@ -93,44 +93,42 @@
  
     </div>
       
+    <div class="tocbot"></div>
+
 
 
 
   
     <div class="article-entry" itemprop="articleBody">
        
-  <pre>
-关键词：顺利、平淡
+  <h1 id="Flutter组件封装"><a href="#Flutter组件封装" class="headerlink" title="Flutter组件封装"></a>Flutter组件封装</h1><h2 id="封装控件的子项目"><a href="#封装控件的子项目" class="headerlink" title="封装控件的子项目"></a>封装控件的子项目</h2><blockquote>
+<p>通过<code>类</code>来定义子项目，再通过<code>List</code>的<code>泛型</code>来声明变量以供使用</p>
+</blockquote>
+<h3 id="以BottomNavigationBar-底部导航栏-为例"><a href="#以BottomNavigationBar-底部导航栏-为例" class="headerlink" title="以BottomNavigationBar(底部导航栏)为例"></a>以BottomNavigationBar(底部导航栏)为例</h3><h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bottomNavigationBar: BottomNavigationBar(</span><br><span class="line">    ...</span><br><span class="line">    items: [</span><br><span class="line">    BottomNavigationBarItem(title: Text(<span class="string">&#x27;首页&#x27;</span>), icon: Icon(Icons.home)),</span><br><span class="line">    BottomNavigationBarItem(title: Text(<span class="string">&#x27;书籍&#x27;</span>), icon: Icon(Icons.book)),</span><br><span class="line">    BottomNavigationBarItem(</span><br><span class="line">        title: Text(<span class="string">&#x27;我的&#x27;</span>), icon: Icon(Icons.perm_identity)),</span><br><span class="line">    ],</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><ol>
+<li>将<code>BottomNavigationBarItem</code>的内容封装成类,使用的时候需要传入label、iconPath、activeIconPath三个参数<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NavigationIconView</span> </span>&#123;</span><br><span class="line"><span class="comment">// item</span></span><br><span class="line"><span class="keyword">final</span> BottomNavigationBarItem item;</span><br><span class="line"><span class="comment">// title</span></span><br><span class="line"><span class="keyword">final</span> <span class="built_in">String</span> label;</span><br><span class="line"><span class="comment">// icon path</span></span><br><span class="line"><span class="keyword">final</span> IconData iconPath;</span><br><span class="line"><span class="comment">// actived icon path</span></span><br><span class="line"><span class="keyword">final</span> IconData activeIconPath;</span><br><span class="line"></span><br><span class="line">NavigationIconView(&#123;<span class="meta">@required</span> <span class="keyword">this</span>.label, <span class="meta">@required</span> <span class="keyword">this</span>.iconPath, <span class="meta">@required</span> <span class="keyword">this</span>.activeIconPath&#125;)</span><br><span class="line">    : item = BottomNavigationBarItem(</span><br><span class="line">        title: Text(</span><br><span class="line">            label,</span><br><span class="line">            style: TextStyle(color: Colors.black),</span><br><span class="line">        ),</span><br><span class="line">        icon: Icon(</span><br><span class="line">            iconPath,</span><br><span class="line">        ),</span><br><span class="line">        activeIcon: Icon(</span><br><span class="line">            activeIconPath,</span><br><span class="line">            size: <span class="number">30</span>,</span><br><span class="line">        ),</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-这一年实现了人生路上一个重要的转变
-从学生转换成了打工人 hhh（苦笑
-现在回想起来2020好像没做什么事情 过的糊里糊涂的
 
-因为疫情原因在家呆了差不多半年、毕业答辩也是线上草草结束
-还混了个优秀实习生...
-挺不真实的、就这？我大学四年就完了?
+</li>
+</ol>
+<ol start="2">
+<li><p>在页面中声明变量</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 限定类型，使用 &lt;&gt; 泛型来指定 List 中保存的数据类型为NavigationIconView</span></span><br><span class="line"><span class="built_in">List</span>&lt;NavigationIconView&gt; _navigationIconViews;</span><br><span class="line"></span><br><span class="line">... </span><br><span class="line"></span><br><span class="line"><span class="comment">// 页面初始化的时候对数据进行赋值，按要求传入参数</span></span><br><span class="line">_navigationIconViews = [</span><br><span class="line">    NavigationIconView(label: <span class="string">&#x27;资讯&#x27;</span>, iconPath: Icons.new_releases, activeIconPath: Icons.new_releases),</span><br><span class="line">    NavigationIconView(label: <span class="string">&#x27;动态&#x27;</span>, iconPath: Icons.palette, activeIconPath: Icons.palette),</span><br><span class="line">    NavigationIconView(label: <span class="string">&#x27;发现&#x27;</span>, iconPath: Icons.find_replace, activeIconPath: Icons.find_replace),</span><br><span class="line">    NavigationIconView(label: <span class="string">&#x27;我的&#x27;</span>, iconPath: Icons.person_pin, activeIconPath: Icons.person_pin)</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在BottomNavigationBar控件中使用</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bottomNavigationBar: BottomNavigationBar(</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// view.item =&gt; BottomNavigationBarItem(...)</span></span><br><span class="line">    items: _navigationIconViews.map((view) =&gt; view.item).toList(),</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
 
-七月中旬去了公司培训，体检身体状况还是不行，好在医生很仁慈
-放了我一马，让我能顺利过关、顺利入职
-公司给的专利 kpi 也‘一帆风顺’的通过了
-12月29完成了转正答辩，70%的几率能混的个A。
-
-好像也没什么值得说的了
-从入职工作以来还挺适应的
-实现财务自由的感觉真的挺好
-对比其他同学无止尽的加班 我觉得我这份工作还行
-虽然工资不算高 对我来说足够用了 还有富裕的可以存着
-工作的强度和难度都能接受
-周边的同事也不错 经常‘施舍’一些家乡特产给我
-和同期进来的小伙伴玩的比较好 没实习的时候孤独
-因为和项目组不在一个地方
-省去了很多无用的会议 没人看着管着 美滋滋
-四川这个地方也不错 周边还有好多想去的地方 也在慢慢筹备着
-
-这样的生活已经很满足了 至少关键性的事情都是顺利进行的
-虽然日子过得很平淡、但我也很享受这种平淡的生活
-希望2021也能平安顺意。
-</pre> 
+</li>
+</ol>
+<h2 id="封装一个控件"><a href="#封装一个控件" class="headerlink" title="封装一个控件"></a>封装一个控件</h2><ol>
+<li><p>以Drawer(抽屉)为例，创建一个widget，并写入参数</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyDrawer</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line"><span class="keyword">final</span> <span class="built_in">String</span> headImagePath;</span><br><span class="line"><span class="keyword">final</span> <span class="built_in">List</span> meanuTitle;</span><br><span class="line"><span class="keyword">final</span> <span class="built_in">List</span> meanuIcons;</span><br><span class="line">MyDrawer(&#123;Key key, <span class="meta">@required</span> <span class="keyword">this</span>.headImagePath, <span class="meta">@required</span> <span class="keyword">this</span>.meanuTitle, <span class="meta">@required</span> <span class="keyword">this</span>.meanuIcons&#125;)</span><br><span class="line">    : <span class="keyword">assert</span>(headImagePath != <span class="keyword">null</span>),</span><br><span class="line">      <span class="keyword">assert</span>(meanuTitle != <span class="keyword">null</span>),</span><br><span class="line">      <span class="keyword">assert</span>(meanuIcons != <span class="keyword">null</span>),</span><br><span class="line">      <span class="keyword">super</span>(key: key);</span><br><span class="line"></span><br><span class="line"><span class="meta">@override</span></span><br><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Drawer(...)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在页面中使用</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">        ...</span><br><span class="line">        drawer: MyDrawer(</span><br><span class="line">            headImagePath: <span class="string">&#x27;assets/image/xxx.jpg&#x27;</span>,</span><br><span class="line">            meanuIcons: _meanuIcons,</span><br><span class="line">            meanuTitle: _meanuTitle,</span><br><span class="line">        ),</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+ 
       <!-- reward -->
       
     </div>
@@ -182,7 +180,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2021/01/01/2020%E5%B9%B4%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2021/01/04/flutter/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -193,19 +191,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2021/01/04/flutter/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            Flutter组件封装
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/12/16/tips/" class="article-nav-link">
+      <a href="/2021/01/01/2020%E5%B9%B4%E6%80%BB%E7%BB%93/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">请求参数问题</div>
+        <div class="article-nav-title">2020年度总结</div>
       </a>
     
   </nav>
