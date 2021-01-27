@@ -142,6 +142,97 @@
     
     
     <article
+  id="post-react01"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/10/react01/"
+    >【react】开发环境搭建</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/04/10/react01/" class="article-date">
+  <time datetime="2020-04-10T04:21:42.000Z" itemprop="datePublished">2020-04-10</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/React/">React</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="首先安装-Node-和-npm"><a href="#首先安装-Node-和-npm" class="headerlink" title="首先安装 Node 和 npm"></a>首先安装 Node 和 npm</h2><p>我的版本 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node v10.15</span><br><span class="line">npm v6.4.1</span><br></pre></td></tr></table></figure>
+<h2 id="创建应用程序"><a href="#创建应用程序" class="headerlink" title="创建应用程序"></a>创建应用程序</h2><ol>
+<li>针对于npm 5.2+<blockquote>
+<p>npx create-react-app xxx</p>
+</blockquote>
+</li>
+<li>针对于npm 6+<blockquote>
+<p>npm init react-app xxx</p>
+</blockquote>
+</li>
+<li>针对于yarn 0.25+<blockquote>
+<p>yarn create react-app xxx</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>进入到xxx目录中，应该生成的目录格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">xxx</span><br><span class="line">├── README.md</span><br><span class="line">├── node_modules</span><br><span class="line">├── package.json</span><br><span class="line">├── .gitignore</span><br><span class="line">├── public</span><br><span class="line">│   ├── favicon.ico</span><br><span class="line">│   ├── index.html</span><br><span class="line">│   └── manifest.json</span><br><span class="line">└── src</span><br><span class="line">    ├── App.css</span><br><span class="line">    ├── App.js</span><br><span class="line">    ├── App.test.js</span><br><span class="line">    ├── index.css</span><br><span class="line">    ├── index.js</span><br><span class="line">    ├── logo.svg</span><br><span class="line">    └── serviceWorker.js</span><br></pre></td></tr></table></figure>
+<p>安装完成后，即可进入到项目目录：</p>
+<blockquote>
+<p>cd xxx</p>
+</blockquote>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><ol>
+<li>运行：<blockquote>
+<p>npm start</p>
+</blockquote>
+</li>
+<li>打包：<blockquote>
+<p>npm run build</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>按照文档的方式安装运行脚手架工具报错,并且生成的文件缺失<br>报错信息如下：</p>
+<blockquote>
+<p>A template was not provided. This is likely because you’re using an outdated version of create-react-app.<br>Please note that global installs of create-react-app are no longer supported.  </p>
+</blockquote>
+<p>（大概意思是 官方不支持 create-react-app 这个 cli 脚手架，版本已经过时，不支持全局安装）<br>因为我之前也有看过react的相关视频 可能安装的有之前的脚手架版本</p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>卸载全局安装的脚手架</p>
+<blockquote>
+<p>npm uninstall -g create-react-app<br>然后在重新按照之前的步骤在运行一次</p>
+</blockquote>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-ES2020新特性"
   class="article article-type-post"
   itemscope
@@ -1011,77 +1102,6 @@
 <p>rotateX/Y/Z() 相当于绕X/Y/Z轴旋转 多少度<br>translateX/Y/Z() 相当于沿着X/Y/Z轴的方向移动多少像素  </p>
 </blockquote>
 <img src='/images/3d.webp' /> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-迭代器模式"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/01/13/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/"
-    >【第七章】 迭代器模式</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/01/13/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" class="article-date">
-  <time datetime="2020-01-13T07:16:00.000Z" itemprop="datePublished">2020-01-13</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h2><blockquote>
-<p>提供一种 “顺序访问” 一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。<br>迭代模式可以把迭代的过程从业务逻辑中分离出来，在使用迭代器模式之后，即使不关心对象的内部构造，也可以按顺序方位其中的每个元素。</p>
-</blockquote>
-<p>自己实现一个迭代器：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> each = <span class="function"><span class="keyword">function</span>(<span class="params">ary,callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;ary.length;i++)&#123;</span><br><span class="line">        callback.call(<span class="literal">null</span>,i,ary[i])   <span class="comment">// 把下标和元素当作参数传给callback函数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">each([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],<span class="function"><span class="keyword">function</span>(<span class="params">i,n</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log([i,n])</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="内部迭代器"><a href="#内部迭代器" class="headerlink" title="内部迭代器"></a>内部迭代器</h2><blockquote>
-<p>上面编写的 each 函数属于内部迭代器，each 函数的内部已经定义好了迭代规则，它完全接手整个迭代过程，外部只需要一次初始调用。  </p>
-</blockquote>
-<p>内部迭代器在调用的时候非常方便，外界不用关心迭代器内部的实现，跟迭代器的交互也仅仅是一次初始调用，但这也刚好是内部迭代器的缺点。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 内部迭代器实现 比较两个数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">ary1,ary2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ary1.length != ary2.length)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;不相等&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    each(ary1,<span class="function"><span class="keyword">function</span>(<span class="params">i,n</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(ary2[i]!=n)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;不相等&#x27;</span>) <span class="comment">// console.log(&#x27;不相等&#x27;)</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;相等&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line">compare([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) <span class="comment">// 相等</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="外部迭代器"><a href="#外部迭代器" class="headerlink" title="外部迭代器"></a>外部迭代器</h2><blockquote>
-<p>外部迭代器必须显式地请求迭代下一个元素。<br>外部迭代器增加了一些调用的复杂度，但相对也增强了迭代器的灵活性，我们可以手工控制迭代的过程或者顺序。</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Iterator = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> current = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> next = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        current +=<span class="number">1</span>     </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> isDone = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> current &gt;= obj.length</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> getCurrentItem = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> obj[current]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        next: next,</span><br><span class="line">        isDone: isDone,</span><br><span class="line">        getCurrentItem: getCurrentItem</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 外部迭代器实现 比较两个数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">Iterator1,Iterator2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(!Iterator1.isDone()&amp;&amp;!Iterator2.isDone())&#123;</span><br><span class="line">        <span class="keyword">if</span>(Iterator1.getCurrentItem() !== Iterator2.getCurrentItem())&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;不相等&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        Iterator1.next()</span><br><span class="line">        Iterator2.next()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;相等&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> Iterator1 = Iterator([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line"><span class="keyword">var</span> Iterator2 = Iterator([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line">compare(Iterator1,Iterator2)   <span class="comment">// 相等</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="迭代类数组对象和字面量对象"><a href="#迭代类数组对象和字面量对象" class="headerlink" title="迭代类数组对象和字面量对象"></a>迭代类数组对象和字面量对象</h2><blockquote>
-<p>类数组：arguments<br>字面量对象：{‘0’:’a’,’1’:’b’}</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">each</span>(<span class="params">obj,callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> value,</span><br><span class="line">    i=<span class="number">0</span>,</span><br><span class="line">    length = obj.length,</span><br><span class="line">    isArray = isArraylike(obj); <span class="comment">//假装封装好了一个判断是否是类数组的方法</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(isArray)&#123;    <span class="comment">// 迭代类数组</span></span><br><span class="line">        <span class="keyword">for</span>(;i&lt;length;i++)&#123;</span><br><span class="line">            value = callback.call(<span class="literal">null</span>,i,obj[i])</span><br><span class="line">            <span class="keyword">if</span>(value === <span class="literal">false</span>)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(i <span class="keyword">in</span> obj)&#123;</span><br><span class="line">            value = callback.call(<span class="literal">null</span>,i,obj[i])</span><br><span class="line">            <span class="keyword">if</span>(value === <span class="literal">false</span>)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> obj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="中止迭代器"><a href="#中止迭代器" class="headerlink" title="中止迭代器"></a>中止迭代器</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> each = <span class="function"><span class="keyword">function</span>(<span class="params">ary,callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;ary.length;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(callback(i,ary[i]) === <span class="literal">false</span>)&#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">each([<span class="number">11</span>,<span class="number">21</span>,<span class="number">31</span>,<span class="number">41</span>,<span class="number">51</span>],<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&gt;<span class="number">30</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(n)</span><br><span class="line">&#125;) <span class="comment">// 11 21</span></span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>

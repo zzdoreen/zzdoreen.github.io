@@ -142,6 +142,66 @@
     
     
     <article
+  id="post-webpack"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/01/27/webpack/"
+    >webpack</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/01/27/webpack/" class="article-date">
+  <time datetime="2021-01-27T02:00:00.000Z" itemprop="datePublished">2021-01-27</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/webpack/">webpack</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="webpack概念"><a href="#webpack概念" class="headerlink" title="webpack概念"></a>webpack概念</h2><blockquote>
+<p><code>webpack</code> 是一个用于 JavaScript 应用程序的<code>静态模块打包工具</code>。当 <code>webpack</code> 处理应用程序时，它会在内部构建一个 <code>依赖图</code>，此依赖图对应映射到项目所需的每个模块，并生成一个或多个 <code>bundle</code></p>
+</blockquote>
+<ol>
+<li>文件引入依赖进行分类构成<code>依赖图</code> </li>
+<li>不同模块分别<code>编译</code>成<code>代码块(chunk)</code></li>
+<li>将各类代码块<code>打包</code> 合并</li>
+<li>生成并输出<code>静态资源(bundle.js)</code></li>
+</ol>
+<h2 id="webpack核心概念"><a href="#webpack核心概念" class="headerlink" title="webpack核心概念"></a>webpack核心概念</h2><p><img src="'/images/webpack.png'"></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-flutter"
   class="article article-type-post"
   itemscope
@@ -1174,84 +1234,6 @@
 
 
 <h2 id="readonly"><a href="#readonly" class="headerlink" title="readonly"></a>readonly</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readonly</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> obj === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>) &#123;</span><br><span class="line">            obj.forEach(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">typeof</span> item === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">                    obj[index] = readonly(item)</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">                <span class="keyword">let</span> item = obj[key];</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">typeof</span> item === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">                    obj[key] = readonly(item)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.warn(<span class="string">`<span class="subst">$&#123;obj&#125;</span> is not object`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, &#123;</span><br><span class="line">        get(obj, key) &#123;</span><br><span class="line">            <span class="keyword">return</span> obj[key]</span><br><span class="line">        &#125;,</span><br><span class="line">        set(obj, key, value) &#123;</span><br><span class="line">            <span class="built_in">console</span>.warn(<span class="string">&#x27;不能被赋值&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-vue中的key属性"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/10/01/vue%E4%B8%AD%E7%9A%84key%E5%B1%9E%E6%80%A7/"
-    >vue的key属性</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/10/01/vue%E4%B8%AD%E7%9A%84key%E5%B1%9E%E6%80%A7/" class="article-date">
-  <time datetime="2020-10-01T03:37:33.627Z" itemprop="datePublished">2020-10-01</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><blockquote>
-<p>在form表单需要实现两个输入框,绑定对象的两个属性一个存储key，一个存储value</p>
-</blockquote>
-<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><blockquote>
-<p>绑定值（key）的输入框，在一次输入后锚点就消失了，绑定名称（name）的输入框可以正常的使用</p>
-</blockquote>
-<h2 id="错误代码"><a href="#错误代码" class="headerlink" title="错误代码"></a>错误代码</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">statusType = [&#123;</span><br><span class="line">    key:<span class="string">&quot;&quot;</span>,</span><br><span class="line">    value:<span class="string">&quot;&quot;</span></span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line">&lt;el-form-item</span><br><span class="line">    prop=<span class="string">&quot;valueRange&quot;</span></span><br><span class="line">    v-<span class="keyword">for</span>=<span class="string">&quot;item in statusType&quot;</span></span><br><span class="line">    :key=<span class="string">&quot;item.key&quot;</span></span><br><span class="line">    :value=<span class="string">&quot;item.key&quot;</span></span><br><span class="line">&gt;</span><br><span class="line">    &lt;el-col :span=<span class="string">&quot;10&quot;</span>&gt;</span><br><span class="line">        &lt;el-input placeholder=<span class="string">&quot;值&quot;</span> v-model=<span class="string">&quot;item.key&quot;</span>&gt;&lt;/el-input&gt;</span><br><span class="line">    &lt;/el-col&gt;</span><br><span class="line">    &lt;el-col :span=<span class="string">&quot;4&quot;</span> style=<span class="string">&quot;text-align:center&quot;</span>&gt;:&lt;/el-col&gt;</span><br><span class="line">    &lt;el-col :span=<span class="string">&quot;10&quot;</span>&gt;</span><br><span class="line">        &lt;el-input placeholder=<span class="string">&quot;名称&quot;</span> v-model=<span class="string">&quot;item.value&quot;</span>&gt;&lt;/el-input&gt;</span><br><span class="line">    &lt;/el-col&gt;</span><br><span class="line">&lt;/el-form-item&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><pre>
-在列表循环的时候key绑定的是item.key  // el-form-item :key="item.key" 
-但是 值 输入框中绑定的数据也是 item.key
-因为Vue是基于虚拟dom对元素进行重新渲染
-每次输入都会改变key值，key属性值的改变会导致dom的重新渲染
-所以锚点会消失！
-</pre>
-
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><blockquote>
-<p>将父级元素的key属性通过index来绑定</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;el-form-item</span><br><span class="line">    prop=<span class="string">&quot;valueRange&quot;</span></span><br><span class="line">    v-<span class="keyword">for</span>=<span class="string">&quot;(item,index) in statusType&quot;</span></span><br><span class="line">    :key=<span class="string">&quot;index&quot;</span></span><br><span class="line">    :value=<span class="string">&quot;item.key&quot;</span></span><br><span class="line">&gt;</span><br><span class="line">    &lt;el-col :span=<span class="string">&quot;10&quot;</span>&gt;</span><br><span class="line">        &lt;el-input placeholder=<span class="string">&quot;值&quot;</span> v-model=<span class="string">&quot;item.key&quot;</span>&gt;&lt;/el-input&gt;</span><br><span class="line">    &lt;/el-col&gt;</span><br><span class="line">    &lt;el-col :span=<span class="string">&quot;4&quot;</span> style=<span class="string">&quot;text-align:center&quot;</span>&gt;:&lt;/el-col&gt;</span><br><span class="line">    &lt;el-col :span=<span class="string">&quot;10&quot;</span>&gt;</span><br><span class="line">        &lt;el-input placeholder=<span class="string">&quot;名称&quot;</span> v-model=<span class="string">&quot;item.value&quot;</span>&gt;&lt;/el-input&gt;</span><br><span class="line">    &lt;/el-col&gt;</span><br><span class="line">&lt;/el-form-item&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="扩展应用"><a href="#扩展应用" class="headerlink" title="扩展应用"></a>扩展应用</h2><h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><blockquote>
-<p>页面有上下两个表格，上 -&gt; 订单表、下 -&gt; 详细表<br>通过点击订单表的某一行订单，获取到他的<code>inboundOrderSn</code>字段，并通过该字段向接口发送请求，获取详细数据并在下方的表格显示 </p>
-</blockquote>
-<h3 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h3><blockquote>
-<p>子组件封装的是在刷新之后对接口进行请求等价于在mounted/created内才会请求数据，但是组件在页面一开始就已经创建完成了，所以在点击的时候并不会进行数据的请求，就得需要重新渲染该组件。</p>
-</blockquote>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><blockquote>
-<p>给详细列表组件绑定key属性，在点击某一订单的时候，对key值进行改变，组件就会重新渲染一次。就可以发送请求并对数据进行展示</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;detail-table :key=<span class="string">&quot;timer&quot;</span> :id=<span class="string">&quot;selectedId&quot;</span> @success=<span class="string">&quot;forceRefresh&quot;</span>&gt;&lt;/detail-table&gt;</span><br><span class="line"></span><br><span class="line">private timer: number = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line"></span><br><span class="line">private handleRowClick(row: any) &#123;</span><br><span class="line">    <span class="built_in">this</span>.timer = <span class="keyword">new</span> <span class="built_in">Date</span>().getTime();</span><br><span class="line">    <span class="built_in">this</span>.selectedId = row.inboundOrderSn ? row.inboundOrderSn : <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>
