@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">528</span>
+            <span class="post-count">689</span>
         </span>
     </span>
 
@@ -101,7 +101,37 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="webpack概念"><a href="#webpack概念" class="headerlink" title="webpack概念"></a>webpack概念</h2><blockquote>
+  <h2 id="在网页中会引用哪些常见的静态资源？"><a href="#在网页中会引用哪些常见的静态资源？" class="headerlink" title="在网页中会引用哪些常见的静态资源？"></a>在网页中会引用哪些常见的静态资源？</h2><ul>
+<li>JS<ul>
+<li>.js  .jsx  .coffee  .ts（TypeScript  类 C# 语言）</li>
+</ul>
+</li>
+<li>CSS<ul>
+<li>.css  .less   .sass  .scss</li>
+</ul>
+</li>
+<li>Images<ul>
+<li>.jpg   .png   .gif   .bmp   .svg</li>
+</ul>
+</li>
+<li>字体文件（Fonts）<ul>
+<li>.svg   .ttf   .eot   .woff   .woff2</li>
+</ul>
+</li>
+<li>模板文件<ul>
+<li>.ejs   .jade  .vue</li>
+</ul>
+</li>
+</ul>
+<h2 id="网页中引入的静态资源多了以后有什么问题"><a href="#网页中引入的静态资源多了以后有什么问题" class="headerlink" title="网页中引入的静态资源多了以后有什么问题"></a>网页中引入的静态资源多了以后有什么问题</h2><ol>
+<li>网页加载速度慢， 因为 我们要发起很多的二次请求；</li>
+<li>要处理错综复杂的依赖关系</li>
+</ol>
+<h2 id="如何解决上述两个问题"><a href="#如何解决上述两个问题" class="headerlink" title="如何解决上述两个问题"></a>如何解决上述两个问题</h2><ol>
+<li>合并、压缩、精灵图、图片的Base64编码</li>
+<li>可以使用之前学过的requireJS、也可以使用webpack可以解决各个包之间的复杂依赖关系</li>
+</ol>
+<h2 id="webpack概念"><a href="#webpack概念" class="headerlink" title="webpack概念"></a>webpack概念</h2><blockquote>
 <p><code>webpack</code> 是一个用于 JavaScript 应用程序的<code>静态模块打包工具</code>。当 <code>webpack</code> 处理应用程序时，它会在内部构建一个 <code>依赖图</code>，此依赖图对应映射到项目所需的每个模块，并生成一个或多个 <code>bundle</code></p>
 </blockquote>
 <ol>
