@@ -142,90 +142,6 @@
     
     
     <article
-  id="post-reactRedux"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/04/19/reactRedux/"
-    >react-redux的简单使用</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/04/19/reactRedux/" class="article-date">
-  <time datetime="2020-04-19T04:20:42.000Z" itemprop="datePublished">2020-04-19</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/React/">React</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>redux为react提供的一个专用库<br>react-redux组成：</p>
-<ol>
-<li><p>UI组件（presentational component）  </p>
-<ul>
-<li>只负责ui的呈现，不带有任何业务逻辑</li>
-<li>没有状态（不使用this.state这个变量）</li>
-<li>所有数据都由参数（this.props）提供</li>
-<li>不使用任何Redux的API</li>
-</ul>
-</li>
-<li><p>容器组件（container component）</p>
-<ul>
-<li>负责管理数据和业务逻辑，不负责UI的呈现</li>
-<li>带有内部状态</li>
-<li>使用Redux的API</li>
-</ul>
-</li>
-</ol>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
-<p>npm i react-redux –save </p>
-</blockquote>
-<p>配合redux使用</p>
-<blockquote>
-<p>npm i redux –save</p>
-</blockquote>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="全局配置"><a href="#全局配置" class="headerlink" title="全局配置"></a>全局配置</h3><p>利用<code>&lt;Provider&gt;</code>组件来实现容器组件获取<code>state</code>对象<br>在src下的index.js全局进行配置</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> ReactDOM <span class="keyword">from</span> <span class="string">&#x27;react-dom&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&#x27;./App&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;Provider&#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;./store&#x27;</span></span><br><span class="line"><span class="keyword">const</span> app = (</span><br><span class="line">    &lt;Provider store=&#123;store&#125;&gt;    <span class="comment">// 让App所有的子组件都默认获取到了state</span></span><br><span class="line">        &lt;App/&gt;</span><br><span class="line">    &lt;/Provider&gt;</span><br><span class="line">)</span><br><span class="line"><span class="comment">//ReactDOM.render(&lt;App /&gt;,document.getElementById(&#x27;root&#x27;));</span></span><br><span class="line">ReactDOM.render(app,<span class="built_in">document</span>.getElementById(<span class="string">&#x27;root&#x27;</span>));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="组件配置"><a href="#组件配置" class="headerlink" title="组件配置"></a>组件配置</h3><p>connect方法用于从<code>UI组件</code>生成<code>容器组件</code>。<br>在组件内部引入connect方法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; connect &#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 将app转化为UI组件的形式进行展示</span></span><br><span class="line"><span class="keyword">const</span> App = <span class="function">(<span class="params">props</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">let</span> &#123;inputValue,add,list,changeInput&#125; = props <span class="comment">// 从属性中获取到方法和对象</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;input type=<span class="string">&quot;text&quot;</span> placeholder=&#123;inputValue&#125; onChange=&#123;changeInput&#125; /&gt;</span><br><span class="line">        &lt;button onClick=&#123;add&#125;&gt;提交&lt;/button&gt;</span><br><span class="line">        &lt;ul&gt;</span><br><span class="line">          &#123;</span><br><span class="line">            list.map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">              <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;index&#125;</span>&gt;</span>&#123;item&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span></span><br><span class="line">            &#125;)</span><br><span class="line">          &#125;</span><br><span class="line">        &lt;/ul&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>connect方法接收两个参数：</p>
-<ol>
-<li>mapStateToProps</li>
-<li>mapDispatchToProps<br>它们定义了ui组件的业务逻辑<br>前者负责输入逻辑 =&gt; state映射到ui组件的参数（props）<br>后者负责输出逻辑 =&gt; 用户对ui组件的操作映射成Action   </li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 映射关系</span></span><br><span class="line"><span class="keyword">const</span> stateToProps = <span class="function">(<span class="params">state</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    inputValue: state.inputValue,</span><br><span class="line">    list: state.list</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">const</span> dispatchToProps = <span class="function">(<span class="params">dispatch</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    changeInput(e)&#123;</span><br><span class="line">      <span class="keyword">let</span> action = &#123;</span><br><span class="line">        type: <span class="string">&#x27;changeInput&#x27;</span>,</span><br><span class="line">        value: e.target.value</span><br><span class="line">      &#125;</span><br><span class="line">      dispatch(action)</span><br><span class="line">    &#125;,</span><br><span class="line">    add()&#123;</span><br><span class="line">      <span class="keyword">let</span> action = &#123;</span><br><span class="line">        type: <span class="string">&#x27;add&#x27;</span></span><br><span class="line">      &#125;</span><br><span class="line">      dispatch(action)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> connect(stateToProps, dispatchToProps)(App);</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
   id="post-redux"
   class="article article-type-post"
   itemscope
@@ -1099,6 +1015,79 @@
 <div class="clipPath dv5"></div>
 
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">width</span><span class="selector-pseudo">:150px</span>;</span></span><br><span class="line">    height: 150px;</span><br><span class="line">    background-image: url(&#x27;/images/avatar.jpg&#x27;); </span><br><span class="line"><span class="css">    <span class="selector-tag">background-size</span><span class="selector-pseudo">:100</span>% 100%;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">display</span><span class="selector-pseudo">:inline-block</span>;  </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv1</span>&#123;</span></span><br><span class="line">    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv2</span>&#123;</span></span><br><span class="line">    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv3</span>&#123;</span></span><br><span class="line">    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv4</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="comment">/* clip-path: ellipse(100% 100% at 0% 0%); 效果一致*/</span></span></span><br><span class="line">    clip-path: circle(100% at 0% 0%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv5</span>&#123;</span></span><br><span class="line">  clip-path: polygon(0% 0%, 0% 100%, 25% 100%, 25% 25%, 75% 25%, 75% 75%, 25% 75%, 25% 100%, 100% 100%, 100% 0%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv3&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv4&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv5&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-发布订阅者模式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/01/14/%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E8%80%85%E6%A8%A1%E5%BC%8F/"
+    >【第八章】 发布-订阅模式</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/01/14/%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E8%80%85%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time datetime="2020-01-14T10:16:00.000Z" itemprop="datePublished">2020-01-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>优点： </p>
+<ol>
+<li>时间上的解耦</li>
+<li>对象之间的解耦</li>
+</ol>
+</blockquote>
+<blockquote>
+<p>缺点:   消耗时间和内存</p>
+</blockquote>
+<h2 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h2><blockquote>
+<p>如何实现发布-订阅模式:</p>
+<ol>
+<li>指定发布者</li>
+<li>给发布者添加一个缓存列表，用于存放回调函数 以便通知 订阅者</li>
+<li>发布消息的时候，发布者会遍历这个缓存列表，依次触发存放的订阅者回调函数<br>(还可以在回调函数中填入一些参数，订阅者可以接收这些参数。eg：售楼处可以在给订阅者短信内加上房子的单价、面积等信息)</li>
+</ol>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> salesOffices = &#123;&#125;   <span class="comment">// 售楼处</span></span><br><span class="line">salesOffices.clientList = []    <span class="comment">// 缓存列表，存放订阅者的回调函数</span></span><br><span class="line">salesOffices.listen = <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>)</span>&#123;     <span class="comment">// 增加订阅者</span></span><br><span class="line">    <span class="built_in">this</span>.clientList.push(fn)</span><br><span class="line">&#125;</span><br><span class="line">salesOffices.trigger = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;      <span class="comment">// 发布消息</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="built_in">this</span>.clientList.length;i++)&#123;</span><br><span class="line">        <span class="keyword">var</span> fn = <span class="built_in">this</span>.clientList[i]</span><br><span class="line">        fn.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">salesOffices.listen(<span class="function"><span class="keyword">function</span>(<span class="params">price,squareMeter</span>)</span>&#123;    <span class="comment">// 小明订阅消息</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;m 价格= &#x27;</span>+price)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;m 平方= &#x27;</span>+squareMeter)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">salesOffices.listen(<span class="function"><span class="keyword">function</span>(<span class="params">price,squareMeter</span>)</span>&#123;    <span class="comment">// 小红订阅消息</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;h 价格= &#x27;</span>+price)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;h 平方= &#x27;</span>+squareMeter)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">salesOffices.trigger(<span class="number">20000</span>,<span class="number">22</span>)      <span class="comment">// m/h 价格= 20000  m/h 平方= 22</span></span><br></pre></td></tr></table></figure>
+<p>我们看到订阅者接收到了发布者发布的每个消息，虽然小明只想买 88 平方米的房子，但是发布者把 122 平方米的信息也推送给了小明，这对小明来说是不必要的困扰。所以我们有必要增加一个标示 key，让订阅者只订阅自己感兴趣的消息。改写后的代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> salesOffices = &#123;&#125;   <span class="comment">// 售楼处</span></span><br><span class="line">salesOffices.clientList = []    <span class="comment">// 缓存列表，存放订阅者的回调函数</span></span><br><span class="line">salesOffices.listen = <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;     <span class="comment">// 增加订阅者</span></span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">this</span>.clientList[key])&#123;      <span class="comment">// 如果没有订阅此类消息，给该类创建一个缓存列表</span></span><br><span class="line">        <span class="built_in">this</span>.clientList[key] = []</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.clientList[key].push(fn)</span><br><span class="line">&#125;</span><br><span class="line">salesOffices.trigger = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;      <span class="comment">// 发布消息</span></span><br><span class="line">    <span class="keyword">var</span> key = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>)     <span class="comment">// 取出消息类型 &lt;=&gt; arguments[0]</span></span><br><span class="line">    <span class="keyword">var</span> fns = <span class="built_in">this</span>.clientList[key]      <span class="comment">// 取出该消息对应的回调函数集合</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;fns.length;i++)&#123;</span><br><span class="line">        <span class="keyword">var</span> fn = fns[i]</span><br><span class="line">        fn.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;m 价格= &#x27;</span>+price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;w 价格= &#x27;</span>+price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter122&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;h 价格= &#x27;</span>+price)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">salesOffices.trigger(<span class="string">&#x27;squareMeter88&#x27;</span>,<span class="number">2200</span>)  <span class="comment">// m/w 价格= 2200</span></span><br><span class="line">salesOffices.trigger(<span class="string">&#x27;squareMeter122&#x27;</span>,<span class="number">122000</span>)   <span class="comment">// h 价格= 122000</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="发布-订阅模式的通用实现"><a href="#发布-订阅模式的通用实现" class="headerlink" title="发布-订阅模式的通用实现"></a>发布-订阅模式的通用实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把发布-订阅功能提取出来，放在一个单独的对象内</span></span><br><span class="line"><span class="keyword">var</span> event = &#123;</span><br><span class="line">    clientList : [],</span><br><span class="line">    listen : <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">this</span>.clientList[key])&#123;</span><br><span class="line">            <span class="built_in">this</span>.clientList[key] = []</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.clientList[key].push(fn)</span><br><span class="line">    &#125;,</span><br><span class="line">    trigger: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> key = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>)</span><br><span class="line">        <span class="keyword">var</span> fns = <span class="built_in">this</span>.clientList[key]</span><br><span class="line">        <span class="keyword">if</span>(!fns || fns.length===<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;fns.length;i++)&#123;</span><br><span class="line">            <span class="keyword">var</span> fn = fns[i]</span><br><span class="line">            fn.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// installEvent 函数，给所有对象动态安装 发布-订阅功能：</span></span><br><span class="line"><span class="comment">// 浅拷贝 (我感觉 没什么用。。)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">installEvent</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> event)&#123;</span><br><span class="line">        obj[i] = event[i]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> salesOffices = &#123;&#125;</span><br><span class="line">installEvent(salesOffices)</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;price= &#x27;</span>+ price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.trigger(<span class="string">&#x27;squareMeter88&#x27;</span>,<span class="number">122</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="取消订阅事件"><a href="#取消订阅事件" class="headerlink" title="取消订阅事件"></a>取消订阅事件</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> event = &#123;</span><br><span class="line">    ...</span><br><span class="line">    remove: <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> fns = <span class="built_in">this</span>.clientList[key]</span><br><span class="line">        <span class="keyword">if</span>(!fns)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!fn)&#123;  <span class="comment">// 如果没有传入具体的回调函数，表示需要取消 key 对应消息的所有订阅</span></span><br><span class="line">            fns &amp;&amp; (fns.length = <span class="number">0</span>)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i=fns.length<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)&#123;   <span class="comment">// 倒序删除</span></span><br><span class="line">                <span class="keyword">var</span> _fn = fns[i]</span><br><span class="line">                <span class="keyword">if</span>(_fn===fn)&#123;</span><br><span class="line">                    fns.splice(i,<span class="number">1</span>)</span><br><span class="line">                &#125; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,fn1 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;f1 price= &#x27;</span>+ price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,fn2 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;f2 price= &#x27;</span>+ price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,fn1 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;f3 price= &#x27;</span>+ price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.remove(<span class="string">&#x27;squareMeter88&#x27;</span>,fn1)  <span class="comment">// 删除的是最后一个叫f1的订阅者</span></span><br><span class="line">salesOffices.trigger(<span class="string">&#x27;squareMeter88&#x27;</span>,<span class="number">122</span>) <span class="comment">// f1/f2 price= 122</span></span><br><span class="line"></span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>
