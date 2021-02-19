@@ -142,6 +142,92 @@
     
     
     <article
+  id="post-第四章__单例模式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/25/%E7%AC%AC%E5%9B%9B%E7%AB%A0__%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"
+    >【第四章】单例模式</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/25/%E7%AC%AC%E5%9B%9B%E7%AB%A0__%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time datetime="2019-12-25T02:21:42.000Z" itemprop="datePublished">2019-12-25</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>定义： 保证一个类仅有一个实例，并提供一个访问它的全局访问点。在 JavaScript 开发中，单例模式的用途同样非常广泛。试想一下，当我们单击登录按钮的时候，页面中会出现一个登录浮窗，而这个登录浮窗是唯一的，无论单击多少次登录按钮，这个浮窗都只会被创建一次，那么这个登录浮窗就适合用单例模式来创建。</p>
+</blockquote>
+<p><b style="color:Red">核心：确保只有一个实例，并提供全局访问</b></p>
+<ol>
+<li><p>实现单例模式</p>
+<blockquote>
+<p>用一个变量来标志当前是否已经为某个类创建过对象，如果是，则在下一次获取该类的实例时，直接返回之前创建的对象</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Singleton = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name</span><br><span class="line">    <span class="built_in">this</span>.instance = <span class="literal">null</span>    <span class="comment">//存放已经生成的实例对象</span></span><br><span class="line">&#125;</span><br><span class="line">Singleton.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line">Singleton.getInstance = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">this</span>.instance)&#123;</span><br><span class="line">        <span class="built_in">this</span>.instance = <span class="keyword">new</span> Singleton(name)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.instance</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = Singleton.getInstance(<span class="string">&#x27;doreen&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> b = Singleton.getInstance(<span class="string">&#x27;sherry&#x27;</span>)</span><br><span class="line">a.getName()     <span class="comment">//doreen</span></span><br><span class="line">b.getName()     <span class="comment">//doreen</span></span><br><span class="line"><span class="built_in">console</span>.log(a === b)     <span class="comment">//true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
+</li>
+<li><p>透明的单例模式</p>
+<blockquote>
+<p>使用的时候要和普通类一样通过new去创建实例</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 利用闭包的方式 让变量存在局部</span></span><br><span class="line"><span class="keyword">var</span> CreateDiv = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> instance </span><br><span class="line">    <span class="keyword">var</span> CreateDiv = <span class="function"><span class="keyword">function</span>(<span class="params">html</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance)&#123;</span><br><span class="line">            <span class="keyword">return</span> instance</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.html = html</span><br><span class="line">        <span class="built_in">this</span>.init()</span><br><span class="line">        <span class="keyword">return</span> instance = <span class="built_in">this</span></span><br><span class="line">    &#125;</span><br><span class="line">    CreateDiv.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">        div.innerHTML = <span class="built_in">this</span>.html</span><br><span class="line">        <span class="built_in">document</span>.body.appendChild(div)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> CreateDiv;</span><br><span class="line">&#125;)()</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> CreateDiv(<span class="string">&#x27;doreen&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> CreateDiv(<span class="string">&#x27;sherry&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(a === b)    <span class="comment">// true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
+</li>
+<li><p>用代理实现单例模式</p>
+<blockquote>
+<p>CreateDiv变成普通类，它跟proxySingletonCreateDiv组合起来可以达到单例模式的效果</p>
+</blockquote>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> CreateDiv = <span class="function"><span class="keyword">function</span>(<span class="params">html</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.html = html</span><br><span class="line">    <span class="built_in">this</span>.init()</span><br><span class="line">&#125;</span><br><span class="line">CreateDiv.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">    div.innerHTML = <span class="built_in">this</span>.html</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(div)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//代理类 proxySingletonCreateDiv</span></span><br><span class="line"><span class="keyword">var</span> proxySingletonCreateDiv = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> instance</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">html</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!instance)&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> CreateDiv(html)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> proxySingletonCreateDiv(<span class="string">&#x27;doreen&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> proxySingletonCreateDiv(<span class="string">&#x27;sherry&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(a===b)  <span class="comment">// true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>惰性单例</p>
+<blockquote>
+<p>是在需要的时候才创建对象实例</p>
+</blockquote>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 创建一个登录框  需要登录的时候才动态创建登录框*/</span></span><br><span class="line"><span class="keyword">var</span> createLoginLayer = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> div</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!div) &#123;</span><br><span class="line">            div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">            div.innerHTML = <span class="string">&#x27;登录框&#x27;</span></span><br><span class="line">            div.style.display = <span class="string">&#x27;none&#x27;</span></span><br><span class="line">            <span class="built_in">document</span>.body.appendChild(div)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> div</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> loginLayer = createLoginLayer()</span><br></pre></td></tr></table></figure></li>
+<li><p>通用的惰性单例</p>
+<blockquote>
+<p>惰性单例存在的问题  </p>
+<ol>
+<li>违反单一职责原则，创建对象和管理单例的逻辑都放在createLoginLayer对象内部</li>
+<li>如果下次需要创建页面中唯一的iframe，或者script标签，用来跨域请求数据，就必须如法炮制，把createLoginLayer函数几乎照抄一遍  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> createIframe = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> iframe</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!iframe)&#123;</span><br><span class="line">            iframe = <span class="built_in">document</span>.createElement(<span class="string">&#x27;iframe&#x27;</span>)</span><br><span class="line">            iframe.style.display = <span class="string">&#x27;none&#x27;</span></span><br><span class="line">            <span class="built_in">document</span>.body.appendChild(iframe)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> iframe</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="comment">//  把代码抽离出来</span></span><br><span class="line"><span class="comment">//  公用的部分 单例逻辑</span></span><br><span class="line"><span class="keyword">var</span> getSingle = <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> result || (result = fn.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  创建对象的方法</span></span><br><span class="line"><span class="keyword">var</span> createLoginLayer = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">    div.innerHTML = <span class="string">&#x27;登录框&#x27;</span></span><br><span class="line">    div.style.display = <span class="string">&#x27;none&#x27;</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChil(div)</span><br><span class="line">    <span class="keyword">return</span> div</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> createSingleLoginLayer = getSingle(createLoginLayer)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
+</li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-第三章__闭包和高阶函数"
   class="article article-type-post"
   itemscope
