@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    原型链 |  
+    Flex相关 |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -47,7 +47,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-原型链"
+  id="post-flex"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -58,18 +58,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  原型链
+  Flex相关
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2021/03/15/%E5%8E%9F%E5%9E%8B%E9%93%BE/" class="article-date">
-  <time datetime="2021-03-15T02:21:42.000Z" itemprop="datePublished">2021-03-15</time>
+      <a href="/2021/03/17/flex/" class="article-date">
+  <time datetime="2021-03-17T06:21:42.000Z" itemprop="datePublished">2021-03-17</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    <a class="article-category-link" href="/categories/CSS/">CSS</a>
   </div>
   
 <div class="word_count">
@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">207</span>
+            <span class="post-count">606</span>
         </span>
     </span>
 
@@ -86,7 +86,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
+            <span class="post-count">2 min</span>
         </span>
     </span>
 </div>
@@ -101,18 +101,56 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <blockquote>
-<p>原型链有点懵 画了图好像理解了点  </p>
+  <h2 id="父容器的属性"><a href="#父容器的属性" class="headerlink" title="父容器的属性"></a>父容器的属性</h2><h3 id="flex-direction-主轴-项目排列方向"><a href="#flex-direction-主轴-项目排列方向" class="headerlink" title="flex-direction (主轴/项目排列方向)"></a>flex-direction (主轴/项目排列方向)</h3><blockquote>
+<p>row(默认，水平，起点在左端)  |  row-reverse  |  column  |  column-reverse </p>
 </blockquote>
-<p><img src="https://ftp.bmp.ovh/imgs/2021/03/ebdaef31d93d10b5.png"></p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// person的构造函数</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// person原型对象方法</span></span><br><span class="line">Person.prototype.eat = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;person eat&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Student</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">Student.prototype.sayhi = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;student sayhi&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Student.prototype = <span class="keyword">new</span> Person(<span class="string">&#x27;doreen&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> stu = <span class="keyword">new</span> Student()</span><br><span class="line">stu.eat() <span class="comment">// person eat</span></span><br><span class="line">stu.sayhi() <span class="comment">// 报错 stu.sayhi is not a function</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// stu.__proto__  =&gt; new Person()</span></span><br><span class="line"><span class="comment">// stu.__proto__.__proto__ === Person.prototype</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
-<li>构造函数可以实例化对象</li>
-<li>构造函数中有一个属性叫<code>prototype</code>，是构造函数的<code>原型对象</code></li>
-<li><code>原型对象</code>中有一个叫<code>constructor</code>的<code>构造器</code>，指向自己所在的<code>构造函数</code> </li>
-<li>实例对象的<code>原型对象 (__proto__) </code>指向的是<code>构造函数的原型对象</code></li>
-<li>构造函数中的<code>原型对象 (prototype) </code>中的方法是可以被实例对象直接访问</li>
+<h3 id="flex-wrap-是否换行"><a href="#flex-wrap-是否换行" class="headerlink" title="flex-wrap (是否换行)"></a>flex-wrap (是否换行)</h3><blockquote>
+<p>nowrap(默认不换行)  |  wrap(换行，第一行在上方)  | wrap-reverse(换行，第一行在下方)</p>
+</blockquote>
+<h3 id="flex-flow-flex-direction属性和flex-wrap属性的简写形式，默认值为row-nowrap"><a href="#flex-flow-flex-direction属性和flex-wrap属性的简写形式，默认值为row-nowrap" class="headerlink" title="flex-flow (flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap)"></a>flex-flow (flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap)</h3><blockquote>
+<p><code>&lt;flex-deirection&gt;</code> || <code>&lt;flex-wrap&gt;</code></p>
+</blockquote>
+<h3 id="justify-content-主轴的对齐方式"><a href="#justify-content-主轴的对齐方式" class="headerlink" title="justify-content (主轴的对齐方式)"></a>justify-content (主轴的对齐方式)</h3><blockquote>
+<p>flex-start(默认 左对齐)  |  flex-end  |  center  |  space-between (两端对齐，项目之间的间隔都相等。)  |  space-around (每个项目两侧的间隔相等)</p>
+</blockquote>
+<p><img src="https://i.bmp.ovh/imgs/2021/03/51667ee0ea2e4458.png"></p>
+<h3 id="align-items-定义项目在交叉轴上如何对齐"><a href="#align-items-定义项目在交叉轴上如何对齐" class="headerlink" title="align-items (定义项目在交叉轴上如何对齐)"></a>align-items (定义项目在交叉轴上如何对齐)</h3><blockquote>
+<p>flex-start (交叉轴的起点对齐)  |  flex-end(交叉轴的终点对齐)  |  center(交叉轴的中点对齐)  |  baseline(项目的第一行文字的基线对齐)  |  stretch(默认值 如果项目未设置高度或设为auto，将占满整个容器的高度)  </p>
+</blockquote>
+<p><img src="https://i.bmp.ovh/imgs/2021/03/ecba85337de824ff.png"></p>
+<h2 id="子项目的属性"><a href="#子项目的属性" class="headerlink" title="子项目的属性"></a>子项目的属性</h2><h3 id="order-属性定义项目的排列序列。数值越小排列越靠前，默认为0"><a href="#order-属性定义项目的排列序列。数值越小排列越靠前，默认为0" class="headerlink" title="order (属性定义项目的排列序列。数值越小排列越靠前，默认为0)"></a>order (属性定义项目的排列序列。数值越小排列越靠前，默认为0)</h3><p><img src="https://i.bmp.ovh/imgs/2021/03/36090f39dbc5eade.png"></p>
+<h3 id="flex-grow-项目的放大比例，默认为0"><a href="#flex-grow-项目的放大比例，默认为0" class="headerlink" title="flex-grow (项目的放大比例，默认为0)"></a>flex-grow (项目的放大比例，默认为0)</h3><blockquote>
+<p>如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。<br>如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。</p>
+</blockquote>
+<p><img src="https://i.bmp.ovh/imgs/2021/03/cb7d2508279d6185.png"></p>
+<h3 id="flex-shrink-项目的缩小比列，默认为1"><a href="#flex-shrink-项目的缩小比列，默认为1" class="headerlink" title="flex-shrink (项目的缩小比列，默认为1)"></a>flex-shrink (项目的缩小比列，默认为1)</h3><blockquote>
+<p>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小  </p>
+</blockquote>
+<ul>
+<li><p>计算方式：<br>  <code>(项目n宽度*n的缩小比例/(项目1宽度*1的缩小比例)+...+(项目n宽度*n的缩小比例))*超出的宽度</code>  </p>
+ <b style="color:red">
+ 100+400且flex-shrink都为1的子项目 父级为400 ，子项目超出100 </b>
+ <br>
+ <b style="color:red">
+ 100的子项目应该缩小的宽度：100*1/（100*1+400*1）=0.2  0.2*100 = 20</b>
+ <br>
+ <b style="color:red">
+ 400的子项目应该缩小的宽度：400*1/（100*1+400*1）=0.8  0.8*100 = 80</b>
+
+
+</li>
 </ul>
+<p><img src="https://i.bmp.ovh/imgs/2021/03/f56618d2ccee3a1f.png"></p>
+<h3 id="flex-basis-项目的固定空间-与width类似"><a href="#flex-basis-项目的固定空间-与width类似" class="headerlink" title="flex-basis (项目的固定空间 与width类似)"></a>flex-basis (项目的固定空间 与width类似)</h3><blockquote>
+<p>length | auto(默认)</p>
+</blockquote>
+<h3 id="flex-属性是flex-grow-flex-shrink-和-flex-basis的简写，默认值为0-1-auto。后两个属性可选"><a href="#flex-属性是flex-grow-flex-shrink-和-flex-basis的简写，默认值为0-1-auto。后两个属性可选" class="headerlink" title="flex (属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选 )"></a>flex (属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选 )</h3><blockquote>
+<p>none  |  [  <code>&lt;flex-grow&gt;</code> <code>&lt;flex-shrink&gt;</code>?|| <code>&lt;flex-basis&gt;</code>  ]</p>
+</blockquote>
+<h3 id="align-self-属性允许单个项目有与其他项目不一样的对齐方式-默认为auto"><a href="#align-self-属性允许单个项目有与其他项目不一样的对齐方式-默认为auto" class="headerlink" title="align-self (属性允许单个项目有与其他项目不一样的对齐方式 默认为auto)"></a>align-self (属性允许单个项目有与其他项目不一样的对齐方式 默认为auto)</h3><blockquote>
+<p> auto  |  flex-start  |  flex-end  |  center  |  baseline  |  stretch</p>
+</blockquote>
+<p><img src="https://i.bmp.ovh/imgs/2021/03/6301ffad376c5647.png"></p>
  
       <!-- reward -->
       
@@ -165,7 +203,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2021/03/15/%E5%8E%9F%E5%9E%8B%E9%93%BE/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2021/03/17/flex/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -176,19 +214,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2021/03/17/flex/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            Flex相关
-          
-        </div>
-      </a>
     
-    
-      <a href="/2021/02/24/vue-router%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB/" class="article-nav-link">
+      <a href="/2021/03/15/%E5%8E%9F%E5%9E%8B%E9%93%BE/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">vue-router导航守卫</div>
+        <div class="article-nav-title">原型链</div>
       </a>
     
   </nav>
