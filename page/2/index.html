@@ -142,6 +142,62 @@
     
     
     <article
+  id="post-tips"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/12/16/tips/"
+    >请求参数问题</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/12/16/tips/" class="article-date">
+  <time datetime="2020-12-16T02:16:00.000Z" itemprop="datePublished">2020-12-16</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="一个不好检查的bug"><a href="#一个不好检查的bug" class="headerlink" title="一个不好检查的bug"></a>一个不好检查的bug</h2><h3 id="基本信息描述"><a href="#基本信息描述" class="headerlink" title="基本信息描述"></a>基本信息描述</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">一个弹框表单的编辑功能，编辑接口请求的时候</span><br><span class="line">会对列表进行分类，以数组的方式存储在指定属性中</span><br></pre></td></tr></table></figure>
+
+<p><code>参数处理逻辑没问题，这就是错误不好找的原因</code></p>
+<h3 id="bug描述"><a href="#bug描述" class="headerlink" title="bug描述"></a>bug描述</h3><blockquote>
+<p>编辑的时候参数列表数据 <code>有!时!候!</code> 会重复</p>
+</blockquote>
+<h4 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">将接口参数放入页面的全局变量中存储</span><br><span class="line">每次要发送请求之前对参数进行处理 然后进行接口请求</span><br><span class="line"></span><br><span class="line">错误原因</span><br><span class="line">① 每次编辑弹框开启的时候变量没有重置</span><br><span class="line">② 请求失败的时候，变量没有重置，再次请求之前还是会处理一次数据 然后放进变量中导致重复</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-dart"
   class="article article-type-post"
   itemscope
@@ -1288,70 +1344,6 @@
 
 
  
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-vue-class-component"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/10/01/vue-class-component/"
-    >vue-class-component的简单使用</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/10/01/vue-class-component/" class="article-date">
-  <time datetime="2020-10-01T03:37:33.616Z" itemprop="datePublished">2020-10-01</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="vue-class-component"><a href="#vue-class-component" class="headerlink" title="vue-class-component"></a><a target="_blank" rel="noopener" href="https://class-component.vuejs.org/">vue-class-component</a></h2><blockquote>
-<p>vue对typescript支持的库</p>
-</blockquote>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
-<p>npm install –save vue vue-class-component </p>
-</blockquote>
-<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;script lang=<span class="string">&#x27;ts&#x27;</span>&gt;</span><br><span class="line"><span class="keyword">import</span> &#123; Component,Provide,Vue &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-property-decorator&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; BaseAxios &#125; <span class="keyword">from</span> <span class="string">&#x27;../api/axios&#x27;</span> </span><br><span class="line"><span class="keyword">import</span> input <span class="keyword">from</span> <span class="string">&#x27;components/input.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 组件的引入</span></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">    components: &#123; input &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> Hello <span class="keyword">extends</span> Vue &#123;</span><br><span class="line">    <span class="comment">// data </span></span><br><span class="line">    obj: <span class="built_in">Object</span> = &#123;&#125;</span><br><span class="line">    msg: <span class="built_in">string</span> = <span class="string">&#x27;hello world&#x27;</span></span><br><span class="line">    num: <span class="built_in">number</span> = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// methods</span></span><br><span class="line">    addTimes (a: <span class="built_in">number</span>) :<span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.num += a</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.num </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// computed</span></span><br><span class="line">    get computedMsg() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;computed&#x27;</span> + msg</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生命周期</span></span><br><span class="line">    mounted() &#123;</span><br><span class="line">        BaseAxios.post(<span class="string">&#x27;...&#x27;</span>).then( <span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(res)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="createDecorator"><a href="#createDecorator" class="headerlink" title="createDecorator"></a>createDecorator</h3><blockquote>
-<p>自定义装饰器，接收一个回调函数作为第一个参数</p>
-</blockquote>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// decorator.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; createDecorator &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-class-component&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> NoCache = createDecorator(<span class="function">(<span class="params">options,key</span>)=&gt;</span>&#123;</span><br><span class="line">    options.computed[key].cache = <span class="literal">false</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// MyComp.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; NoCache &#125; <span class="keyword">from</span> <span class="string">&#x27;./decorators&#x27;</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">class</span> MyComp <span class="keyword">extends</span> Vue &#123;</span><br><span class="line">    <span class="comment">// computed属性不会被缓存</span></span><br><span class="line">    <span class="meta">@NoCache</span></span><br><span class="line">    get random() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Component-registerHooks"><a href="#Component-registerHooks" class="headerlink" title="Component.registerHooks"></a>Component.registerHooks</h3><blockquote>
-<p>自定义钩子</p>
-</blockquote>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// class-component-hooks.js</span></span><br><span class="line"><span class="keyword">import</span> Component <span class="keyword">from</span> <span class="string">&#x27;vue-class-component&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 注册钩子name</span></span><br><span class="line">Component.registerHooks([</span><br><span class="line">    <span class="string">&#x27;beforeRouterEnter&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;beforeRouterLeave&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;beforeRouterUpdate&#x27;</span>,</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="comment">// MyComp.js</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Component <span class="keyword">from</span> <span class="string">&#x27;vue-class-component&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">class</span> MyComp <span class="keyword">extends</span> Vue &#123;</span><br><span class="line">    <span class="comment">// 在组件内部为注册的钩子函数实现原型方法</span></span><br><span class="line">    beforeRouterEnter(to,<span class="keyword">from</span>,next) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;before-router-enter&#x27;</span>)</span><br><span class="line">        next()</span><br><span class="line">    &#125;</span><br><span class="line">    beforeRouterLeave(to,<span class="keyword">from</span>,next) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;before-router-leave&#x27;</span>)</span><br><span class="line">        next()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>
