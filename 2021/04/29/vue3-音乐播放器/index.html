@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    Vue3-音乐播放器 |  
+  </title>
+  <meta name="generator" content="hexo-theme-ayer">
+  
+  <link rel="shortcut icon" href="/favicon.ico" />
+  
+  
+<link rel="stylesheet" href="/dist/main.css">
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/css/remixicon.min.css">
+
+  
+<link rel="stylesheet" href="/css/custom.css">
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+
+  
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    
+      
+      <canvas width="1777" height="841"
+        style="position: fixed; left: 0px; top: 0px; z-index: 99999; pointer-events: none;"></canvas>
+      
+    <main class="content on">
+      <section class="outer">
+  <article
+  id="post-vue3-音乐播放器"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  Vue3-音乐播放器
+</h1>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/04/29/vue3-%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/" class="article-date">
+  <time datetime="2021-04-29T07:16:00.000Z" itemprop="datePublished">2021-04-29</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+  
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> Word count:</span>
+            <span class="post-count">1.5k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> Reading time≈</span>
+            <span class="post-count">6 min</span>
+        </span>
+    </span>
+</div>
+ 
+    </div>
+      
+    <div class="tocbot"></div>
+
+
+
+
+  
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h4 id="在线展示"><a href="#在线展示" class="headerlink" title="在线展示"></a><a target="_blank" rel="noopener" href="https://zzdoreen.github.io/vite-vue3-ts/dist/#/music">在线展示</a></h4><h4 id="API文档"><a href="#API文档" class="headerlink" title="API文档"></a>API文档</h4><ul>
+<li><a target="_blank" rel="noopener" href="https://www.free-api.com/doc/302">网易云音乐随机歌曲</a></li>
+</ul>
+<blockquote>
+<p>接口说明  </p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">地址</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://api.uomg.com/api/rand.music">https://api.uomg.com/api/rand.music</a></td>
+</tr>
+<tr>
+<td align="left">返回格式</td>
+<td align="center">json / mp3</td>
+</tr>
+<tr>
+<td align="left">请求方式</td>
+<td align="center">get / post</td>
+</tr>
+</tbody></table>
+<hr>
+<blockquote>
+<p>请求参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="center">类型</th>
+<th align="center">必填</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">sort</td>
+<td align="center">string</td>
+<td align="center">选填</td>
+<td align="center">默认为热歌榜 [热歌榜,新歌榜,飙升榜,抖音榜,电音榜]</td>
+</tr>
+<tr>
+<td align="left">mid</td>
+<td align="center">int</td>
+<td align="center">选填</td>
+<td align="center">网易云歌单ID</td>
+</tr>
+<tr>
+<td align="left">format</td>
+<td align="center">string</td>
+<td align="center">选填</td>
+<td align="center">选择输出的格式</td>
+</tr>
+</tbody></table>
+<hr>
+<blockquote>
+<p>返回参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="center">类型</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">code</td>
+<td align="center">string</td>
+<td align="center">状态码</td>
+</tr>
+<tr>
+<td align="left">name</td>
+<td align="center">string</td>
+<td align="center">歌曲名称</td>
+</tr>
+<tr>
+<td align="left">url</td>
+<td align="center">string</td>
+<td align="center">歌曲地址</td>
+</tr>
+<tr>
+<td align="left">picurl</td>
+<td align="center">string</td>
+<td align="center">歌曲封面地址</td>
+</tr>
+</tbody></table>
+<hr>
+<blockquote>
+<p>返回示例</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;code&quot;</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">&quot;data&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;江南&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;url&quot;</span>: <span class="string">&quot;http://music.163.com/song/media/outer/url?id=26305527&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;picurl&quot;</span>: <span class="string">&quot;http://p4.music.126.net/CcthX_ZCexIdriZADoNn3g==/109951165628166191.jpg&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;artistsname&quot;</span>: <span class="string">&quot;林俊杰&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>歌词接口</li>
+</ul>
+<blockquote>
+<p>接口说明  </p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="center"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">地址</td>
+<td align="center"><a target="_blank" rel="noopener" href="https://api.imjad.cn/cloudmusic">https://api.imjad.cn/cloudmusic</a></td>
+</tr>
+<tr>
+<td align="left">返回格式</td>
+<td align="center">json</td>
+</tr>
+<tr>
+<td align="left">请求方式</td>
+<td align="center">get / post</td>
+</tr>
+</tbody></table>
+<hr>
+<blockquote>
+<p>请求参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="center">类型</th>
+<th align="center">必填</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">type</td>
+<td align="center">string</td>
+<td align="center">必填</td>
+<td align="center">值为<code>lyric</code>时，返回歌词</td>
+</tr>
+<tr>
+<td align="left">id</td>
+<td align="center">int</td>
+<td align="center">必填</td>
+<td align="center">网易云歌区ID</td>
+</tr>
+</tbody></table>
+<hr>
+<blockquote>
+<p>返回参数</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="center"></th>
+<th align="center">类型</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">code</td>
+<td align="center"></td>
+<td align="center">string</td>
+<td align="center">状态码</td>
+</tr>
+<tr>
+<td align="left">lrc</td>
+<td align="center"></td>
+<td align="center">object</td>
+<td align="center">歌词数据</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">version</td>
+<td align="center">int</td>
+<td align="center">版本</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="center">lyric</td>
+<td align="center">string</td>
+<td align="center">歌词</td>
+</tr>
+</tbody></table>
+<hr>
+<blockquote>
+<p>返回示例</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;sgc&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;sfy&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;qfy&quot;</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">&quot;lrc&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;version&quot;</span>: <span class="number">8</span>,</span><br><span class="line">        <span class="attr">&quot;lyric&quot;</span>: <span class="string">&quot;[00:00.000] 作曲 : 祝何\n[00:00.693] 作词 : 祝何\n[00:02.80]编曲 Arranger：祝何\n[00:06.84]楚河流沙几聚散 日月沧桑尽变换\n[00:35.08]乱世多少红颜换一声长叹\n[00:40.38]谁曾巨鹿踏破了秦关 千里兵戈血染\n[00:46.45]终究也不过是风轻云淡\n[00:51.51]长枪策马平天下 此番诀别却为难\n[00:57.72]一声虞兮虞兮泪眼已潸然\n[01:03.07]与君共饮这杯中冷暖 西风彻夜回忆吹不断\n[01:09.38]醉里挑灯看剑 妾舞阑珊\n[01:14.91]垓下一曲离乱 楚歌声四方\n[01:20.31]含悲 辞君 饮剑 血落凝寒霜\n[01:25.87]难舍一段过往 缘尽又何妨\n[01:31.77]与你魂归之处便是苍茫\n[02:00.25]长枪策马平天下 此番诀别却为难\n[02:06.17]一声虞兮虞兮泪眼已潸然\n[02:11.70]与君共饮这杯中冷暖 西风彻夜回忆吹不断\n[02:18.00]醉里挑灯看剑 妾舞阑珊\n[02:23.25]垓下一曲离乱 楚歌声四方\n[02:28.74]含悲 辞君 饮剑 血落凝寒霜\n[02:34.73]难舍一段过往 缘尽又何妨\n[02:40.11]与你魂归之处便是苍茫\n[02:46.39]汉兵刀剑纷乱 折断了月光\n[02:51.55]江畔 只身 孤舟 余生不思量\n[02:57.42]难舍一段过往 缘尽又何妨\n[03:03.01]与你来生共寄山高水长\n[03:13.11]混音师 Mixing Engineer：唐瑜\n[03:13.78]和声 Backing vocals：田跃君\n[03:14.24]制作人 Produced by ：蒋雪儿 Snow.J\n[03:14.67]监制 Executive producer: 蒋雪儿 Snow.J\n[03:15.18]OP/SP ：乐无限 ETERNAL MUSIC\n[03:15.90]【未经授权不得翻唱或使用】\n&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;klyric&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;version&quot;</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">&quot;lyric&quot;</span>: <span class="literal">null</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;tlyric&quot;</span>: &#123;</span><br><span class="line">        <span class="attr">&quot;version&quot;</span>: <span class="number">0</span>,</span><br><span class="line">        <span class="attr">&quot;lyric&quot;</span>: <span class="literal">null</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attr">&quot;code&quot;</span>: <span class="number">200</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a>基本思路</h4><h5 id="音乐播放-——-audio"><a href="#音乐播放-——-audio" class="headerlink" title="音乐播放 —— audio"></a>音乐播放 —— <a target="_blank" rel="noopener" href="https://www.w3school.com.cn/jsref/dom_obj_audio.asp">audio</a></h5><blockquote>
+<p>html内添加audio标签进行相关配置  </p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span></span></span><br><span class="line"><span class="tag">    <span class="attr">ref</span>=<span class="string">&quot;audio&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">autoplay</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">pause</span>=<span class="string">&quot;handlePause&quot;</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">play</span>=<span class="string">&quot;handlePlay&quot;</span></span></span><br><span class="line"><span class="tag">    @<span class="attr">timeupdate</span>=<span class="string">&quot;handleMusicTimeChange&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">:src</span>=<span class="string">&quot;music.value.url&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- </span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    绑定ref方便用js对Audio对象进行操作</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    用到的属性：</span></span><br><span class="line"><span class="comment">        autoplay 是否自动播放</span></span><br><span class="line"><span class="comment">        src 音频地址</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    用到的方法：</span></span><br><span class="line"><span class="comment">        pause 暂停当前播放的音频时触发</span></span><br><span class="line"><span class="comment">        play  开始播放音频时触发</span></span><br><span class="line"><span class="comment">        timeupdate 播放位置发生改变时触发</span></span><br><span class="line"><span class="comment"> --&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="歌词获取和展示"><a href="#歌词获取和展示" class="headerlink" title="歌词获取和展示"></a>歌词获取和展示</h5><ol>
+<li>首先将获取随机歌曲和歌词数据的方法封装成一个方法</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; ref, reactive &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; getData &#125; <span class="keyword">from</span> <span class="string">&quot;../api/api&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; toSeconds &#125; <span class="keyword">from</span> <span class="string">&#x27;../utils/time&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">useMusic</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 随机歌曲相关信息获取</span></span><br><span class="line">    <span class="keyword">let</span> datas: <span class="built_in">any</span> = <span class="keyword">await</span> getData(<span class="number">2</span>, <span class="string">&quot;&quot;</span>, &#123;&#125;);</span><br><span class="line">    <span class="keyword">let</span> music = reactive(&#123; value: datas.data.data &#125;);</span><br><span class="line">    <span class="keyword">let</span> music_id = ref(music.value.url.split(<span class="string">&quot;?id=&quot;</span>)[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 歌词通过歌曲id获取</span></span><br><span class="line">    <span class="keyword">let</span> lyric: <span class="built_in">any</span> = <span class="keyword">await</span> getData(<span class="number">3</span>, <span class="string">&quot;&quot;</span>, &#123;</span><br><span class="line">        <span class="keyword">type</span>: <span class="string">&quot;lyric&quot;</span>,</span><br><span class="line">        id: music_id.value,</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 对歌词数据进行处理 [&#123;text:&#x27;歌词&#x27;,time:2.333 (歌词开始秒数)&#125;,...] </span></span><br><span class="line">    <span class="keyword">let</span> arr = lyric.data.lrc.lyric.split(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">    <span class="keyword">let</span> obj: <span class="built_in">any</span> = reactive(&#123; data: [] &#125;)</span><br><span class="line">    arr.forEach(<span class="function">(<span class="params">element: <span class="built_in">string</span></span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> key = toSeconds(element.split(<span class="string">&#x27;]&#x27;</span>)[<span class="number">0</span>].slice(<span class="number">1</span>))</span><br><span class="line">        <span class="keyword">let</span> value = element.split(<span class="string">&#x27;]&#x27;</span>)[<span class="number">1</span>]</span><br><span class="line">        obj.data.push(&#123; text: value, time: key &#125;)</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置一个index作为歌词数据的索引</span></span><br><span class="line">    <span class="keyword">let</span> index = ref(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123; index, obj, music &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>对audio标签绑定ref，对audio对象进行操作。</li>
+</ol>
+<ul>
+<li>对<code>timeupdate</code>事件进行监听<ul>
+<li>通过<code>audio.value.currentTime</code>获取到当前播放的秒数</li>
+<li>从前向后与歌词数据 (<code>obj.data[index.value + 1].time</code>) 的<code>time</code>进行对比</li>
+<li>如果当前秒数小于当前索引的歌词数据的秒数、就展示该条歌词数据；否则<code>index++</code>与下一条数据进行比较</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> defineComponent(&#123;</span><br><span class="line">  setup: <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="comment">// 在异步组合api中，生命周期函数必须写在 数据/方法前面 </span></span><br><span class="line">    onMounted(<span class="function">() =&gt;</span> &#123;&#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> &#123; index,obj,music &#125; = <span class="keyword">await</span> useMusic();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绑定audio对象</span></span><br><span class="line">    <span class="keyword">let</span> audio = ref(); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 每条歌词数据</span></span><br><span class="line">    <span class="keyword">let</span> msg = obj.data &amp;&amp; obj.data[<span class="number">0</span>].text ? ref(obj.data[<span class="number">0</span>].text) : ref(<span class="string">&quot; &quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 进度条改变触发事件</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">handleMusicTimeChange</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (audio.value.currentTime &gt;= obj.data[index.value + <span class="number">1</span>].time) &#123;</span><br><span class="line">        index.value++;</span><br><span class="line">      &#125;</span><br><span class="line">      msg.value = obj.data[index.value].text;</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg,</span><br><span class="line">      index,</span><br><span class="line">      obj,</span><br><span class="line">      audio,</span><br><span class="line">      music,</span><br><span class="line">      handleMusicTimeChange,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="未解决的问题"><a href="#未解决的问题" class="headerlink" title="未解决的问题"></a>未解决的问题</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 目前的播放器进度条不能进行控制 控制之后 不知道怎么获取对应索引的歌词</span></span><br><span class="line"><span class="comment"> * （ </span></span><br><span class="line"><span class="comment"> * 进度条长度和音频总时长是按比例的</span></span><br><span class="line"><span class="comment"> * 所以进度条播放位置发生改变时 timeupdate对于不同长度的歌曲触发秒数间隔都是不一样的</span></span><br><span class="line"><span class="comment"> * currentTime也不一定能和time对应上 所以不知道怎么获取到歌词</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 不知道怎么实现QAQ , 所以就没展示audio的控件(controls) </span></span><br><span class="line"><span class="comment"> * ）</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2021/04/29/vue3-%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>  
+    </footer>
+  </div>
+
+   
+  <nav class="article-nav">
+    
+    
+      <a href="/2021/04/23/%E5%8D%81%E4%BA%8C%E7%94%9F%E8%82%96/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">十二生肖</div>
+      </a>
+    
+  </nav>
+
+   
+<!-- valine评论 -->
+<div id="vcomments-box">
+  <div id="vcomments"></div>
+</div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
+  new Valine({
+    el: "#vcomments",
+    app_id: "9OLyDF6ymKbs1woL9kh2qbae-gzGzoHsz",
+    app_key: "RTkmORaJHqkGjEovHixLK04x",
+    path: window.location.pathname,
+    avatar: "monsterid",
+    placeholder: "给我的文章加点评论吧~",
+    recordIP: true,
+  });
+  const infoEle = document.querySelector("#vcomments .info");
+  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
+    infoEle.childNodes.forEach(function (item) {
+      item.parentNode.removeChild(item);
+    });
+  }
+</script>
+<style>
+  #vcomments-box {
+    padding: 5px 30px;
+  }
+
+  @media screen and (max-width: 800px) {
+    #vcomments-box {
+      padding: 5px 0px;
+    }
+  }
+
+  #vcomments-box #vcomments {
+    background-color: #fff;
+  }
+
+  .v .vlist .vcard .vh {
+    padding-right: 20px;
+  }
+
+  .v .vlist .vcard {
+    padding-left: 10px;
+  }
+</style>
+
+ 
+     
+</article>
+
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul>
+      <li>
+        Copyrights &copy;
+        2019-2021
+        <i class="ri-heart-fill heart_icon"></i> John Doe
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+      </li>
+    </ul>
+    <ul>
+      <li>
+        
+        
+        <span>
+  <span><i class="ri-user-3-fill"></i>Visitors:<span id="busuanzi_value_site_uv"></span></s>
+  <span class="division">|</span>
+  <span><i class="ri-eye-fill"></i>Views:<span id="busuanzi_value_page_pv"></span></span>
+</span>
+        
+      </li>
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      
+    </ul>
+    <ul>
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="float_btns">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+
+<div class="todark" id="todark">
+  <i class="ri-moon-line"></i>
+</div>
+
+      </div>
+    </main>
+    <aside class="sidebar on">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="/images/avatar.webp" alt="Doreen&#39;s Blog"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/">主页</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/categories">分类</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/archives">归档</a>
+    </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link" href="/about">关于我</a>
+    </li>
+    
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="Search">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <script>
+      if (window.matchMedia("(max-width: 768px)").matches) {
+        document.querySelector('.content').classList.remove('on');
+        document.querySelector('.sidebar').classList.remove('on');
+      }
+    </script>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/alipay.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://cdn.jsdelivr.net/gh/Shen-Yu/cdn/img/wechat.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+<!-- Tocbot -->
+
+
+<script src="/js/tocbot.min.js"></script>
+
+<script>
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer: 'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto'
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+
+<script src="/dist/main.js"></script>
+
+<!-- ImageViewer -->
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+<!-- MathJax -->
+
+<!-- Katex -->
+
+<!-- busuanzi  -->
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+<!-- ClickLove -->
+
+<!-- ClickBoom1 -->
+
+<!-- ClickBoom2 -->
+
+
+<script src="/js/clickBoom2.js"></script>
+
+
+<!-- CodeCopy -->
+
+
+<link rel="stylesheet" href="/css/clipboard.css">
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="ri-file-copy-2-line"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-checkbox-circle-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-checkbox-circle-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('ri-file-copy-2-line');
+        $icon.addClass('ri-time-line');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('ri-time-line');
+          $icon.addClass('ri-file-copy-2-line');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+<!-- CanvasBackground -->
+
+
+<script src="/js/dz.js"></script>
+
+
+
+    
+  </div>
+</body>
+
+</html>
