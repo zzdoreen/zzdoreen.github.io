@@ -142,6 +142,68 @@
     
     
     <article
+  id="post-待处理问题"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/05/08/%E5%BE%85%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98/"
+    >问题集</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/05/08/%E5%BE%85%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2021-05-08T02:00:00.000Z" itemprop="datePublished">2021-05-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E5%BE%85%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/">待解决问题</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="哈希路由引起样式问题"><a href="#哈希路由引起样式问题" class="headerlink" title="哈希路由引起样式问题"></a>哈希路由引起样式问题</h2><blockquote>
+<p>在一个页面引入了样式，并且添加了 <code>scoped</code> ,但是在进行页面跳转的时候，这些引入的样式会影响另一页面。刷新之后就好了</p>
+</blockquote>
+<p>初步猜测是因为路由用的<code>哈希模式</code>的原因</p>
+<blockquote>
+<p><code>hash</code> 值变化不会导致浏览器向服务器发出请求</p>
+</blockquote>
+<p>所以在第一个页面加载的样式，在跳转之后没有刷新，样式就一直会存在，因此影响到了页面的样式</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ul>
+<li><code>emit</code>父子组件通讯，点击事件触发后、强制刷新</li>
+<li>监听<code>hash</code>值的变化、变化之后、强制刷新</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-vue3-音乐播放器"
   class="article article-type-post"
   itemscope
@@ -1041,83 +1103,6 @@
 <h2 id="webpack核心概念"><a href="#webpack核心概念" class="headerlink" title="webpack核心概念"></a>webpack核心概念</h2><img src='/images/webpack.png'>
 
 <h2 id="webpack基础配置"><a href="#webpack基础配置" class="headerlink" title="webpack基础配置"></a>webpack基础配置</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">   webpack.config.js webpack的配置文件</span></span><br><span class="line"><span class="comment">   告诉webpack要干什么（运行webpack指令时、会加载里面的配置）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 用来拼接绝对路径的方法</span></span><br><span class="line"><span class="keyword">const</span> &#123; resolve &#125; = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">// 入口文件 默认值是 ./src/index.js</span></span><br><span class="line">    entry: <span class="string">&#x27;./src/index.js&#x27;</span>,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 输出路径 默认值是 ./dist/main.js</span></span><br><span class="line">    output: &#123;</span><br><span class="line">        <span class="comment">// 输出文件名</span></span><br><span class="line">        filename: <span class="string">&#x27;built.js&#x27;</span>, <span class="comment">// &#x27;js/built.js&#x27;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 输出路径 [ __dirname: node.js的变量、代表当前文件目录绝对路径 ]</span></span><br><span class="line">        path: resolve(__dirname, <span class="string">&#x27;build&#x27;</span>)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// loader的配置</span></span><br><span class="line">    <span class="comment">// 下载 -&gt; 使用</span></span><br><span class="line">    <span class="built_in">module</span>: &#123;</span><br><span class="line">        rules: [</span><br><span class="line">            <span class="comment">// 详细的loader配置</span></span><br><span class="line">            <span class="comment">// test 配置哪些文件 ；use 使用哪些loader，多个用 [,,] 执行顺序从右到左</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 1. css-loader ： 将css文件编译成commonjs模块加载到js中</span></span><br><span class="line">            <span class="comment">// 2. style-loader ： 创建style标签，将js中的样式资源插入进去，添加到head中生效</span></span><br><span class="line">            &#123;</span><br><span class="line">                test: <span class="regexp">/\.css$/</span>, use: [<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>]</span><br><span class="line">            &#125;</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">// plugins的配置</span></span><br><span class="line">    <span class="comment">// 下载 -&gt; 引入 -&gt; 使用</span></span><br><span class="line">    plugins: [</span><br><span class="line">        <span class="comment">// 详细的plugins配置 </span></span><br><span class="line">        <span class="comment">// 默认再输出文件夹内创建一个 index.html 文件，自动打包输出的所有资源（js/css）</span></span><br><span class="line">        <span class="comment">// new HtmlWebpackPlugin(),</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 需要有dom结构的html</span></span><br><span class="line">        <span class="keyword">new</span> HtmlWebpackPlugin(&#123;</span><br><span class="line">            <span class="comment">// 将./src/index.html 的内容复制一遍 再引入打包的资源 再输出文件夹内输出</span></span><br><span class="line">            template: <span class="string">&#x27;./src/index.html&#x27;</span></span><br><span class="line">        &#125;),</span><br><span class="line">    ],</span><br><span class="line"></span><br><span class="line">    <span class="comment">// mode模式配置</span></span><br><span class="line">    mode: <span class="string">&#x27;development&#x27;</span>, <span class="comment">// mode:&#x27;production&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// devServer-开发服务器 自动编译</span></span><br><span class="line">    <span class="comment">// 启动制令 npx webpack-dev-server 仅在内存中编译打包 不会输出</span></span><br><span class="line">    devServer: &#123;</span><br><span class="line">        contentBase: resolve(__dirname, <span class="string">&#x27;build&#x27;</span>),</span><br><span class="line">        compress: <span class="literal">true</span>, <span class="comment">// 压缩</span></span><br><span class="line">        port: <span class="number">8080</span>,</span><br><span class="line">        open: <span class="literal">true</span>, <span class="comment">// 自动打开浏览器</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-flutter"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/01/04/flutter/"
-    >Flutter组件封装</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/01/04/flutter/" class="article-date">
-  <time datetime="2021-01-04T04:21:42.000Z" itemprop="datePublished">2021-01-04</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Flutter/">Flutter</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h1 id="Flutter组件封装"><a href="#Flutter组件封装" class="headerlink" title="Flutter组件封装"></a>Flutter组件封装</h1><h2 id="封装控件的子项目"><a href="#封装控件的子项目" class="headerlink" title="封装控件的子项目"></a>封装控件的子项目</h2><blockquote>
-<p>通过<code>类</code>来定义子项目，再通过<code>List</code>的<code>泛型</code>来声明变量以供使用</p>
-</blockquote>
-<h3 id="以BottomNavigationBar-底部导航栏-为例"><a href="#以BottomNavigationBar-底部导航栏-为例" class="headerlink" title="以BottomNavigationBar(底部导航栏)为例"></a>以BottomNavigationBar(底部导航栏)为例</h3><h4 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">bottomNavigationBar: BottomNavigationBar(</span><br><span class="line">    ...</span><br><span class="line">    items: [</span><br><span class="line">    BottomNavigationBarItem(title: Text(<span class="string">&#x27;首页&#x27;</span>), icon: Icon(Icons.home)),</span><br><span class="line">    BottomNavigationBarItem(title: Text(<span class="string">&#x27;书籍&#x27;</span>), icon: Icon(Icons.book)),</span><br><span class="line">    BottomNavigationBarItem(</span><br><span class="line">        title: Text(<span class="string">&#x27;我的&#x27;</span>), icon: Icon(Icons.perm_identity)),</span><br><span class="line">    ],</span><br><span class="line">)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h4 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h4><ol>
-<li>将<code>BottomNavigationBarItem</code>的内容封装成类,使用的时候需要传入label、iconPath、activeIconPath三个参数<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NavigationIconView</span> </span>&#123;</span><br><span class="line"><span class="comment">// item</span></span><br><span class="line"><span class="keyword">final</span> BottomNavigationBarItem item;</span><br><span class="line"><span class="comment">// title</span></span><br><span class="line"><span class="keyword">final</span> <span class="built_in">String</span> label;</span><br><span class="line"><span class="comment">// icon path</span></span><br><span class="line"><span class="keyword">final</span> IconData iconPath;</span><br><span class="line"><span class="comment">// actived icon path</span></span><br><span class="line"><span class="keyword">final</span> IconData activeIconPath;</span><br><span class="line"></span><br><span class="line">NavigationIconView(&#123;<span class="meta">@required</span> <span class="keyword">this</span>.label, <span class="meta">@required</span> <span class="keyword">this</span>.iconPath, <span class="meta">@required</span> <span class="keyword">this</span>.activeIconPath&#125;)</span><br><span class="line">    : item = BottomNavigationBarItem(</span><br><span class="line">        title: Text(</span><br><span class="line">            label,</span><br><span class="line">            style: TextStyle(color: Colors.black),</span><br><span class="line">        ),</span><br><span class="line">        icon: Icon(</span><br><span class="line">            iconPath,</span><br><span class="line">        ),</span><br><span class="line">        activeIcon: Icon(</span><br><span class="line">            activeIconPath,</span><br><span class="line">            size: <span class="number">30</span>,</span><br><span class="line">        ),</span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ol>
-<ol start="2">
-<li><p>在页面中声明变量</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 限定类型，使用 &lt;&gt; 泛型来指定 List 中保存的数据类型为NavigationIconView</span></span><br><span class="line"><span class="built_in">List</span>&lt;NavigationIconView&gt; _navigationIconViews;</span><br><span class="line"></span><br><span class="line">... </span><br><span class="line"></span><br><span class="line"><span class="comment">// 页面初始化的时候对数据进行赋值，按要求传入参数</span></span><br><span class="line">_navigationIconViews = [</span><br><span class="line">    NavigationIconView(label: <span class="string">&#x27;资讯&#x27;</span>, iconPath: Icons.new_releases, activeIconPath: Icons.new_releases),</span><br><span class="line">    NavigationIconView(label: <span class="string">&#x27;动态&#x27;</span>, iconPath: Icons.palette, activeIconPath: Icons.palette),</span><br><span class="line">    NavigationIconView(label: <span class="string">&#x27;发现&#x27;</span>, iconPath: Icons.find_replace, activeIconPath: Icons.find_replace),</span><br><span class="line">    NavigationIconView(label: <span class="string">&#x27;我的&#x27;</span>, iconPath: Icons.person_pin, activeIconPath: Icons.person_pin)</span><br><span class="line">];</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在BottomNavigationBar控件中使用</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bottomNavigationBar: BottomNavigationBar(</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// view.item =&gt; BottomNavigationBarItem(...)</span></span><br><span class="line">    items: _navigationIconViews.map((view) =&gt; view.item).toList(),</span><br><span class="line">),</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h2 id="封装一个控件"><a href="#封装一个控件" class="headerlink" title="封装一个控件"></a>封装一个控件</h2><ol>
-<li><p>以Drawer(抽屉)为例，创建一个widget，并写入参数</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyDrawer</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line"><span class="keyword">final</span> <span class="built_in">String</span> headImagePath;</span><br><span class="line"><span class="keyword">final</span> <span class="built_in">List</span> meanuTitle;</span><br><span class="line"><span class="keyword">final</span> <span class="built_in">List</span> meanuIcons;</span><br><span class="line"><span class="keyword">const</span> MyDrawer(&#123;Key key, <span class="meta">@required</span> <span class="keyword">this</span>.headImagePath, <span class="meta">@required</span> <span class="keyword">this</span>.meanuTitle, <span class="meta">@required</span> <span class="keyword">this</span>.meanuIcons&#125;)</span><br><span class="line">    : <span class="keyword">assert</span>(headImagePath != <span class="keyword">null</span>),</span><br><span class="line">      <span class="keyword">assert</span>(meanuTitle != <span class="keyword">null</span>),</span><br><span class="line">      <span class="keyword">assert</span>(meanuIcons != <span class="keyword">null</span>),</span><br><span class="line">      <span class="keyword">super</span>(key: key);</span><br><span class="line"></span><br><span class="line"><span class="meta">@override</span></span><br><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Drawer(...)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在页面中使用</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">        ...</span><br><span class="line">        drawer: MyDrawer(</span><br><span class="line">            headImagePath: <span class="string">&#x27;assets/image/xxx.jpg&#x27;</span>,</span><br><span class="line">            meanuIcons: _meanuIcons,</span><br><span class="line">            meanuTitle: _meanuTitle,</span><br><span class="line">        ),</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
  
       <!-- reward -->
       
