@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">174</span>
+            <span class="post-count">204</span>
         </span>
     </span>
 
@@ -113,7 +113,7 @@
 <li><code>emit</code>父子组件通讯，点击事件触发后、强制刷新</li>
 <li>监听<code>hash</code>值的变化、变化之后、强制刷新</li>
 </ul>
- 
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">setup: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">   <span class="keyword">const</span> route = useRoute();</span><br><span class="line">   watch(</span><br><span class="line">     () =&gt; route.path,</span><br><span class="line">     (to, <span class="keyword">from</span>) =&gt; &#123;</span><br><span class="line">       <span class="keyword">if</span> (<span class="keyword">from</span>.includes(<span class="string">&quot;papercss&quot;</span>) &amp;&amp; <span class="keyword">from</span> !== to) &#123;</span><br><span class="line">         location.reload();</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   );</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>
