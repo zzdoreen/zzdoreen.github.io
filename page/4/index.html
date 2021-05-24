@@ -142,6 +142,107 @@
     
     
     <article
+  id="post-redux"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/04/16/redux/"
+    >redux配合react的简单使用</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/04/16/redux/" class="article-date">
+  <time datetime="2020-04-16T04:21:42.000Z" itemprop="datePublished">2020-04-16</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/react/">react</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
+<p>javascript状态容器，提供可预测化的状态管理。（类似于vuex）</p>
+</blockquote>
+<h2 id="redux的工作流程"><a href="#redux的工作流程" class="headerlink" title="redux的工作流程"></a>redux的工作流程</h2><p><img src="http://www.ruanyifeng.com/blogimg/asset/2016/bg2016091802.jpg"></p>
+<blockquote>
+<p>store 是数据的存放地，组件从store中获取数据<br>action 存放着组件(view)对数据(data)的操作<br>reducer 根据传来的action的类型来更新state</p>
+</blockquote>
+<h3 id="流程详解"><a href="#流程详解" class="headerlink" title="流程详解"></a>流程详解</h3><ol>
+<li><p>用户操作视图数据发出action</p>
+<blockquote>
+<p>store.dispatch(action)</p>
+</blockquote>
+</li>
+<li><p>store自动调用reducer，并传入两个参数state和action。reducer根据action返回新的state</p>
+<blockquote>
+<p>(state=defaultState,action)=&gt;{ if(action.type===’…’){ return newState}… }</p>
+</blockquote>
+</li>
+<li><p>state发生变化，store调用监听函数</p>
+<blockquote>
+<p>store.subscribe(listener)</p>
+</blockquote>
+</li>
+<li><p>listener可以通过store.getState()得到当前状态，重新渲染页面</p>
+<blockquote>
+<p>function(){<br>   let newState = store.getState()<br>   component.setState(newState)<br>}</p>
+</blockquote>
+<h2 id="三大原则"><a href="#三大原则" class="headerlink" title="三大原则"></a>三大原则</h2></li>
+<li><p>单一数据源<br>整个应用的 state 被储存在一棵 object tree 中，并且这个 object tree 只存在于唯一一个 store 中。</p>
+</li>
+<li><p>state是只读的<br>唯一改变 state 的方法就是触发 action，action 是一个用于描述已发生事件的普通对象。</p>
+</li>
+<li><p>使用纯函数来执行修改<br>为了描述 action 如何改变 state tree ，需要编写 reducers。它接收先前的 state 和 action，并返回新的 state。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
+<p>npm i redux –save</p>
+</blockquote>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>一般会创建一个单独的文件夹来存放这些数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line"> └── store</span><br><span class="line">       ├── index.js</span><br><span class="line">       ├── reducer.js</span><br><span class="line">       └── actions.js</span><br></pre></td></tr></table></figure>
+<h3 id="index-state"><a href="#index-state" class="headerlink" title="index (state)"></a>index (state)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">createStore()：</span></span><br><span class="line"><span class="comment">创建一个store来存放所有的state</span></span><br><span class="line"><span class="comment">应用中有且仅有一个store</span></span><br><span class="line"><span class="comment">参数</span></span><br><span class="line"><span class="comment">1：reducer(Function)</span></span><br><span class="line"><span class="comment">2：[preloadeState](any): 初始的state</span></span><br><span class="line"><span class="comment">3：enhancer(Function): 强化的store creator ？？</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span> <span class="comment">// 引入方法</span></span><br><span class="line"><span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">&#x27;./reducer&#x27;</span>     <span class="comment">// 引入reducer</span></span><br><span class="line"><span class="keyword">const</span> store = createStore(          <span class="comment">// 创建存储仓库</span></span><br><span class="line">    reducer, </span><br><span class="line">    <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION__ &amp;&amp; <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION__()</span><br><span class="line">)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store        <span class="comment">// 把创建好的数据仓库暴露出去</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<p>在组件中获取数据</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;./store&#x27;</span>;</span><br><span class="line">...</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props)&#123;</span><br><span class="line">        <span class="built_in">super</span>(props)</span><br><span class="line">        <span class="built_in">this</span>.state = store.getState()   <span class="comment">//获取state</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br></pre></td></tr></table></figure>
+<h3 id="actions"><a href="#actions" class="headerlink" title="actions"></a>actions</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// actions.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">addAction</span> = (<span class="params"></span>)=&gt; (<span class="params">&#123;</span></span></span><br><span class="line"><span class="function"><span class="params">    type: <span class="string">&#x27;add&#x27;</span></span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span>)</span></span><br><span class="line"><span class="function"><span class="title">export</span> <span class="title">function</span> <span class="title">changeInputAction</span> = (<span class="params">value</span>)=&gt;(<span class="params">&#123;</span></span></span><br><span class="line"><span class="function"><span class="params">    type: <span class="string">&#x27;changeInput&#x27;</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">    value</span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>在组件内使用action</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;changeInputAction,addAction&#125; <span class="keyword">from</span> <span class="string">&#x27;./store/actions&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 触发事件就会触发action</span></span><br><span class="line">  changeInputValue(e)&#123;</span><br><span class="line">    <span class="keyword">const</span> action = changeInputAction(e.target.value)</span><br><span class="line">    store.dispatch(action)  <span class="comment">// 更新state</span></span><br><span class="line">  &#125;</span><br><span class="line">  add()&#123;</span><br><span class="line">    <span class="keyword">const</span> action = addAction()</span><br><span class="line">    store.dispatch(action)</span><br><span class="line">  &#125;</span><br><span class="line">  storeChange()&#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(store.getState())</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="reducer"><a href="#reducer" class="headerlink" title="reducer"></a>reducer</h3><p>它没有直接改变state的数据，而是返回新的对象</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建初始的state数据</span></span><br><span class="line"><span class="keyword">const</span> defaultState = &#123;</span><br><span class="line">    list:[<span class="string">&#x27;hehe&#x27;</span>,<span class="string">&#x27;enen&#x27;</span>],</span><br><span class="line">    inputValue:<span class="string">&#x27;write somthing&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (state=defaultState,action)=&gt;&#123;</span><br><span class="line">    <span class="keyword">if</span>(action.type===<span class="string">&#x27;changeInput&#x27;</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> newState = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(state))    <span class="comment">// 深拷贝</span></span><br><span class="line">        newState.inputValue = action.value  <span class="comment">// 更新数据</span></span><br><span class="line">        <span class="keyword">return</span> newState <span class="comment">// 返回新的state</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(action.type===<span class="string">&#x27;add&#x27;</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> newState = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(state))</span><br><span class="line">        newState.list.push(newState.inputValue)</span><br><span class="line">        newState.inputValue = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">return</span> newState</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> state</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 官方文档给出的代码段 是用switch-case进行对action类型的判断，assign进行拷贝和更新：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">todoApp</span>(<span class="params">state = defaultState, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> SET_VISIBILITY_FILTER:</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Object</span>.assign(&#123;&#125;, state, &#123;</span><br><span class="line">        visibilityFilter: action.filter</span><br><span class="line">      &#125;)</span><br><span class="line">    <span class="keyword">case</span> ADD_TODO:</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Object</span>.assign(&#123;&#125;, state, &#123;</span><br><span class="line">        todos: [</span><br><span class="line">          ...state.todos,</span><br><span class="line">          &#123;</span><br><span class="line">            text: action.text,</span><br><span class="line">            completed: <span class="literal">false</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;)</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.redux.org.cn/">redux中文文档</a><br><a target="_blank" rel="noopener" href="https://jspang.com/detailed?id=48#toc218">技术胖博客</a></p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-react01"
   class="article article-type-post"
   itemscope
@@ -987,121 +1088,6 @@
 
 <h2 id="发布-订阅模式的通用实现"><a href="#发布-订阅模式的通用实现" class="headerlink" title="发布-订阅模式的通用实现"></a>发布-订阅模式的通用实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把发布-订阅功能提取出来，放在一个单独的对象内</span></span><br><span class="line"><span class="keyword">var</span> event = &#123;</span><br><span class="line">    clientList : [],</span><br><span class="line">    listen : <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">this</span>.clientList[key])&#123;</span><br><span class="line">            <span class="built_in">this</span>.clientList[key] = []</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.clientList[key].push(fn)</span><br><span class="line">    &#125;,</span><br><span class="line">    trigger: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> key = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>)</span><br><span class="line">        <span class="keyword">var</span> fns = <span class="built_in">this</span>.clientList[key]</span><br><span class="line">        <span class="keyword">if</span>(!fns || fns.length===<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;fns.length;i++)&#123;</span><br><span class="line">            <span class="keyword">var</span> fn = fns[i]</span><br><span class="line">            fn.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// installEvent 函数，给所有对象动态安装 发布-订阅功能：</span></span><br><span class="line"><span class="comment">// 浅拷贝 (我感觉 没什么用。。)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">installEvent</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> event)&#123;</span><br><span class="line">        obj[i] = event[i]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> salesOffices = &#123;&#125;</span><br><span class="line">installEvent(salesOffices)</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;price= &#x27;</span>+ price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.trigger(<span class="string">&#x27;squareMeter88&#x27;</span>,<span class="number">122</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="取消订阅事件"><a href="#取消订阅事件" class="headerlink" title="取消订阅事件"></a>取消订阅事件</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> event = &#123;</span><br><span class="line">    ...</span><br><span class="line">    remove: <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> fns = <span class="built_in">this</span>.clientList[key]</span><br><span class="line">        <span class="keyword">if</span>(!fns)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!fn)&#123;  <span class="comment">// 如果没有传入具体的回调函数，表示需要取消 key 对应消息的所有订阅</span></span><br><span class="line">            fns &amp;&amp; (fns.length = <span class="number">0</span>)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i=fns.length<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)&#123;   <span class="comment">// 倒序删除</span></span><br><span class="line">                <span class="keyword">var</span> _fn = fns[i]</span><br><span class="line">                <span class="keyword">if</span>(_fn===fn)&#123;</span><br><span class="line">                    fns.splice(i,<span class="number">1</span>)</span><br><span class="line">                &#125; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,fn1 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;f1 price= &#x27;</span>+ price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,fn2 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;f2 price= &#x27;</span>+ price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,fn1 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;f3 price= &#x27;</span>+ price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.remove(<span class="string">&#x27;squareMeter88&#x27;</span>,fn1)  <span class="comment">// 删除的是最后一个叫f1的订阅者</span></span><br><span class="line">salesOffices.trigger(<span class="string">&#x27;squareMeter88&#x27;</span>,<span class="number">122</span>) <span class="comment">// f1/f2 price= 122</span></span><br><span class="line"></span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-3d效果"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/01/14/3d%E6%95%88%E6%9E%9C/"
-    >CSS实现3D效果</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/01/14/3d%E6%95%88%E6%9E%9C/" class="article-date">
-  <time datetime="2020-01-14T07:16:00.000Z" itemprop="datePublished">2020-01-14</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CSS/">CSS</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="transform相关属性实现3D效果"><a href="#transform相关属性实现3D效果" class="headerlink" title="transform相关属性实现3D效果"></a>transform相关属性实现3D效果</h2><style>
-    ._3Dbox{
-        width: 200px;
-        margin: 200px auto;
-        perspective: 2000px;    /* 视距 */
-    }
-    ._3Dbox .cube{
-        position: relative;
-        width: 200px;
-        height: 200px;
-        transform-style: preserve-3d;   /* 以3d的形式展示 ！！！ */
-        animation: _3dmove 10s linear infinite;
-    }
-    ._3Dbox .cube div{
-        position: absolute;
-        width: 200px;
-        height: 200px;
-        border: 2px solid lightblue;
-        line-height: 200px;
-        font-size: 30px;
-        opacity: 0.9;
-        text-align: center;
-        background: url('/images/avatar.jpg');
-        background-size: contain;
-    }
-    ._3Dbox .cube div:nth-child(1){ /* 上 */
-        transform:rotateX(90deg) translateZ(102px);
-    }
-    ._3Dbox .cube div:nth-child(2){ /* 下 */
-        transform:rotateX(-90deg) translateZ(102px);
-    }
-    ._3Dbox .cube div:nth-child(3){ /* 前 */
-        transform:translateZ(102px);
-    }
-    ._3Dbox .cube div:nth-child(4){ /* 后 */
-        transform: translateZ(-102px);
-    }
-    ._3Dbox .cube div:nth-child(5){ /* 左 */
-        transform: translateX(-102px) rotateY(90deg);
-    }
-    ._3Dbox .cube div:nth-child(6){ /* 右 */
-        transform: translateX(102px) rotateY(-90deg);
-    }
-    @keyframes _3dmove {
-        to{
-            transform: rotateX(360deg) rotateY(360deg) ;
-        }
-    }
-
-</style>
-<div class="_3Dbox">
-    <div class="cube">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-</div>
-
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span>&#123;</span></span><br><span class="line">        width: 200px;</span><br><span class="line">        margin: 200px auto;</span><br><span class="line"><span class="css">        <span class="selector-tag">perspective</span>: 2000<span class="selector-tag">px</span>;    <span class="comment">/* 视距 */</span></span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span>&#123;</span></span><br><span class="line">        position: relative;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line"><span class="css">        <span class="selector-tag">transform-style</span>: <span class="selector-tag">preserve-3d</span>;   <span class="comment">/* 以3d的形式展示 ！！！ */</span></span></span><br><span class="line">        animation: _3dmove 10s linear infinite;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span>&#123;</span></span><br><span class="line">        position: absolute;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        border: 2px solid lightblue;</span><br><span class="line">        line-height: 200px;</span><br><span class="line">        font-size: 30px;</span><br><span class="line"><span class="css">        <span class="selector-tag">opacity</span>: 0<span class="selector-class">.9</span>;</span></span><br><span class="line">        text-align: center;</span><br><span class="line">        background: url(&#x27;/images/avatar.jpg&#x27;);</span><br><span class="line">        background-size: contain;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(1)</span>&#123; <span class="comment">/* 上 */</span></span></span><br><span class="line"><span class="css">        <span class="selector-tag">transform</span><span class="selector-pseudo">:rotateX(90deg)</span> <span class="selector-tag">translateZ</span>(102<span class="selector-tag">px</span>);</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(2)</span>&#123; <span class="comment">/* 下 */</span></span></span><br><span class="line"><span class="css">        <span class="selector-tag">transform</span><span class="selector-pseudo">:rotateX(-90deg)</span> <span class="selector-tag">translateZ</span>(102<span class="selector-tag">px</span>);</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(3)</span>&#123; <span class="comment">/* 前 */</span></span></span><br><span class="line"><span class="css">        <span class="selector-tag">transform</span><span class="selector-pseudo">:translateZ(102px)</span>;</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(4)</span>&#123; <span class="comment">/* 后 */</span></span></span><br><span class="line">        transform: translateZ(-102px);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(5)</span>&#123; <span class="comment">/* 左 */</span></span></span><br><span class="line">        transform: translateX(-102px) rotateY(90deg);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(6)</span>&#123; <span class="comment">/* 右 */</span></span></span><br><span class="line">        transform: translateX(102px) rotateY(-90deg);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="keyword">@keyframes</span> _3dmove &#123;</span></span><br><span class="line">        to&#123;</span><br><span class="line">            transform: rotateX(360deg) rotateY(360deg) ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;_3Dbox&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cube&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="CSS中的3D坐标轴"><a href="#CSS中的3D坐标轴" class="headerlink" title="CSS中的3D坐标轴"></a>CSS中的3D坐标轴</h2><blockquote>
-<p>rotateX/Y/Z() 相当于绕X/Y/Z轴旋转 多少度<br>translateX/Y/Z() 相当于沿着X/Y/Z轴的方向移动多少像素  </p>
-</blockquote>
-<img src='/images/3d.webp' /> 
       <!-- reward -->
       
     </div>
