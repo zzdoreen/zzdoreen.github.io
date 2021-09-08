@@ -142,71 +142,6 @@
     
     
     <article
-  id="post-日报周报模板"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/01/29/%E6%97%A5%E6%8A%A5%E5%91%A8%E6%8A%A5%E6%A8%A1%E6%9D%BF/"
-    >周报日报模板</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/01/29/%E6%97%A5%E6%8A%A5%E5%91%A8%E6%8A%A5%E6%A8%A1%E6%9D%BF/" class="article-date">
-  <time datetime="2021-01-29T02:21:42.000Z" itemprop="datePublished">2021-01-29</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <ol>
-<li>持续优化<code>xxx</code></li>
-<li>重构了<code>xxx</code></li>
-<li>梳理<code>xxx</code>，总结<code>xxx</code></li>
-<li>排查<code>xxx</code>的问题</li>
-<li>改进了<code>xxx</code>逻辑，性能得到提升</li>
-<li>通过<code>xxx</code>降低了<code>xxx</code>至<code>xxx</code></li>
-<li>为了<code>xxx</code>重新设计了<code>xxx</code></li>
-<li>为了<code>xxx</code>通过<code>xxx</code>完成了<code>xxx</code></li>
-<li>通过<code>xxx</code>持续优化了<code>xxx</code>为<code>xxx</code></li>
-<li>为了<code>xxx</code>将<code>xxx</code>应用到了<code>xxx</code></li>
-<li>通过<code>xxx</code>提高了<code>xxx</code>至<code>xxx</code></li>
-<li>为了<code>xxx</code>通过<code>xxx</code>将<code>xxx</code>集成</li>
-<li>为了<code>xxx</code>通过<code>xxx</code>成立了<code>xxx</code></li>
-</ol>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
   id="post-webpack"
   class="article article-type-post"
   itemscope
@@ -1308,6 +1243,77 @@
 <p>Suspense组件用于在等待某个异步组件解析时显示后备内容</p>
 </blockquote>
 <h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"> <span class="comment">&lt;!-- Example.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span> &#123;&#123;result&#125;&#125; <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">lang</span>=<span class="string">&#x27;ts&#x27;</span>&gt;</span></span><br><span class="line">...</span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> defineComponent(&#123;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">async</span> setup()&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> rawData = <span class="keyword">await</span> axios.get(<span class="string">&#x27;...&#x27;</span>);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123; <span class="attr">result</span>:rowData.data &#125;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">  <span class="comment">/* ... */</span></span></span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> <span class="comment">&lt;!-- App.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">Suspense</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">template</span> #<span class="attr">default</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 请求成功后展示的组件 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">example</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">template</span> #<span class="attr">fallback</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!-- 没请求的时候展示的组件 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">Suspense</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">lang</span>=<span class="string">&#x27;ts&#x27;</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="comment">// 捕获请求异常</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123; onErrorCaptured &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span>&#123;</span></span><br><span class="line">  ...</span><br><span class="line">  setup()&#123;</span><br><span class="line"><span class="javascript">    <span class="comment">// 返回bool值</span></span></span><br><span class="line"><span class="javascript">    onErrorCaptured(<span class="function">(<span class="params">error</span>)=&gt;</span>&#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(error)</span></span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> <span class="literal">true</span></span></span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-vue3原生实现"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/10/05/vue3%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0/"
+    >vue3响应式的实现</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/10/05/vue3%E5%8E%9F%E7%94%9F%E5%AE%9E%E7%8E%B0/" class="article-date">
+  <time datetime="2020-10-05T06:17:00.000Z" itemprop="datePublished">2020-10-05</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>非递归监听，只有第一层改变才会触发界面更新</p>
+</blockquote>
+<h2 id="shallowReactive"><a href="#shallowReactive" class="headerlink" title="shallowReactive"></a>shallowReactive</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowReactive</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj,&#123;</span><br><span class="line">        get(obj,key)&#123;</span><br><span class="line">            <span class="keyword">return</span> obj[key]</span><br><span class="line">        &#125;,</span><br><span class="line">        set(obj,key,value)&#123;</span><br><span class="line">            obj[key] = value</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">name</span>:<span class="string">&#x27;doreen&#x27;</span>&#125;</span><br><span class="line"><span class="keyword">var</span> state = <span class="keyword">new</span> shallowReactive(obj)</span><br><span class="line">state.name = <span class="string">&#x27;sherry&#x27;</span> <span class="comment">// &#123; name: &#x27;sherry&#x27; &#125;</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="shallowRef"><a href="#shallowRef" class="headerlink" title="shallowRef"></a>shallowRef</h2><blockquote>
+<p>在shallowReactive的基础上，在外部封装一层value，所以他的第一层是value，只有value改变才会触发界面更新</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowRef</span>(<span class="params">val</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> shallowReactive(&#123;<span class="attr">value</span>: val&#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowReactive</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj,&#123;</span><br><span class="line">        get(obj,key)&#123;</span><br><span class="line">            <span class="keyword">return</span> obj[key]</span><br><span class="line">        &#125;,</span><br><span class="line">        set(obj,key,value)&#123;</span><br><span class="line">            obj[key] = value</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> obj = &#123;<span class="attr">name</span>:<span class="string">&#x27;doreen&#x27;</span>&#125;</span><br><span class="line"><span class="keyword">var</span> state = <span class="keyword">new</span> shallowRef(obj)</span><br><span class="line">state.value.name = <span class="string">&#x27;haha&#x27;</span> <span class="comment">// &#123; value: &#123; name: &#x27;haha&#x27; &#125; &#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="shallowReadonly"><a href="#shallowReadonly" class="headerlink" title="shallowReadonly"></a>shallowReadonly</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowReadonly</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, &#123;</span><br><span class="line">        get(obj, key) &#123;</span><br><span class="line">            <span class="keyword">return</span> obj[key]</span><br><span class="line">        &#125;,</span><br><span class="line">        set(obj, key, value) &#123;</span><br><span class="line">            <span class="built_in">console</span>.warn(<span class="string">&#x27;只读 不能被赋值&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<blockquote>
+<p>非递归监听，每一层改变都会触发更新。原理是把每一层进行proxy封装</p>
+</blockquote>
+<h2 id="reactive"><a href="#reactive" class="headerlink" title="reactive"></a>reactive</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reactive</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> obj === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>) &#123;</span><br><span class="line">            obj.forEach(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">typeof</span> item === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">                    obj[index] = reactive(item)</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">                <span class="keyword">let</span> item = obj[key];</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">typeof</span> item === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">                    obj[key] = reactive(item)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.warn(<span class="string">`<span class="subst">$&#123;obj&#125;</span> is not object`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, &#123;</span><br><span class="line">        get(obj, key) &#123;</span><br><span class="line">            <span class="keyword">return</span> obj[key]</span><br><span class="line">        &#125;,</span><br><span class="line">        set(obj, key, value) &#123;</span><br><span class="line">            obj[key] = value</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ref</span>(<span class="params">val</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> reactive(&#123; <span class="attr">value</span>: val &#125;)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reactive</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> obj === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>) &#123;</span><br><span class="line">            obj.forEach(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">typeof</span> item === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">                    obj[index] = reactive(item)</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">                <span class="keyword">let</span> item = obj[key];</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">typeof</span> item === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">                    obj[key] = reactive(item)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.warn(<span class="string">`<span class="subst">$&#123;obj&#125;</span> is not object`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, &#123;</span><br><span class="line">        get(obj, key) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(obj, key)</span><br><span class="line">            <span class="keyword">return</span> obj[key]</span><br><span class="line">        &#125;,</span><br><span class="line">        set(obj, key, value) &#123;</span><br><span class="line">            obj[key] = value</span><br><span class="line">            <span class="built_in">console</span>.log(obj)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="readonly"><a href="#readonly" class="headerlink" title="readonly"></a>readonly</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readonly</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> obj === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (obj <span class="keyword">instanceof</span> <span class="built_in">Array</span>) &#123;</span><br><span class="line">            obj.forEach(<span class="function">(<span class="params">item, index</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">typeof</span> item === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">                    obj[index] = readonly(item)</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> obj) &#123;</span><br><span class="line">                <span class="keyword">let</span> item = obj[key];</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">typeof</span> item === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">                    obj[key] = readonly(item)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.warn(<span class="string">`<span class="subst">$&#123;obj&#125;</span> is not object`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Proxy</span>(obj, &#123;</span><br><span class="line">        get(obj, key) &#123;</span><br><span class="line">            <span class="keyword">return</span> obj[key]</span><br><span class="line">        &#125;,</span><br><span class="line">        set(obj, key, value) &#123;</span><br><span class="line">            <span class="built_in">console</span>.warn(<span class="string">&#x27;不能被赋值&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>
