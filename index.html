@@ -142,6 +142,167 @@
     
     
     <article
+  id="post-待处理问题"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/09/08/%E5%BE%85%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98/"
+    >问题集</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/09/08/%E5%BE%85%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2021-09-08T02:21:42.000Z" itemprop="datePublished">2021-09-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/BUG%E6%94%B6%E9%9B%86%E7%AB%99/">BUG收集站</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="vue3中ref和其他属性绑定值重名导致绑定失效"><a href="#vue3中ref和其他属性绑定值重名导致绑定失效" class="headerlink" title="vue3中ref和其他属性绑定值重名导致绑定失效"></a>vue3中ref和其他属性绑定值重名导致绑定失效</h2><blockquote>
+<p>群友遇到的问题、我一开始看着也没觉得哪里不对。感觉以后能用的上，先存着。</p>
+</blockquote>
+<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><blockquote>
+<p>使用<code>element-plus</code> 中的 <code>el-form</code> 的时候，model绑定了<code>formData</code>,但是在页面上对表单进行操作的时候，数据绑定无效。</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-form</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">ref</span>=<span class="string">&quot;formData&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">:model</span>=<span class="string">&quot;formData&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">:rules</span>=<span class="string">&quot;rule&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-row</span> <span class="attr">justify</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-col</span> <span class="attr">:span</span>=<span class="string">&quot;12&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;入库类型&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;inOutType&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-select</span> <span class="attr">v-model</span>=<span class="string">&quot;formData.inOutType&quot;</span> <span class="attr">clearable</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">el-option</span> <span class="attr">label</span>=<span class="string">&quot;外购&quot;</span> <span class="attr">value</span>=<span class="string">&quot;外购&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-option</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">el-option</span> <span class="attr">label</span>=<span class="string">&quot;其他&quot;</span> <span class="attr">value</span>=<span class="string">&quot;其他&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-option</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">el-select</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-col</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-row</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line">setup()&#123;</span><br><span class="line">    <span class="keyword">let</span> formData: IEmptyObject = reactive(&#123;</span><br><span class="line">      warningUseTime: <span class="number">0</span>,</span><br><span class="line">      typeName: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      categoryCode: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      categoryName: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      maintenanceCode: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      maintenanceName: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      model: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      attribute: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      unit: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      warningProductionQuantity: <span class="number">0</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123; formData &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h3><blockquote>
+<p><code>ref</code>绑定的内容和<code>model</code>绑定的内容重复了，vue3中<code>ref</code>绑定的内容也是通过在<code>setup</code>中定义变量进行获取。具体原因还没仔细看，估计是ref的优先级更高？</p>
+</blockquote>
+<h2 id="proxy多个路由代理"><a href="#proxy多个路由代理" class="headerlink" title="proxy多个路由代理"></a>proxy多个路由代理</h2><blockquote>
+<p><span style='color:red'>重写失效、请求路径包含某个 代理名 代理失效。</span></p>
+</blockquote>
+<p>记下 还没解决</p>
+<h2 id="哈希路由引起样式问题"><a href="#哈希路由引起样式问题" class="headerlink" title="哈希路由引起样式问题"></a>哈希路由引起样式问题</h2><blockquote>
+<p>在一个页面引入了样式，并且添加了 <code>scoped</code> ,但是在进行页面跳转的时候，这些引入的样式会影响另一页面。刷新之后就好了</p>
+</blockquote>
+<p>初步猜测是因为路由用的<code>哈希模式</code>的原因</p>
+<blockquote>
+<p><code>hash</code> 值变化不会导致浏览器向服务器发出请求</p>
+</blockquote>
+<p>所以在第一个页面加载的样式，在跳转之后没有刷新，样式就一直会存在，因此影响到了页面的样式</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ul>
+<li><code>emit</code>父子组件通讯，点击事件触发后、强制刷新</li>
+<li>监听<code>hash</code>值的变化、变化之后、强制刷新</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">setup: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">   <span class="keyword">const</span> route = useRoute();</span><br><span class="line">   watch(</span><br><span class="line">     () =&gt; route.path,</span><br><span class="line">     (to, <span class="keyword">from</span>) =&gt; &#123;</span><br><span class="line">       <span class="keyword">if</span> (<span class="keyword">from</span>.includes(<span class="string">&quot;papercss&quot;</span>) &amp;&amp; <span class="keyword">from</span> !== to) &#123;</span><br><span class="line">         location.reload();</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   );</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<h2 id="el-date-picker限制时间选择范围"><a href="#el-date-picker限制时间选择范围" class="headerlink" title="el-date-picker限制时间选择范围"></a>el-date-picker限制时间选择范围</h2><blockquote>
+<p>两个时间选择器、开始时间与结束时间的时间选择范围为<code>24h</code>，并且精确到<code>分</code> (<code>format=&quot;yyyy-MM-dd HH:mm&quot;</code>)</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 基本使用 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">prop</span>=<span class="string">&quot;beginDateStr&quot;</span> <span class="attr">label</span>=<span class="string">&quot;开始时间&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-date-picker</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-model</span>=<span class="string">&quot;formData.beginDateStr&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">&quot;datetime&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">placeholder</span>=<span class="string">&quot;选择日期时间&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">format</span>=<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-date-picker</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">prop</span>=<span class="string">&quot;endDateStr&quot;</span> <span class="attr">label</span>=<span class="string">&quot;结束时间&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-date-picker</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-model</span>=<span class="string">&quot;formData.endDateStr&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">&quot;datetime&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">format</span>=<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">placeholder</span>=<span class="string">&quot;选择日期时间&quot;</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-date-picker</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Picker-Options-配置"><a href="#Picker-Options-配置" class="headerlink" title="Picker Options 配置"></a>Picker Options 配置</h3><h4 id="开始时间限制"><a href="#开始时间限制" class="headerlink" title="开始时间限制"></a>开始时间限制</h4><blockquote>
+<p>首先对开始时间进行限制 限制在当前日期之前；并且当开始日期改变的时候，结束日期清空</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/datetime-picker">disabledDate 日期禁用范围</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-date-picker</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">&quot;formData.beginDateStr&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">&quot;datetime&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">placeholder</span>=<span class="string">&quot;选择日期时间&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">format</span>=<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:picker-options</span>=<span class="string">&quot;pickerOptionsStart&quot;</span></span></span><br><span class="line"><span class="tag">  @<span class="attr">change</span>=<span class="string">&quot;handleChangeStart&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">el-date-picker</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> pickerOptionsStart = &#123;</span><br><span class="line">    disabledDate: <span class="function">(<span class="params">time: <span class="built_in">Date</span></span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> time.getTime() &gt; <span class="built_in">Date</span>.now();</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> handleChangeStart() &#123;</span><br><span class="line">    <span class="built_in">this</span>.formData.endDateStr = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="结束时间限制"><a href="#结束时间限制" class="headerlink" title="结束时间限制"></a>结束时间限制</h4><blockquote>
+<p>因为是24h限制、所以 开始时间+24h 和 开始时间-24h 的时间都得禁用；精确到分钟，小时和分钟也得进行限制</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/time-picker">selectableRange 时间选择范围</a><br>这个属性没有在<code>el-date-picker</code>里面，在<code>el-time-picker</code>里面，个人觉得文档写的不是很人性…<br>因为跨天的话、时间范围是不一样的 比如开始时间是<code>2021-05-31 02:00</code><br>那么结束时间的范围是<code>2021-05-31 02:00 - 2021-06-01 02:00</code><br>如果选的是31号 则 <code>selectableRange = &#39;02:00-23:59&#39;</code><br>如果选的是1号 则 <code>selectableRange = &#39;00:00-02:00&#39;</code><br>所以还得对日期选择进行监听，本来是想通过点击/change事件进行监听的<br>但是无效，然后通过监听<code>input</code>框内数据的变化 来进行监听</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-date-picker</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">&quot;formData.endDateStr&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">&quot;datetime&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">format</span>=<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">placeholder</span>=<span class="string">&quot;选择日期时间&quot;</span></span></span><br><span class="line"><span class="tag">  @<span class="attr">input</span>=<span class="string">&quot;handleChangeInputDate($event)&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:picker-options</span>=<span class="string">&quot;&#123;</span></span></span><br><span class="line"><span class="tag"><span class="string">   disabledDate: (time) =&gt; hanldeDisabledDate(time),</span></span></span><br><span class="line"><span class="tag"><span class="string">    selectableRange: dafaulttime,</span></span></span><br><span class="line"><span class="tag"><span class="string">  &#125;&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">el-date-picker</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> dafaulttime: <span class="built_in">string</span> = <span class="string">&#x27;00:00:00-23:59:59&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> handleChangeInputDate(e: <span class="built_in">Date</span>) &#123;</span><br><span class="line">    <span class="comment">// 区别 同一天和下一天的时间限制</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.formData.beginDateStr) &#123;</span><br><span class="line">      <span class="keyword">const</span> begin = <span class="keyword">new</span> EasyDate(<span class="built_in">this</span>.formData.beginDateStr).format(<span class="string">&#x27;dd&#x27;</span>);</span><br><span class="line">      <span class="keyword">const</span> end = <span class="keyword">new</span> EasyDate(e).format(<span class="string">&#x27;dd&#x27;</span>);</span><br><span class="line">      <span class="keyword">if</span> (begin === end) &#123;</span><br><span class="line">        <span class="built_in">this</span>.dafaulttime =</span><br><span class="line">          <span class="keyword">new</span> EasyDate(<span class="built_in">this</span>.formData.beginDateStr).format(<span class="string">&#x27;HH:mm:ss&#x27;</span>) +</span><br><span class="line">          <span class="string">&#x27;-23:59:59&#x27;</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.dafaulttime =</span><br><span class="line">          <span class="string">&#x27;00:00:00-&#x27;</span> +</span><br><span class="line">          <span class="keyword">new</span> EasyDate(<span class="built_in">this</span>.formData.beginDateStr).format(<span class="string">&#x27;HH:mm:ss&#x27;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> hanldeDisabledDate(time: <span class="built_in">Date</span>) &#123;</span><br><span class="line">    <span class="comment">// 24 * 3600 * 1000 == 8.64e7</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.formData.beginDateStr) &#123;</span><br><span class="line">      <span class="keyword">const</span> pickerMinDate = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">this</span>.formData.beginDateStr).getTime();</span><br><span class="line">      <span class="keyword">const</span> maxTime = pickerMinDate + <span class="number">8.64e7</span>;</span><br><span class="line">      <span class="keyword">const</span> minTime = pickerMinDate - <span class="number">8.64e7</span>;</span><br><span class="line">      <span class="keyword">return</span> time.getTime() &gt;= maxTime || time.getTime() &lt;= minTime;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> time.getTime() &gt; <span class="built_in">Date</span>.now();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="主要问题"><a href="#主要问题" class="headerlink" title="主要问题"></a>主要问题</h3><blockquote>
+<p>结束时间的 <code>picker-options</code> 属性,如果直接通过一个对象传递的话 ，会失效..,不清楚原因。我猜测是双向数据绑定相关的东西的问题</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// √ 生效</span></span><br><span class="line">:picker-options=<span class="string">&quot;&#123;</span></span><br><span class="line"><span class="string">   disabledDate: (time) =&gt; hanldeDisabledDate(time),</span></span><br><span class="line"><span class="string">    selectableRange: dafaulttime,</span></span><br><span class="line"><span class="string">  &#125;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// × 不生效</span></span><br><span class="line">:picker-options=<span class="string">&quot;pickerOption&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> pickerOption = &#123;</span><br><span class="line">   disabledDate: <span class="function">(<span class="params">time</span>) =&gt;</span> hanldeDisabledDate(time),</span><br><span class="line">    selectableRange: dafaulttime,</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-旅行"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/08/25/%E6%97%85%E8%A1%8C/"
+    >【旅行日记】稻城亚丁</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/08/25/%E6%97%85%E8%A1%8C/" class="article-date">
+  <time datetime="2021-08-25T02:21:42.000Z" itemprop="datePublished">2021-08-25</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p>  八月中下旬的时候，趁着中风险地区解封、疫情好转 赶紧把四天的福利假给调了<br>  本来还想组织下语言下午发的，不小心直接按了回车发给项目经理😂 （不是第一次了<br>  周一的早上九点多 顺利请了后面四天的假 哈哈哈<br>  一整天都无心工作 脑子里想的都是 要去稻城亚丁还是去九寨沟<br>  为了充分利用完六天长假 最后报了五天的稻城亚丁！<br>  出发前一天晚上 <code>蓝色暴雨预警</code> <del>不愿在笑man</del><br>  早上也是下了小雨，预约了早上五点的网约车，师傅三点多就到等候点了，我到的时候他在车上已经睡着了<br>  路上聊了几句，知道我是一个人去报团旅游一直嘱咐我出门要跟家里人报信、出去玩最好找认识的人一起<br>  最好在团里找个人一起…  当时就感觉好暖啊！！<br>  因为路上暴雨滑坡耽误了一些时间 到了新都桥那边的酒店吃完饭的已经九十点钟了<br>  因为有必须要买的东西，不得不十点了还去找商店，周边基本都是酒店，走了十多分钟才找到一家<br>  很幸运店家刚准备关门，结账的时候老板问我酒店在附近吗<br>  我说没有 走了十几二十分钟才找到这一家😭<br>  他也嘱咐我说 以后晚上出门要结伴、这么晚一个人不安全…  </p>
+<p>  说实话 很温暖。  </p>
+<hr>
+<p>  后面几天的行程基本和另外两个团友 <del>（一个比我大四天的小姐姐和一个上海过来的小哥）</del> 一起度过的、没觉得孤单、挺开心的<br>  还有个60多岁的老奶奶也是一个人报团的 十一公里四千多米的山路也走完了全程 还是蛮佩服的<br>  顺便夸自己一嘴 我们是第一批到的牛奶海 没有🏇， 纯徒步（感觉自己身体素质还可以<br>  当然 有好的身体素质还要做出好的选择，很多人看到路标五色海比较近就先去五色海了<br>  但是去五色海那个路真的陡 也很耗时，先去牛奶海 返程再去五色海是最佳选择😁  </p>
+<p>  山顶的风景确实不错 但是对于去过西藏的人来说 还是差点意思<br>  感觉去了西藏之后 看哪的风景都不会觉得太惊艳了 有机会还想去西藏！</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-harmonyOS"
   class="article article-type-post"
   itemscope
@@ -226,112 +387,6 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- home.hml --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 通过绑定属性的方式把数据传递给子组件 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 通过 @..=&#x27;fn&#x27; 的方式获取子组件传递的数据 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">tab-bar-com</span> <span class="attr">iconurl</span>=<span class="string">&#x27;https://....&#x27;</span> @<span class="attr">get-item</span>=<span class="string">&#x27;getTabbarItem&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">tab-bar-com</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// home.js</span></span><br><span class="line"><span class="keyword">export</span>.default&#123;</span><br><span class="line">  <span class="comment">// 获取子组件传来的数据</span></span><br><span class="line">  getTabbarItem(item) &#123;</span><br><span class="line">    <span class="comment">// 还有一层 detail</span></span><br><span class="line">        <span class="built_in">console</span>.log(item.detail.title) <span class="comment">// 我的</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-待处理问题"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/05/08/%E5%BE%85%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98/"
-    >问题集</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/05/08/%E5%BE%85%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98/" class="article-date">
-  <time datetime="2021-05-08T09:20:06.478Z" itemprop="datePublished">2021-05-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%BE%85%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98/">待解决问题</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="vue3中ref和其他属性绑定值重名导致绑定失效"><a href="#vue3中ref和其他属性绑定值重名导致绑定失效" class="headerlink" title="vue3中ref和其他属性绑定值重名导致绑定失效"></a>vue3中ref和其他属性绑定值重名导致绑定失效</h2><blockquote>
-<p>群友遇到的问题、我一开始看着也没觉得哪里不对。感觉以后能用的上，先存着。</p>
-</blockquote>
-<h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><blockquote>
-<p>使用<code>element-plus</code> 中的 <code>el-form</code> 的时候，model绑定了<code>formData</code>,但是在页面上对表单进行操作的时候，数据绑定无效。</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-form</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">ref</span>=<span class="string">&quot;formData&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">:model</span>=<span class="string">&quot;formData&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">:rules</span>=<span class="string">&quot;rule&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-row</span> <span class="attr">justify</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-col</span> <span class="attr">:span</span>=<span class="string">&quot;12&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;入库类型&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;inOutType&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-select</span> <span class="attr">v-model</span>=<span class="string">&quot;formData.inOutType&quot;</span> <span class="attr">clearable</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">el-option</span> <span class="attr">label</span>=<span class="string">&quot;外购&quot;</span> <span class="attr">value</span>=<span class="string">&quot;外购&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-option</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">el-option</span> <span class="attr">label</span>=<span class="string">&quot;其他&quot;</span> <span class="attr">value</span>=<span class="string">&quot;其他&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-option</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">el-select</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-col</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-row</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line">setup()&#123;</span><br><span class="line">    <span class="keyword">let</span> formData: IEmptyObject = reactive(&#123;</span><br><span class="line">      warningUseTime: <span class="number">0</span>,</span><br><span class="line">      typeName: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      categoryCode: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      categoryName: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      maintenanceCode: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      maintenanceName: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      model: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      attribute: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      unit: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      warningProductionQuantity: <span class="number">0</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123; formData &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h3><blockquote>
-<p><code>ref</code>绑定的内容和<code>model</code>绑定的内容重复了，vue3中<code>ref</code>绑定的内容也是通过在<code>setup</code>中定义变量进行获取。具体原因还没仔细看，估计是ref的优先级更高？</p>
-</blockquote>
-<h2 id="proxy多个路由代理"><a href="#proxy多个路由代理" class="headerlink" title="proxy多个路由代理"></a>proxy多个路由代理</h2><blockquote>
-<p><span style='color:red'>重写失效、请求路径包含某个 代理名 代理失效。</span></p>
-</blockquote>
-<p>记下 还没解决</p>
-<h2 id="哈希路由引起样式问题"><a href="#哈希路由引起样式问题" class="headerlink" title="哈希路由引起样式问题"></a>哈希路由引起样式问题</h2><blockquote>
-<p>在一个页面引入了样式，并且添加了 <code>scoped</code> ,但是在进行页面跳转的时候，这些引入的样式会影响另一页面。刷新之后就好了</p>
-</blockquote>
-<p>初步猜测是因为路由用的<code>哈希模式</code>的原因</p>
-<blockquote>
-<p><code>hash</code> 值变化不会导致浏览器向服务器发出请求</p>
-</blockquote>
-<p>所以在第一个页面加载的样式，在跳转之后没有刷新，样式就一直会存在，因此影响到了页面的样式</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ul>
-<li><code>emit</code>父子组件通讯，点击事件触发后、强制刷新</li>
-<li>监听<code>hash</code>值的变化、变化之后、强制刷新</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">setup: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">   <span class="keyword">const</span> route = useRoute();</span><br><span class="line">   watch(</span><br><span class="line">     () =&gt; route.path,</span><br><span class="line">     (to, <span class="keyword">from</span>) =&gt; &#123;</span><br><span class="line">       <span class="keyword">if</span> (<span class="keyword">from</span>.includes(<span class="string">&quot;papercss&quot;</span>) &amp;&amp; <span class="keyword">from</span> !== to) &#123;</span><br><span class="line">         location.reload();</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   );</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
-
-<h2 id="el-date-picker限制时间选择范围"><a href="#el-date-picker限制时间选择范围" class="headerlink" title="el-date-picker限制时间选择范围"></a>el-date-picker限制时间选择范围</h2><blockquote>
-<p>两个时间选择器、开始时间与结束时间的时间选择范围为<code>24h</code>，并且精确到<code>分</code> (<code>format=&quot;yyyy-MM-dd HH:mm&quot;</code>)</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 基本使用 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">prop</span>=<span class="string">&quot;beginDateStr&quot;</span> <span class="attr">label</span>=<span class="string">&quot;开始时间&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-date-picker</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-model</span>=<span class="string">&quot;formData.beginDateStr&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">&quot;datetime&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">placeholder</span>=<span class="string">&quot;选择日期时间&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">format</span>=<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-date-picker</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">prop</span>=<span class="string">&quot;endDateStr&quot;</span> <span class="attr">label</span>=<span class="string">&quot;结束时间&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-date-picker</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-model</span>=<span class="string">&quot;formData.endDateStr&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">&quot;datetime&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">format</span>=<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">placeholder</span>=<span class="string">&quot;选择日期时间&quot;</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-date-picker</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="Picker-Options-配置"><a href="#Picker-Options-配置" class="headerlink" title="Picker Options 配置"></a>Picker Options 配置</h3><h4 id="开始时间限制"><a href="#开始时间限制" class="headerlink" title="开始时间限制"></a>开始时间限制</h4><blockquote>
-<p>首先对开始时间进行限制 限制在当前日期之前；并且当开始日期改变的时候，结束日期清空</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/datetime-picker">disabledDate 日期禁用范围</a></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-date-picker</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">&quot;formData.beginDateStr&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">&quot;datetime&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">placeholder</span>=<span class="string">&quot;选择日期时间&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">format</span>=<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:picker-options</span>=<span class="string">&quot;pickerOptionsStart&quot;</span></span></span><br><span class="line"><span class="tag">  @<span class="attr">change</span>=<span class="string">&quot;handleChangeStart&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">el-date-picker</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> pickerOptionsStart = &#123;</span><br><span class="line">    disabledDate: <span class="function">(<span class="params">time: <span class="built_in">Date</span></span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> time.getTime() &gt; <span class="built_in">Date</span>.now();</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> handleChangeStart() &#123;</span><br><span class="line">    <span class="built_in">this</span>.formData.endDateStr = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="结束时间限制"><a href="#结束时间限制" class="headerlink" title="结束时间限制"></a>结束时间限制</h4><blockquote>
-<p>因为是24h限制、所以 开始时间+24h 和 开始时间-24h 的时间都得禁用；精确到分钟，小时和分钟也得进行限制</p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/time-picker">selectableRange 时间选择范围</a><br>这个属性没有在<code>el-date-picker</code>里面，在<code>el-time-picker</code>里面，个人觉得文档写的不是很人性…<br>因为跨天的话、时间范围是不一样的 比如开始时间是<code>2021-05-31 02:00</code><br>那么结束时间的范围是<code>2021-05-31 02:00 - 2021-06-01 02:00</code><br>如果选的是31号 则 <code>selectableRange = &#39;02:00-23:59&#39;</code><br>如果选的是1号 则 <code>selectableRange = &#39;00:00-02:00&#39;</code><br>所以还得对日期选择进行监听，本来是想通过点击/change事件进行监听的<br>但是无效，然后通过监听<code>input</code>框内数据的变化 来进行监听</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-date-picker</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">&quot;formData.endDateStr&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">&quot;datetime&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">format</span>=<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">placeholder</span>=<span class="string">&quot;选择日期时间&quot;</span></span></span><br><span class="line"><span class="tag">  @<span class="attr">input</span>=<span class="string">&quot;handleChangeInputDate($event)&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:picker-options</span>=<span class="string">&quot;&#123;</span></span></span><br><span class="line"><span class="tag"><span class="string">   disabledDate: (time) =&gt; hanldeDisabledDate(time),</span></span></span><br><span class="line"><span class="tag"><span class="string">    selectableRange: dafaulttime,</span></span></span><br><span class="line"><span class="tag"><span class="string">  &#125;&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">el-date-picker</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> dafaulttime: <span class="built_in">string</span> = <span class="string">&#x27;00:00:00-23:59:59&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> handleChangeInputDate(e: <span class="built_in">Date</span>) &#123;</span><br><span class="line">    <span class="comment">// 区别 同一天和下一天的时间限制</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.formData.beginDateStr) &#123;</span><br><span class="line">      <span class="keyword">const</span> begin = <span class="keyword">new</span> EasyDate(<span class="built_in">this</span>.formData.beginDateStr).format(<span class="string">&#x27;dd&#x27;</span>);</span><br><span class="line">      <span class="keyword">const</span> end = <span class="keyword">new</span> EasyDate(e).format(<span class="string">&#x27;dd&#x27;</span>);</span><br><span class="line">      <span class="keyword">if</span> (begin === end) &#123;</span><br><span class="line">        <span class="built_in">this</span>.dafaulttime =</span><br><span class="line">          <span class="keyword">new</span> EasyDate(<span class="built_in">this</span>.formData.beginDateStr).format(<span class="string">&#x27;HH:mm:ss&#x27;</span>) +</span><br><span class="line">          <span class="string">&#x27;-23:59:59&#x27;</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.dafaulttime =</span><br><span class="line">          <span class="string">&#x27;00:00:00-&#x27;</span> +</span><br><span class="line">          <span class="keyword">new</span> EasyDate(<span class="built_in">this</span>.formData.beginDateStr).format(<span class="string">&#x27;HH:mm:ss&#x27;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> hanldeDisabledDate(time: <span class="built_in">Date</span>) &#123;</span><br><span class="line">    <span class="comment">// 24 * 3600 * 1000 == 8.64e7</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.formData.beginDateStr) &#123;</span><br><span class="line">      <span class="keyword">const</span> pickerMinDate = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">this</span>.formData.beginDateStr).getTime();</span><br><span class="line">      <span class="keyword">const</span> maxTime = pickerMinDate + <span class="number">8.64e7</span>;</span><br><span class="line">      <span class="keyword">const</span> minTime = pickerMinDate - <span class="number">8.64e7</span>;</span><br><span class="line">      <span class="keyword">return</span> time.getTime() &gt;= maxTime || time.getTime() &lt;= minTime;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> time.getTime() &gt; <span class="built_in">Date</span>.now();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="主要问题"><a href="#主要问题" class="headerlink" title="主要问题"></a>主要问题</h3><blockquote>
-<p>结束时间的 <code>picker-options</code> 属性,如果直接通过一个对象传递的话 ，会失效..,不清楚原因。我猜测是双向数据绑定相关的东西的问题</p>
-</blockquote>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// √ 生效</span></span><br><span class="line">:picker-options=<span class="string">&quot;&#123;</span></span><br><span class="line"><span class="string">   disabledDate: (time) =&gt; hanldeDisabledDate(time),</span></span><br><span class="line"><span class="string">    selectableRange: dafaulttime,</span></span><br><span class="line"><span class="string">  &#125;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// × 不生效</span></span><br><span class="line">:picker-options=<span class="string">&quot;pickerOption&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> pickerOption = &#123;</span><br><span class="line">   disabledDate: <span class="function">(<span class="params">time</span>) =&gt;</span> hanldeDisabledDate(time),</span><br><span class="line">    selectableRange: dafaulttime,</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
  
       <!-- reward -->
       
@@ -1094,71 +1149,6 @@
 <p>你没有落后。<br>You’re not LATE.</p>
 <p>你没有领先。<br>You’re not EARLY.</p>
 <p>在你自己的时区里，一切安排都准时。<br>You are very much ON TIME, and in your TIME ZONE.</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-日报周报模板"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/01/29/%E6%97%A5%E6%8A%A5%E5%91%A8%E6%8A%A5%E6%A8%A1%E6%9D%BF/"
-    >周报日报模板</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/01/29/%E6%97%A5%E6%8A%A5%E5%91%A8%E6%8A%A5%E6%A8%A1%E6%9D%BF/" class="article-date">
-  <time datetime="2021-01-29T02:21:42.000Z" itemprop="datePublished">2021-01-29</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <ol>
-<li>持续优化<code>xxx</code></li>
-<li>重构了<code>xxx</code></li>
-<li>梳理<code>xxx</code>，总结<code>xxx</code></li>
-<li>排查<code>xxx</code>的问题</li>
-<li>改进了<code>xxx</code>逻辑，性能得到提升</li>
-<li>通过<code>xxx</code>降低了<code>xxx</code>至<code>xxx</code></li>
-<li>为了<code>xxx</code>重新设计了<code>xxx</code></li>
-<li>为了<code>xxx</code>通过<code>xxx</code>完成了<code>xxx</code></li>
-<li>通过<code>xxx</code>持续优化了<code>xxx</code>为<code>xxx</code></li>
-<li>为了<code>xxx</code>将<code>xxx</code>应用到了<code>xxx</code></li>
-<li>通过<code>xxx</code>提高了<code>xxx</code>至<code>xxx</code></li>
-<li>为了<code>xxx</code>通过<code>xxx</code>将<code>xxx</code>集成</li>
-<li>为了<code>xxx</code>通过<code>xxx</code>成立了<code>xxx</code></li>
-</ol>
  
       <!-- reward -->
       
