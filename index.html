@@ -142,6 +142,72 @@
     
     
     <article
+  id="post-axios封装&amp;proxyTable代理配置"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/09/10/axios%E5%B0%81%E8%A3%85&proxyTable%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/"
+    >axios封装&amp;proxyTable代理配置</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/09/10/axios%E5%B0%81%E8%A3%85&proxyTable%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2021-09-10T02:21:42.000Z" itemprop="datePublished">2021-09-10</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 style='color:red'>只在开发环境有效、打包之后代理配置就不生效了</h3>
+
+<h2 id="vite-config-ts-内进行代理配置"><a href="#vite-config-ts-内进行代理配置" class="headerlink" title="vite.config.ts 内进行代理配置"></a>vite.config.ts 内进行代理配置</h2><blockquote>
+<p>多代理配置</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">server: &#123;</span><br><span class="line">    open: true,</span><br><span class="line">    proxy: &#123;</span><br><span class="line">      &#x27;/api&#x27;: &#123;</span><br><span class="line">        target: &#x27;http://rap2api.taobao.org/app/mock/data&#x27;,</span><br><span class="line">        changeOrigin: true,</span><br><span class="line">        rewrite: (path) =&gt; path.replace(/^\/api/, &#x27;&#x27;)</span><br><span class="line">      &#125;,</span><br><span class="line">      &#x27;/music-api&#x27;: &#123;</span><br><span class="line">        target: &#x27;https://api.uomg.com/api/rand.music?format=json&amp;sort=%E7%83%AD%E6%AD%8C%E6%A6%9C&#x27;,</span><br><span class="line">        changeOrigin: true,</span><br><span class="line">        rewrite: (path) =&gt; path.replace(/^\/music-api/, &#x27;&#x27;)</span><br><span class="line">      &#125;,</span><br><span class="line">      &#x27;/music-lyric&#x27;: &#123;</span><br><span class="line">        <span class="comment">// target:&#x27;https://api.imjad.cn/cloudmusic/?type=lyric&amp;id=1479526505&#x27;</span></span><br><span class="line">        target: &#x27;https://api.imjad.cn/cloudmusic/&#x27;,</span><br><span class="line">        changeOrigin: true,</span><br><span class="line">        rewrite: (path) =&gt; path.replace(/^\/music-lyric/, &#x27;&#x27;)</span><br><span class="line">      &#125;,</span><br><span class="line">      &#x27;/one-api&#x27;: &#123;</span><br><span class="line">        target: &#x27;https://api.tianapi.com/txapi/one/index?key=7764228bedff0b2310879d47173c4603&amp;rand=1&#x27;,</span><br><span class="line">        changeOrigin: true,</span><br><span class="line">        rewrite: (path) =&gt; path.replace(/^\/one-api/, &#x27;&#x27;)</span><br><span class="line">      &#125;,</span><br><span class="line">      &#x27;/diary-api&#x27;: &#123;</span><br><span class="line">        target: &#x27;http://api.tianapi.com/txapi/tiangou/index?key=7764228bedff0b2310879d47173c4603&#x27;,</span><br><span class="line">        changeOrigin: true,</span><br><span class="line">        rewrite: (path) =&gt; path.replace(/^\/diary-api/, &#x27;&#x27;)</span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="新建一个http-ts文件对axios封装"><a href="#新建一个http-ts文件对axios封装" class="headerlink" title="新建一个http.ts文件对axios封装"></a>新建一个http.ts文件对axios封装</h2><blockquote>
+<p>最基础的配置只需要实例化<code>axios</code>对象,配置<code>baseUrl</code>就行了</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; CookieStorage &#125; <span class="keyword">from</span> <span class="string">&#x27;@/utils/cookies&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> axios, &#123; AxiosRequestConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> qs <span class="keyword">from</span> <span class="string">&#x27;qs&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">  timeout: <span class="number">600000</span>,</span><br><span class="line">  headers: &#123; <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span> &#125;,</span><br><span class="line">  baseURL: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 保存下载文件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">saveFile</span>(<span class="params">binaryData: <span class="built_in">string</span>, fileName: <span class="built_in">string</span>, mime?: <span class="built_in">string</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> fileDownload = <span class="built_in">require</span>(<span class="string">&#x27;js-file-download&#x27;</span>);</span><br><span class="line">  fileDownload(binaryData, fileName, mime);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">instance.download = &#123;</span><br><span class="line">  get(url, config) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; filename = <span class="string">&#x27;temp&#x27;</span>, mime = <span class="string">&#x27;&#x27;</span> &#125; = config || &#123;&#125;;</span><br><span class="line">    <span class="keyword">return</span> instance.get(url, &#123; ...config, responseType: <span class="string">&#x27;blob&#x27;</span> &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      saveFile(res.data, filename, mime);</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(res);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  post: <span class="function">(<span class="params">url, data, config</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; filename = <span class="string">&#x27;temp&#x27;</span>, mime = <span class="string">&#x27;&#x27;</span> &#125; = config || &#123;&#125;;</span><br><span class="line">    <span class="keyword">return</span> instance.post(url, data, &#123; ...config, responseType: <span class="string">&#x27;blob&#x27;</span> &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      saveFile(res.data, filename, mime);</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(res);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ne-upload</span></span><br><span class="line">instance.upload = <span class="function">(<span class="params">url, data, config = &#123;&#125;, params</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> formData = <span class="keyword">new</span> FormData();</span><br><span class="line">  data.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    formData.append(<span class="string">&#x27;file&#x27;</span>, item.value, item.name || item.filename);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">if</span> (params &amp;&amp; <span class="built_in">Object</span>.keys(params).length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> m <span class="keyword">in</span> params) &#123;</span><br><span class="line">      <span class="keyword">if</span> (params.hasOwnProperty(m)) &#123;</span><br><span class="line">        <span class="keyword">const</span> key = m;</span><br><span class="line">        <span class="keyword">const</span> value = params[m];</span><br><span class="line">        formData.append(key, value);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> instance.request(&#123;</span><br><span class="line">    method: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    ...config,</span><br><span class="line">    url,</span><br><span class="line">    data: formData,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">instance.formdata = <span class="function">(<span class="params">url, data, config = &#123;&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> formData = qs.stringify(data); <span class="comment">// 会将汉字encode</span></span><br><span class="line">  <span class="keyword">return</span> instance.request(&#123;</span><br><span class="line">    ...config,</span><br><span class="line">    url,</span><br><span class="line">    data: formData,</span><br><span class="line">    method: config.method || <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    headers: &#123; ...config.headers, <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span> &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 请求拦截器</span></span><br><span class="line">instance.interceptors.request.use(<span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; params = &#123;&#125; &#125; = config;</span><br><span class="line">    config.params = &#123; ...params, time: <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() &#125;;</span><br><span class="line">    <span class="comment">// add token if need</span></span><br><span class="line">    config.headers = &#123;</span><br><span class="line">      ...(config.headers || &#123;&#125;),</span><br><span class="line">      <span class="string">&#x27;X-Auth-Token&#x27;</span>: CookieStorage.token,</span><br><span class="line">      <span class="string">&#x27;X-Stargate-AppId&#x27;</span>: <span class="number">25</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;, <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// show err</span></span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 响应拦截器</span></span><br><span class="line">instance.interceptors.response.use(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(response);</span><br><span class="line">  &#125;, <span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// show error_msg and reject</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;响应失败信息&#x27;</span>, error.response);</span><br><span class="line">    <span class="keyword">if</span> (error &amp;&amp; error.response &amp;&amp; error.response.status) &#123;</span><br><span class="line">      <span class="keyword">let</span> errCode = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">let</span> errMsg = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">      <span class="keyword">if</span> (!!error.response.data) &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; status, errorMsg &#125; = error.response.data;</span><br><span class="line">        errCode = status;</span><br><span class="line">        errMsg = errorMsg;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">switch</span> (error.response.status) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">400</span>:</span><br><span class="line">          <span class="built_in">window</span>._vm.$messageSelf.error(errMsg);</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">401</span>:</span><br><span class="line">          <span class="comment">// to login or authorize</span></span><br><span class="line">          <span class="built_in">window</span>._vm.$messageSelf.error(errMsg);</span><br><span class="line">          CookieStorage.clear();</span><br><span class="line">          <span class="comment">// window.location.href = &#x27;&#x27;;</span></span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">403</span>:</span><br><span class="line">          <span class="comment">// to login or authorize</span></span><br><span class="line">          <span class="built_in">window</span>._vm.$messageSelf.error(errMsg);</span><br><span class="line">          CookieStorage.clear();</span><br><span class="line">          <span class="built_in">window</span>.location.href = <span class="string">&#x27;/&#x27;</span>;</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">404</span>:</span><br><span class="line">          <span class="comment">// request failed, no res on server</span></span><br><span class="line">          <span class="built_in">window</span>._vm.$messageSelf.error(<span class="string">&#x27;系统错误，请稍候再试&#x27;</span>);</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">500</span>:</span><br><span class="line">          <span class="comment">// server error</span></span><br><span class="line">          <span class="built_in">window</span>._vm.$messageSelf.error(errMsg);</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> instance;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="新建一个common-api-ts对公共请求进行封装"><a href="#新建一个common-api-ts对公共请求进行封装" class="headerlink" title="新建一个common-api.ts对公共请求进行封装"></a>新建一个common-api.ts对公共请求进行封装</h2><blockquote>
+<p>引入<code>http.ts</code>文件，并根据业务类型进程处理</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> http <span class="keyword">from</span> <span class="string">&#x27;@/utils/http&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">commonRequest</span>(<span class="params">path: <span class="built_in">string</span>, params: <span class="built_in">any</span> = &#123;&#125;, method: <span class="built_in">string</span> = &#x27;get&#x27;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (method === <span class="string">&#x27;post&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> http.post(path, params).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(res.data);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> http.get(path, &#123; params &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(res.data);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="string">``</span><span class="string">` </span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">## 具体使用</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&gt; 按照`</span>commonRequest<span class="string">`方法要求进行传参，并使用。根据不同的接口名，匹配不同的接口地址。</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">`</span><span class="string">``</span>html</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;button <span class="meta">@click</span>=<span class="string">&quot;handleRequest(&#x27;/music-api&#x27;)&quot;</span>&gt;<span class="regexp">/music-api&lt;/</span>button&gt;</span><br><span class="line">    &lt;button <span class="meta">@click</span>=<span class="string">&quot;handleRequest(&#x27;/music-lyric&#x27;)&quot;</span>&gt;<span class="regexp">/music-lyric&lt;/</span>button&gt;</span><br><span class="line">    &lt;button <span class="meta">@click</span>=<span class="string">&quot;handleRequest(&#x27;/one-api&#x27;)&quot;</span>&gt;<span class="regexp">/one-api&lt;/</span>button&gt;</span><br><span class="line">    &lt;button <span class="meta">@click</span>=<span class="string">&quot;handleRequest(&#x27;/diary-api&#x27;)&quot;</span>&gt;<span class="regexp">/diary-api&lt;/</span>button&gt;</span><br><span class="line">    &lt;h3&gt;&#123;&#123; showData &#125;&#125;&lt;/h3&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script lang=<span class="string">&#x27;ts&#x27;</span>&gt;</span><br><span class="line"><span class="keyword">import</span> &#123; defineComponent &#125; <span class="keyword">from</span> <span class="string">&quot;@vue/runtime-core&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; commonRequest &#125; <span class="keyword">from</span> <span class="string">&quot;../api/http&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> defineComponent(&#123;</span><br><span class="line">  setup: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> showData = ref(<span class="string">&quot;e&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">handleRequest</span>(<span class="params">api: <span class="built_in">string</span></span>) </span>&#123;</span><br><span class="line">      commonRequest(api, &#123;&#125;).then(<span class="function">(<span class="params">res</span>) =&gt;</span> (showData.value = res));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123; showData, handleRequest &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-待处理问题"
   class="article article-type-post"
   itemscope
@@ -165,7 +231,7 @@
   <time datetime="2021-09-08T02:21:42.000Z" itemprop="datePublished">2021-09-08</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/BUG%E6%94%B6%E9%9B%86%E7%AB%99/">BUG收集站</a>
+    <a class="article-category-link" href="/categories/%E9%97%AE%E9%A2%98%E9%9B%86/">问题集</a>
   </div>
    
     </div>
@@ -1076,79 +1142,6 @@
 <li>触发 <code>DOM</code> 更新。</li>
 <li>调用 <code>beforeRouteEnter</code> 守卫中传给 <code>next</code> 的回调函数，创建好的组件实例会作为回调函数的参数传入。</li>
 </ol>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-纽约时间比加州时间早三个小时"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/02/19/%E7%BA%BD%E7%BA%A6%E6%97%B6%E9%97%B4%E6%AF%94%E5%8A%A0%E5%B7%9E%E6%97%B6%E9%97%B4%E6%97%A9%E4%B8%89%E4%B8%AA%E5%B0%8F%E6%97%B6/"
-    >纽约时间比加州时间早三个小时</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/02/19/%E7%BA%BD%E7%BA%A6%E6%97%B6%E9%97%B4%E6%AF%94%E5%8A%A0%E5%B7%9E%E6%97%B6%E9%97%B4%E6%97%A9%E4%B8%89%E4%B8%AA%E5%B0%8F%E6%97%B6/" class="article-date">
-  <time datetime="2021-02-19T07:16:00.000Z" itemprop="datePublished">2021-02-19</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>纽约时间比加州时间早三个小时，<br>New York is 3 hours ahead of California,</p>
-<p>但加州时间并没有变慢。<br>but it does not make California slow.</p>
-<p>有人22岁就毕业了，<br>Someone graduated at the age of 22,</p>
-<p>但等了五年才找到稳定的工作！<br>but waited 5 years before securing a good job!</p>
-<p>有人25岁就当上CEO，<br>Someone became a CEO at 25,</p>
-<p>却在50岁去世。<br>and died at 50.</p>
-<p>也有人迟到50岁才当上CEO，<br>While another became a CEO at 50,</p>
-<p>然后活到90岁。<br>and lived to 90 years.</p>
-<p>有人单身，<br>Someone is still single,</p>
-<p>同时也有人已婚。<br>while someone else got married.</p>
-<p>欧巴马55岁就退休，<br>Obama retires at 55,</p>
-<p>川普70岁才开始当总统。<br>but Trump starts at 70.</p>
-<p>世上每个人本来就有自己的发展时区。<br>Absolutely everyone in this world works based on their Time Zone.</p>
-<p>身边有些人看似走在你前面，<br>People around you might seem to go ahead of you,</p>
-<p>也有人看似走在你后面。<br>some might seem to be behind you.</p>
-<p>但其实每个人在自己的时区有自己的步程。<br>But everyone is running their own RACE, in their own TIME.</p>
-<p>不用嫉妒或嘲笑他们。<br>Don’t envy them or mock them.</p>
-<p>他们都在自己的时区里，你也是！<br>They are in their TIME ZONE, and you are in yours!</p>
-<p>生命就是等待正确的行动时机。<br>Life is about waiting for the right moment to act.</p>
-<p>所以，放轻松。<br>So, RELAX.</p>
-<p>你没有落后。<br>You’re not LATE.</p>
-<p>你没有领先。<br>You’re not EARLY.</p>
-<p>在你自己的时区里，一切安排都准时。<br>You are very much ON TIME, and in your TIME ZONE.</p>
  
       <!-- reward -->
       
