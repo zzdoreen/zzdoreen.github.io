@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    请求参数问题 |  
+    Archives: 2022 |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -46,199 +46,51 @@
       
     <main class="content on">
       <section class="outer">
-  <article
-  id="post-tips"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
+  
+  <article class="articles">
     
-    <header class="article-header">
+    
+    <h1 class="page-type-title">2022</h1>
+    
+    
+  
+  
+  
+  
+  
+  
+  <div class="archives-wrap">
+    <div class="archive-year-wrap">
+      <a href="/archives/2022" class="archive-year">2022</a>
+    </div>
+    <div class="archives">
+      
+      <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2022/01/18/%E5%BE%85%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98/" class="archive-article-date">
+  <time datetime="2022-01-18T02:21:42.000Z" itemprop="datePublished">01/18</time>
+</a>
        
-<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  请求参数问题
-</h1>
+<h2 itemprop="name">
+  <a class="archive-article-title" href="/2022/01/18/%E5%BE%85%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98/"
+    >问题集</a> 
+</h2>
  
 
     </header>
-     
-    <div class="article-meta">
-      <a href="/2020/12/16/tips/" class="article-date">
-  <time datetime="2020-12-16T02:16:00.000Z" itemprop="datePublished">2020-12-16</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+    
+    
   </div>
-  
-<div class="word_count">
-    <span class="post-time">
-        <span class="post-meta-item-icon">
-            <i class="ri-quill-pen-line"></i>
-            <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">200</span>
-        </span>
-    </span>
-
-    <span class="post-time">
-        &nbsp; | &nbsp;
-        <span class="post-meta-item-icon">
-            <i class="ri-book-open-line"></i>
-            <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">1 min</span>
-        </span>
-    </span>
-</div>
- 
-    </div>
-      
-    <div class="tocbot"></div>
-
-
-
-
-  
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="一个不好检查的bug"><a href="#一个不好检查的bug" class="headerlink" title="一个不好检查的bug"></a>一个不好检查的bug</h2><h3 id="基本信息描述"><a href="#基本信息描述" class="headerlink" title="基本信息描述"></a>基本信息描述</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">一个弹框表单的编辑功能，编辑接口请求的时候</span><br><span class="line">会对列表进行分类，以数组的方式存储在指定属性中</span><br></pre></td></tr></table></figure>
-
-<p><code>参数处理逻辑没问题，这就是错误不好找的原因</code></p>
-<h3 id="bug描述"><a href="#bug描述" class="headerlink" title="bug描述"></a>bug描述</h3><blockquote>
-<p>编辑的时候参数列表数据 <code>有!时!候!</code> 会重复</p>
-</blockquote>
-<h4 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">将接口参数放入页面的全局变量中存储</span><br><span class="line">每次要发送请求之前对参数进行处理 然后进行接口请求</span><br><span class="line"></span><br><span class="line">错误原因</span><br><span class="line">① 每次编辑弹框开启的时候变量没有重置</span><br><span class="line">② 请求失败的时候，变量没有重置，再次请求之前还是会处理一次数据 然后放进变量中导致重复</span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-<div class="share-btn">
-      <span class="share-sns share-outer">
-        <i class="ri-share-forward-line"></i>
-        分享
-      </span>
-      <div class="share-wrap">
-        <i class="arrow"></i>
-        <div class="share-icons">
-          
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="ri-weibo-fill"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="ri-wechat-fill"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="ri-qq-fill"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="ri-douban-line"></i>
-          </a>
-          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a> -->
-          
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="ri-facebook-circle-fill"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="ri-twitter-fill"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="ri-google-fill"></i>
-          </a>
-        </div>
-      </div>
-</div>
-
-<div class="wx-share-modal">
-    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/12/16/tips/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div id="share-mask"></div>  
-    </footer>
-  </div>
-
-   
-  <nav class="article-nav">
-    
-      <a href="/2020/12/30/%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%80%BC/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            路由传值
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2020/11/30/dart/" class="article-nav-link">
-        <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Dart基础语法</div>
-      </a>
-    
-  </nav>
-
-   
-<!-- valine评论 -->
-<div id="vcomments-box">
-  <div id="vcomments"></div>
-</div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js"></script>
-<script>
-  new Valine({
-    el: "#vcomments",
-    app_id: "9OLyDF6ymKbs1woL9kh2qbae-gzGzoHsz",
-    app_key: "RTkmORaJHqkGjEovHixLK04x",
-    path: window.location.pathname,
-    avatar: "monsterid",
-    placeholder: "给我的文章加点评论吧~",
-    recordIP: true,
-  });
-  const infoEle = document.querySelector("#vcomments .info");
-  if (infoEle && infoEle.childNodes && infoEle.childNodes.length > 0) {
-    infoEle.childNodes.forEach(function (item) {
-      item.parentNode.removeChild(item);
-    });
-  }
-</script>
-<style>
-  #vcomments-box {
-    padding: 5px 30px;
-  }
-
-  @media screen and (max-width: 800px) {
-    #vcomments-box {
-      padding: 5px 0px;
-    }
-  }
-
-  #vcomments-box #vcomments {
-    background-color: #fff;
-  }
-
-  .v .vlist .vcard .vh {
-    padding-right: 20px;
-  }
-
-  .v .vlist .vcard {
-    padding-left: 10px;
-  }
-</style>
-
- 
-     
 </article>
+      
+      
+    </div>
+  </div>
+  
+  
 
+  
 </section>
       <footer class="footer">
   <div class="outer">
@@ -372,23 +224,6 @@
 <script src="/js/lazyload.min.js"></script>
 
 <!-- Tocbot -->
-
-
-<script src="/js/tocbot.min.js"></script>
-
-<script>
-  tocbot.init({
-    tocSelector: '.tocbot',
-    contentSelector: '.article-entry',
-    headingSelector: 'h1, h2, h3, h4, h5, h6',
-    hasInnerContainers: true,
-    scrollSmooth: true,
-    scrollContainer: 'main',
-    positionFixedSelector: '.tocbot',
-    positionFixedClass: 'is-position-fixed',
-    fixedSidebarOffset: 'auto'
-  });
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
