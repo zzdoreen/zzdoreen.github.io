@@ -219,9 +219,83 @@
 <ul>
 <li>然后照葫芦画瓢、添加单击事件、获取点击的数据</li>
 </ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前两段是系统默认的，应该是获取到列表对象</span></span><br><span class="line"><span class="comment">// 通过grid.demoGrid获取到自定义面板的内容</span></span><br><span class="line"><span class="comment">// 并触发点击事件的方法</span></span><br><span class="line"><span class="comment">// me.store.loadData([&#123; html: xxx &#125;]); 重新传递html变量的数据</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">view,record</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> grid = view.panel;</span><br><span class="line">	grid = view.lockingPartner?grid.ownerCt:grid;</span><br><span class="line">    </span><br><span class="line">    grid.demoGrid.handleClick(view,record);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前两段是系统默认的，应该是获取到列表对象</span></span><br><span class="line"><span class="comment">// 通过grid.demoGrid获取到自定义面板的内容</span></span><br><span class="line"><span class="comment">// 并触发点击事件的方法</span></span><br><span class="line"><span class="comment">// me.store.loadData([&#123; html: xxx &#125;]); 重新传递html变量的数据</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">view,record</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> grid = view.panel;</span><br><span class="line"> grid = view.lockingPartner?grid.ownerCt:grid;</span><br><span class="line">    </span><br><span class="line">    grid.demoGrid.handleClick(view,record);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.bmp.ovh/imgs/2022/03/2751fe1e58e73140.png"></p>
+<h3 id="Vue插件开发"><a href="#Vue插件开发" class="headerlink" title="Vue插件开发"></a><a target="_blank" rel="noopener" href="https://doc.jepaas.com/docs/je_doc_jepaas/je_doc_jepaas-1d7js8b082ko0">Vue插件开发</a></h3><h4 id="一、Vue插件编写"><a href="#一、Vue插件编写" class="headerlink" title="一、Vue插件编写"></a>一、Vue插件编写</h4><ol>
+<li><p>创建<code>index.vue</code>文件 (src/vue/modules/<code>name</code>/index.vue) ; 写入插件页面内容</p>
+</li>
+<li><p>创建<code>index.js</code>文件 (src/vue/modules/<code>name</code>/index.js) ; 安装组件</p>
+</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; install &#125; <span class="keyword">from</span> <span class="string">&#x27;../../install.js&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> index <span class="keyword">from</span> <span class="string">&#x27;./index.vue&#x27;</span>;</span><br><span class="line"><span class="comment">// 加载echarts依赖</span></span><br><span class="line">JE.loadChartScript(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">// 安装组件</span></span><br><span class="line">install(<span class="string">&#x27;Name&#x27;</span>, index);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>插件写入<code>jepaas.js</code>配置文件中进行编译 (config/config/jepaas.js)</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    ...</span><br><span class="line">    entry:[</span><br><span class="line">        ...</span><br><span class="line">        <span class="string">&#x27;name&#x27;</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>代码运行的时候 就会自动编译该插件 并在 (dist/pro/<code>name</code>/View.js)中输出编译完成的文件</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PRO.name.View 为插件的名字 使用的时候直接通过这个名字使用</span></span><br><span class="line">Ext.define(<span class="string">&quot;PRO.name.View&quot;</span>, &#123;</span><br><span class="line">  extend: <span class="string">&#x27;Ext.panel.Panel&#x27;</span>,</span><br><span class="line">  alias:<span class="string">&#x27;widget.pro.name&#x27;</span>,</span><br><span class="line">  border: <span class="number">0</span>,</span><br><span class="line">  layout: <span class="string">&#x27;fit&#x27;</span></span><br><span class="line">  ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="二、平台渲染Vue插件"><a href="#二、平台渲染Vue插件" class="headerlink" title="二、平台渲染Vue插件"></a>二、平台渲染Vue插件</h4><ol>
+<li>通过插件的形式挂载（只有插件内容）</li>
+</ol>
+<ul>
+<li>新建菜单功能的时候，类型选择<code>插件</code></li>
+<li>信息 为 <code>JE_PLUFIN_NAME,PRO.name.View</code></li>
+<li>点击授权给开发人员</li>
+</ul>
+<p><img src="https://i.bmp.ovh/imgs/2022/03/027ba136be193704.png"></p>
+<ol start="2">
+<li>通过表单方法渲染的时候挂载（有别的内容）</li>
+</ol>
+<ul>
+<li>不管之前的菜单的类型为什么</li>
+<li>在表单渲染后<code>afterrender</code> 在面板中插入该插件的内容</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">self</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// ------直接覆盖以前的内容，放在顶部</span></span><br><span class="line">    <span class="keyword">var</span> panel = Ext.create(<span class="string">&#x27;PRO.name.View&#x27;</span>,&#123;</span><br><span class="line">        height:<span class="number">300</span>,</span><br><span class="line">        dock:<span class="string">&#x27;top&#x27;</span>,</span><br><span class="line">        vueInfo:&#123;</span><br><span class="line">            params:&#123;</span><br><span class="line">                formValue:self.getValues()</span><br><span class="line">            &#125;,</span><br><span class="line">            callback:<span class="function"><span class="keyword">function</span>(<span class="params">formValue</span>)</span>&#123;</span><br><span class="line">                self.getFields(<span class="string">&#x27;SCHOOL_XX&#x27;</span>).setValue(formValue.aaa);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    self.addDocked(panel);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// ------在以前的内容后添加</span></span><br><span class="line">    <span class="keyword">var</span> grid = self;</span><br><span class="line">    <span class="comment">//创建组件</span></span><br><span class="line">    <span class="keyword">var</span> demoGrid = Ext.create(<span class="string">&#x27;PRO.name.view&#x27;</span>,&#123;</span><br><span class="line">        region:<span class="string">&#x27;south&#x27;</span>,</span><br><span class="line">        height:<span class="number">300</span>,</span><br><span class="line">        mainGrid:grid</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//加载到列表的父容器下方，父容器布局是border</span></span><br><span class="line">    grid.demoGrid = grid.ownerCt.add(demoGrid);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="Vue与平台通信"><a href="#Vue与平台通信" class="headerlink" title="Vue与平台通信"></a>Vue与平台通信</h4><ul>
+<li>数据传递</li>
+</ul>
+<ol>
+<li>平台通过 <code>vueInfo.params</code> 传递数据给vue</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vueInfo:&#123;</span><br><span class="line">    params:&#123;</span><br><span class="line">        value1:<span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        value2:<span class="string">&#x27;&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Vue通过props接收传递过来的数据</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> defualt&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    props:&#123;</span><br><span class="line">        params:&#123;</span><br><span class="line">            type:<span class="built_in">Object</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Vue实时展示</li>
+</ul>
+<blockquote>
+<p>给获取的字段添加<code>change</code>事件</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">filed,value,eOpts</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> domeView = field.up(<span class="string">&#x27;jeeditview&#x27;</span>).down(<span class="string">&#x27;[xtype=pro.name]&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span>(domeView &amp;&amp; domeView.vm)&#123;</span><br><span class="line">        domeView.vm.params.formValue.SCHOOL_XXLS = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>方法传递</li>
+</ul>
+<ol>
+<li>平台通过 <code>vueInfo.callback</code> 改变数据库的值</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vueInfo:&#123;</span><br><span class="line">    callback:<span class="function"><span class="keyword">function</span>(<span class="params">formValue</span>)</span>&#123;</span><br><span class="line">        self.getFields(<span class="string">&#x27;SCHOOL_XX&#x27;</span>).setValue(formValue.aaa);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>Vue通过<code>props</code>接入传入的方法</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">    callback: &#123;</span><br><span class="line">      type: <span class="built_in">Function</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>挂载事件执行方法</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;button @click=<span class="string">&quot;showContent&quot;</span>&gt;点击&lt;/button&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">methods:&#123;</span><br><span class="line">    showContent()&#123;</span><br><span class="line">        <span class="built_in">this</span>.callback(&#123;<span class="attr">aaa</span>:<span class="built_in">this</span>.formValue.SCHOOL_XXLS&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
  
       <!-- reward -->
       
