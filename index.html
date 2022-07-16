@@ -142,7 +142,7 @@
     
     
     <article
-  id="post-reactHooks"
+  id="post-flvjs"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -153,15 +153,92 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2022/07/16/reactHooks/"
-    >hooks &amp; ahooks</a> 
+  <a class="article-title" href="/2022/07/16/flvjs/"
+    >Flvjs</a> 
 </h2>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2022/07/16/reactHooks/" class="article-date">
+      <a href="/2022/07/16/flvjs/" class="article-date">
+  <time datetime="2022-07-16T04:21:42.000Z" itemprop="datePublished">2022-07-16</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flvjs/">Flvjs</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="flv-js"><a href="#flv-js" class="headerlink" title="flv.js"></a><a target="_blank" rel="noopener" href="http://bilibili.github.io/flv.js">flv.js</a></h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b58356b465c4">中文文档</a></p>
+<blockquote>
+<p>一个可以在HTML5视频中播放.flv视频格式的JavaScript库</p>
+</blockquote>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a><a target="_blank" rel="noopener" href="http://bilibili.github.io/flv.js/docs/api.html">API</a></h3><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
+<li>安装依赖</li>
+</ol>
+<blockquote>
+<p>npm i –save flv.js</p>
+</blockquote>
+<ol start="2">
+<li>在文件中引入依赖</li>
+</ol>
+<blockquote>
+<p>import flvjs from ‘flv.js’</p>
+</blockquote>
+<ol start="3">
+<li>初始化播放器实例，并播放</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">id</span>=<span class="string">&#x27;video&#x27;</span> <span class="attr">controls</span>&gt;</span><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> videoDom = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;video&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (flvjs.isSupported()) &#123; <span class="comment">// 判断浏览器是否支持flvjs</span></span><br><span class="line">  <span class="keyword">const</span> flvPlayer = flvjs.createPlayer(&#123;</span><br><span class="line">      type: <span class="string">&#x27;flv&#x27;</span>,</span><br><span class="line">      url: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      isLive: <span class="literal">true</span>,</span><br><span class="line">      hasAudio: <span class="literal">false</span>,</span><br><span class="line">      hasVideo: <span class="literal">true</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">      flvPlayer.attachMediaElement(videoDom)</span><br><span class="line">      flvPlayer.load()</span><br><span class="line">      flvPlayer.play()</span><br><span class="line">  &#125;</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>卸载播放器</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flvPlayer.pause()</span><br><span class="line">flvPlayer.unload();</span><br><span class="line">flvPlayer.detachMediaElement();</span><br><span class="line">flvPlayer.destroy();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-reactahooks"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/07/16/reactahooks/"
+    >hooks&amp;ahooks</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/07/16/reactahooks/" class="article-date">
   <time datetime="2022-07-16T04:21:42.000Z" itemprop="datePublished">2022-07-16</time>
 </a> 
   <div class="article-category">
@@ -224,83 +301,6 @@
 <h2 id="useReducer-需要逻辑处理state"><a href="#useReducer-需要逻辑处理state" class="headerlink" title="useReducer 需要逻辑处理state"></a>useReducer 需要逻辑处理state</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始值</span></span><br><span class="line">  <span class="keyword">const</span> initialState = &#123; count: <span class="number">0</span> &#125;</span><br><span class="line"><span class="comment">// 数据操作</span></span><br><span class="line">  <span class="keyword">const</span> reducer = <span class="function">(<span class="params">state: &#123; count: <span class="built_in">number</span>; &#125;, action: &#123; <span class="keyword">type</span>: <span class="built_in">string</span>; &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&quot;add&quot;</span>: <span class="keyword">return</span> &#123; count: state.count + <span class="number">1</span> &#125;;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&quot;del&quot;</span>: <span class="keyword">return</span> &#123; count: state.count - <span class="number">1</span> &#125;;</span><br><span class="line">      <span class="keyword">default</span>: <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数据声明  </span></span><br><span class="line"> <span class="keyword">const</span> [state, dispatch] = useReducer(reducer, initialState)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"></span><br><span class="line">    &lt;h1&gt;Count:&#123;state.count&#125;&lt;/h1&gt;</span><br><span class="line">    &lt;Button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123; <span class="keyword">type</span>: <span class="string">&#x27;add&#x27;</span> &#125;)&#125;&gt;reducer add&lt;/Button&gt;</span><br><span class="line">    &lt;Button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123; <span class="keyword">type</span>: <span class="string">&#x27;del&#x27;</span> &#125;)&#125;&gt;reducer del&lt;/Button&gt;</span><br></pre></td></tr></table></figure>
 
 <h2 id="ahooks-react-hooks库"><a href="#ahooks-react-hooks库" class="headerlink" title="ahooks react hooks库"></a><a target="_blank" rel="noopener" href="https://ahooks.js.org/zh-CN/hooks">ahooks</a> <code>react hooks库</code></h2><h3 id="useRequest-异步数据管理的hooks"><a href="#useRequest-异步数据管理的hooks" class="headerlink" title="useRequest 异步数据管理的hooks"></a>useRequest 异步数据管理的hooks</h3> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-flvjs"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2022/07/16/flvjs/"
-    >flvjs</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2022/07/16/flvjs/" class="article-date">
-  <time datetime="2022-07-16T04:21:42.000Z" itemprop="datePublished">2022-07-16</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Flv-js/">Flv.js</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="flv-js"><a href="#flv-js" class="headerlink" title="flv.js"></a><a target="_blank" rel="noopener" href="http://bilibili.github.io/flv.js">flv.js</a></h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b58356b465c4">中文文档</a></p>
-<blockquote>
-<p>一个可以在HTML5视频中播放.flv视频格式的JavaScript库</p>
-</blockquote>
-<h3 id="API"><a href="#API" class="headerlink" title="API"></a><a target="_blank" rel="noopener" href="http://bilibili.github.io/flv.js/docs/api.html">API</a></h3><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
-<li>安装依赖</li>
-</ol>
-<blockquote>
-<p>npm i –save flv.js</p>
-</blockquote>
-<ol start="2">
-<li>在文件中引入依赖</li>
-</ol>
-<blockquote>
-<p>import flvjs from ‘flv.js’</p>
-</blockquote>
-<ol start="3">
-<li>初始化播放器实例，并播放</li>
-</ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">id</span>=<span class="string">&#x27;video&#x27;</span> <span class="attr">controls</span>&gt;</span><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> videoDom = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;video&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (flvjs.isSupported()) &#123; <span class="comment">// 判断浏览器是否支持flvjs</span></span><br><span class="line">  <span class="keyword">const</span> flvPlayer = flvjs.createPlayer(&#123;</span><br><span class="line">      type: <span class="string">&#x27;flv&#x27;</span>,</span><br><span class="line">      url: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      isLive: <span class="literal">true</span>,</span><br><span class="line">      hasAudio: <span class="literal">false</span>,</span><br><span class="line">      hasVideo: <span class="literal">true</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">      flvPlayer.attachMediaElement(videoDom)</span><br><span class="line">      flvPlayer.load()</span><br><span class="line">      flvPlayer.play()</span><br><span class="line">  &#125;</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>卸载播放器</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flvPlayer.pause()</span><br><span class="line">flvPlayer.unload();</span><br><span class="line">flvPlayer.detachMediaElement();</span><br><span class="line">flvPlayer.destroy();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
- 
       <!-- reward -->
       
     </div>
