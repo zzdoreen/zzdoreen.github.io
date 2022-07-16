@@ -142,6 +142,133 @@
     
     
     <article
+  id="post-vue-class-component"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/10/01/vue-class-component/"
+    >vue-class-component的简单使用</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/10/01/vue-class-component/" class="article-date">
+  <time datetime="2020-10-01T03:37:33.616Z" itemprop="datePublished">2020-10-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="vue-class-component"><a href="#vue-class-component" class="headerlink" title="vue-class-component"></a><a target="_blank" rel="noopener" href="https://class-component.vuejs.org/">vue-class-component</a></h2><blockquote>
+<p>vue对typescript支持的库</p>
+</blockquote>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
+<p>npm install –save vue vue-class-component </p>
+</blockquote>
+<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">&lt;script lang=<span class="string">&#x27;ts&#x27;</span>&gt;</span><br><span class="line"><span class="keyword">import</span> &#123; Component,Provide,Vue &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-property-decorator&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; BaseAxios &#125; <span class="keyword">from</span> <span class="string">&#x27;../api/axios&#x27;</span> </span><br><span class="line"><span class="keyword">import</span> input <span class="keyword">from</span> <span class="string">&#x27;components/input.vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 组件的引入</span></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">    components: &#123; input &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> Hello <span class="keyword">extends</span> Vue &#123;</span><br><span class="line">    <span class="comment">// data </span></span><br><span class="line">    obj: <span class="built_in">Object</span> = &#123;&#125;</span><br><span class="line">    msg: <span class="built_in">string</span> = <span class="string">&#x27;hello world&#x27;</span></span><br><span class="line">    num: <span class="built_in">number</span> = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// methods</span></span><br><span class="line">    addTimes (a: <span class="built_in">number</span>) :<span class="built_in">number</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.num += a</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.num </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// computed</span></span><br><span class="line">    get computedMsg() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;computed&#x27;</span> + msg</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 生命周期</span></span><br><span class="line">    mounted() &#123;</span><br><span class="line">        BaseAxios.post(<span class="string">&#x27;...&#x27;</span>).then( <span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(res)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="createDecorator"><a href="#createDecorator" class="headerlink" title="createDecorator"></a>createDecorator</h3><blockquote>
+<p>自定义装饰器，接收一个回调函数作为第一个参数</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// decorator.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; createDecorator &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-class-component&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> NoCache = createDecorator(<span class="function">(<span class="params">options,key</span>)=&gt;</span>&#123;</span><br><span class="line">    options.computed[key].cache = <span class="literal">false</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// MyComp.js</span></span><br><span class="line"><span class="keyword">import</span> &#123; NoCache &#125; <span class="keyword">from</span> <span class="string">&#x27;./decorators&#x27;</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">class</span> MyComp <span class="keyword">extends</span> Vue &#123;</span><br><span class="line">    <span class="comment">// computed属性不会被缓存</span></span><br><span class="line">    <span class="meta">@NoCache</span></span><br><span class="line">    get random() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.random()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Component-registerHooks"><a href="#Component-registerHooks" class="headerlink" title="Component.registerHooks"></a>Component.registerHooks</h3><blockquote>
+<p>自定义钩子</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// class-component-hooks.js</span></span><br><span class="line"><span class="keyword">import</span> Component <span class="keyword">from</span> <span class="string">&#x27;vue-class-component&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 注册钩子name</span></span><br><span class="line">Component.registerHooks([</span><br><span class="line">    <span class="string">&#x27;beforeRouterEnter&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;beforeRouterLeave&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;beforeRouterUpdate&#x27;</span>,</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line"><span class="comment">// MyComp.js</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> Component <span class="keyword">from</span> <span class="string">&#x27;vue-class-component&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">class</span> MyComp <span class="keyword">extends</span> Vue &#123;</span><br><span class="line">    <span class="comment">// 在组件内部为注册的钩子函数实现原型方法</span></span><br><span class="line">    beforeRouterEnter(to,<span class="keyword">from</span>,next) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;before-router-enter&#x27;</span>)</span><br><span class="line">        next()</span><br><span class="line">    &#125;</span><br><span class="line">    beforeRouterLeave(to,<span class="keyword">from</span>,next) &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;before-router-leave&#x27;</span>)</span><br><span class="line">        next()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-typescript"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/10/01/typescript/"
+    >typescript基础语法</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/10/01/typescript/" class="article-date">
+  <time datetime="2020-10-01T03:37:33.613Z" itemprop="datePublished">2020-10-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/typescript/">typescript</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="typescript基础语法"><a href="#typescript基础语法" class="headerlink" title="typescript基础语法"></a>typescript基础语法</h2><h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><blockquote>
+<p>变量名 : 类型 = 值</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基础的数据类型有 boolean，number，string，数组,元组，枚举，any，</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 数组定义两种方式</span></span><br><span class="line"><span class="comment">// 1. 元素类型后面接上[]</span></span><br><span class="line"><span class="keyword">let</span> list: <span class="built_in">number</span>[] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"><span class="keyword">let</span> list: <span class="built_in">any</span>[] = [<span class="number">1</span>,<span class="number">3</span>,<span class="string">&#x27;free&#x27;</span>,<span class="literal">true</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 数组泛型 Array&lt;元素类型&gt;</span></span><br><span class="line"><span class="keyword">let</span> list: <span class="built_in">Array</span>&lt;<span class="built_in">number</span>&gt; = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 元组类型表示一个 已知道元素数量和类型的数组，元素类型不必相同</span></span><br><span class="line"><span class="keyword">let</span> x: [<span class="built_in">string</span>,<span class="built_in">number</span>] </span><br><span class="line">x = [<span class="string">&#x27;hello&#x27;</span>,<span class="number">10</span>] <span class="comment">// ok</span></span><br><span class="line">x = [<span class="number">10</span>,<span class="string">&#x27;hello&#x27;</span>] <span class="comment">// error</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 枚举enum为一组数值赋予友好的名字</span></span><br><span class="line"><span class="built_in">enum</span> Color &#123; Red,Green,Blue &#125; <span class="comment">// 默认从0开始编号，也可自己设置默认值</span></span><br><span class="line"><span class="keyword">let</span> c: Color = Color.Green</span><br><span class="line"></span><br><span class="line"><span class="built_in">enum</span> Color &#123; Red=<span class="number">1</span>,Green,Blue &#125;</span><br><span class="line"><span class="keyword">let</span> c: Color.Green</span><br><span class="line"><span class="built_in">console</span>.log(c) <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// void表示没有任何类型 只能赋予undefined和null</span></span><br><span class="line"><span class="keyword">let</span> unusable: <span class="built_in">void</span> = <span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// null 和 undefined 有自己的数据类型和void相似</span></span><br><span class="line"><span class="keyword">let</span> u: <span class="literal">undefined</span> = <span class="literal">undefined</span></span><br><span class="line"><span class="keyword">let</span> n: <span class="literal">null</span> = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// object 非原始类型，除了number，string，boolean，symbol，null，undefined之外的类型</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create</span>(<span class="params">o: <span class="built_in">object</span> | <span class="literal">null</span></span>): <span class="title">void</span></span>;</span><br><span class="line">create(&#123; prop: <span class="number">0</span>&#125; ) <span class="comment">// ok</span></span><br><span class="line">create(<span class="literal">false</span>) <span class="comment">// error</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h3><blockquote>
+<p>为类型命名  为代码定义契约<br>定义参数类型  =&gt;  interface 接口名 { 属性名: 类型 , … }<br>定义函数类型  =&gt;  interface 接口名 { {参数名: 类型,…}: 返回类型 }<br>可索引类型  =&gt; interface 接口名 { [ index: 索引类型 ]: 值类型 }<br>类类型  =&gt; interface 接口名 { 属性名: 类型 }<br>接口继承 =&gt; interface 接口名 extends 父级接口名 { 属性名: 类型 }</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printLabel</span>(<span class="params">labelObj: &#123; label: <span class="built_in">string</span> &#125;</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(labelObj.label)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> myObj = &#123; size: <span class="number">10</span>, label: <span class="string">&quot;size 10 obj&quot;</span> &#125;</span><br><span class="line">printLabel(myObj)    <span class="comment">// size 10 obj</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过接口实现参数类型的定义</span></span><br><span class="line"><span class="keyword">interface</span> LabelledValue &#123;</span><br><span class="line">    label: <span class="built_in">string</span>;</span><br><span class="line">    color?: <span class="built_in">string</span>; <span class="comment">// 可选属性 ?:</span></span><br><span class="line">    <span class="keyword">readonly</span> x: <span class="built_in">number</span>; <span class="comment">// 只读属性 readonly</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">printLabel</span>(<span class="params">labelObj: LabeledValue</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(labelObj.label)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> myObj = &#123; size: <span class="number">10</span>, label: <span class="string">&quot;size 10 obj&quot;</span> &#125;</span><br><span class="line">printLabel(myObj)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 通过接口描述函数类型</span></span><br><span class="line"><span class="keyword">interface</span> SearchFunc &#123;</span><br><span class="line">    &#123; source: <span class="built_in">string</span>, subString: <span class="built_in">string</span> &#125;: <span class="built_in">boolean</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> mySearch: SearchFunc</span><br><span class="line">mySearch = <span class="function"><span class="keyword">function</span>(<span class="params"> source: <span class="built_in">string</span>,subString: <span class="built_in">string</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> result = source.search(substring)</span><br><span class="line">    rerturn result &gt; <span class="number">-1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 可索引的类型</span></span><br><span class="line"><span class="keyword">interface</span> StringArray &#123;</span><br><span class="line">    [ index: <span class="built_in">number</span>]: <span class="built_in">string</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> myArray: StringArray</span><br><span class="line">myArray = [<span class="string">&#x27;A&#x27;</span>,<span class="string">&#x27;B&#x27;</span>]</span><br><span class="line"><span class="keyword">let</span> myStr: <span class="built_in">string</span> = myArray[<span class="number">0</span>]  <span class="comment">// A</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 类类型</span></span><br><span class="line"><span class="keyword">interface</span> ClockInterface &#123;</span><br><span class="line">    currentTime: <span class="built_in">Date</span>; <span class="comment">// 描述一个变量</span></span><br><span class="line">    setTime(d: <span class="built_in">Date</span>); <span class="comment">// 描述一个方法</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// implements 声明自己使用一个或多个接口</span></span><br><span class="line"><span class="keyword">class</span> Clock <span class="keyword">implements</span> ClockInterface &#123;</span><br><span class="line">    currentTime: <span class="built_in">Date</span>;</span><br><span class="line">    setTime(d: <span class="built_in">Date</span>)&#123;</span><br><span class="line">        <span class="built_in">this</span>.currentTime = d</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">constructor</span>(<span class="params">h:<span class="built_in">number</span>, m:<span class="built_in">number</span></span>) &#123;  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 继承接口</span></span><br><span class="line"><span class="keyword">interface</span> Shape &#123;</span><br><span class="line">    color: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Square <span class="keyword">extends</span> Shape &#123;</span><br><span class="line">    sideLength: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> square = &lt;Square&gt;&#123;&#125;; <span class="comment">// 使用方式</span></span><br><span class="line">square.color = <span class="string">&quot;blue&quot;</span>;</span><br><span class="line">square.sideLength = <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="函数类型定义"><a href="#函数类型定义" class="headerlink" title="函数类型定义"></a>函数类型定义</h3><blockquote>
+<p>function 函数名( 参数名: 参数类型,… ): 函数返回类型 { return … }</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ?: 表示可选参数  必须跟在必须参数后面</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span> (<span class="params"> x:<span class="built_in">number</span>,y?:<span class="built_in">number</span> </span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x+y</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// =&gt; </span></span><br><span class="line"><span class="keyword">let</span> myAdd = <span class="function"><span class="keyword">function</span>(<span class="params"> x:<span class="built_in">number</span>,y:<span class="built_in">number</span> </span>): <span class="title">number</span></span>&#123; <span class="keyword">return</span> x+y &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 剩余参数，任意多个参数传递 类似于arguments</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">buildName</span>(<span class="params"> firstName: <span class="built_in">string</span>, ...restOfName: <span class="built_in">string</span>[] </span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> firstName+<span class="string">&quot; &quot;</span>+restOfName.join(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> employeeName = buildName = buildName(<span class="string">&#x27;doreen&#x27;</span>,<span class="string">&#x27;keeggy&#x27;</span>,<span class="string">&#x27;jerry&#x27;</span>,<span class="string">&#x27;krystal&#x27;</span>)</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-next"
   class="article article-type-post"
   itemscope
@@ -220,88 +347,6 @@
 </li>
 </ul>
  
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-reactHooks"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/04/23/reactHooks/"
-    >react hook的简单使用</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/04/23/reactHooks/" class="article-date">
-  <time datetime="2020-04-23T04:21:42.000Z" itemprop="datePublished">2020-04-23</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/react/">react</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在不使用class的情况下使用<code>state</code>以及其他react特性<br>=&gt; 不论是有状态组件还是无状态组件都可以用<code>函数</code>来声明</p>
-<h2 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h2><p><code>useState</code>通过在函数组件里调用它来给组件添加一些内部 <code>state</code>。<br><code>useState</code>会返回一对值：<code>当前状态</code> 和 <code>一个让你更新它的函数</code><br>你可以在事件处理函数中或其他一些地方调用这个函数。<br>（类似 this.setState，但是它不会把新的 state 和旧的 state 进行合并）<br><code>useState</code>的参数：state的初始值</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 useState</span></span><br><span class="line"><span class="keyword">import</span> React,&#123;useState&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 声明state变量count和更新count的方法setCount   （解构赋值）</span></span><br><span class="line">    <span class="keyword">const</span> [count,setCount] = useState(<span class="number">18</span>)   <span class="comment">// 赋给count的初始值为18</span></span><br><span class="line">    <span class="keyword">return</span>(</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;h3&gt;</span><br><span class="line">                count: &#123;count&#125;  &#123;<span class="comment">/* count的使用 */</span>&#125;</span><br><span class="line">            &lt;/h3&gt;</span><br><span class="line">             &#123;<span class="comment">/* setCount的使用 */</span>&#125;</span><br><span class="line">            &lt;button onClick=&#123;<span class="function">()=&gt;</span>&#123;setCount(count+<span class="number">1</span>)&#125;&#125;&gt;add&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Class 方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="built_in">super</span>(props);</span><br><span class="line">        <span class="built_in">this</span>.state = &#123; </span><br><span class="line">            count: <span class="number">0</span></span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123; </span><br><span class="line">        <span class="keyword">return</span> ( </span><br><span class="line">            &lt;div&gt;</span><br><span class="line">            &lt;h3&gt;</span><br><span class="line">                count: &#123;<span class="built_in">this</span>.state.count&#125;</span><br><span class="line">            &lt;/h3&gt;</span><br><span class="line">            &lt;button onClick=&#123;<span class="function">()=&gt;</span><span class="built_in">this</span>.setState(&#123; <span class="attr">count</span>: <span class="built_in">this</span>.state.count + <span class="number">1</span> &#125;)&#125;&gt;add&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">         );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>声明多个state变量</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// state的值是按顺序存储调用的所以不能对他的声明进行条件判断</span></span><br><span class="line">  <span class="keyword">const</span> [age, setAge] = useState(<span class="number">42</span>);</span><br><span class="line">  <span class="keyword">const</span> [fruit, setFruit] = useState(<span class="string">&#x27;banana&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> [todos, setTodos] = useState([&#123; <span class="attr">text</span>: <span class="string">&#x27;Learn Hooks&#x27;</span> &#125;]);</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<p>有个问题，我按照官方文档给的示例代码写的时候<br>useState(..)会标红<br>报错：<br><span style='color:red'><br>React Hook “useState” is called in function “test” which is neither a React function component or a custom React Hook function<br></span><br>后面发现是函数命名的问题<br>解决方法：  </p>
-<ol>
-<li>函数名/组件名 首字母大写</li>
-<li>驼峰命名法在前面+use也可 (useTest)</li>
-</ol>
-<h2 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h2><p><code>effect hook</code>在函数组件中执行<code>副作用</code>操作 (异步的)<br><code>副作用</code>: 用来代替生周期、是<code>componentDidMount</code>,<code>componentDidUpdate</code>,<code>componentWillUnmount</code>的组合（替代品）</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React,&#123;useState,useEffect&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> [count,setCount] = useState(<span class="number">18</span>)</span><br><span class="line">    <span class="keyword">const</span> [age,setAge] = useState(<span class="number">0</span>)</span><br><span class="line">    useEffect(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">document</span>.title = count</span><br><span class="line">    &#125;,[count])</span><br><span class="line">    <span class="comment">// 可接收第二个参数 只有在 count`改变时`触发更新 类似于computed</span></span><br><span class="line">    <span class="keyword">return</span>(</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;h3&gt;</span><br><span class="line">                count: &#123;count&#125;</span><br><span class="line">            &lt;/h3&gt;</span><br><span class="line">            &lt;h3&gt;</span><br><span class="line">                Age: &#123;age&#125;</span><br><span class="line">            &lt;/h3&gt;</span><br><span class="line">            &lt;button onClick=&#123;<span class="function">()=&gt;</span>&#123;setCount(count+<span class="number">1</span>)&#125;&#125;&gt;add&lt;/button&gt;</span><br><span class="line">             &lt;button onClick=&#123;<span class="function">()=&gt;</span>&#123;setAge(age+<span class="number">10</span>)&#125;&#125;&gt;add&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="useContext"><a href="#useContext" class="headerlink" title="useContext"></a>useContext</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> value = useCotext(MyContext)</span><br></pre></td></tr></table></figure>
-
-<p>接收一个 context 对象（React.createContext 的返回值）<br>并返回该 context 的当前值。<br>当前的 context 值由上层组件中距离当前组件最近的 &lt;MyContext.Provider&gt; 的 value prop 决定。</p>
-<p>当组件上层最近的 &lt;MyContext.Provider&gt; 更新时，该 Hook 会触发重渲染，并使用最新传递给 MyContext provider 的 context value 值。即使祖先使用 React.memo 或 shouldComponentUpdate，也会在组件本身使用 useContext 时重新渲染。</p>
-<blockquote>
-<p>之前在class组件内获取context的例子</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component, createContext &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="comment">// 创建一个context实例对象，默认值为light</span></span><br><span class="line"><span class="keyword">const</span> ThemeContext = createContext(<span class="string">&#x27;light&#x27;</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Text</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        使用provider将当前的值传递给所有子组件，不需要逐级通过props传递</span></span><br><span class="line"><span class="comment">        赋给初始值 dark</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;ThemeContext.Provider value=<span class="string">&#x27;dark&#x27;</span>&gt;</span><br><span class="line">                &lt;Toolbar /&gt;</span><br><span class="line">            &lt;/ThemeContext.Provider&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 中间组件如果没有用到值就不需要传递，通过无状态组件来写</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Toolbar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;ThemeButton /&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 该组件需要用到传递的数据所以要通过class来创建</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThemeButton</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    指定contextType读取当前的theme context，并且将theme的值赋为 dark</span></span><br><span class="line"><span class="comment">    也可通过 &lt;MyContext.Consumer&gt; 来读取</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">static</span> contextType = ThemeContext</span><br><span class="line">    render()&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="comment">// this.context获取context值</span></span><br><span class="line">            &lt;button&gt;&#123;<span class="built_in">this</span>.context&#125;&lt;/button&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Text;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>通过useContext获取context的例子</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component, createContext, useContext &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> ThemeContext = createContext(<span class="string">&#x27;light&#x27;</span>)</span><br><span class="line"><span class="comment">// ... </span></span><br><span class="line"><span class="comment">// 可以直接通过函数来声明组件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ThemeButton</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> theme = useContext(ThemeContext)  <span class="comment">// 通过useContext接口获取context值</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="comment">// 使用</span></span><br><span class="line">        &lt;button&gt;按钮&#123;theme&#125;&lt;/button&gt;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="useReducer"><a href="#useReducer" class="headerlink" title="useReducer"></a>useReducer</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [state,dispatch] = useReducer(reducer,state)</span><br></pre></td></tr></table></figure>
-<p>和redux的使用方法差不多<br>算是<code>useState</code>的一个替代方案。<br>以前面的例子在通过<code>useReducer</code>去使用：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> initialState = &#123;<span class="attr">count</span>: <span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;add&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">count</span>: state.count + <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;del&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">count</span>: state.count - <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [state, dispatch] = useReducer(reducer, initialState);  <span class="comment">// 将state赋值initialState，为dispatch提供对应的reducer</span></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      Count: &#123;state.count&#125;</span><br><span class="line">      &lt;button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123;<span class="attr">type</span>: <span class="string">&#x27;add&#x27;</span>&#125;)&#125;&gt;-&lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123;<span class="attr">type</span>: <span class="string">&#x27;del&#x27;</span>&#125;)&#125;&gt;+&lt;/button&gt;</span><br><span class="line">    &lt;/&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>
@@ -961,195 +1006,13 @@
 </article>
 
     
-    <article
-  id="post-方块运动"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/01/16/%E6%96%B9%E5%9D%97%E8%BF%90%E5%8A%A8/"
-    >CSS3 立体轮播</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/01/16/%E6%96%B9%E5%9D%97%E8%BF%90%E5%8A%A8/" class="article-date">
-  <time datetime="2020-01-16T09:16:00.000Z" itemprop="datePublished">2020-01-16</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CSS/">CSS</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="CSS3-立体轮播"><a href="#CSS3-立体轮播" class="headerlink" title="CSS3 立体轮播"></a>CSS3 立体轮播</h2><p> 最近比较迷css，可能是JavaScript看的头疼<br> 可以用作图片轮播，换成小的立方体还可以当做是缓冲动画<br> 效果很好看 就是每次弄 旋转角度、移动位置的时候头疼<br> <del>没有找到方法</del>  就是我空间感不行</p>
-<style>
-    .cubeCover{
-        width: 100px;
-        height: 300px;
-        margin-top: 150px;
-        margin-left: 200px;
-    }
-    .cubeCover .cube{
-        transform-style: preserve-3d;
-        width: 100%;
-        height: 100%;
-        position: relative;
-        transform: rotateY(20deg) rotateX(-20deg) ;
-        animation: move1 6s linear infinite .75s;
-    }
-    .cubeCover .cube div{
-        border: 1px solid #ccc;
-        width: 100%;
-        height: 100%;
-        position: absolute;
-    }
-    .cubeCover .cube div:nth-child(1){
-        transform:translateZ(-150px);
-        background: url('/images/bottom.jpg');
-        background-position: 0 0;
-    }
-    .cubeCover .cube div:nth-child(2){
-        transform: rotateX(90deg) translateZ(150px);
-        background: url('/images/side.jpg');
-        background-position: 0 0;
-    }
-    .cubeCover .cube div:nth-child(3){
-        transform:rotateX(90deg) translateZ(-150px)  ;
-        background: url('/images/top.jpg');
-    }
-    .cubeCover .cube div:nth-child(4){
-        width: 300px;
-        transform: rotateY(90deg) translateZ(-150px);
-        background: lightblue;
-    }
-    .cubeCover .cube div:nth-child(5){
-        width: 300px;
-        transform: rotateY(90deg) translateZ(-50px);
-        background: lightblue;
-    }
-    .cubeCover .cube div:nth-child(6){
-        transform: translateZ(150px);
-        background: url('/images/avatar.jpg');
-        background-position: 0 0;
-    }
-    .cubeCover .cube2{
-        margin-top: -300px;
-        margin-left: 90px;
-        z-index: -1;
-        animation: move1 6s linear infinite .5s;
-    }
-    .cubeCover .cube2 div:nth-child(1),.cubeCover .cube2 div:nth-child(2),.cubeCover .cube2 div:nth-child(3),.cubeCover .cube2 div:nth-child(6){
-        background-position: -100px 0;
-    }
-    .cubeCover .cube3{
-        margin-top: -300px;
-        margin-left: 180px;
-        z-index: -2;
-        animation: move1 6s linear infinite .25s;
-    }
-    .cubeCover .cube3 div:nth-child(1),.cubeCover .cube3 div:nth-child(2),.cubeCover .cube3 div:nth-child(3),.cubeCover .cube3 div:nth-child(6){
-        background-position: -200px 0;
-    }
-    .cubeCover .cube4{
-        margin-top: -300px;
-        margin-left: 270px;
-        z-index: -3;
-        animation: move1 6s linear infinite ;
-    }
-    .cubeCover .cube4 div:nth-child(1),.cubeCover .cube4 div:nth-child(2),.cubeCover .cube4 div:nth-child(3),.cubeCover .cube4 div:nth-child(6){
-        background-position: -300px 0;
-    }
-    @keyframes move1 {
-        12.5%,25%{
-            transform:rotateY(20deg) rotateX(70deg);
-        }
-        42.5%,55%{
-            transform:rotateY(20deg) rotateX(160deg);
-        }
-        62.5%,75%{
-            transform:rotateY(20deg) rotateX(250deg);
-        }
-        92.5%,100%{
-            transform:rotateY(20deg) rotateX(340deg);
-        }
-    }
-</style>
-<div class="cubeCover">
-    <div class="cube">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-    <div class="cube cube2">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-    <div class="cube cube3">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-    <div class="cube cube4">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-    </div>
-</div>
-<br>
-<br>
-<br>
-<br>
-
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span>&#123;</span></span><br><span class="line">        width: 100px;</span><br><span class="line">        height: 300px;</span><br><span class="line">        margin-top: 150px;</span><br><span class="line">        margin-left: 200px;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span>&#123;</span></span><br><span class="line">        transform-style: preserve-3d;</span><br><span class="line">        width: 100%;</span><br><span class="line">        height: 100%;</span><br><span class="line">        position: relative;</span><br><span class="line">        transform: rotateY(20deg) rotateX(-20deg) ;</span><br><span class="line"><span class="css">        <span class="selector-tag">animation</span>: <span class="selector-tag">move1</span> 6<span class="selector-tag">s</span> <span class="selector-tag">linear</span> <span class="selector-tag">infinite</span> <span class="selector-class">.75s</span>;</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span>&#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">border</span>: 1<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#ccc</span>;</span></span><br><span class="line">        width: 100%;</span><br><span class="line">        height: 100%;</span><br><span class="line">        position: absolute;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(1)</span>&#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">transform</span><span class="selector-pseudo">:translateZ(-150px)</span>;</span></span><br><span class="line">        background: url(&#x27;/images/bottom.jpg&#x27;);</span><br><span class="line">        background-position: 0 0;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(2)</span>&#123;</span></span><br><span class="line">        transform: rotateX(90deg) translateZ(150px);</span><br><span class="line">        background: url(&#x27;/images/side.jpg&#x27;);</span><br><span class="line">        background-position: 0 0;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(3)</span>&#123;</span></span><br><span class="line"><span class="css">        <span class="selector-tag">transform</span><span class="selector-pseudo">:rotateX(90deg)</span> <span class="selector-tag">translateZ</span>(<span class="selector-tag">-150px</span>)  ;</span></span><br><span class="line">        background: url(&#x27;/images/top.jpg&#x27;);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(4)</span>&#123;</span></span><br><span class="line">        width: 300px;</span><br><span class="line">        transform: rotateY(90deg) translateZ(-150px);</span><br><span class="line">        background: lightblue;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(5)</span>&#123;</span></span><br><span class="line">        width: 300px;</span><br><span class="line">        transform: rotateY(90deg) translateZ(-50px);</span><br><span class="line">        background: lightblue;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(6)</span>&#123;</span></span><br><span class="line">        transform: translateZ(150px);</span><br><span class="line">        background: url(&#x27;/images/avatar.jpg&#x27;);</span><br><span class="line">        background-position: 0 0;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube2</span>&#123;</span></span><br><span class="line">        margin-top: -300px;</span><br><span class="line">        margin-left: 90px;</span><br><span class="line">        z-index: -1;</span><br><span class="line"><span class="css">        <span class="selector-tag">animation</span>: <span class="selector-tag">move1</span> 6<span class="selector-tag">s</span> <span class="selector-tag">linear</span> <span class="selector-tag">infinite</span> <span class="selector-class">.5s</span>;</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube2</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(1)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube2</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(2)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube2</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(3)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube2</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(6)</span>&#123;</span></span><br><span class="line">        background-position: -100px 0;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube3</span>&#123;</span></span><br><span class="line">        margin-top: -300px;</span><br><span class="line">        margin-left: 180px;</span><br><span class="line">        z-index: -2;</span><br><span class="line"><span class="css">        <span class="selector-tag">animation</span>: <span class="selector-tag">move1</span> 6<span class="selector-tag">s</span> <span class="selector-tag">linear</span> <span class="selector-tag">infinite</span> <span class="selector-class">.25s</span>;</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube3</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(1)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube3</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(2)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube3</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(3)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube3</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(6)</span>&#123;</span></span><br><span class="line">        background-position: -200px 0;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube4</span>&#123;</span></span><br><span class="line">        margin-top: -300px;</span><br><span class="line">        margin-left: 270px;</span><br><span class="line">        z-index: -3;</span><br><span class="line">        animation: move1 6s linear infinite ;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">.cubeCover</span> <span class="selector-class">.cube4</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(1)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube4</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(2)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube4</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(3)</span>,<span class="selector-class">.cubeCover</span> <span class="selector-class">.cube4</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(6)</span>&#123;</span></span><br><span class="line">        background-position: -300px 0;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="keyword">@keyframes</span> move1 &#123;</span></span><br><span class="line"><span class="css">        12<span class="selector-class">.5</span>%,25%&#123;</span></span><br><span class="line"><span class="css">            <span class="selector-tag">transform</span><span class="selector-pseudo">:rotateY(20deg)</span> <span class="selector-tag">rotateX</span>(70<span class="selector-tag">deg</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        42<span class="selector-class">.5</span>%,55%&#123;</span></span><br><span class="line"><span class="css">            <span class="selector-tag">transform</span><span class="selector-pseudo">:rotateY(20deg)</span> <span class="selector-tag">rotateX</span>(160<span class="selector-tag">deg</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        62<span class="selector-class">.5</span>%,75%&#123;</span></span><br><span class="line"><span class="css">            <span class="selector-tag">transform</span><span class="selector-pseudo">:rotateY(20deg)</span> <span class="selector-tag">rotateX</span>(250<span class="selector-tag">deg</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="css">        92<span class="selector-class">.5</span>%,100%&#123;</span></span><br><span class="line"><span class="css">            <span class="selector-tag">transform</span><span class="selector-pseudo">:rotateY(20deg)</span> <span class="selector-tag">rotateX</span>(340<span class="selector-tag">deg</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cubeCover&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cube&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cube cube2&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cube cube3&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cube cube4&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/3/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/5/">下一页</a>
   </nav>
   
 </section>

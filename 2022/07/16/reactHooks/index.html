@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    react hook的简单使用 |  
+    hooks &amp; ahooks |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -58,15 +58,15 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  react hook的简单使用
+  hooks &amp; ahooks
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2020/04/23/reactHooks/" class="article-date">
-  <time datetime="2020-04-23T04:21:42.000Z" itemprop="datePublished">2020-04-23</time>
+      <a href="/2022/07/16/reactHooks/" class="article-date">
+  <time datetime="2022-07-16T04:21:42.000Z" itemprop="datePublished">2022-07-16</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/react/">react</a>
@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">1.1k</span>
+            <span class="post-count">1.5k</span>
         </span>
     </span>
 
@@ -86,7 +86,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">5 min</span>
+            <span class="post-count">7 min</span>
         </span>
     </span>
 </div>
@@ -133,7 +133,26 @@
 
 <h2 id="useReducer"><a href="#useReducer" class="headerlink" title="useReducer"></a>useReducer</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [state,dispatch] = useReducer(reducer,state)</span><br></pre></td></tr></table></figure>
 <p>和redux的使用方法差不多<br>算是<code>useState</code>的一个替代方案。<br>以前面的例子在通过<code>useReducer</code>去使用：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> initialState = &#123;<span class="attr">count</span>: <span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;add&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">count</span>: state.count + <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;del&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">count</span>: state.count - <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [state, dispatch] = useReducer(reducer, initialState);  <span class="comment">// 将state赋值initialState，为dispatch提供对应的reducer</span></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      Count: &#123;state.count&#125;</span><br><span class="line">      &lt;button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123;<span class="attr">type</span>: <span class="string">&#x27;add&#x27;</span>&#125;)&#125;&gt;-&lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123;<span class="attr">type</span>: <span class="string">&#x27;del&#x27;</span>&#125;)&#125;&gt;+&lt;/button&gt;</span><br><span class="line">    &lt;/&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> initialState = &#123;<span class="attr">count</span>: <span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;add&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">count</span>: state.count + <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;del&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">count</span>: state.count - <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [state, dispatch] = useReducer(reducer, initialState);  <span class="comment">// 将state赋值initialState，为dispatch提供对应的reducer</span></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      Count: &#123;state.count&#125;</span><br><span class="line">      &lt;button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123;<span class="attr">type</span>: <span class="string">&#x27;add&#x27;</span>&#125;)&#125;&gt;-&lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123;<span class="attr">type</span>: <span class="string">&#x27;del&#x27;</span>&#125;)&#125;&gt;+&lt;/button&gt;</span><br><span class="line">    &lt;/&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="useContext-状态管理类似于eventBus"><a href="#useContext-状态管理类似于eventBus" class="headerlink" title="useContext 状态管理类似于eventBus"></a>useContext 状态管理类似于eventBus</h2><ol>
+<li>公共状态存储文件 <code>createContent.tsx</code></li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createContext &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myContext = createContext(<span class="literal">null</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> myContext;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>父组件</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Button &#125; <span class="keyword">from</span> <span class="string">&#x27;antd&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> React, &#123; createContext, useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> myContext <span class="keyword">from</span> <span class="string">&#x27;./createContext&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> ChildPage <span class="keyword">from</span> <span class="string">&#x27;./components/ChildPage&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState&lt;<span class="built_in">number</span>&gt;(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;父组件&lt;/h1&gt;</span><br><span class="line">      &lt;Button onClick=&#123;<span class="function">() =&gt;</span> setCount(count + <span class="number">1</span>)&#125;&gt;点击 &#123;count&#125;&lt;/Button&gt;</span><br><span class="line"></span><br><span class="line">      &lt;hr /&gt;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 提供器</span></span><br><span class="line">      &lt;myContext.Provider value=&#123;count&#125;&gt;</span><br><span class="line">        &lt;ChildPage /&gt;</span><br><span class="line">      &lt;/myContext.Provider&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>子组件</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useContext &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span></span><br><span class="line"><span class="keyword">import</span> myContext <span class="keyword">from</span> <span class="string">&quot;../createContext&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ChildPage: React.FC&lt;<span class="built_in">any</span>&gt; = <span class="function">() =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> count = useContext(myContext) <span class="comment">// 通过useContext直接获取到context数据</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (&lt;h1&gt;子组件：&#123;count&#125;&lt;/h1&gt;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> ChildPage</span><br></pre></td></tr></table></figure>
+
+<h2 id="useReducer-需要逻辑处理state"><a href="#useReducer-需要逻辑处理state" class="headerlink" title="useReducer 需要逻辑处理state"></a>useReducer 需要逻辑处理state</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始值</span></span><br><span class="line">  <span class="keyword">const</span> initialState = &#123; count: <span class="number">0</span> &#125;</span><br><span class="line"><span class="comment">// 数据操作</span></span><br><span class="line">  <span class="keyword">const</span> reducer = <span class="function">(<span class="params">state: &#123; count: <span class="built_in">number</span>; &#125;, action: &#123; <span class="keyword">type</span>: <span class="built_in">string</span>; &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&quot;add&quot;</span>: <span class="keyword">return</span> &#123; count: state.count + <span class="number">1</span> &#125;;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&quot;del&quot;</span>: <span class="keyword">return</span> &#123; count: state.count - <span class="number">1</span> &#125;;</span><br><span class="line">      <span class="keyword">default</span>: <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数据声明  </span></span><br><span class="line"> <span class="keyword">const</span> [state, dispatch] = useReducer(reducer, initialState)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"></span><br><span class="line">    &lt;h1&gt;Count:&#123;state.count&#125;&lt;/h1&gt;</span><br><span class="line">    &lt;Button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123; <span class="keyword">type</span>: <span class="string">&#x27;add&#x27;</span> &#125;)&#125;&gt;reducer add&lt;/Button&gt;</span><br><span class="line">    &lt;Button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123; <span class="keyword">type</span>: <span class="string">&#x27;del&#x27;</span> &#125;)&#125;&gt;reducer del&lt;/Button&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="ahooks-react-hooks库"><a href="#ahooks-react-hooks库" class="headerlink" title="ahooks react hooks库"></a><a target="_blank" rel="noopener" href="https://ahooks.js.org/zh-CN/hooks">ahooks</a> <code>react hooks库</code></h2><h3 id="useRequest-异步数据管理的hooks"><a href="#useRequest-异步数据管理的hooks" class="headerlink" title="useRequest 异步数据管理的hooks"></a>useRequest 异步数据管理的hooks</h3> 
       <!-- reward -->
       
     </div>
@@ -185,7 +204,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2020/04/23/reactHooks/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2022/07/16/reactHooks/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -196,19 +215,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2020/05/25/next/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            Next.js
-          
-        </div>
-      </a>
     
-    
-      <a href="/2020/04/19/reactRedux/" class="article-nav-link">
+      <a href="/2022/07/16/flvjs/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">react-redux的简单使用</div>
+        <div class="article-nav-title">flvjs</div>
       </a>
     
   </nav>

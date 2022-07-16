@@ -142,6 +142,184 @@
     
     
     <article
+  id="post-reactHooks"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/07/16/reactHooks/"
+    >hooks &amp; ahooks</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/07/16/reactHooks/" class="article-date">
+  <time datetime="2022-07-16T04:21:42.000Z" itemprop="datePublished">2022-07-16</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/react/">react</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在不使用class的情况下使用<code>state</code>以及其他react特性<br>=&gt; 不论是有状态组件还是无状态组件都可以用<code>函数</code>来声明</p>
+<h2 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h2><p><code>useState</code>通过在函数组件里调用它来给组件添加一些内部 <code>state</code>。<br><code>useState</code>会返回一对值：<code>当前状态</code> 和 <code>一个让你更新它的函数</code><br>你可以在事件处理函数中或其他一些地方调用这个函数。<br>（类似 this.setState，但是它不会把新的 state 和旧的 state 进行合并）<br><code>useState</code>的参数：state的初始值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 useState</span></span><br><span class="line"><span class="keyword">import</span> React,&#123;useState&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 声明state变量count和更新count的方法setCount   （解构赋值）</span></span><br><span class="line">    <span class="keyword">const</span> [count,setCount] = useState(<span class="number">18</span>)   <span class="comment">// 赋给count的初始值为18</span></span><br><span class="line">    <span class="keyword">return</span>(</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;h3&gt;</span><br><span class="line">                count: &#123;count&#125;  &#123;<span class="comment">/* count的使用 */</span>&#125;</span><br><span class="line">            &lt;/h3&gt;</span><br><span class="line">             &#123;<span class="comment">/* setCount的使用 */</span>&#125;</span><br><span class="line">            &lt;button onClick=&#123;<span class="function">()=&gt;</span>&#123;setCount(count+<span class="number">1</span>)&#125;&#125;&gt;add&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Class 方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="built_in">super</span>(props);</span><br><span class="line">        <span class="built_in">this</span>.state = &#123; </span><br><span class="line">            count: <span class="number">0</span></span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123; </span><br><span class="line">        <span class="keyword">return</span> ( </span><br><span class="line">            &lt;div&gt;</span><br><span class="line">            &lt;h3&gt;</span><br><span class="line">                count: &#123;<span class="built_in">this</span>.state.count&#125;</span><br><span class="line">            &lt;/h3&gt;</span><br><span class="line">            &lt;button onClick=&#123;<span class="function">()=&gt;</span><span class="built_in">this</span>.setState(&#123; <span class="attr">count</span>: <span class="built_in">this</span>.state.count + <span class="number">1</span> &#125;)&#125;&gt;add&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">         );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>声明多个state变量</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// state的值是按顺序存储调用的所以不能对他的声明进行条件判断</span></span><br><span class="line">  <span class="keyword">const</span> [age, setAge] = useState(<span class="number">42</span>);</span><br><span class="line">  <span class="keyword">const</span> [fruit, setFruit] = useState(<span class="string">&#x27;banana&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> [todos, setTodos] = useState([&#123; <span class="attr">text</span>: <span class="string">&#x27;Learn Hooks&#x27;</span> &#125;]);</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>有个问题，我按照官方文档给的示例代码写的时候<br>useState(..)会标红<br>报错：<br><span style='color:red'><br>React Hook “useState” is called in function “test” which is neither a React function component or a custom React Hook function<br></span><br>后面发现是函数命名的问题<br>解决方法：  </p>
+<ol>
+<li>函数名/组件名 首字母大写</li>
+<li>驼峰命名法在前面+use也可 (useTest)</li>
+</ol>
+<h2 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h2><p><code>effect hook</code>在函数组件中执行<code>副作用</code>操作 (异步的)<br><code>副作用</code>: 用来代替生周期、是<code>componentDidMount</code>,<code>componentDidUpdate</code>,<code>componentWillUnmount</code>的组合（替代品）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React,&#123;useState,useEffect&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> [count,setCount] = useState(<span class="number">18</span>)</span><br><span class="line">    <span class="keyword">const</span> [age,setAge] = useState(<span class="number">0</span>)</span><br><span class="line">    useEffect(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">document</span>.title = count</span><br><span class="line">    &#125;,[count])</span><br><span class="line">    <span class="comment">// 可接收第二个参数 只有在 count`改变时`触发更新 类似于computed</span></span><br><span class="line">    <span class="keyword">return</span>(</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;h3&gt;</span><br><span class="line">                count: &#123;count&#125;</span><br><span class="line">            &lt;/h3&gt;</span><br><span class="line">            &lt;h3&gt;</span><br><span class="line">                Age: &#123;age&#125;</span><br><span class="line">            &lt;/h3&gt;</span><br><span class="line">            &lt;button onClick=&#123;<span class="function">()=&gt;</span>&#123;setCount(count+<span class="number">1</span>)&#125;&#125;&gt;add&lt;/button&gt;</span><br><span class="line">             &lt;button onClick=&#123;<span class="function">()=&gt;</span>&#123;setAge(age+<span class="number">10</span>)&#125;&#125;&gt;add&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="useContext"><a href="#useContext" class="headerlink" title="useContext"></a>useContext</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> value = useCotext(MyContext)</span><br></pre></td></tr></table></figure>
+
+<p>接收一个 context 对象（React.createContext 的返回值）<br>并返回该 context 的当前值。<br>当前的 context 值由上层组件中距离当前组件最近的 &lt;MyContext.Provider&gt; 的 value prop 决定。</p>
+<p>当组件上层最近的 &lt;MyContext.Provider&gt; 更新时，该 Hook 会触发重渲染，并使用最新传递给 MyContext provider 的 context value 值。即使祖先使用 React.memo 或 shouldComponentUpdate，也会在组件本身使用 useContext 时重新渲染。</p>
+<blockquote>
+<p>之前在class组件内获取context的例子</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component, createContext &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="comment">// 创建一个context实例对象，默认值为light</span></span><br><span class="line"><span class="keyword">const</span> ThemeContext = createContext(<span class="string">&#x27;light&#x27;</span>)</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Text</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        使用provider将当前的值传递给所有子组件，不需要逐级通过props传递</span></span><br><span class="line"><span class="comment">        赋给初始值 dark</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;ThemeContext.Provider value=<span class="string">&#x27;dark&#x27;</span>&gt;</span><br><span class="line">                &lt;Toolbar /&gt;</span><br><span class="line">            &lt;/ThemeContext.Provider&gt;</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 中间组件如果没有用到值就不需要传递，通过无状态组件来写</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Toolbar</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;ThemeButton /&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 该组件需要用到传递的数据所以要通过class来创建</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ThemeButton</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    指定contextType读取当前的theme context，并且将theme的值赋为 dark</span></span><br><span class="line"><span class="comment">    也可通过 &lt;MyContext.Consumer&gt; 来读取</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">static</span> contextType = ThemeContext</span><br><span class="line">    render()&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="comment">// this.context获取context值</span></span><br><span class="line">            &lt;button&gt;&#123;<span class="built_in">this</span>.context&#125;&lt;/button&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Text;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过useContext获取context的例子</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component, createContext, useContext &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> ThemeContext = createContext(<span class="string">&#x27;light&#x27;</span>)</span><br><span class="line"><span class="comment">// ... </span></span><br><span class="line"><span class="comment">// 可以直接通过函数来声明组件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ThemeButton</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> theme = useContext(ThemeContext)  <span class="comment">// 通过useContext接口获取context值</span></span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        <span class="comment">// 使用</span></span><br><span class="line">        &lt;button&gt;按钮&#123;theme&#125;&lt;/button&gt;</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="useReducer"><a href="#useReducer" class="headerlink" title="useReducer"></a>useReducer</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [state,dispatch] = useReducer(reducer,state)</span><br></pre></td></tr></table></figure>
+<p>和redux的使用方法差不多<br>算是<code>useState</code>的一个替代方案。<br>以前面的例子在通过<code>useReducer</code>去使用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> initialState = &#123;<span class="attr">count</span>: <span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;add&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">count</span>: state.count + <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&#x27;del&#x27;</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">count</span>: state.count - <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [state, dispatch] = useReducer(reducer, initialState);  <span class="comment">// 将state赋值initialState，为dispatch提供对应的reducer</span></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      Count: &#123;state.count&#125;</span><br><span class="line">      &lt;button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123;<span class="attr">type</span>: <span class="string">&#x27;add&#x27;</span>&#125;)&#125;&gt;-&lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123;<span class="attr">type</span>: <span class="string">&#x27;del&#x27;</span>&#125;)&#125;&gt;+&lt;/button&gt;</span><br><span class="line">    &lt;/&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="useContext-状态管理类似于eventBus"><a href="#useContext-状态管理类似于eventBus" class="headerlink" title="useContext 状态管理类似于eventBus"></a>useContext 状态管理类似于eventBus</h2><ol>
+<li>公共状态存储文件 <code>createContent.tsx</code></li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createContext &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> myContext = createContext(<span class="literal">null</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> myContext;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>父组件</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Button &#125; <span class="keyword">from</span> <span class="string">&#x27;antd&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> React, &#123; createContext, useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> myContext <span class="keyword">from</span> <span class="string">&#x27;./createContext&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> ChildPage <span class="keyword">from</span> <span class="string">&#x27;./components/ChildPage&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState&lt;<span class="built_in">number</span>&gt;(<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;父组件&lt;/h1&gt;</span><br><span class="line">      &lt;Button onClick=&#123;<span class="function">() =&gt;</span> setCount(count + <span class="number">1</span>)&#125;&gt;点击 &#123;count&#125;&lt;/Button&gt;</span><br><span class="line"></span><br><span class="line">      &lt;hr /&gt;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 提供器</span></span><br><span class="line">      &lt;myContext.Provider value=&#123;count&#125;&gt;</span><br><span class="line">        &lt;ChildPage /&gt;</span><br><span class="line">      &lt;/myContext.Provider&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>子组件</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useContext &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span></span><br><span class="line"><span class="keyword">import</span> myContext <span class="keyword">from</span> <span class="string">&quot;../createContext&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ChildPage: React.FC&lt;<span class="built_in">any</span>&gt; = <span class="function">() =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> count = useContext(myContext) <span class="comment">// 通过useContext直接获取到context数据</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (&lt;h1&gt;子组件：&#123;count&#125;&lt;/h1&gt;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> ChildPage</span><br></pre></td></tr></table></figure>
+
+<h2 id="useReducer-需要逻辑处理state"><a href="#useReducer-需要逻辑处理state" class="headerlink" title="useReducer 需要逻辑处理state"></a>useReducer 需要逻辑处理state</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始值</span></span><br><span class="line">  <span class="keyword">const</span> initialState = &#123; count: <span class="number">0</span> &#125;</span><br><span class="line"><span class="comment">// 数据操作</span></span><br><span class="line">  <span class="keyword">const</span> reducer = <span class="function">(<span class="params">state: &#123; count: <span class="built_in">number</span>; &#125;, action: &#123; <span class="keyword">type</span>: <span class="built_in">string</span>; &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&quot;add&quot;</span>: <span class="keyword">return</span> &#123; count: state.count + <span class="number">1</span> &#125;;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&quot;del&quot;</span>: <span class="keyword">return</span> &#123; count: state.count - <span class="number">1</span> &#125;;</span><br><span class="line">      <span class="keyword">default</span>: <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数据声明  </span></span><br><span class="line"> <span class="keyword">const</span> [state, dispatch] = useReducer(reducer, initialState)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"></span><br><span class="line">    &lt;h1&gt;Count:&#123;state.count&#125;&lt;/h1&gt;</span><br><span class="line">    &lt;Button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123; <span class="keyword">type</span>: <span class="string">&#x27;add&#x27;</span> &#125;)&#125;&gt;reducer add&lt;/Button&gt;</span><br><span class="line">    &lt;Button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123; <span class="keyword">type</span>: <span class="string">&#x27;del&#x27;</span> &#125;)&#125;&gt;reducer del&lt;/Button&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="ahooks-react-hooks库"><a href="#ahooks-react-hooks库" class="headerlink" title="ahooks react hooks库"></a><a target="_blank" rel="noopener" href="https://ahooks.js.org/zh-CN/hooks">ahooks</a> <code>react hooks库</code></h2><h3 id="useRequest-异步数据管理的hooks"><a href="#useRequest-异步数据管理的hooks" class="headerlink" title="useRequest 异步数据管理的hooks"></a>useRequest 异步数据管理的hooks</h3> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-flvjs"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/07/16/flvjs/"
+    >flvjs</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/07/16/flvjs/" class="article-date">
+  <time datetime="2022-07-16T04:21:42.000Z" itemprop="datePublished">2022-07-16</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flv-js/">Flv.js</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="flv-js"><a href="#flv-js" class="headerlink" title="flv.js"></a><a target="_blank" rel="noopener" href="http://bilibili.github.io/flv.js">flv.js</a></h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b58356b465c4">中文文档</a></p>
+<blockquote>
+<p>一个可以在HTML5视频中播放.flv视频格式的JavaScript库</p>
+</blockquote>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a><a target="_blank" rel="noopener" href="http://bilibili.github.io/flv.js/docs/api.html">API</a></h3><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
+<li>安装依赖</li>
+</ol>
+<blockquote>
+<p>npm i –save flv.js</p>
+</blockquote>
+<ol start="2">
+<li>在文件中引入依赖</li>
+</ol>
+<blockquote>
+<p>import flvjs from ‘flv.js’</p>
+</blockquote>
+<ol start="3">
+<li>初始化播放器实例，并播放</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">id</span>=<span class="string">&#x27;video&#x27;</span> <span class="attr">controls</span>&gt;</span><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> videoDom = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;video&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (flvjs.isSupported()) &#123; <span class="comment">// 判断浏览器是否支持flvjs</span></span><br><span class="line">  <span class="keyword">const</span> flvPlayer = flvjs.createPlayer(&#123;</span><br><span class="line">      type: <span class="string">&#x27;flv&#x27;</span>,</span><br><span class="line">      url: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      isLive: <span class="literal">true</span>,</span><br><span class="line">      hasAudio: <span class="literal">false</span>,</span><br><span class="line">      hasVideo: <span class="literal">true</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">      flvPlayer.attachMediaElement(videoDom)</span><br><span class="line">      flvPlayer.load()</span><br><span class="line">      flvPlayer.play()</span><br><span class="line">  &#125;</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>卸载播放器</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flvPlayer.pause()</span><br><span class="line">flvPlayer.unload();</span><br><span class="line">flvPlayer.detachMediaElement();</span><br><span class="line">flvPlayer.destroy();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-JEPaaS"
   class="article article-type-post"
   itemscope
@@ -1461,226 +1639,13 @@
 </article>
 
     
-    <article
-  id="post-vite"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/04/08/vite/"
-    >Vue3+Vite+ElementPlus+VueRouter相关配置</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/04/08/vite/" class="article-date">
-  <time datetime="2021-04-08T07:16:00.000Z" itemprop="datePublished">2021-04-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://zzdoreen.github.io/vite-vue3-ts/dist/index#/login">demo在线展示</a> |<br><a target="_blank" rel="noopener" href="https://github.com/zzdoreen/vite-vue3-ts">仓库地址</a></p>
-<blockquote>
-<p>element-plus源码有点问题 打包的时候会报错，需要手动修改…  </p>
-</blockquote>
-<p><a target="_blank" rel="noopener" href="https://cn.vitejs.dev/guide/"><code>vite中文文档</code></a></p>
-<blockquote>
-<p>前端构建工具，能够显著提升前端开发体验</p>
-</blockquote>
-<h2 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init @vitejs&#x2F;app</span><br></pre></td></tr></table></figure>
-
-<h2 id="element-plus-UI"><a href="#element-plus-UI" class="headerlink" title="element-plus UI"></a>element-plus UI</h2><blockquote>
-<p>element-ui没有兼容vue3，但是新推出了<a target="_blank" rel="noopener" href="https://element-plus.gitee.io/#/zh-CN/component/installation"><code>element-plus</code></a>来兼容vue3</p>
-</blockquote>
-<h3 id="安装element-plus"><a href="#安装element-plus" class="headerlink" title="安装element-plus"></a>安装element-plus</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i element-plus -S</span><br></pre></td></tr></table></figure>
-
-<h3 id="修改配置文件引入库"><a href="#修改配置文件引入库" class="headerlink" title="修改配置文件引入库"></a>修改配置文件引入库</h3><blockquote>
-<p>修改<code>main.ts</code></p>
-</blockquote>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"><span class="keyword">import</span> ElementPlus <span class="keyword">from</span> <span class="string">&#x27;element-plus&#x27;</span>  <span class="comment">// +</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;element-plus/lib/theme-chalk/index.css&#x27;</span> <span class="comment">// +</span></span><br><span class="line"></span><br><span class="line">createApp(App).use(ElementPlus).mount(<span class="string">&#x27;#app&#x27;</span>)  <span class="comment">// .use(ElementPlus)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="ElMessageBox消息弹框"><a href="#ElMessageBox消息弹框" class="headerlink" title="ElMessageBox消息弹框"></a>ElMessageBox消息弹框</h3><blockquote>
-<p>一个我自己推出来的功能.. 文档没找着<br>原因是我要在setup里面使用消息弹框组件 但按文档的配置需要用到this</p>
-</blockquote>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 但是文档上是写的 this.$alert(&#x27;...&#x27;)</span></span><br><span class="line"><span class="comment">// 众所周知 vue3 的setup里面没有 this</span></span><br><span class="line"><span class="comment">// 根据 消息提示 组件的配置方法： ElMessage(&#x27;...&#x27;)</span></span><br><span class="line"><span class="comment">// 我大胆猜想了下消息弹框的使用 然后 成功了..</span></span><br><span class="line"></span><br><span class="line">setup:<span class="function">()=&gt;</span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  ElMessageBox.alert(<span class="string">&#x27;...&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="vue-router"><a href="#vue-router" class="headerlink" title="vue-router"></a>vue-router</h2><h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i vue-router@next -S</span><br></pre></td></tr></table></figure>
-
-<h3 id="编写路由配置文件"><a href="#编写路由配置文件" class="headerlink" title="编写路由配置文件"></a>编写路由配置文件</h3><blockquote>
-<p>新建<code>router.ts</code>文件<br>没有在<code>vite.config.ts</code>配置的话 不能使用<code>@</code>代替<code>src</code></p>
-</blockquote>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createRouter, createWebHistory &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Router = createRouter(&#123;</span><br><span class="line">    history: createWebHistory(),</span><br><span class="line">    routes: [</span><br><span class="line">        &#123;</span><br><span class="line">            path: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">            component: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;../components/HelloWorld.vue&#x27;</span>)</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            path: <span class="string">&#x27;/home&#x27;</span>,</span><br><span class="line">            name: <span class="string">&#x27;home&#x27;</span>,</span><br><span class="line">            component: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;../components/Home.vue&#x27;</span>)</span><br><span class="line">        &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Router</span><br></pre></td></tr></table></figure>
-
-<h3 id="修改配置文件引入库-1"><a href="#修改配置文件引入库-1" class="headerlink" title="修改配置文件引入库"></a>修改配置文件引入库</h3><blockquote>
-<p>在<code>main.ts</code>文件内添加内容</p>
-</blockquote>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router/router&#x27;</span></span><br><span class="line"></span><br><span class="line">createApp(App).use(router).mount(<span class="string">&#x27;#app&#x27;</span>)  <span class="comment">// .use(router)</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="修改App-vue"><a href="#修改App-vue" class="headerlink" title="修改App.vue"></a>修改App.vue</h3><blockquote>
-<p>将文件修改成</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;app&quot;</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 展示路由内容 --&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">router-view</span>&gt;</span><span class="tag">&lt;/<span class="name">router-view</span>&gt;</span>  </span><br><span class="line"> <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="axios"><a href="#axios" class="headerlink" title="axios"></a>axios</h2><h3 id="安装插件-1"><a href="#安装插件-1" class="headerlink" title="安装插件"></a>安装插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i axios -S</span><br></pre></td></tr></table></figure>
-
-<h3 id="新建-http-ts-文件对axios进行配置"><a href="#新建-http-ts-文件对axios进行配置" class="headerlink" title="新建 http.ts 文件对axios进行配置"></a>新建 http.ts 文件对axios进行配置</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"></span><br><span class="line">axios.defaults.baseURL = <span class="string">&#x27;/api&#x27;</span></span><br><span class="line"><span class="comment">//&#x27;http://rap2api.taobao.org/app/mock/data&#x27;  不代理</span></span><br><span class="line">axios.defaults.timeout = <span class="number">10000</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">get</span>(<span class="params">url: <span class="built_in">string</span>, params: <span class="built_in">any</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">        axios.get(url, &#123;</span><br><span class="line">            params: params</span><br><span class="line">        &#125;).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">            resolve(res)</span><br><span class="line">        &#125;).catch(<span class="function">(<span class="params">err</span>) =&gt;</span> &#123;</span><br><span class="line">            reject(err)</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="新建-api-ts-文件对接口请求进行封装"><a href="#新建-api-ts-文件对接口请求进行封装" class="headerlink" title="新建 api.ts 文件对接口请求进行封装"></a>新建 api.ts 文件对接口请求进行封装</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; get &#125; <span class="keyword">from</span> <span class="string">&#x27;./http&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> getData = <span class="function">(<span class="params">url: <span class="built_in">string</span>, params: <span class="built_in">any</span></span>) =&gt;</span> get(url, params)</span><br></pre></td></tr></table></figure>
-
-<h3 id="在-vite-config-ts-中配置proxy代理"><a href="#在-vite-config-ts-中配置proxy代理" class="headerlink" title="在 vite.config.ts 中配置proxy代理"></a>在 vite.config.ts 中配置proxy代理</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line">server: &#123;</span><br><span class="line">    host: <span class="string">&#x27;10.9.37.4&#x27;</span>,</span><br><span class="line">    port: <span class="number">8080</span>,</span><br><span class="line">    open: <span class="literal">true</span>,</span><br><span class="line">    proxy: &#123;</span><br><span class="line">      <span class="string">&#x27;/api&#x27;</span>: &#123;</span><br><span class="line">        target: <span class="string">&#x27;http://rap2api.taobao.org/app/mock/data&#x27;</span>, <span class="comment">// 目标接口域名</span></span><br><span class="line">        changeOrigin: <span class="literal">true</span>,</span><br><span class="line">        secure: <span class="literal">false</span>,  <span class="comment">// 是否是https</span></span><br><span class="line">        ws: <span class="literal">true</span>,</span><br><span class="line">        rewrite: <span class="function">(<span class="params">path</span>) =&gt;</span> path.replace(<span class="regexp">/^\/api/</span>, <span class="string">&#x27;&#x27;</span>) <span class="comment">// 重新接口地址</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ul>
-<li>引入方法<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; getData &#125; <span class="keyword">from</span> <span class="string">&#x27;../api/api&#x27;</span></span><br></pre></td></tr></table></figure></li>
-<li>使用</li>
-</ul>
-<blockquote>
-<p>在组合api中使用异步获取的话 父组件使用的时候要在外层添加 <code>&lt;suspense&gt;</code>进行包裹 不然数据不会展示</p>
-</blockquote>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// child component</span></span><br><span class="line">setup: <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> datas: <span class="built_in">any</span> = <span class="keyword">await</span> getData(<span class="string">&#x27;/1531382&#x27;</span>, &#123; scope: <span class="string">&#x27;response&#x27;</span> &#125;)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> color = reactive(<span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(datas.data.data.color)))</span><br><span class="line">        <span class="keyword">return</span> &#123; color &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// App.vue</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;suspense&gt;</span><br><span class="line">    &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">  &lt;/suspense&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="vite-config-ts配置"><a href="#vite-config-ts配置" class="headerlink" title="vite.config.ts配置"></a>vite.config.ts配置</h2><blockquote>
-<p><a target="_blank" rel="noopener" href="https://cn.vitejs.dev/config/">详情</a></p>
-</blockquote>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span></span><br><span class="line"><span class="keyword">import</span> vue <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// https://vitejs.dev/config/</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> defineConfig(&#123;</span><br><span class="line">  plugins: [vue()],</span><br><span class="line">  alias: &#123;</span><br><span class="line">    <span class="string">&#x27;@&#x27;</span>: path.join(__dirname, <span class="string">&#x27;src&#x27;</span>)  <span class="comment">// 配置用@来代表src目录</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 服务器相关配置</span></span><br><span class="line">  server: &#123;</span><br><span class="line">    port: <span class="number">8080</span>,</span><br><span class="line">    host: <span class="string">&#x27;0.0.0.0&#x27;</span>,</span><br><span class="line">    open: <span class="literal">true</span>, <span class="comment">// 是否自动开启浏览器</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-flex"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/03/17/flex/"
-    >Flex相关</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/03/17/flex/" class="article-date">
-  <time datetime="2021-03-17T06:21:42.000Z" itemprop="datePublished">2021-03-17</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CSS/">CSS</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="父容器的属性"><a href="#父容器的属性" class="headerlink" title="父容器的属性"></a>父容器的属性</h2><h3 id="flex-direction-主轴-项目排列方向"><a href="#flex-direction-主轴-项目排列方向" class="headerlink" title="flex-direction (主轴/项目排列方向)"></a>flex-direction (主轴/项目排列方向)</h3><blockquote>
-<p>row(默认，水平，起点在左端)  |  row-reverse  |  column  |  column-reverse</p>
-</blockquote>
-<h3 id="flex-wrap-是否换行"><a href="#flex-wrap-是否换行" class="headerlink" title="flex-wrap (是否换行)"></a>flex-wrap (是否换行)</h3><blockquote>
-<p>nowrap(默认不换行)  |  wrap(换行，第一行在上方)  | wrap-reverse(换行，第一行在下方)</p>
-</blockquote>
-<h3 id="flex-flow-flex-direction属性和flex-wrap属性的简写形式，默认值为row-nowrap"><a href="#flex-flow-flex-direction属性和flex-wrap属性的简写形式，默认值为row-nowrap" class="headerlink" title="flex-flow (flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap)"></a>flex-flow (flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap)</h3><blockquote>
-<p><code>&lt;flex-deirection&gt;</code> || <code>&lt;flex-wrap&gt;</code></p>
-</blockquote>
-<h3 id="justify-content-主轴的对齐方式"><a href="#justify-content-主轴的对齐方式" class="headerlink" title="justify-content (主轴的对齐方式)"></a>justify-content (主轴的对齐方式)</h3><blockquote>
-<p>flex-start(默认 左对齐)  |  flex-end  |  center  |  space-between (两端对齐，项目之间的间隔都相等。)  |  space-around (每个项目两侧的间隔相等)</p>
-</blockquote>
-<p><img src="https://i.bmp.ovh/imgs/2021/03/51667ee0ea2e4458.png"></p>
-<h3 id="align-items-定义项目在交叉轴上如何对齐"><a href="#align-items-定义项目在交叉轴上如何对齐" class="headerlink" title="align-items (定义项目在交叉轴上如何对齐)"></a>align-items (定义项目在交叉轴上如何对齐)</h3><blockquote>
-<p>flex-start (交叉轴的起点对齐)  |  flex-end(交叉轴的终点对齐)  |  center(交叉轴的中点对齐)  |  baseline(项目的第一行文字的基线对齐)  |  stretch(默认值 如果项目未设置高度或设为auto，将占满整个容器的高度)  </p>
-</blockquote>
-<p><img src="https://i.bmp.ovh/imgs/2021/03/ecba85337de824ff.png"></p>
-<h2 id="子项目的属性"><a href="#子项目的属性" class="headerlink" title="子项目的属性"></a>子项目的属性</h2><h3 id="order-属性定义项目的排列序列。数值越小排列越靠前，默认为0"><a href="#order-属性定义项目的排列序列。数值越小排列越靠前，默认为0" class="headerlink" title="order (属性定义项目的排列序列。数值越小排列越靠前，默认为0)"></a>order (属性定义项目的排列序列。数值越小排列越靠前，默认为0)</h3><p><img src="https://i.bmp.ovh/imgs/2021/03/36090f39dbc5eade.png"></p>
-<h3 id="flex-grow-项目的放大比例，默认为0"><a href="#flex-grow-项目的放大比例，默认为0" class="headerlink" title="flex-grow (项目的放大比例，默认为0)"></a>flex-grow (项目的放大比例，默认为0)</h3><blockquote>
-<p>如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。<br>如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。</p>
-</blockquote>
-<p><img src="https://i.bmp.ovh/imgs/2021/03/cb7d2508279d6185.png"></p>
-<h3 id="flex-shrink-项目的缩小比列，默认为1"><a href="#flex-shrink-项目的缩小比列，默认为1" class="headerlink" title="flex-shrink (项目的缩小比列，默认为1)"></a>flex-shrink (项目的缩小比列，默认为1)</h3><blockquote>
-<p>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小  </p>
-</blockquote>
-<ul>
-<li><p>计算方式：<br>  <code>(项目n宽度*n的缩小比例/(项目1宽度*1的缩小比例)+...+(项目n宽度*n的缩小比例))*超出的宽度</code>  </p>
- <b style="color:red">
- 100+400且flex-shrink都为1的子项目 父级为400 ，子项目超出100 </b>
- <br>
- <b style="color:red">
- 100的子项目应该缩小的宽度：100*1/（100*1+400*1）=0.2  0.2*100 = 20</b>
- <br>
- <b style="color:red">
- 400的子项目应该缩小的宽度：400*1/（100*1+400*1）=0.8  0.8*100 = 80</b>
-
-</li>
-</ul>
-<p><img src="https://i.bmp.ovh/imgs/2021/03/f56618d2ccee3a1f.png"></p>
-<h3 id="flex-basis-项目的固定空间-与width类似"><a href="#flex-basis-项目的固定空间-与width类似" class="headerlink" title="flex-basis (项目的固定空间 与width类似)"></a>flex-basis (项目的固定空间 与width类似)</h3><blockquote>
-<p>length | auto(默认)</p>
-</blockquote>
-<h3 id="flex-属性是flex-grow-flex-shrink-和-flex-basis的简写，默认值为0-1-auto。后两个属性可选"><a href="#flex-属性是flex-grow-flex-shrink-和-flex-basis的简写，默认值为0-1-auto。后两个属性可选" class="headerlink" title="flex (属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选 )"></a>flex (属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选 )</h3><blockquote>
-<p>none  |  [  <code>&lt;flex-grow&gt;</code> <code>&lt;flex-shrink&gt;</code>?|| <code>&lt;flex-basis&gt;</code>  ]</p>
-</blockquote>
-<h3 id="align-self-属性允许单个项目有与其他项目不一样的对齐方式-默认为auto"><a href="#align-self-属性允许单个项目有与其他项目不一样的对齐方式-默认为auto" class="headerlink" title="align-self (属性允许单个项目有与其他项目不一样的对齐方式 默认为auto)"></a>align-self (属性允许单个项目有与其他项目不一样的对齐方式 默认为auto)</h3><blockquote>
-<p>auto  |  flex-start  |  flex-end  |  center  |  baseline  |  stretch</p>
-</blockquote>
-<p><img src="https://i.bmp.ovh/imgs/2021/03/6301ffad376c5647.png"></p>
-<h2 id="可视化"><a href="#可视化" class="headerlink" title="可视化"></a>可视化</h2><iframe id="cp_embed_mdRBNWB" src="//codepen.io/曾zZ/embed/mdRBNWB?height=400]&theme-id=dark&slug-hash=mdRBNWB&default-tab=[" scrolling="no" frameborder="no" height="400]" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/">下一页</a>
   </nav>
   
 </section>

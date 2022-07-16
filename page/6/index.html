@@ -142,6 +142,213 @@
     
     
     <article
+  id="post-CSS相关"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/30/CSS%E7%9B%B8%E5%85%B3/"
+    >CSS相关</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/30/CSS%E7%9B%B8%E5%85%B3/" class="article-date">
+  <time datetime="2019-12-30T02:21:42.000Z" itemprop="datePublished">2019-12-30</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CSS/">CSS</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>想闲暇的时候学点CSS动画的实现方法，<br>希望能持续更新 见证自己的成长 ，实现的效果也能越来越复杂好看！</p>
+</blockquote>
+<h1 id="波纹效果"><a href="#波纹效果" class="headerlink" title="波纹效果"></a>波纹效果</h1><iframe id="cp_embed_VwYEwme" src="//codepen.io/曾zZ/embed/VwYEwme?height=500]&theme-id=dark&slug-hash=VwYEwme&default-tab=[" scrolling="no" frameborder="no" height="500]" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
+
+<h1 id="充电动画"><a href="#充电动画" class="headerlink" title="充电动画"></a>充电动画</h1><blockquote>
+<p>核心原理 filter的两个属性 blur（高斯模糊）px、contrast（对比度）%、hue-rotate(色相旋转) deg<br>有个疑问 就是w3c里面查的contrast的单位应该是 % 这个例子里面如果给它加了单位就实现不了了 就直接改变整体的对比度<br>blur(px): 默认为0，数值越大越模糊<br>contrast(%): 0%全黑，100%图像无变化。默认为1，超过100%图像会比原来亮<br>hue-rotate(deg)：0deg图像无变化。默认是0deg。该值虽然没有最大值，超过360deg的值相当于又绕一圈。<br><b style='color:red'>Tips:<br>背景一般选择黑色或者白色，不然会受到contrast和hue-rotate的影响<br>在实现渐变效果的时候 filter: contrast(20) hue-rotate(0deg); 顺序不能变<br></b></p>
+</blockquote>
+<style>
+  /*外层盒子不设置 对比度*/
+  .css-box .test,.test1,.test2,.test3{
+    width: 100px;
+    height: 100px;
+    background: black;
+    position: relative;
+  }
+  .css-box .test::before {
+    content: " ";
+    width: 50px;
+    height: 50px;
+    filter: blur(15px);
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background: white;
+    position: absolute;
+  }
+  /*外层盒子设置 对比度*/
+  .css-box .test1 { 
+    filter: contrast(20);
+  }
+  .css-box .test1::before {
+    content: " ";
+    width: 50px;
+    height: 50px;
+    filter: blur(15px);
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background: white;
+    position: absolute;
+  }
+  /* 内部盒子相遇时*/
+  .css-box .test2 {
+    filter: contrast(20);
+  }
+  .css-box .test2::before {
+    content: " ";
+    width: 50px;
+    height: 50px;
+    filter: blur(5px);
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
+    background: white;
+    position: absolute;
+  }
+  .css-box .test2::after {
+    content: " ";
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    filter: blur(5px);
+    left: 50%;
+    top: 50%;
+    margin-left: -40px;
+    margin-top: -10px;
+    background: red;
+    position: absolute;
+  }
+  /*内部盒子运动+渐变颜色*/
+  /* filter: contrast(20) hue-rotate(0deg); 顺序不能变*/
+  .css-box .test3 {
+    filter: contrast(20) hue-rotate(0deg);
+    animation: changeColor 5s linear infinite
+  }
+  @keyframes changeColor {
+    100% {
+      filter: contrast(20) hue-rotate(360deg);
+    }
+  }
+  .css-box .test3::before {
+    content: " ";
+    width: 50px;
+    height: 50px;
+    filter: blur(5px);
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    margin-left: -25px;
+    margin-top: -25px;
+    background: rgb(201, 93, 93);
+    position: absolute;
+    animation: bigBallMove 2s linear infinite
+  }
+  .css-box .test3::after {
+    content: " ";
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    filter: blur(5px);
+    left: 50%;
+    top: 50%;
+    margin-left: -40px;
+    margin-top: -10px;
+    background: rgb(201, 93, 93);
+    position: absolute;
+    animation: ballMove 2s linear infinite;
+  }
+  @keyframes ballMove {
+    100% {
+      transform: translateX(70px);
+    }
+  }
+  @keyframes bigBallMove {
+    100% {
+      transform: translateX(-20px);
+    }
+  }
+  .css-box{
+    width: 200px;
+    height: 200px;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+</style>
+
+  <div class="css-box">
+    内部设置高斯模糊 外层盒子不设置 对比度
+    <div class="test"></div>
+  </div>
+  <div class="css-box">
+    外层盒子设置 对比度 <br>
+    （好像是在视觉上抵消内部盒子的高斯模糊）
+    <div class="test1"></div>
+  </div>
+  <div class="css-box">
+    内部盒子相遇时
+    <div class="test2"></div>
+  </div>
+  <div class="css-box">
+    内部盒子运动+渐变颜色<br>
+    （filter: contrast(20) hue-rotate(0deg); 顺序不能变！！！）
+    <div class="test3"></div>
+  </div>
+
+<p>  成品效果：</p>
+  <iframe id="cp_embed_oNgaNLg" src="//codepen.io/曾zZ/embed/oNgaNLg?height=500]&theme-id=dark&slug-hash=oNgaNLg&default-tab=[" scrolling="no" frameborder="no" height="500]" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-第六章__代理模式"
   class="article article-type-post"
   itemscope
@@ -877,72 +1084,13 @@
 </article>
 
     
-    <article
-  id="post-秋招记录"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/12/14/%E7%A7%8B%E6%8B%9B%E8%AE%B0%E5%BD%95/"
-    >秋招记录</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2019/12/14/%E7%A7%8B%E6%8B%9B%E8%AE%B0%E5%BD%95/" class="article-date">
-  <time datetime="2019-12-14T02:21:42.000Z" itemprop="datePublished">2019-12-14</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>11.28<br>三方的流程弄完寄去公司 我的秋招正式结束<br>因为是明年七月入职 为了给自己留条后路<br>所以我又马不停蹄的找了份实习<br>12.2<br>入职 现在是我实习的第二个星期</p>
-<hr>
-<p>秋招那几个月对我来说真的十分痛苦 度日如年<br>以前说考研是孤军奋战 现在看来找工作才是<br>我们一个班30个人 考研考公的占80%<br>我去交就业协议的时候 我们系加上我就三个人<br>我连找个一起去宣讲会的人都没有<br>周末对着电脑、手机不知道干嘛<br>想了想还是记录、整理一下秋招这几个月的心路历程<br>从大概大二的时候有想从事前端方面的工作的想法<br>大三两个学期 基本都是在学相关的内容<br>虽然说学习时间很充裕<br>可能我自己也不是这块料 在加上自学要学好本来就比较难<br>我现在掌握的 了解的还是很局限<br>升大四的那个暑假在家一个多月基本都在准备工作相关的东西<br>忙着补习算法、数据结构、网络相关的内容，刷题、看视频、看面经、查公司、投简历<br>虽然没有在学校的学习效率高 但也是靠着自制力坚持下来了<br>貌似在八月底有了第一个大公司的面试(shopee)<br>这是我第一次感受到了严重的打击<br>内心在问自己 “我是怎么敢去报大厂的？我有什么资格和那么多优秀的人去竞争？我怎么这么垃圾？……”<br>从那之后我基本没有怎么投过大公司后来收到的大厂笔试或者面试几乎都是在这之前投递的简历<br>但是坏情绪也没有持续很久 因为秋招才刚刚开始 觉得还有机会<br>九月份是面试最多的时间有过几家公司的面试<br>因为基本都在主城面试 所以基本都是来来回回的坐车、坐车，是真的身心俱疲<br>每次等待结果的过程都很焦虑<br>通过了会开心的睡不着，没通过会伤心的睡不着<br>最后都没有一个好的结果  </p>
-<p>到了十月的时候 整个人几乎每天都是崩溃的状态<br>那应该是我有史以来过的最丧的国庆<br>什么都不想干，也没有什么事可以干<br>国庆过后仿佛秋招已经宣告结束<br>什么消息都没有 翻遍了各种求职的软件 也找不到能投递的公司<br>大公司进不去 小公司不要我  </p>
-<p>说来也巧 每次机会的到来和失去基本都是在同一时间段<br>十月中下旬的时候 有两家公司几乎同时找的我<br>一家技术面 面了我一个小时 两轮hr面 最后一面终面总监告诉我第二天hr要和我谈薪资 我以为稳了<br>刚好第二天第二家公司二面<br>第二天大老远跑去成都面完 就知道自己凉了<br>一直激动的等着第一家公司hr来和我谈薪资<br>然而一天、两天……并没有结果<br>大概意识到我是因为性格原因被涮了<br>这两家公司是我在面试里体验最不好的<br>一家给你开空头支票吊着你，一家cto十分自大看不起人<br>行吧 我惹不起 也不适合与这种领导沟通  </p>
-<p>后面一段时间就基本放弃了 准备考完试就去长沙的那家小公司上班<br>但是人生就是起起落落<br>11月3号早上6:30出发去本部参加了双选会<br>投了八份简历 只有一家回复<br>而就是那家技术面的前一天又有两家公司找了我 并且安排了面试<br>又很不巧的时间撞上了<br>那一天我面了三家公司( 常德、深圳、成都 )<br>深圳的那次面试真的又让我意识到自己的浅薄<br>面试官之前是腾讯的，算法转的后端转前端<br>很不一样的面试体验问的问题我的题库基本没有涉及<br>基本都是从一个更深层次的维度去问你问题的<br>真的让我找回了shopee面试的那种压迫感<br>感觉度秒如年<br>想快点结束但是没想到过了<br>并且约了第二天二面<br>然而就在同一天成都的hr过来和我谈薪资了<br>真的挺开心的 终于有一份像样的offer<br>既激动又紧张  </p>
-<p>直到现在我还是没有安全感<br>明年体检通过后才能入职<br>如果我能成功入职当然是值得开心的但是没有呢？那我怎么办?  </p>
-<p>没有工作经验<br>没有了应届毕业生这个条件<br>没有了学校的资源<br>……</p>
-<p>我不知道如果真的走到那天<br>我还能不能有那么强大的内心承受这么大的压力<br>我真的不想在重来一次了<br>我真的很累了  </p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span>
+    <a class="extend prev" rel="prev" href="/page/5/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/">下一页</a>
   </nav>
   
 </section>
