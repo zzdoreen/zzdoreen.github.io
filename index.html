@@ -142,6 +142,93 @@
     
     
     <article
+  id="post-video"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/07/23/video/"
+    >Video标签</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/07/23/video/" class="article-date">
+  <time datetime="2022-07-23T04:21:42.000Z" itemprop="datePublished">2022-07-23</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%A7%86%E9%A2%91%E7%9B%B8%E5%85%B3/">视频相关</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="video标签相关"><a href="#video标签相关" class="headerlink" title="video标签相关"></a>video标签相关</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/video">video</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/HTMLMediaElement/controlsList">controlsList</a></li>
+</ul>
+<blockquote>
+<p>大部分控件都能隐藏 但是<code>更多控件</code>那个控件隐藏不了 采取了自欺欺人的方法… 设置高度父元素溢出隐藏挡住</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--controlsList  --&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">video</span></span></span><br><span class="line"><span class="tag">    <span class="attr">controlsList</span>=<span class="string">&#x27;nofullscreen nodownload noremoteplayback&#x27;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">disablePictureInPicture</span></span></span><br><span class="line"><span class="tag">    <span class="attr">className</span>=<span class="string">&quot;videoItems&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">muted</span></span></span><br><span class="line"><span class="tag">    <span class="attr">controls</span></span></span><br><span class="line"><span class="tag">    <span class="attr">width</span>=<span class="string">&quot;100%&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">height</span>=<span class="string">&quot;100%&quot;</span></span></span><br><span class="line"><span class="tag">    /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&amp;<span class="selector-pseudo">::-webkit-media-controls-time-remaining-display</span>,</span><br><span class="line">&amp;<span class="selector-pseudo">::-webkit-media-controls-current-time-display</span>,</span><br><span class="line">&amp;<span class="selector-pseudo">::-webkit-media-controls-play-button</span>,</span><br><span class="line">&amp;<span class="selector-pseudo">::-webkit-media-controls-fullscreen-button</span>,</span><br><span class="line">&amp;<span class="selector-pseudo">::-webkit-media-controls-timeline</span>,</span><br><span class="line">&amp;<span class="selector-pseudo">::-webkit-media-controls-volume-slider</span>,</span><br><span class="line">&amp;<span class="selector-pseudo">::-webkit-media-controls-mute-button</span>,</span><br><span class="line">&amp;<span class="selector-pseudo">::-webkit-media-controls-overflow-menu-list</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&amp;<span class="selector-pseudo">::-webkit-media-controls-enclosure</span> &#123;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&amp;<span class="selector-pseudo">::-webkit-media-controls-panel</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="built_in">calc</span>(<span class="number">100%</span> + <span class="number">50px</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="阻止默认事件"><a href="#阻止默认事件" class="headerlink" title="阻止默认事件"></a>阻止默认事件</h2><blockquote>
+<p><code>video</code>默认事件 单击播放/暂停 双击全屏</p>
+</blockquote>
+<blockquote>
+<p>现需求是不能通过单击操作视频的播放/暂停 但是又不想去掉controls因为去掉了没有loading样式</p>
+</blockquote>
+<blockquote>
+<p>单击默认事件阻止之后 双击的全屏事件也不能实现了QAQ , 所以双击也得自己实现</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> videoExitFullScreen = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> dom = <span class="built_in">document</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">// 浏览器兼容性处理</span></span><br><span class="line">  <span class="keyword">if</span> (dom.exitFullscreen) &#123;</span><br><span class="line">    dom.exitFullscreen()</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (dom.mozCancelFullScreen) &#123;</span><br><span class="line">    dom.mozCancelFullScreen()</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (dom.webkitCancelFullScreen) &#123;</span><br><span class="line">    dom.webkitCancelFullScreen()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 阻止video单击播放停止的默认事件</span></span><br><span class="line"><span class="keyword">const</span> onceClick = <span class="function">(<span class="params">event</span>) =&gt;</span> &#123;</span><br><span class="line">  event.preventDefault();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 还原video双击全屏事件</span></span><br><span class="line"><span class="keyword">const</span> singleFullScreen = <span class="function">(<span class="params">index: number</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> isFull = <span class="built_in">document</span>.fullscreenElement</span><br><span class="line">  <span class="keyword">if</span> (isFull) &#123;</span><br><span class="line">    videoExitFullScreen()</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    videoFullScreen(index)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="video播放按钮"><a href="#video播放按钮" class="headerlink" title="video播放按钮"></a>video播放按钮</h2><blockquote>
+<p>因为没有加载数据源的时候<code>video</code>的播放按钮是禁用状态，而且监听不到他的点击事件</p>
+</blockquote>
+<h3 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h3><ul>
+<li>通过css样式写死透明度为 1 （假装成能点的样子）</li>
+<li>将一个透明的div覆盖在播放按钮的位置上</li>
+<li>给div加点击事件、加载数据源，video有数据源之后就直接销毁div，原生的播放暂停按钮可以点击啦</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&amp;<span class="selector-pseudo">::-webkit-media-controls-play-button</span> &#123;</span><br><span class="line">       // TODO 视频播放按钮</span><br><span class="line">       <span class="selector-tag">opacity</span>: 1;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;div className=&#123;styles[<span class="string">&quot;video-container&quot;</span>]&#125;&gt;</span><br><span class="line">  &lt;video id=<span class="string">&#x27;video&#x27;</span></span><br><span class="line">    controlsList=<span class="string">&#x27;nodownload noremoteplayback&#x27;</span></span><br><span class="line">    disablePictureInPicture</span><br><span class="line">    className=&#123;styles[<span class="string">&#x27;hide-video-control&#x27;</span>]&#125;</span><br><span class="line">    onClick=&#123;handleClick&#125;</span><br><span class="line">    controls /&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&#123;!flv &amp;&amp; <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;styles[</span>&quot;<span class="attr">play-cover</span>&quot;]&#125; <span class="attr">onClick</span>=<span class="string">&#123;handleCoverClick&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="video画中画"><a href="#video画中画" class="headerlink" title="video画中画"></a>video画中画</h2><blockquote>
+<p>正常切换标签页画中画状态是可以切换回去的<br>但是路由切换的话，组件被卸载了，就回不去了<br>就需要对画中画进行禁用 给<code>video</code>加上<code>disablePictureInPicture</code>属性</p>
+</blockquote>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-flvjs"
   class="article article-type-post"
   itemscope
@@ -165,7 +252,7 @@
   <time datetime="2022-07-16T04:21:42.000Z" itemprop="datePublished">2022-07-16</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Flvjs/">Flvjs</a>
+    <a class="article-category-link" href="/categories/%E8%A7%86%E9%A2%91%E7%9B%B8%E5%85%B3/">视频相关</a>
   </div>
    
     </div>
@@ -173,6 +260,8 @@
     <div class="article-entry" itemprop="articleBody">
        
   <h2 id="flv-js"><a href="#flv-js" class="headerlink" title="flv.js"></a><a target="_blank" rel="noopener" href="http://bilibili.github.io/flv.js">flv.js</a></h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b58356b465c4">中文文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/TurtleOrange/article/details/119147481">实用的文档</a></p>
+<p><a target="_blank" rel="noopener" href="http://events.jianshu.io/p/681239401c7e">解决跳帧、断流问题文档</a></p>
 <blockquote>
 <p>一个可以在HTML5视频中播放.flv视频格式的JavaScript库</p>
 </blockquote>
@@ -193,12 +282,30 @@
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">id</span>=<span class="string">&#x27;video&#x27;</span> <span class="attr">controls</span>&gt;</span><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> videoDom = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;video&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (flvjs.isSupported()) &#123; <span class="comment">// 判断浏览器是否支持flvjs</span></span><br><span class="line">  <span class="keyword">const</span> flvPlayer = flvjs.createPlayer(&#123;</span><br><span class="line">      type: <span class="string">&#x27;flv&#x27;</span>,</span><br><span class="line">      url: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      isLive: <span class="literal">true</span>,</span><br><span class="line">      hasAudio: <span class="literal">false</span>,</span><br><span class="line">      hasVideo: <span class="literal">true</span>,</span><br><span class="line">      &#125;)</span><br><span class="line">      flvPlayer.attachMediaElement(videoDom)</span><br><span class="line">      flvPlayer.load()</span><br><span class="line">      flvPlayer.play()</span><br><span class="line">  &#125;</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> videoDom = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;video&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (flvjs.isSupported()) &#123; <span class="comment">// 判断浏览器是否支持flvjs</span></span><br><span class="line">  <span class="keyword">const</span> flvPlayer = flvjs.createPlayer(&#123;</span><br><span class="line">      type: <span class="string">&#x27;flv&#x27;</span>,</span><br><span class="line">      url: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      isLive: <span class="literal">true</span>,</span><br><span class="line">      hasAudio: <span class="literal">false</span>,</span><br><span class="line">      hasVideo: <span class="literal">true</span>,</span><br><span class="line">      duration: <span class="number">0</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">      enableWorker: <span class="literal">false</span>,</span><br><span class="line">      autoCleanupSourceBuffer: <span class="literal">true</span>, <span class="comment">// 对SourceBuffer进行自动清理</span></span><br><span class="line">      autoCleanupMaxBackwardDuration: <span class="number">12</span>, <span class="comment">// 当向后缓冲区持续时间超过此值（以秒为单位）时，请对SourceBuffer进行自动清理</span></span><br><span class="line">      autoCleanupMinBackwardDuration: <span class="number">8</span>, <span class="comment">// 指示进行自动清除时为反向缓冲区保留的持续时间（以秒为单位）。</span></span><br><span class="line">      enableStashBuffer: <span class="literal">false</span>, <span class="comment">// 关闭IO隐藏缓冲区</span></span><br><span class="line">      isLive: <span class="literal">true</span>,</span><br><span class="line">      lazyLoad: <span class="literal">false</span>,</span><br><span class="line">      reuseRedirectedURL: <span class="literal">true</span>     </span><br><span class="line">      &#125;)</span><br><span class="line">      flvPlayer.attachMediaElement(videoDom)</span><br><span class="line">      flvPlayer.load()</span><br><span class="line">      flvPlayer.play()</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 监听数据源是否加载完成</span></span><br><span class="line">      flvPlayer.on(flvjs.Events.LOADING_COMPLETE, <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (!flvPlayer._receivedCanPlay) &#123;</span><br><span class="line">            <span class="comment">// 不能播放 销毁</span></span><br><span class="line">            flvPlayer.pause()</span><br><span class="line">            flvPlayer.unload()</span><br><span class="line">            flvPlayer.detachMediaElement();</span><br><span class="line">            flvPlayer.destroy();</span><br><span class="line">            <span class="comment">// message.error(&#x27;视频资源获取失败&#x27;)</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 所有异常捕获（播放途中断流、网络错误等）</span></span><br><span class="line">      flvPlayer.on(flvjs.Events.ERROR, <span class="function">(<span class="params">errorType, errorDetail, errorInfo</span>) =&gt;</span> &#123;</span><br><span class="line">          flvPlayer.pause()</span><br><span class="line">          flvPlayer.unload()</span><br><span class="line">          flvPlayer.detachMediaElement();</span><br><span class="line">          flvPlayer.destroy();</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 关闭异常</span></span><br><span class="line">      flvPlayer.off(flvjs.Events.ERROR, <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&#x27;--off异常&#x27;</span>, err)</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 监听数据流请求 只要流在请求就一直监听 （追针应该就是通过定时器写在这里实现的）</span></span><br><span class="line">      flvPlayer.on(flvjs.Events.STATISTICS_INFO, <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&#x27;请求数据信息&#x27;</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
 
 <ol start="4">
-<li>卸载播放器</li>
+<li>跳帧处理</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">flvPlayer.pause()</span><br><span class="line">flvPlayer.unload();</span><br><span class="line">flvPlayer.detachMediaElement();</span><br><span class="line">flvPlayer.destroy();</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>通过改变视频的当前时间来实现<br><code>buffered</code> 属性返回 <code>TimeRanges</code> 对象,表示音频/视频的已缓冲部分</p>
+</blockquote>
+<p><em><code>TimeRanges</code> 对象的属性：</em></p>
+<ul>
+<li><code>length</code> - 获得音频/视频中已缓冲范围的数量</li>
+<li><code>start(index)</code> - 获得某个已缓冲范围的开始位置</li>
+<li><code>end(index)</code> - 获得某个已缓冲范围的结束位置</li>
+<li>注释：第一个缓冲范围的下标是 0</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> clearBufferToPlay = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (flvPlayer &amp;&amp; flvPlayer.buffered &amp;&amp; flvPlayer.buffered.length) &#123;</span><br><span class="line">        <span class="keyword">const</span> end = flvPlayer.buffered.end(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">const</span> diff = end - flvPlayer.currentTime;</span><br><span class="line">        <span class="keyword">if</span> (diff &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            flvPlayer.currentTime = end - <span class="number">0.00001</span> <span class="comment">// 直接等于end会加载不出来</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>追针处理</li>
+</ol>
+<blockquote>
+<p>改变视频播放的速率来实现</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> changeSpeadToPlay = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (flvPlayer &amp;&amp; flvPlayer.buffered &amp;&amp; flvPlayer.buffered.length) &#123;</span><br><span class="line">        <span class="keyword">const</span> end = flvPlayer.buffered.end(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">const</span> diff = end - flvPlayer.currentTime;</span><br><span class="line">        <span class="keyword">if</span> (diff &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">// 大于一秒开始倍速播放</span></span><br><span class="line">            videoElement.playbackRate = <span class="number">1.1</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (diff &lt;= <span class="number">0.5</span>) &#123;</span><br><span class="line">            videoElement.playbackRate = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
  
       <!-- reward -->
       
@@ -300,7 +407,9 @@
 
 <h2 id="useReducer-需要逻辑处理state"><a href="#useReducer-需要逻辑处理state" class="headerlink" title="useReducer 需要逻辑处理state"></a>useReducer 需要逻辑处理state</h2><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 初始值</span></span><br><span class="line">  <span class="keyword">const</span> initialState = &#123; count: <span class="number">0</span> &#125;</span><br><span class="line"><span class="comment">// 数据操作</span></span><br><span class="line">  <span class="keyword">const</span> reducer = <span class="function">(<span class="params">state: &#123; count: <span class="built_in">number</span>; &#125;, action: &#123; <span class="keyword">type</span>: <span class="built_in">string</span>; &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&quot;add&quot;</span>: <span class="keyword">return</span> &#123; count: state.count + <span class="number">1</span> &#125;;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">&quot;del&quot;</span>: <span class="keyword">return</span> &#123; count: state.count - <span class="number">1</span> &#125;;</span><br><span class="line">      <span class="keyword">default</span>: <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 数据声明  </span></span><br><span class="line"> <span class="keyword">const</span> [state, dispatch] = useReducer(reducer, initialState)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"></span><br><span class="line">    &lt;h1&gt;Count:&#123;state.count&#125;&lt;/h1&gt;</span><br><span class="line">    &lt;Button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123; <span class="keyword">type</span>: <span class="string">&#x27;add&#x27;</span> &#125;)&#125;&gt;reducer add&lt;/Button&gt;</span><br><span class="line">    &lt;Button onClick=&#123;<span class="function">() =&gt;</span> dispatch(&#123; <span class="keyword">type</span>: <span class="string">&#x27;del&#x27;</span> &#125;)&#125;&gt;reducer del&lt;/Button&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="ahooks-react-hooks库"><a href="#ahooks-react-hooks库" class="headerlink" title="ahooks react hooks库"></a><a target="_blank" rel="noopener" href="https://ahooks.js.org/zh-CN/hooks">ahooks</a> <code>react hooks库</code></h2><h3 id="useRequest-异步数据管理的hooks"><a href="#useRequest-异步数据管理的hooks" class="headerlink" title="useRequest 异步数据管理的hooks"></a>useRequest 异步数据管理的hooks</h3> 
+<h3 id="useEffect-amp-useMemo"><a href="#useEffect-amp-useMemo" class="headerlink" title="useEffect &amp; useMemo"></a>useEffect &amp; useMemo</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> dom = useRef()</span><br><span class="line"><span class="keyword">const</span> state = useReactive(&#123; <span class="attr">num</span>: <span class="number">1</span>, <span class="attr">childInfo</span>: <span class="string">&#x27;hello&#x27;</span> &#125;)</span><br><span class="line"></span><br><span class="line">useEffect(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// mounted 的时候执行 模板已经挂在到页面上，dom可以获取到</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;render effect&#x27;</span>, dom, state.num)</span><br><span class="line">  <span class="comment">// dom -&gt; &#123; current:HTMLElement &#125;</span></span><br><span class="line">&#125;, [state.num])</span><br><span class="line"></span><br><span class="line">useMemo(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 相当于create 的时候执行 模板没有挂在到页面上，dom获取不到</span></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;render memo&#x27;</span>, dom, state.num)</span><br><span class="line">  <span class="comment">// dom -&gt; &#123; current:undefined &#125;</span></span><br><span class="line">&#125;, [state.num])</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="useReactive-响应式数据，直接修改属性可以刷新视图"><a href="#useReactive-响应式数据，直接修改属性可以刷新视图" class="headerlink" title="useReactive 响应式数据，直接修改属性可以刷新视图"></a>useReactive 响应式数据，直接修改属性可以刷新视图</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> state = useReactive(initialState: Record&lt;string,any&gt;) <span class="comment">// 参数为一个对象</span></span><br></pre></td></tr></table></figure> 
       <!-- reward -->
       
     </div>
@@ -1563,63 +1672,6 @@
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> defineComponent(&#123;</span><br><span class="line">  setup: <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="comment">// 在异步组合api中，生命周期函数必须写在 数据/方法前面 </span></span><br><span class="line">    onMounted(<span class="function">() =&gt;</span> &#123;&#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> &#123; index,obj,music &#125; = <span class="keyword">await</span> useMusic();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 绑定audio对象</span></span><br><span class="line">    <span class="keyword">let</span> audio = ref(); </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 每条歌词数据</span></span><br><span class="line">    <span class="keyword">let</span> msg = obj.data &amp;&amp; obj.data[<span class="number">0</span>].text ? ref(obj.data[<span class="number">0</span>].text) : ref(<span class="string">&quot; &quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 进度条改变触发事件</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">handleMusicTimeChange</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">if</span> (audio.value.currentTime &gt;= obj.data[index.value + <span class="number">1</span>].time) &#123;</span><br><span class="line">        index.value++;</span><br><span class="line">      &#125;</span><br><span class="line">      msg.value = obj.data[index.value].text;</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg,</span><br><span class="line">      index,</span><br><span class="line">      obj,</span><br><span class="line">      audio,</span><br><span class="line">      music,</span><br><span class="line">      handleMusicTimeChange,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h5 id="未解决的问题"><a href="#未解决的问题" class="headerlink" title="未解决的问题"></a>未解决的问题</h5><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 目前的播放器进度条不能进行控制 控制之后 不知道怎么获取对应索引的歌词</span></span><br><span class="line"><span class="comment"> * （ </span></span><br><span class="line"><span class="comment"> * 进度条长度和音频总时长是按比例的</span></span><br><span class="line"><span class="comment"> * 所以进度条播放位置发生改变时 timeupdate对于不同长度的歌曲触发秒数间隔都是不一样的</span></span><br><span class="line"><span class="comment"> * currentTime也不一定能和time对应上 所以不知道怎么获取到歌词</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 不知道怎么实现QAQ , 所以就没展示audio的控件(controls) </span></span><br><span class="line"><span class="comment"> * ）</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-十二生肖"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/04/23/%E5%8D%81%E4%BA%8C%E7%94%9F%E8%82%96/"
-    >十二生肖</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/04/23/%E5%8D%81%E4%BA%8C%E7%94%9F%E8%82%96/" class="article-date">
-  <time datetime="2021-04-23T02:21:42.000Z" itemprop="datePublished">2021-04-23</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CSS/">CSS</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <blockquote>
-<p>起初用css实现生肖 只是因为闲的 现在自己挖个坑 做个十二生肖系列的 不知道我的职业生涯有没有这么久hhh</p>
-</blockquote>
-<ul>
-<li>鼠🐀<iframe id="cp_embed_povQRzr" src="//codepen.io/曾zZ/embed/povQRzr?height=400]&theme-id=dark&slug-hash=povQRzr&default-tab=[" scrolling="no" frameborder="no" height="400]" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></li>
-<li>牛🐂<iframe id="cp_embed_mdrQNpG" src="//codepen.io/曾zZ/embed/mdrQNpG?height=400]&theme-id=dark&slug-hash=mdrQNpG&default-tab=[" scrolling="no" frameborder="no" height="400]" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe></li>
-</ul>
  
       <!-- reward -->
       

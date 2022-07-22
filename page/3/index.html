@@ -142,6 +142,56 @@
     
     
     <article
+  id="post-路由传值"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/12/30/%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%80%BC/"
+    >路由传值</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/12/30/%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%80%BC/" class="article-date">
+  <time datetime="2020-12-30T10:16:00.000Z" itemprop="datePublished">2020-12-30</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Flutter/">Flutter</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="路由传值"><a href="#路由传值" class="headerlink" title="路由传值"></a>路由传值</h2><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.dart</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:demo/pages/Form.dart&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:demo/pages/Search.dart&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;pages/tabs/Tabs.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> main() =&gt; runApp(MyApp());</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> MaterialApp(</span><br><span class="line">      home: Tabs(),</span><br><span class="line">      routes: &#123;</span><br><span class="line">        <span class="string">&#x27;/form&#x27;</span>: (context,&#123;arguments&#125;) =&gt; FormPage(arguments: &#123;<span class="string">&#x27;id&#x27;</span>: <span class="string">&#x27;form title&#x27;</span>&#125;),</span><br><span class="line">        <span class="string">&#x27;/search&#x27;</span>: (context) =&gt; SearchPage(),</span><br><span class="line">      &#125;,</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Form.dart</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;package:flutter/material.dart&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FormPage</span> <span class="keyword">extends</span> <span class="title">StatefulWidget</span> </span>&#123;</span><br><span class="line">  <span class="keyword">final</span> <span class="built_in">Map</span> arguments;</span><br><span class="line">  FormPage(&#123;Key key, <span class="keyword">this</span>.arguments&#125;) : <span class="keyword">super</span>(key: key);</span><br><span class="line"></span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  _FormPageState createState() =&gt; _FormPageState();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">_FormPageState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">FormPage</span>&gt; </span>&#123;</span><br><span class="line">  <span class="meta">@override</span></span><br><span class="line">  Widget build(BuildContext context) &#123;</span><br><span class="line">    <span class="keyword">return</span> Scaffold(</span><br><span class="line">      floatingActionButton: FloatingActionButton(</span><br><span class="line">        child: Text(<span class="string">&#x27;back&#x27;</span>),</span><br><span class="line">        onPressed: () &#123;</span><br><span class="line">          Navigator.of(context).pop();</span><br><span class="line">        &#125;,</span><br><span class="line">      ),</span><br><span class="line">      appBar: AppBar(</span><br><span class="line">        title: Text(widget.arguments[<span class="string">&#x27;id&#x27;</span>]),</span><br><span class="line">      ),</span><br><span class="line">      body: Text(<span class="string">&#x27;表单&#x27;</span>),</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-tips"
   class="article article-type-post"
   itemscope
@@ -1243,131 +1293,6 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 字符串</span></span><br><span class="line">router.push(<span class="string">&#x27;home&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对象</span></span><br><span class="line">router.push(&#123; <span class="attr">path</span>: <span class="string">&#x27;home&#x27;</span> &#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 命名的路由</span></span><br><span class="line">router.push(&#123; <span class="attr">name</span>: <span class="string">&#x27;user&#x27;</span>, <span class="attr">params</span>: &#123; <span class="attr">userId</span>: <span class="string">&#x27;123&#x27;</span> &#125;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 带查询参数，变成 /register?plan=private</span></span><br><span class="line">router.push(&#123; <span class="attr">path</span>: <span class="string">&#x27;register&#x27;</span>, <span class="attr">query</span>: &#123; <span class="attr">plan</span>: <span class="string">&#x27;private&#x27;</span> &#125;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在浏览器记录中前进一步，等同于 history.forward()</span></span><br><span class="line">router.go(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 后退一步记录，等同于 history.back()</span></span><br><span class="line">router.go(<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 前进 3 步记录</span></span><br><span class="line">router.go(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果 history 记录不够用，那就默默地失败呗</span></span><br><span class="line">router.go(<span class="number">-100</span>)</span><br><span class="line">router.go(<span class="number">100</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-vue-property-decorator"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/10/01/vue-property-decorator/"
-    >vue-property-decorator的简单使用</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/10/01/vue-property-decorator/" class="article-date">
-  <time datetime="2020-10-01T03:37:33.620Z" itemprop="datePublished">2020-10-01</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="vue-property-decorator"><a href="#vue-property-decorator" class="headerlink" title="vue-property-decorator"></a><a target="_blank" rel="noopener" href="https://github.com/kaorun343/vue-property-decorator">vue-property-decorator</a></h2><blockquote>
-<p>提供给vue内写typescript语法的时候引入的组件（基于vue-class-component）  </p>
-</blockquote>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
-<p>npm i -s vue-property-decorator</p>
-</blockquote>
-<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><h3 id="Props"><a href="#Props" class="headerlink" title="@Props"></a>@Props</h3><blockquote>
-<p>props是子组件用来接收父组件传递过来的参数  </p>
-</blockquote>
-<p>在常规的vue语法环境下的书写方式：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    props: &#123;</span><br><span class="line">        propA: &#123;</span><br><span class="line">            type: <span class="built_in">Number</span>,</span><br><span class="line">            <span class="comment">// type: [ String,Boolean ]</span></span><br><span class="line">            <span class="comment">// default: &#x27;value&#x27;</span></span><br><span class="line">            <span class="comment">// default: function ()&#123; return &#x27;hello&#x27; &#125;</span></span><br><span class="line">            <span class="comment">// required: true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<br/>
-<br/>
-在vue-property-decorator组件中使用：  
-
-<blockquote>
-<p>@Prop( options: (PropOptions | Constructor[] | Constructor )={} )  </p>
-</blockquote>
-<p><code>@Prop</code>装饰器接收一个参数，这个参数的三种写法：  </p>
-<ul>
-<li><code>constructor</code> String、Number、Boolean等，指定prop的类型</li>
-<li><code>constructor[]</code> 指定prop的可选类型</li>
-<li><code>propOptions</code> 对象参数可以是 type，default，required…</li>
-</ul>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;script lang=<span class="string">&#x27;ts&#x27;</span>&gt;</span><br><span class="line">    <span class="keyword">import</span> &#123; Vue,Component,Prop &#125; <span class="keyword">from</span> <span class="string">&#x27;vue-property-decorator&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Component</span>(&#123;&#125;) <span class="comment">// 不管有没有组件都必须写</span></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> 组件名 <span class="keyword">extends</span> Vue&#123;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Props</span>(<span class="built_in">Number</span>) propA!: <span class="built_in">number</span>;</span><br><span class="line">        <span class="meta">@Props</span>([<span class="built_in">String</span>,<span class="built_in">Boolean</span>]) propB: <span class="built_in">string</span> | <span class="built_in">boolean</span>;</span><br><span class="line">        <span class="meta">@Props</span>(&#123;<span class="keyword">default</span>:<span class="string">&#x27;value&#x27;</span>&#125;) propC!: <span class="built_in">string</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>!</code> 表示一定有值(非<code>null</code>和非<code>undefined</code>)， <code>?</code> 表示可选  </p>
-</blockquote>
-<h3 id="Component"><a href="#Component" class="headerlink" title="@Component"></a>@Component</h3><blockquote>
-<p>用来接收一个对象作为参数，在对象中可以声明<code>components,filters,directives</code>等，也可以声明<code>computed,watch</code>等  </p>
-</blockquote>
-<p>在常规的vue语法环境下的书写方式：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> DetailTable <span class="keyword">from</span> <span class="string">&#x27;./components/detail-table.vue&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    components: &#123;</span><br><span class="line">        DetailTable</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<br/>
-<br/>
-在vue-property-decorator组件中使用： 
-
-<blockquote>
-<p>Component( options:ComponentOptions = {} ) </p>
-</blockquote>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> DetailTable <span class="keyword">from</span> <span class="string">&#x27;./components/detail-table.vue&#x27;</span>;</span><br><span class="line"><span class="comment">// ... </span></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">    components:&#123;</span><br><span class="line">        DetailTable</span><br><span class="line">    &#125;,</span><br><span class="line">    filters: &#123;</span><br><span class="line">        toFixed: <span class="function">()=&gt;</span>&#123; ... &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> 组件名 <span class="keyword">extends</span> Vue &#123;</span><br><span class="line">    <span class="comment">// ... </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Watch"><a href="#Watch" class="headerlink" title="@Watch"></a>@Watch</h3><blockquote>
-<p>侦听数据的变化  </p>
-</blockquote>
-<p>在常规的vue语法环境下的书写方式：  </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">watch: &#123;</span><br><span class="line">    msg: [</span><br><span class="line">        &#123;</span><br><span class="line">            handler: <span class="string">&#x27;onMsgChange&#x27;</span>,</span><br><span class="line">            immediate: <span class="literal">false</span>,</span><br><span class="line">            deep: <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">      onMsgChange(newValue,oldValue) &#123; &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>在vue-property-decorator组件中使用：  </p>
-<blockquote>
-<p>@Watch( path: string, options: WatchOptions={} )  </p>
-</blockquote>
-<p><code>@Watch</code>装饰器接收两个参数：  </p>
-<ul>
-<li><code>path：string</code> 被侦听的属性名</li>
-<li><code>options?: WatchOptions=&#123;&#125; options</code> 可以包含两个属性：<ul>
-<li><code>immediate?: boolean</code> 侦听开始之后是否立即调用该回调函数；</li>
-<li><code>deep?: boolean</code> 被侦听的对象的属性被改变时，是否调用该回调函数；<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> 组件名 <span class="keyword">extends</span> Vue &#123;</span><br><span class="line">    <span class="meta">@Watch</span>(<span class="string">&#x27;msg&#x27;</span>)</span><br><span class="line">    <span class="keyword">public</span> onMsgChange (newValue: <span class="built_in">string</span>, oldValue: <span class="built_in">string</span>) &#123;</span><br><span class="line">        <span class="comment">// ... </span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Emit"><a href="#Emit" class="headerlink" title="@Emit"></a>@Emit</h2><blockquote>
-<p>广播方法获取变量</p>
-</blockquote>
-<p>在常规的vue语法环境下的书写方式：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    data ()&#123;</span><br><span class="line">        count: <span class="number">0</span></span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        addToCount(n) &#123;</span><br><span class="line">            <span class="built_in">this</span>.count += n</span><br><span class="line">            <span class="built_in">this</span>.$emit(<span class="string">&#x27;add-to-count&#x27;</span>,n)</span><br><span class="line">        &#125;,</span><br><span class="line">        resetCount() &#123;</span><br><span class="line">            <span class="built_in">this</span>.count = <span class="number">0</span></span><br><span class="line">            <span class="built_in">this</span>.$emit(<span class="string">&#x27;reset&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>@Emit(event?:string) </p>
-</blockquote>
-<p><code>@Emit</code>装饰器接收一个可选参数，作为事件名<br><code>@Emit</code>将回调函数的返回值作为第二个参数  </p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">class</span> 组件名 <span class="keyword">extends</span> Vue&#123;</span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Emit</span>()</span><br><span class="line">    <span class="keyword">public</span> addToCount(n:<span class="built_in">number</span>)&#123;</span><br><span class="line">        <span class="built_in">this</span>.count += n</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Emit</span>(<span class="string">&#x27;reset&#x27;</span>)</span><br><span class="line">    <span class="keyword">public</span> resetCount() &#123;</span><br><span class="line">        <span class="built_in">this</span>.count = <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
  
       <!-- reward -->
       
