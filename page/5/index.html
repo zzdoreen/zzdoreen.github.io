@@ -142,6 +142,92 @@
     
     
     <article
+  id="post-简单实现富文本"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/02/03/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E5%AF%8C%E6%96%87%E6%9C%AC/"
+    >JavaScript实现简单文本编辑器</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/02/03/%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E5%AF%8C%E6%96%87%E6%9C%AC/" class="article-date">
+  <time datetime="2020-02-02T16:00:00.000Z" itemprop="datePublished">2020-02-03</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 id="百度富文本编辑器的文件结构"><a href="#百度富文本编辑器的文件结构" class="headerlink" title="百度富文本编辑器的文件结构"></a>百度富文本编辑器的文件结构</h3><img src='/images/ueditor.png'>
+
+<blockquote>
+<p>核心属性 / 方法 / 接口</p>
+</blockquote>
+<h3 id="contentEditable"><a href="#contentEditable" class="headerlink" title="contentEditable"></a><a target="_blank" rel="noopener" href="https://www.runoob.com/jsref/prop-html-contenteditable.html">contentEditable</a></h3><blockquote>
+<p>html属性 用来设置 或 返回元素的内容是否可以被编辑  </p>
+</blockquote>
+<p>语法：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">contentEditable</span> = <span class="string">&#x27;true | false&#x27;</span> &gt;</span>...<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    HTMLElementObject.contentEditable  = <span class="literal">true</span> | <span class="literal">false</span> </span></span><br><span class="line"><span class="javascript">    HTMLElementObject.isContentEditable()  <span class="comment">// 获取元素是否是可编辑状态</span></span></span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="document-execCommand"><a href="#document-execCommand" class="headerlink" title="document.execCommand()"></a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document/execCommand">document.execCommand()</a></h3><blockquote>
+<p>操作可编辑元素的语法糖  大多数文本编辑命令都可执行</p>
+</blockquote>
+<p>语法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bool = <span class="built_in">document</span>.execCommand( aCommandName,ashowDefaultUI,aValueArgument )</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * aCommandName : 命令的名称，可用命令参考mdn</span></span><br><span class="line"><span class="comment"> * aShowDefaultUI : 是否展示用户界面  | false</span></span><br><span class="line"><span class="comment"> * aValueArgument : 一些命令需要的额外参数如字体颜色/大小  | null</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="借用语法糖实现的编辑器"><a href="#借用语法糖实现的编辑器" class="headerlink" title="借用语法糖实现的编辑器"></a>借用语法糖实现的编辑器</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-command</span>=<span class="string">&#x27;bold&#x27;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(this.dataset)&quot;</span>&gt;</span>B<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-command</span>=<span class="string">&quot;italic&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(this.dataset)&quot;</span>&gt;</span>I<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-command</span>=<span class="string">&quot;fontSize&quot;</span> <span class="attr">data-value</span>=<span class="string">&quot;7&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(this.dataset)&quot;</span>&gt;</span>fontSize<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-command</span>=<span class="string">&quot;foreColor&quot;</span> <span class="attr">data-value</span>=<span class="string">&quot;red&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(this.dataset)&quot;</span>&gt;</span>color<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-command</span>=<span class="string">&quot;justifyCenter&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(this.dataset)&quot;</span>&gt;</span>居中对齐<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-command</span>=<span class="string">&quot;justifyLeft&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(this.dataset)&quot;</span>&gt;</span>左对齐<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-command</span>=<span class="string">&quot;justifyRight&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(this.dataset)&quot;</span>&gt;</span>右对齐<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">contentEditable</span>=<span class="string">&#x27;true&#x27;</span>&gt;</span>犹豫就会败北<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">contentEditable</span>=<span class="string">&#x27;true&#x27;</span>&gt;</span>果断就会白给<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">changeStyle</span>(<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> attr = data.command</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> value = data.value</span></span><br><span class="line"><span class="javascript">            value ? <span class="built_in">document</span>.execCommand(attr, <span class="literal">false</span>, value) : <span class="built_in">document</span>.execCommand(attr, <span class="literal">false</span>, <span class="literal">null</span>)</span></span><br><span class="line">        &#125;  </span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span> </span><br></pre></td></tr></table></figure>
+
+<h3 id="Selection"><a href="#Selection" class="headerlink" title="Selection"></a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Selection">Selection</a></h3><blockquote>
+<p>Selection对象表示用户选择的文本范围或插入符号的当前位置。它代表页面中的文本选区，可能横跨多个元素。  </p>
+</blockquote>
+<p>语法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> selObj = <span class="built_in">document</span>.getSelection()  <span class="comment">// window | document 获取Selection对象</span></span><br><span class="line"><span class="keyword">var</span> selStr = selObj.toString() <span class="comment">// 获取选中区域的 ‘纯文本’</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">document</span>.onselectionchange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;  <span class="comment">// 监听鼠标锚点的变化</span></span><br><span class="line">    <span class="built_in">console</span>.log( <span class="built_in">document</span>.getSelection() )</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Selection = &#123;</span></span><br><span class="line"><span class="comment">     *  anchorNode: node 选取起点所在节点，</span></span><br><span class="line"><span class="comment">     *  anchorOffset: num 起点偏移量,</span></span><br><span class="line"><span class="comment">     *  focusNode: node 选取终点所在节点,</span></span><br><span class="line"><span class="comment">     *  focusOffset: num 终点偏移量,</span></span><br><span class="line"><span class="comment">     *  isCollapsed: bool 起始点是否在同一位置,</span></span><br><span class="line"><span class="comment">     *  rangeCount: 返回该选区所包含的连续范围的数量</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * &#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="Range"><a href="#Range" class="headerlink" title="Range"></a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Range">Range</a></h3><blockquote>
+<p>表示一个包含节点与文本节点的一部分的文档片段  </p>
+</blockquote>
+<p>语法: </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个文档范围</span></span><br><span class="line"><span class="keyword">var</span> range = <span class="built_in">document</span>.createRange()</span><br><span class="line"><span class="keyword">var</span> range = <span class="keyword">new</span> Range()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取选中的文档范围</span></span><br><span class="line"><span class="keyword">var</span> range = <span class="built_in">document</span>.getSelection().getRangeAt(<span class="number">0</span>)  </span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Range = &#123;</span></span><br><span class="line"><span class="comment"> *  collapsed : 起始点位置是否相同,</span></span><br><span class="line"><span class="comment"> *  commonAncetorContainer : 选中区域所在的完整节点,  eg: &lt;b&gt; hhh&lt;i&gt;5[5&lt;/i&gt;6]6&lt;/b&gt; -&gt; &lt;b&gt; hhh&lt;i&gt;55&lt;/i&gt;66&lt;/b&gt;</span></span><br><span class="line"><span class="comment"> *  endContainer : 包含range的终点节点,  -&gt; 66</span></span><br><span class="line"><span class="comment"> *  endOffset : 返回一个表示 Range 终点在 endContainer 中的位置的数字。 -&gt; 1 （选中的6在66中排位第几）</span></span><br><span class="line"><span class="comment"> * &#125;</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * Range.cloneContents()    返回一个包含 Range 中所有节点的文档片段</span></span><br><span class="line"><span class="comment"> * Range.deleteContents()    移除range包含的内容</span></span><br><span class="line"><span class="comment"> * Range.extractContents()    把 Range 的内容从文档树移动到一个文档片段中</span></span><br><span class="line"><span class="comment"> * Range.insertNode(Node)    在range起点处插入一个节点</span></span><br><span class="line"><span class="comment"> * Range.surroundContents(newNode)     将range内容移动到一个新的节点中</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="利用-range-amp-selection-接口实现的简易编辑器"><a href="#利用-range-amp-selection-接口实现的简易编辑器" class="headerlink" title="利用 range &amp; selection 接口实现的简易编辑器"></a>利用 range &amp; selection 接口实现的简易编辑器</h3><blockquote>
+<p>有bug  </p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-command</span>=<span class="string">&quot;b&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(dataset)&quot;</span>&gt;</span> B <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-command</span>=<span class="string">&quot;i&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(dataset)&quot;</span>&gt;</span> I <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-command</span>=<span class="string">&quot;h1&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(dataset)&quot;</span>&gt;</span> h1 <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-value</span>=<span class="string">&quot;textAlign:center&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(dataset)&quot;</span>&gt;</span> 居中<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-value</span>=<span class="string">&quot;textAlign:right&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(dataset)&quot;</span>&gt;</span> 居右<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-value</span>=<span class="string">&quot;textAlign:left&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(dataset)&quot;</span>&gt;</span> 居左<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&#x27;btn&#x27;</span>&gt;</span></span><br><span class="line">        测试按钮</span><br><span class="line">    <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">contentEditable</span>=<span class="string">&#x27;true&#x27;</span>&gt;</span>犹豫<span class="tag">&lt;<span class="name">b</span>&gt;</span>就会败北<span class="tag">&lt;<span class="name">i</span>&gt;</span>52<span class="tag">&lt;/<span class="name">i</span>&gt;</span>墨菲<span class="tag">&lt;/<span class="name">b</span>&gt;</span>定律<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">contentEditable</span>=<span class="string">&#x27;true&#x27;</span>&gt;</span>薛定谔的猫🐱<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 1.surrounContents(Node) 在原有内容 的基础上包裹一层node节点</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 不能判断是否已经有该元素</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">changeStyle</span>(<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> tagName = data.command || <span class="literal">null</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> value = data.value || <span class="literal">null</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> selobj = <span class="built_in">document</span>.getSelection()</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> Node = <span class="built_in">document</span>.createElement(tagName)</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> range = selobj.getRangeAt(<span class="number">0</span>)</span></span><br><span class="line">            if(value)&#123;</span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> attr = value.split(<span class="string">&#x27;:&#x27;</span>)[<span class="number">0</span>].trim(),</span></span><br><span class="line"><span class="javascript">                 cssStyle = value.split(<span class="string">&#x27;:&#x27;</span>)[<span class="number">1</span>].trim() </span></span><br><span class="line">                 range.commonAncestorContainer.parentElement.style[attr] = cssStyle</span><br><span class="line"><span class="javascript">            &#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line">                range.surroundContents(Node)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 2.把选择的范围节点删除 在字符串外重新添加标签，只能一种标签存在</span></span></span><br><span class="line"><span class="javascript">        btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> range =  <span class="built_in">document</span>.getSelection().getRangeAt(<span class="number">0</span>)</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> oB = <span class="built_in">document</span>.createElement(<span class="string">&#x27;b&#x27;</span>)</span></span><br><span class="line">            oB.innerHTML = range.toString()</span><br><span class="line">            range.deleteContents()</span><br><span class="line">            range.insertNode(oB)</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-一些废话"
   class="article article-type-post"
   itemscope
@@ -1005,86 +1091,6 @@
 </blockquote>
 <img src='/images/task.png'>
 <img src='/images/tasks.png'> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-options请求和axios跨域及cookie传递问题"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/01/01/options%E8%AF%B7%E6%B1%82%E5%92%8Caxios%E8%B7%A8%E5%9F%9F%E5%8F%8Acookie%E4%BC%A0%E9%80%92%E9%97%AE%E9%A2%98/"
-    >options请求和axios跨域及cookie传递问题</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/01/01/options%E8%AF%B7%E6%B1%82%E5%92%8Caxios%E8%B7%A8%E5%9F%9F%E5%8F%8Acookie%E4%BC%A0%E9%80%92%E9%97%AE%E9%A2%98/" class="article-date">
-  <time datetime="2020-01-01T02:00:00.000Z" itemprop="datePublished">2020-01-01</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <blockquote>
-<p>options请求： 检测请求的接口的信息（服务器接受的方法、跨域中测实际请求是否可以被服务器所接受）</p>
-</blockquote>
-<h3 id="什么情况下会发送options预检请求"><a href="#什么情况下会发送options预检请求" class="headerlink" title="什么情况下会发送options预检请求"></a>什么情况下会发送options预检请求</h3><blockquote>
-<p>浏览器将CORS请求分为两类：简单请求、非简单请求</p>
-</blockquote>
-<ul>
-<li><p>简单请求（不会发送预检请求）与非简单请求（请求之前发送options）的区别</p>
-<ol>
-<li><p>请求方法：get、post、head</p>
-</li>
-<li><p>http请求头信息：<br>accept<br>accept-language、<br>content-language、<br>content-type、<br>last-event-id  </p>
-</li>
-<li><p>content-type：<br>application/x-www-form-urlencoded、<br>multipart/form-data、<br>text/plain</p>
-<blockquote>
-<p>同时满足以上两个条件时，才是简单请求，否则为非简单请求</p>
-</blockquote>
-</li>
-</ol>
-</li>
-</ul>
-<h3 id="axios跨域并获取cookie"><a href="#axios跨域并获取cookie" class="headerlink" title="axios跨域并获取cookie"></a>axios跨域并获取cookie</h3><p>  <a target="_blank" rel="noopener" href="http://www.axios-js.com/zh-cn/docs/">axios详细配置文档</a></p>
-<blockquote>
-<p>核心：<br>1.axios全局配置中添加  withCredentials: true 跨域并保存cookie<br>2.在请求拦截器内设置 content-type：application/json  </p>
-</blockquote>
-<p>  不是很理解第二点 加了之后不是把所有请求都变成非简单请求了吗<br>  但是不加的话就报错了<br>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; MessageBox, Message &#125; <span class="keyword">from</span> <span class="string">&#x27;element-ui&#x27;</span></span><br><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;@/store&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// create an axios instance</span></span><br><span class="line">axios.defaults.headers.common[<span class="string">&#x27;X-Requested-With&#x27;</span>] = <span class="string">&#x27;XMLHttpRequest&#x27;</span> <span class="comment">// ！ 可能是非必须 </span></span><br><span class="line">  <span class="keyword">const</span> service = axios.create(&#123;</span><br><span class="line">  baseURL: process.env.VUE_APP_BASE_API, <span class="comment">// url = base url + request url</span></span><br><span class="line">  withCredentials: <span class="literal">true</span>, <span class="comment">// send cookies when cross-domain requests</span></span><br><span class="line">  timeout: <span class="number">5000</span> <span class="comment">// request timeout</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// request interceptor 请求拦截</span></span><br><span class="line">service.interceptors.request.use(</span><br><span class="line">  config =&gt; &#123;</span><br><span class="line">    config.headers = &#123;</span><br><span class="line">      <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span> <span class="comment">//  注意：设置很关键</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> config</span><br><span class="line">  &#125;,</span><br><span class="line">  error =&gt; &#123;</span><br><span class="line">    <span class="comment">// do something with request error</span></span><br><span class="line">    <span class="built_in">console</span>.log(error) <span class="comment">// for debug</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>  后端相应的配置：<br>  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader(<span class="string">&#x27;Access-Control-Allow-Credentials&#x27;</span>,<span class="keyword">true</span>); <span class="comment">// 必须加上</span></span><br><span class="line">response.setHeader(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>,<span class="string">&#x27;http://localhost:9528&#x27;</span>);   <span class="comment">//不能写成 * ，一定要指定地址</span></span><br><span class="line">response.setHeader(<span class="string">&#x27;Set-Cookie&#x27;</span>,<span class="string">&#x27;token=cowshield&#x27;</span>); <span class="comment">//传递的数据</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>  按理说应该是可以了<br>  但是后台说因为有options预检请求<br>  所以请求会有两次 但是他能获取的是options那次 后面那个请求获取不到<br>  但是options请求又没有能保存传递的数据 导致一些问题  </p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>  我觉得不严谨 但是有效<br>  大概是 写了一个拦截器 对于options请求直接返回true 就可以进入下一个请求了  </p>
-<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>  <a target="_blank" rel="noopener" href="http://www.ruanyifeng.com/blog/2016/04/cors.html">http://www.ruanyifeng.com/blog/2016/04/cors.html</a><br>  <a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_25551573/article/details/80690583">https://blog.csdn.net/qq_25551573/article/details/80690583</a></p>
- 
       <!-- reward -->
       
     </div>

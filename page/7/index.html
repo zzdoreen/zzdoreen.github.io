@@ -142,6 +142,101 @@
     
     
     <article
+  id="post-异步请求-数据传递"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/17/%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82-%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92/"
+    >异步请求-数据传递</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/17/%E5%BC%82%E6%AD%A5%E8%AF%B7%E6%B1%82-%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92/" class="article-date">
+  <time datetime="2019-12-17T02:21:42.000Z" itemprop="datePublished">2019-12-17</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="解决了一个困扰了一天的bug"><a href="#解决了一个困扰了一天的bug" class="headerlink" title="解决了一个困扰了一天的bug"></a>解决了一个困扰了一天的bug</h2><blockquote>
+<p>基本信息描述</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">就是一个创建主题的界面  </span><br><span class="line">在没有进行操作的时候 第一次进入需要弹框进行填写 数据库用户名和密码等操作  </span><br><span class="line">填写完之后会返回一个数据库表名的数组  </span><br><span class="line">弹框是一个子组件 通过获取信息有没有存储在本地来判断是否是第一次操作  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>我的基本思路</p>
+</blockquote>
+<pre>  
+1.当弹框信息填写完毕 提交之后 会请求接口获取 <b style="color:red">数据库表数组</b>
+2.请求成功之后 将数组信息存放到 <b style="color:red">sessionStorage</b> 里面
+3.通过 <b style="color:red">$emit</b>在点击确定按钮的时候 把信息发送给父组件 关闭弹框
+4.然后父组件就可以直接获取到信息并且渲染出来
+</pre>
+<hr>
+<blockquote>
+<p>bug描述</p>
+</blockquote>
+<pre>
+问题就在于 子组件是基于父组件而存在的  
+父组件是渲染完成之后 才会显示的子组件
+在点击确定按钮的时候 发送请求是<b style="color:red">异步</b>的
+所以会先执行$emit操作和弹框关闭操作
+所以传递过去的值 是空的!!!
+<span style="color:gray;font-size:12px">
+/**
+在父组件 可以正常打印 但是就是不能渲染在页面上
+一开始 我以为是因为传的是对象 不能渲染页面用 $set 但没有任何作用
+然后我就觉得是父组件获取数据太快 用定时器的方法来异步获取数据 也不行
+
+后面以为是传值的原因 用了vuex，refs啥啥啥的 都没有成功
+
+后面在弹框组件内 保存按钮的函数下打印数据 发现打印的值为空！这个时候才定位到错误源
+*/</span>
+</pre>
+
+<blockquote>
+<p>解决</p>
+</blockquote>
+<pre>
+原因我猜想是请求接口是异步的，所以用$emit传递的时候 数据还没有被赋值
+所以用setTimeout延迟操作了200ms
+同样弹框状态也要和$emit一样延迟
+然后父组件就可以正常获取到数据了
+</pre>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-vuex多模块配置"
   class="article article-type-post"
   itemscope
