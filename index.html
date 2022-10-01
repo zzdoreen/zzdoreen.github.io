@@ -142,6 +142,62 @@
     
     
     <article
+  id="post-procomoinents"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/10/01/procomoinents/"
+    >ProComponents</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/10/01/procomoinents/" class="article-date">
+  <time datetime="2022-10-01T04:21:42.000Z" itemprop="datePublished">2022-10-01</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/antd/">antd</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="ProTable"><a href="#ProTable" class="headerlink" title="ProTable"></a>ProTable</h2><h3 id="Columns配置项"><a href="#Columns配置项" class="headerlink" title="Columns配置项"></a><a target="_blank" rel="noopener" href="https://procomponents.ant.design/components/table#columns-%E5%88%97%E5%AE%9A%E4%B9%89">Columns配置项</a></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://procomponents.ant.design/components/schema/#valueenum">valueEnum</a></li>
+<li><a target="_blank" rel="noopener" href="https://procomponents.ant.design/components/schema/#valuetype">valueType</a></li>
+<li><a target="_blank" rel="noopener" href="https://procomponents.ant.design/components/field-set">ProFields</a></li>
+<li><a target="_blank" rel="noopener" href="https://ant.design/components/form-cn/#Form.Item">From.Item</a><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> columns = [</span><br><span class="line">    &#123;</span><br><span class="line">        title:<span class="string">&#x27;&#x27;</span>,  <span class="comment">// 标签名称</span></span><br><span class="line">        dataIndex:<span class="string">&#x27;&#x27;</span>, <span class="comment">// 绑定字段</span></span><br><span class="line">        ellipsis: <span class="literal">true</span> | <span class="literal">false</span>,</span><br><span class="line">        valueEnum: [&#123;<span class="attr">label</span>:<span class="string">&#x27;&#x27;</span>,<span class="attr">value</span>:<span class="string">&#x27;&#x27;</span>&#125;],</span><br><span class="line">        valueType:<span class="string">&#x27;text&#x27;</span> | <span class="string">&#x27;date&#x27;</span> <span class="comment">// 值类型 ...</span></span><br><span class="line">        order: number <span class="comment">// 表单中的权重 越大越靠前</span></span><br><span class="line">        search: <span class="literal">true</span> | <span class="literal">false</span>, <span class="comment">// 搜索启用/隐藏</span></span><br><span class="line">        colSize: number, <span class="comment">// 表单占用格子数量 colSpan*span</span></span><br><span class="line">        hideInSearch: <span class="literal">true</span> | <span class="literal">false</span>,</span><br><span class="line">        hideInTable:<span class="literal">true</span> | <span class="literal">false</span>,</span><br><span class="line">        hideInForm:<span class="literal">true</span> | <span class="literal">false</span>,</span><br><span class="line">        initialValue:any, <span class="comment">// 初始值</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// table的render</span></span><br><span class="line">        renderText: <span class="function">(<span class="params">text,record,index,action</span>)=&gt;</span>string,</span><br><span class="line">        render: <span class="function">(<span class="params">text,record,index,action</span>)=&gt;</span>ReactNode|ReactNode[],</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 表单的输入组件 proFields / antd / 自定义组件</span></span><br><span class="line">        renderFormItem: <span class="function">(<span class="params">item,form</span>)=&gt;</span>RecatNode,</span><br><span class="line">        <span class="comment">// 表单配置</span></span><br><span class="line">        fieldProps: &#123;</span><br><span class="line">            precision:<span class="number">1</span> <span class="comment">// 精度 ... antd 表单组件相关配置</span></span><br><span class="line">        &#125;,</span><br><span class="line">        formItemProps: &#123;  <span class="comment">//  Form.Item 相关配置</span></span><br><span class="line">            rules:[ &#123; <span class="attr">required</span>:<span class="literal">true</span>|<span class="literal">false</span> &#125; ],</span><br><span class="line">            &#123;</span><br><span class="line">                message:<span class="string">&#x27;&#x27;</span>,</span><br><span class="line">                validator: (record,value)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(value)<span class="keyword">return</span> <span class="built_in">Promise</span>.resolve()</span><br><span class="line">                    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    ],</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*  </span></span><br><span class="line"><span class="comment">    valueEnum :</span></span><br><span class="line"><span class="comment">        password	密码输入框</span></span><br><span class="line"><span class="comment">        money	金额输入框</span></span><br><span class="line"><span class="comment">        textarea	文本域</span></span><br><span class="line"><span class="comment">        date	日期</span></span><br><span class="line"><span class="comment">        dateTime	日期时间</span></span><br><span class="line"><span class="comment">        dateWeek	周</span></span><br><span class="line"><span class="comment">        dateMonth	月</span></span><br><span class="line"><span class="comment">        dateQuarter	季度输入</span></span><br><span class="line"><span class="comment">        dateYear	年份输入</span></span><br><span class="line"><span class="comment">        dateRange	日期区间</span></span><br><span class="line"><span class="comment">        dateTimeRange	日期时间区间</span></span><br><span class="line"><span class="comment">        time	时间</span></span><br><span class="line"><span class="comment">        timeRange	时间区间</span></span><br><span class="line"><span class="comment">        text	文本框</span></span><br><span class="line"><span class="comment">        select	下拉框</span></span><br><span class="line"><span class="comment">        treeSelect	树形下拉框</span></span><br><span class="line"><span class="comment">        checkbox	多选框</span></span><br><span class="line"><span class="comment">        rate	星级组件</span></span><br><span class="line"><span class="comment">        radio	单选框</span></span><br><span class="line"><span class="comment">        radioButton	按钮单选框</span></span><br><span class="line"><span class="comment">        progress	进度条</span></span><br><span class="line"><span class="comment">        percent	百分比组件</span></span><br><span class="line"><span class="comment">        digit	数字输入框</span></span><br><span class="line"><span class="comment">        second	秒格式化</span></span><br><span class="line"><span class="comment">        avatar	头像</span></span><br><span class="line"><span class="comment">        code	代码框</span></span><br><span class="line"><span class="comment">        switch	开关</span></span><br><span class="line"><span class="comment">        fromNow	相对于当前时间</span></span><br><span class="line"><span class="comment">        image	图片</span></span><br><span class="line"><span class="comment">        jsonCode	代码框，但是带了 json 格式化</span></span><br><span class="line"><span class="comment">        color	颜色选择器</span></span><br><span class="line"><span class="comment">        cascader 级联选择器</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   </span><br></pre></td></tr></table></figure></li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-websocket"
   class="article article-type-post"
   itemscope
@@ -172,7 +228,7 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a>websocket</h2><blockquote>
+  <h2 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket">websocket</a></h2><blockquote>
 <p>在单个TCP连接上进行全双工通信的协议。浏览器服务器需要完成一次握手，两者之间就能创建持久性的连接，并进行双向数据传输。</p>
 </blockquote>
 <h2 id="websocket连接基本步骤"><a href="#websocket连接基本步骤" class="headerlink" title="websocket连接基本步骤"></a>websocket连接基本步骤</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 创建webscoket实例</span></span><br><span class="line"><span class="keyword">const</span> ws = <span class="keyword">new</span> WebSocket(<span class="string">&#x27;ws://8.140.175.191:5008/v1/ws&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接监听</span></span><br><span class="line">ws.onopen = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;start&#x27;</span>, e)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 向服务器推送消息</span></span><br><span class="line">    ws.send(<span class="string">&#x27;...&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 断连监听</span></span><br><span class="line">ws.onclose = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;close&#x27;</span>, e)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接收消息</span></span><br><span class="line">ws.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;message&#x27;</span>, e)</span><br><span class="line">    <span class="comment">// 对获取到的信息进行处理 ... （全局弹框之类的）</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接发生错误</span></span><br><span class="line">ws.onerror = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -1356,110 +1412,6 @@
 <hr>
 <p>  后面几天的行程基本和另外两个团友 <del>（一个比我大四天的小姐姐和一个上海过来的小哥）</del> 一起度过的、没觉得孤单、挺开心的<br>  还有个60多岁的老奶奶也是一个人报团的 十一公里四千多米的山路也走完了全程 还是蛮佩服的<br>  顺便夸自己一嘴 我们是第一批到的牛奶海 没有🏇， 纯徒步（感觉自己身体素质还可以<br>  当然 有好的身体素质还要做出好的选择，很多人看到路标五色海比较近就先去五色海了<br>  但是去五色海那个路真的陡 也很耗时，先去牛奶海 返程再去五色海是最佳选择😁  </p>
 <p>  山顶的风景确实不错 但是对于去过西藏的人来说 还是差点意思<br>  感觉去了西藏之后 看哪的风景都不会觉得太惊艳了 有机会还想去西藏！</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-harmonyOS"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/05/18/harmonyOS/"
-    >HarmonyOS初尝试</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/05/18/harmonyOS/" class="article-date">
-  <time datetime="2021-05-18T04:21:42.000Z" itemprop="datePublished">2021-05-18</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/HarmonyOS/">HarmonyOS</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <blockquote>
-<p>抱着凑热闹的心态4月30号赶上了harmony开发者一轮公测报名的末班车，经过漫长的等待终于5月12号晚上收到了短信，十几分钟后系统就给推送了。当时收到推送还是很激动的，马上就更新了。总的来说挺好、没发现什么bug太严重的bug。</p>
-</blockquote>
-<h2 id="官方文档"><a href="#官方文档" class="headerlink" title="官方文档"></a><a target="_blank" rel="noopener" href="https://developer.harmonyos.com/cn/docs/documentation/doc-guides/harmonyos-overview-0000000000011903">官方文档</a></h2><blockquote>
-<p>UI框架主要分为<code>java</code>和<code>js</code>,js应用所用到的东西和原生js、html、css没有太大差别，有的语法和vue有些相似，上手应该是比较容易的。主要是这个开发工具用的不太熟悉。<br>主要问题是 previewer 的时候可以进行热更新但是不能进行网络请求。我不知道是我操作的问题还是本来就不允许。看了官方文档是说的部分接口不能请求。</p>
-</blockquote>
-<h2 id="主要目录结构"><a href="#主要目录结构" class="headerlink" title="主要目录结构"></a>主要目录结构</h2><blockquote>
-<p>主要是在 <code>entry/main/js</code> 下进行编写</p>
-</blockquote>
-<p>各个文件夹的作用：</p>
-<ul>
-<li><code>app.js</code>文件用于全局JavaScript逻辑和应用生命周期管理。</li>
-<li><code>pages</code>目录用于存放所有组件页面。</li>
-<li><code>common</code>目录用于存放公共资源文件，比如：媒体资源，自定义组件和JS文件。</li>
-<li><code>resources</code>目录用于存放资源配置文件，比如：全局样式、多分辨率加载等配置文件。</li>
-<li><code>i18n</code>目录用于配置不同语言场景资源内容，比如：应用文本词条，图片路径等资源。</li>
-<li><code>share</code>目录用于配置多个实例共享的资源内容，比如：share中的图片和JSON文件可被default1和default2实例共享。</li>
-</ul>
-<h3 id="pages"><a href="#pages" class="headerlink" title="pages"></a>pages</h3><blockquote>
-<p>一个文件夹对应一个页面。并且要在config.json文件下对路由进行配置</p>
-</blockquote>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pages数组内排在首位的 代表展示的首页</span></span><br><span class="line">&quot;js&quot;: [</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attr">&quot;pages&quot;</span>: [</span><br><span class="line">      <span class="string">&quot;pages/demo/demo&quot;</span>,    <span class="comment">// 对应demo.hml </span></span><br><span class="line">      <span class="string">&quot;pages/index/index&quot;</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">&quot;name&quot;</span>: <span class="string">&quot;default&quot;</span>,</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<h3 id="i18n"><a href="#i18n" class="headerlink" title="i18n"></a>i18n</h3><blockquote>
-<p>内部存放的是<code>.json</code>文件，在页面中使用的时候直接通过 <code>$t(&#39;...&#39;)</code> 来获取</p>
-</blockquote>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// zh-CN.json</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;strings&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;app_bar&quot;</span>: &#123;</span><br><span class="line">      <span class="attr">&quot;title&quot;</span>: <span class="string">&quot;标题&quot;</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// index.hml</span><br><span class="line"><span class="tag">&lt;<span class="name">text</span>&gt;</span></span><br><span class="line"> &#123;&#123; $t(&#x27;strings.app_bar.title&#x27;) &#125;&#125;  </span><br><span class="line"> <span class="comment">&lt;!-- 标题 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="组件相关"><a href="#组件相关" class="headerlink" title="组件相关"></a>组件相关</h2><blockquote>
-<p>例如在 <code>common</code>  中创建 <code>component</code> 文件夹，存放公共组件。以<code>tabbar</code>组件为例</p>
-</blockquote>
-<h3 id="组件使用"><a href="#组件使用" class="headerlink" title="组件使用"></a>组件使用</h3><blockquote>
-<p>通过element标签进行获取、使用</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- tabbar.hml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">toolbar</span>&gt;</span>....<span class="tag">&lt;/<span class="name">toolbar</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- home.hml --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 在页面的顶部通过element引入组件所在的地址 并且通过name属性取名 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">element</span> <span class="attr">name</span>=<span class="string">&#x27;tab-bar-com&#x27;</span> <span class="attr">src</span>=<span class="string">&#x27;../../common/component/tabbar/tabbar.hml&#x27;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">element</span>&gt;</span></span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="comment">&lt;!-- 把组件放在页面需要的位置 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">tab-bar-com</span>&gt;</span><span class="tag">&lt;/<span class="name">tab-bar-com</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="父子组件传值"><a href="#父子组件传值" class="headerlink" title="父子组件传值"></a>父子组件传值</h3><blockquote>
-<p>与vue类似，子组件通过props接收父组件的数据，父组件通过@获取子组件传递的数据</p>
-</blockquote>
-<blockquote>
-<p>子组件tabbar</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- tabbar.hml --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">toolbar</span> <span class="attr">style</span>=<span class="string">&quot;position : fixed; bottom : 0px;&quot;</span> <span class="attr">data</span>=<span class="string">&#x27;hello&#x27;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">toolbar-item</span> <span class="attr">icon</span>=<span class="string">&#x27;&#123;&#123; iconurl &#125;&#125;&#x27;</span> <span class="attr">value</span>=<span class="string">&#x27;我的&#x27;</span> <span class="attr">on:click</span>=<span class="string">&quot;handleClick&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">toolbar-item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">toolbar</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// tabbar.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    props: [<span class="string">&#x27;iconurl&#x27;</span>],   <span class="comment">// 接收父组件传来的数据</span></span><br><span class="line"></span><br><span class="line">    handleClick(e)&#123;</span><br><span class="line">      <span class="comment">// emit来广播给父组件 传递给父组件数据</span></span><br><span class="line">      <span class="built_in">this</span>.$emit(<span class="string">&#x27;getItem&#x27;</span>, &#123;</span><br><span class="line">            title: e.target.attr.value</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>父组件</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- home.hml --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 通过绑定属性的方式把数据传递给子组件 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 通过 @..=&#x27;fn&#x27; 的方式获取子组件传递的数据 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">tab-bar-com</span> <span class="attr">iconurl</span>=<span class="string">&#x27;https://....&#x27;</span> @<span class="attr">get-item</span>=<span class="string">&#x27;getTabbarItem&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">tab-bar-com</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// home.js</span></span><br><span class="line"><span class="keyword">export</span>.default&#123;</span><br><span class="line">  <span class="comment">// 获取子组件传来的数据</span></span><br><span class="line">  getTabbarItem(item) &#123;</span><br><span class="line">    <span class="comment">// 还有一层 detail</span></span><br><span class="line">        <span class="built_in">console</span>.log(item.detail.title) <span class="comment">// 我的</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
  
       <!-- reward -->
       

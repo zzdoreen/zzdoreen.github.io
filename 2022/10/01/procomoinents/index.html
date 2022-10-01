@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    websocket |  
+    ProComponents |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -47,7 +47,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-websocket"
+  id="post-procomoinents"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -58,18 +58,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  websocket
+  ProComponents
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2022/09/12/websocket/" class="article-date">
-  <time datetime="2022-09-12T02:00:00.000Z" itemprop="datePublished">2022-09-12</time>
+      <a href="/2022/10/01/procomoinents/" class="article-date">
+  <time datetime="2022-10-01T04:21:42.000Z" itemprop="datePublished">2022-10-01</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/websocket/">websocket</a>
+    <a class="article-category-link" href="/categories/antd/">antd</a>
   </div>
   
 <div class="word_count">
@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">169</span>
+            <span class="post-count">343</span>
         </span>
     </span>
 
@@ -101,10 +101,12 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="websocket"><a href="#websocket" class="headerlink" title="websocket"></a><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/WebSocket">websocket</a></h2><blockquote>
-<p>在单个TCP连接上进行全双工通信的协议。浏览器服务器需要完成一次握手，两者之间就能创建持久性的连接，并进行双向数据传输。</p>
-</blockquote>
-<h2 id="websocket连接基本步骤"><a href="#websocket连接基本步骤" class="headerlink" title="websocket连接基本步骤"></a>websocket连接基本步骤</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 创建webscoket实例</span></span><br><span class="line"><span class="keyword">const</span> ws = <span class="keyword">new</span> WebSocket(<span class="string">&#x27;ws://8.140.175.191:5008/v1/ws&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接监听</span></span><br><span class="line">ws.onopen = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;start&#x27;</span>, e)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 向服务器推送消息</span></span><br><span class="line">    ws.send(<span class="string">&#x27;...&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 断连监听</span></span><br><span class="line">ws.onclose = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;close&#x27;</span>, e)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 接收消息</span></span><br><span class="line">ws.onmessage = <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;message&#x27;</span>, e)</span><br><span class="line">    <span class="comment">// 对获取到的信息进行处理 ... （全局弹框之类的）</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 连接发生错误</span></span><br><span class="line">ws.onerror = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; </span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+  <h2 id="ProTable"><a href="#ProTable" class="headerlink" title="ProTable"></a>ProTable</h2><h3 id="Columns配置项"><a href="#Columns配置项" class="headerlink" title="Columns配置项"></a><a target="_blank" rel="noopener" href="https://procomponents.ant.design/components/table#columns-%E5%88%97%E5%AE%9A%E4%B9%89">Columns配置项</a></h3><ul>
+<li><a target="_blank" rel="noopener" href="https://procomponents.ant.design/components/schema/#valueenum">valueEnum</a></li>
+<li><a target="_blank" rel="noopener" href="https://procomponents.ant.design/components/schema/#valuetype">valueType</a></li>
+<li><a target="_blank" rel="noopener" href="https://procomponents.ant.design/components/field-set">ProFields</a></li>
+<li><a target="_blank" rel="noopener" href="https://ant.design/components/form-cn/#Form.Item">From.Item</a><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> columns = [</span><br><span class="line">    &#123;</span><br><span class="line">        title:<span class="string">&#x27;&#x27;</span>,  <span class="comment">// 标签名称</span></span><br><span class="line">        dataIndex:<span class="string">&#x27;&#x27;</span>, <span class="comment">// 绑定字段</span></span><br><span class="line">        ellipsis: <span class="literal">true</span> | <span class="literal">false</span>,</span><br><span class="line">        valueEnum: [&#123;<span class="attr">label</span>:<span class="string">&#x27;&#x27;</span>,<span class="attr">value</span>:<span class="string">&#x27;&#x27;</span>&#125;],</span><br><span class="line">        valueType:<span class="string">&#x27;text&#x27;</span> | <span class="string">&#x27;date&#x27;</span> <span class="comment">// 值类型 ...</span></span><br><span class="line">        order: number <span class="comment">// 表单中的权重 越大越靠前</span></span><br><span class="line">        search: <span class="literal">true</span> | <span class="literal">false</span>, <span class="comment">// 搜索启用/隐藏</span></span><br><span class="line">        colSize: number, <span class="comment">// 表单占用格子数量 colSpan*span</span></span><br><span class="line">        hideInSearch: <span class="literal">true</span> | <span class="literal">false</span>,</span><br><span class="line">        hideInTable:<span class="literal">true</span> | <span class="literal">false</span>,</span><br><span class="line">        hideInForm:<span class="literal">true</span> | <span class="literal">false</span>,</span><br><span class="line">        initialValue:any, <span class="comment">// 初始值</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// table的render</span></span><br><span class="line">        renderText: <span class="function">(<span class="params">text,record,index,action</span>)=&gt;</span>string,</span><br><span class="line">        render: <span class="function">(<span class="params">text,record,index,action</span>)=&gt;</span>ReactNode|ReactNode[],</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 表单的输入组件 proFields / antd / 自定义组件</span></span><br><span class="line">        renderFormItem: <span class="function">(<span class="params">item,form</span>)=&gt;</span>RecatNode,</span><br><span class="line">        <span class="comment">// 表单配置</span></span><br><span class="line">        fieldProps: &#123;</span><br><span class="line">            precision:<span class="number">1</span> <span class="comment">// 精度 ... antd 表单组件相关配置</span></span><br><span class="line">        &#125;,</span><br><span class="line">        formItemProps: &#123;  <span class="comment">//  Form.Item 相关配置</span></span><br><span class="line">            rules:[ &#123; <span class="attr">required</span>:<span class="literal">true</span>|<span class="literal">false</span> &#125; ],</span><br><span class="line">            &#123;</span><br><span class="line">                message:<span class="string">&#x27;&#x27;</span>,</span><br><span class="line">                validator: (record,value)&#123;</span><br><span class="line">                    <span class="keyword">if</span>(value)<span class="keyword">return</span> <span class="built_in">Promise</span>.resolve()</span><br><span class="line">                    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject()</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">    ],</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*  </span></span><br><span class="line"><span class="comment">    valueEnum :</span></span><br><span class="line"><span class="comment">        password	密码输入框</span></span><br><span class="line"><span class="comment">        money	金额输入框</span></span><br><span class="line"><span class="comment">        textarea	文本域</span></span><br><span class="line"><span class="comment">        date	日期</span></span><br><span class="line"><span class="comment">        dateTime	日期时间</span></span><br><span class="line"><span class="comment">        dateWeek	周</span></span><br><span class="line"><span class="comment">        dateMonth	月</span></span><br><span class="line"><span class="comment">        dateQuarter	季度输入</span></span><br><span class="line"><span class="comment">        dateYear	年份输入</span></span><br><span class="line"><span class="comment">        dateRange	日期区间</span></span><br><span class="line"><span class="comment">        dateTimeRange	日期时间区间</span></span><br><span class="line"><span class="comment">        time	时间</span></span><br><span class="line"><span class="comment">        timeRange	时间区间</span></span><br><span class="line"><span class="comment">        text	文本框</span></span><br><span class="line"><span class="comment">        select	下拉框</span></span><br><span class="line"><span class="comment">        treeSelect	树形下拉框</span></span><br><span class="line"><span class="comment">        checkbox	多选框</span></span><br><span class="line"><span class="comment">        rate	星级组件</span></span><br><span class="line"><span class="comment">        radio	单选框</span></span><br><span class="line"><span class="comment">        radioButton	按钮单选框</span></span><br><span class="line"><span class="comment">        progress	进度条</span></span><br><span class="line"><span class="comment">        percent	百分比组件</span></span><br><span class="line"><span class="comment">        digit	数字输入框</span></span><br><span class="line"><span class="comment">        second	秒格式化</span></span><br><span class="line"><span class="comment">        avatar	头像</span></span><br><span class="line"><span class="comment">        code	代码框</span></span><br><span class="line"><span class="comment">        switch	开关</span></span><br><span class="line"><span class="comment">        fromNow	相对于当前时间</span></span><br><span class="line"><span class="comment">        image	图片</span></span><br><span class="line"><span class="comment">        jsonCode	代码框，但是带了 json 格式化</span></span><br><span class="line"><span class="comment">        color	颜色选择器</span></span><br><span class="line"><span class="comment">        cascader 级联选择器</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   </span><br></pre></td></tr></table></figure></li>
+</ul>
  
       <!-- reward -->
       
@@ -157,7 +159,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2022/09/12/websocket/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2022/10/01/procomoinents/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -168,19 +170,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2022/10/01/procomoinents/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            ProComponents
-          
-        </div>
-      </a>
     
-    
-      <a href="/2022/07/31/reactahooks/" class="article-nav-link">
+      <a href="/2022/09/12/websocket/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">hooks&amp;ahooks</div>
+        <div class="article-nav-title">websocket</div>
       </a>
     
   </nav>
