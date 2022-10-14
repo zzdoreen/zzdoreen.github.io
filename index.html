@@ -142,6 +142,73 @@
     
     
     <article
+  id="post-ECharts"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/10/14/ECharts/"
+    >ECharts</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/10/14/ECharts/" class="article-date">
+  <time datetime="2022-10-14T02:21:42.000Z" itemprop="datePublished">2022-10-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/echarts/">echarts</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h1 id="ECharts"><a href="#ECharts" class="headerlink" title="ECharts"></a>ECharts</h1><h2 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h2><h2 id="tooltip-提示框"><a href="#tooltip-提示框" class="headerlink" title="tooltip 提示框"></a><a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/option.html#tooltip">tooltip 提示框</a></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   tooltip:&#123;</span><br><span class="line">    show: <span class="literal">true</span> | <span class="literal">false</span>,</span><br><span class="line">    trigger: <span class="string">&#x27;item&#x27;</span> | <span class="string">&#x27;axis&#x27;</span> | <span class="string">&#x27;none&#x27;</span>,  <span class="comment">// 触发类型</span></span><br><span class="line">    formatter: <span class="string">&#x27;&#x27;</span> | <span class="function">()=&gt;</span><span class="string">&#x27;&#x27;</span>,  <span class="comment">// 浮层自定义内容 </span></span><br><span class="line">   &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="legend-图例组件"><a href="#legend-图例组件" class="headerlink" title="legend 图例组件"></a><a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/option.html#legend">legend 图例组件</a></h2><ul>
+<li><code>series</code>内的数据对象必须要有 <code>name</code> 属性</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line"> legend:&#123;</span><br><span class="line">    ...</span><br><span class="line">    itemStyle:&#123;&#125;, <span class="comment">// 图例‘图形’的样式</span></span><br><span class="line">    lineStyle:&#123;&#125;, <span class="comment">// 图例‘线’的样式</span></span><br><span class="line">    formatter: <span class="string">&#x27;&#123;name&#125;&#x27;</span> | <span class="function">(<span class="params">name</span>)=&gt;</span><span class="string">&#x27;&#x27;</span>,  <span class="comment">// 图例自定义内容</span></span><br><span class="line">    icon: <span class="string">&#x27;circle&#x27;</span> | <span class="string">&#x27;rect&#x27;</span> | <span class="string">&#x27;roundRect&#x27;</span> | <span class="string">&#x27;triangle&#x27;</span> | <span class="string">&#x27;diamond&#x27;</span> | <span class="string">&#x27;pin&#x27;</span> | <span class="string">&#x27;arrow&#x27;</span> | <span class="string">&#x27;none&#x27;</span> <span class="comment">// 图例项的icon</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//  针对多个series进行个性化设置</span></span><br><span class="line">    data: [</span><br><span class="line">      &#123;</span><br><span class="line">         name:<span class="string">&#x27;a&#x27;</span>,</span><br><span class="line">         ...</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">         name:<span class="string">&#x27;b&#x27;</span>,</span><br><span class="line">         ...</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line"> &#125;,</span><br><span class="line"> series:[</span><br><span class="line">    &#123;</span><br><span class="line">        name:<span class="string">&#x27;a&#x27;</span>,</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"> ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="grid-坐标系网格"><a href="#grid-坐标系网格" class="headerlink" title="grid 坐标系网格"></a><a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/option.html#grid">grid 坐标系网格</a></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   grid:&#123;</span><br><span class="line">      <span class="comment">// 距离容器 上下左右的距离</span></span><br><span class="line">      left(right/top/bottom): <span class="number">20</span> (具体像素) | <span class="string">&#x27;20%&#x27;</span>(百分比) |　<span class="string">&#x27;left&#x27;</span>|<span class="string">&#x27;center&#x27;</span>|<span class="string">&#x27;middle&#x27;</span>|<span class="string">&#x27;right&#x27;</span>|<span class="string">&#x27;bottom&#x27;</span>|<span class="string">&#x27;top&#x27;</span>,</span><br><span class="line"></span><br><span class="line">      <span class="comment">// grid组件的宽高</span></span><br><span class="line">      width(height): string | number | <span class="string">&#x27;auto&#x27;</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="yAxis-y轴"><a href="#yAxis-y轴" class="headerlink" title="yAxis y轴"></a><a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/option.html#yAxis">yAxis y轴</a></h2><ul>
+<li>多个<code>y</code>轴的情况用数组,<code>name</code>对应<code>series</code>的<code>name</code></li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">   yAxis:[</span><br><span class="line">      &#123;</span><br><span class="line">         name:<span class="string">&#x27;a&#x27;</span>,</span><br><span class="line">         nameLocation:<span class="string">&#x27;center&#x27;</span> | <span class="string">&#x27;start&#x27;</span> | <span class="string">&#x27;end&#x27;</span>, <span class="comment">// 坐标轴名称显示位置</span></span><br><span class="line">         nameGap:number, <span class="comment">// 坐标轴名称与轴线的距离</span></span><br><span class="line">         nameRotate:number, <span class="comment">// 名称的旋转角度</span></span><br><span class="line"></span><br><span class="line">         type:<span class="string">&#x27;value&#x27;</span> | <span class="string">&#x27;time&#x27;</span> | <span class="string">&#x27;category&#x27;</span> | <span class="string">&#x27;log&#x27;</span>, <span class="comment">// 数值轴、时间轴、类目轴、对数轴</span></span><br><span class="line">         min: number | string | <span class="function">(<span class="params">value</span>)=&gt;</span>number, <span class="comment">// 坐标刻度最小值</span></span><br><span class="line">         max: number | string | <span class="function">(<span class="params">value</span>)=&gt;</span>number, <span class="comment">// 坐标刻度最大值</span></span><br><span class="line">         minInterval: number, <span class="comment">// 最小间隔</span></span><br><span class="line">         splitNumber: number, <span class="comment">// 坐标分割段数 配合min、max使用</span></span><br><span class="line"></span><br><span class="line">         <span class="comment">// 坐标轴轴线相关</span></span><br><span class="line">         axisLine:&#123;</span><br><span class="line"></span><br><span class="line">         &#125;</span><br><span class="line">      &#125;,</span><br><span class="line">   ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="xAxis-x轴"><a href="#xAxis-x轴" class="headerlink" title="xAxis x轴"></a><a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/option.html#xAxis">xAxis x轴</a></h2><ul>
+<li>和y轴类似</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-procomoinents"
   class="article article-type-post"
   itemscope
@@ -282,7 +349,8 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在不使用class的情况下使用<code>state</code>以及其他react特性<br>=&gt; 不论是有状态组件还是无状态组件都可以用<code>函数</code>来声明</p>
+  <p><img src="https://i.postimg.cc/3r0gYsv4/20221010095328.jpg"></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>在不使用class的情况下使用<code>state</code>以及其他react特性<br>=&gt; 不论是有状态组件还是无状态组件都可以用<code>函数</code>来声明</p>
 <h2 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h2><p><code>useState</code>通过在函数组件里调用它来给组件添加一些内部 <code>state</code>。<br><code>useState</code>会返回一对值：<code>当前状态</code> 和 <code>一个让你更新它的函数</code><br>你可以在事件处理函数中或其他一些地方调用这个函数。<br>（类似 this.setState，但是它不会把新的 state 和旧的 state 进行合并）<br><code>useState</code>的参数：state的初始值</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入 useState</span></span><br><span class="line"><span class="keyword">import</span> React,&#123;useState&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Test</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 声明state变量count和更新count的方法setCount   （解构赋值）</span></span><br><span class="line">    <span class="keyword">const</span> [count,setCount] = useState(<span class="number">18</span>)   <span class="comment">// 赋给count的初始值为18</span></span><br><span class="line">    <span class="keyword">return</span>(</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;h3&gt;</span><br><span class="line">                count: &#123;count&#125;  &#123;<span class="comment">/* count的使用 */</span>&#125;</span><br><span class="line">            &lt;/h3&gt;</span><br><span class="line">             &#123;<span class="comment">/* setCount的使用 */</span>&#125;</span><br><span class="line">            &lt;button onClick=&#123;<span class="function">()=&gt;</span>&#123;setCount(count+<span class="number">1</span>)&#125;&#125;&gt;add&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Class 方法</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="built_in">super</span>(props);</span><br><span class="line">        <span class="built_in">this</span>.state = &#123; </span><br><span class="line">            count: <span class="number">0</span></span><br><span class="line">         &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    render() &#123; </span><br><span class="line">        <span class="keyword">return</span> ( </span><br><span class="line">            &lt;div&gt;</span><br><span class="line">            &lt;h3&gt;</span><br><span class="line">                count: &#123;<span class="built_in">this</span>.state.count&#125;</span><br><span class="line">            &lt;/h3&gt;</span><br><span class="line">            &lt;button onClick=&#123;<span class="function">()=&gt;</span><span class="built_in">this</span>.setState(&#123; <span class="attr">count</span>: <span class="built_in">this</span>.state.count + <span class="number">1</span> &#125;)&#125;&gt;add&lt;/button&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">         );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -772,7 +840,26 @@
       
     <div class="article-entry" itemprop="articleBody">
        
-  <h2 id="JavaScript浮点数运算精度问题"><a href="#JavaScript浮点数运算精度问题" class="headerlink" title="JavaScript浮点数运算精度问题"></a>JavaScript浮点数运算精度问题</h2><h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><blockquote>
+  <h2 id="Object-keys-amp-for…in-顺序"><a href="#Object-keys-amp-for…in-顺序" class="headerlink" title="Object.keys() &amp; for…in 顺序"></a><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/40601459">Object.keys() &amp; for…in 顺序</a></h2><blockquote>
+<p><code>Object.keys</code>在内部会根据属性名<code>key</code>的类型进行不同的排序逻辑。分三种情况：</p>
+</blockquote>
+<ul>
+<li>如果属性名的类型是<code>Number</code>，那么<code>Object.keys</code>返回值是按照<code>key</code>从小到大排序 <strong>‘1’也算是number</strong></li>
+<li>如果属性名的类型是<code>String</code>，那么<code>Object.keys</code>返回值是按照属性被创建的时间升序排序。</li>
+<li>如果属性名的类型是<code>Symbol</code>，那么逻辑同<code>String</code>相同</li>
+</ul>
+<h2 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h2><blockquote>
+<p>可以取代 delete xxx</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; name,...rest &#125; = &#123; <span class="attr">name</span>:<span class="string">&#x27;z&#x27;</span>, <span class="attr">age</span>:<span class="number">10</span>, <span class="attr">sex</span>:<span class="string">&#x27;female&#x27;</span> &#125;</span><br><span class="line"><span class="comment">// name = &#x27;z&#x27; , rest = &#123; age:10, sex:&#x27;female&#x27; &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> [ item,...rest ] = [ &#123; <span class="attr">first</span>:<span class="string">&#x27;a&#x27;</span> &#125;, <span class="number">23</span>, <span class="number">55</span> ]</span><br><span class="line"><span class="comment">// item = &#123; first:&#x27;a&#x27; &#125; , rest = [ 23, 55 ]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="json简写"><a href="#json简写" class="headerlink" title="json简写"></a>json简写</h2><blockquote>
+<p><code>key</code>和<code>value</code>名字一样的时候可以省略<code>value</code></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> name = <span class="string">&#x27;zz&#x27;</span></span><br><span class="line"><span class="keyword">let</span> age = <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> json = &#123; name, age, say()&#123; <span class="built_in">console</span>.log(<span class="string">&#x27;&#x27;</span>) &#125; &#125;</span><br><span class="line"><span class="comment">// =&gt; let json = &#123; name:name, age:age, say:function()&#123; console.log(&#x27;&#x27;) &#125;  &#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="JavaScript浮点数运算精度问题"><a href="#JavaScript浮点数运算精度问题" class="headerlink" title="JavaScript浮点数运算精度问题"></a>JavaScript浮点数运算精度问题</h2><h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><blockquote>
 <p>一开始看到百度的部分解决方案是通过扩大N倍换为整数，但是亲测有问题。直接乘10的N次方部分数据还是会出现精度问题。</p>
 </blockquote>
 <h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><blockquote>
@@ -1357,61 +1444,6 @@
 <p>按照<code>commonRequest</code>方法要求进行传参，并使用。根据不同的接口名，匹配不同的接口地址。</p>
 </blockquote>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;handleRequest(&#x27;/music-api&#x27;)&quot;</span>&gt;</span>/music-api<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;handleRequest(&#x27;/music-lyric&#x27;)&quot;</span>&gt;</span>/music-lyric<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;handleRequest(&#x27;/one-api&#x27;)&quot;</span>&gt;</span>/one-api<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;handleRequest(&#x27;/diary-api&#x27;)&quot;</span>&gt;</span>/diary-api<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>&#123;&#123; showData &#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">lang</span>=<span class="string">&#x27;ts&#x27;</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123; defineComponent &#125; <span class="keyword">from</span> <span class="string">&quot;@vue/runtime-core&quot;</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123; commonRequest &#125; <span class="keyword">from</span> <span class="string">&quot;../api/http&quot;</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> defineComponent(&#123;</span></span><br><span class="line"><span class="javascript">  setup: <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> showData = ref(<span class="string">&quot;e&quot;</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">handleRequest</span>(<span class="params">api: string</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      commonRequest(api, &#123;&#125;).then(<span class="function">(<span class="params">res</span>) =&gt;</span> (showData.value = res));</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123; showData, handleRequest &#125;;</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-旅行"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/08/25/%E6%97%85%E8%A1%8C/"
-    >【旅行日记】稻城亚丁</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/08/25/%E6%97%85%E8%A1%8C/" class="article-date">
-  <time datetime="2021-08-25T02:21:42.000Z" itemprop="datePublished">2021-08-25</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>  八月中下旬的时候，趁着中风险地区解封、疫情好转 赶紧把四天的福利假给调了<br>  本来还想组织下语言下午发的，不小心直接按了回车发给项目经理😂 （不是第一次了<br>  周一的早上九点多 顺利请了后面四天的假 哈哈哈<br>  一整天都无心工作 脑子里想的都是 要去稻城亚丁还是去九寨沟<br>  为了充分利用完六天长假 最后报了五天的稻城亚丁！<br>  出发前一天晚上 <code>蓝色暴雨预警</code> <del>不愿在笑man</del><br>  早上也是下了小雨，预约了早上五点的网约车，师傅三点多就到等候点了，我到的时候他在车上已经睡着了<br>  路上聊了几句，知道我是一个人去报团旅游一直嘱咐我出门要跟家里人报信、出去玩最好找认识的人一起<br>  最好在团里找个人一起…  当时就感觉好暖啊！！<br>  因为路上暴雨滑坡耽误了一些时间 到了新都桥那边的酒店吃完饭的已经九十点钟了<br>  因为有必须要买的东西，不得不十点了还去找商店，周边基本都是酒店，走了十多分钟才找到一家<br>  很幸运店家刚准备关门，结账的时候老板问我酒店在附近吗<br>  我说没有 走了十几二十分钟才找到这一家😭<br>  他也嘱咐我说 以后晚上出门要结伴、这么晚一个人不安全…  </p>
-<p>  说实话 很温暖。  </p>
-<hr>
-<p>  后面几天的行程基本和另外两个团友 <del>（一个比我大四天的小姐姐和一个上海过来的小哥）</del> 一起度过的、没觉得孤单、挺开心的<br>  还有个60多岁的老奶奶也是一个人报团的 十一公里四千多米的山路也走完了全程 还是蛮佩服的<br>  顺便夸自己一嘴 我们是第一批到的牛奶海 没有🏇， 纯徒步（感觉自己身体素质还可以<br>  当然 有好的身体素质还要做出好的选择，很多人看到路标五色海比较近就先去五色海了<br>  但是去五色海那个路真的陡 也很耗时，先去牛奶海 返程再去五色海是最佳选择😁  </p>
-<p>  山顶的风景确实不错 但是对于去过西藏的人来说 还是差点意思<br>  感觉去了西藏之后 看哪的风景都不会觉得太惊艳了 有机会还想去西藏！</p>
  
       <!-- reward -->
       
