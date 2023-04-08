@@ -142,6 +142,660 @@
     
     
     <article
+  id="post-待处理问题"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/02/17/%E5%BE%85%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98/"
+    >问题集</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2022/02/17/%E5%BE%85%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98/" class="article-date">
+  <time datetime="2022-02-17T02:21:42.000Z" itemprop="datePublished">2022-02-17</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E9%97%AE%E9%A2%98%E9%9B%86/">问题集</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="Object-keys-amp-for…in-顺序"><a href="#Object-keys-amp-for…in-顺序" class="headerlink" title="Object.keys() &amp; for…in 顺序"></a><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/40601459">Object.keys() &amp; for…in 顺序</a></h2><blockquote>
+<p><code>Object.keys</code>在内部会根据属性名<code>key</code>的类型进行不同的排序逻辑。分三种情况：</p>
+</blockquote>
+<ul>
+<li>如果属性名的类型是<code>Number</code>，那么<code>Object.keys</code>返回值是按照<code>key</code>从小到大排序 <strong>‘1’也算是number</strong></li>
+<li>如果属性名的类型是<code>String</code>，那么<code>Object.keys</code>返回值是按照属性被创建的时间升序排序。</li>
+<li>如果属性名的类型是<code>Symbol</code>，那么逻辑同<code>String</code>相同</li>
+</ul>
+<h2 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h2><blockquote>
+<p>可以取代 delete xxx</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; name,...rest &#125; = &#123; <span class="attr">name</span>:<span class="string">&#x27;z&#x27;</span>, <span class="attr">age</span>:<span class="number">10</span>, <span class="attr">sex</span>:<span class="string">&#x27;female&#x27;</span> &#125;</span><br><span class="line"><span class="comment">// name = &#x27;z&#x27; , rest = &#123; age:10, sex:&#x27;female&#x27; &#125;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> [ item,...rest ] = [ &#123; <span class="attr">first</span>:<span class="string">&#x27;a&#x27;</span> &#125;, <span class="number">23</span>, <span class="number">55</span> ]</span><br><span class="line"><span class="comment">// item = &#123; first:&#x27;a&#x27; &#125; , rest = [ 23, 55 ]</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="json简写"><a href="#json简写" class="headerlink" title="json简写"></a>json简写</h2><blockquote>
+<p><code>key</code>和<code>value</code>名字一样的时候可以省略<code>value</code></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> name = <span class="string">&#x27;zz&#x27;</span></span><br><span class="line"><span class="keyword">let</span> age = <span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> json = &#123; name, age, say()&#123; <span class="built_in">console</span>.log(<span class="string">&#x27;&#x27;</span>) &#125; &#125;</span><br><span class="line"><span class="comment">// =&gt; let json = &#123; name:name, age:age, say:function()&#123; console.log(&#x27;&#x27;) &#125;  &#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="JavaScript浮点数运算精度问题"><a href="#JavaScript浮点数运算精度问题" class="headerlink" title="JavaScript浮点数运算精度问题"></a>JavaScript浮点数运算精度问题</h2><h3 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h3><blockquote>
+<p>一开始看到百度的部分解决方案是通过扩大N倍换为整数，但是亲测有问题。直接乘10的N次方部分数据还是会出现精度问题。</p>
+</blockquote>
+<h3 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h3><blockquote>
+</blockquote>
+<ol>
+<li>我是通过先转换成字符串、然后去掉小数点转为整数  </li>
+<li>两个数之间小数点位数进行比较、少的在乘10的n-m次方，运算后在除以10的Math.max(n,m)</li>
+</ol>
+<p><del>目前没发现bug、不确定是正确的方法</del></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 浮点数运算</span></span><br><span class="line"><span class="comment"> * type: 1 加法,2 减法</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">floatAddOrMinus</span>(<span class="params"><span class="keyword">type</span>: <span class="built_in">number</span>, arg1: <span class="built_in">string</span>, arg2: <span class="built_in">string</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> len1 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> len2 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> m = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> item1 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">let</span> item2 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        len1 = arg1.split(<span class="string">&quot;.&quot;</span>)[<span class="number">1</span>].length;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        len1 = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        len2 = arg2.split(<span class="string">&quot;.&quot;</span>)[<span class="number">1</span>].length;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e) &#123;</span><br><span class="line">        len2 = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (len1 &gt; len2) &#123;</span><br><span class="line">        m = len1;</span><br><span class="line">        item1 = <span class="number">0</span>;</span><br><span class="line">        item2 = len1 - len2;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        m = len2;</span><br><span class="line">        item1 = len2 - len1;</span><br><span class="line">        item2 = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">type</span> === <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            (<span class="built_in">Number</span>(arg1.replace(<span class="string">&quot;.&quot;</span>, <span class="string">&quot;&quot;</span>)) * <span class="number">10</span> ** item1 +</span><br><span class="line">                <span class="built_in">Number</span>(arg2.replace(<span class="string">&quot;.&quot;</span>, <span class="string">&quot;&quot;</span>)) * <span class="number">10</span> ** item2) /</span><br><span class="line">            <span class="number">10</span> ** m</span><br><span class="line">        );</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            (<span class="built_in">Number</span>(arg1.replace(<span class="string">&quot;.&quot;</span>, <span class="string">&quot;&quot;</span>)) * <span class="number">10</span> ** item1 -</span><br><span class="line">                <span class="built_in">Number</span>(arg2.replace(<span class="string">&quot;.&quot;</span>, <span class="string">&quot;&quot;</span>)) * <span class="number">10</span> ** item2) /</span><br><span class="line">            <span class="number">10</span> ** m</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="vue3中ref和其他属性绑定值重名导致绑定失效"><a href="#vue3中ref和其他属性绑定值重名导致绑定失效" class="headerlink" title="vue3中ref和其他属性绑定值重名导致绑定失效"></a>vue3中ref和其他属性绑定值重名导致绑定失效</h2><blockquote>
+<p>群友遇到的问题、我一开始看着也没觉得哪里不对。感觉以后能用的上，先存着 。</p>
+</blockquote>
+<h3 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h3><blockquote>
+<p>使用<code>element-plus</code> 中的 <code>el-form</code> 的时候，model绑定了<code>formData</code>,但是在页面上对表单进行操作的时候，数据绑定无效。</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-form</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">ref</span>=<span class="string">&quot;formData&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">:model</span>=<span class="string">&quot;formData&quot;</span> </span></span><br><span class="line"><span class="tag"> <span class="attr">:rules</span>=<span class="string">&quot;rule&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-row</span> <span class="attr">justify</span>=<span class="string">&quot;center&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-col</span> <span class="attr">:span</span>=<span class="string">&quot;12&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">label</span>=<span class="string">&quot;入库类型&quot;</span> <span class="attr">prop</span>=<span class="string">&quot;inOutType&quot;</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-select</span> <span class="attr">v-model</span>=<span class="string">&quot;formData.inOutType&quot;</span> <span class="attr">clearable</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">el-option</span> <span class="attr">label</span>=<span class="string">&quot;外购&quot;</span> <span class="attr">value</span>=<span class="string">&quot;外购&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-option</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">el-option</span> <span class="attr">label</span>=<span class="string">&quot;其他&quot;</span> <span class="attr">value</span>=<span class="string">&quot;其他&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">el-option</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">el-select</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-col</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-row</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ...</span></span><br><span class="line">setup()&#123;</span><br><span class="line">    <span class="keyword">let</span> formData: IEmptyObject = reactive(&#123;</span><br><span class="line">      warningUseTime: <span class="number">0</span>,</span><br><span class="line">      typeName: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      categoryCode: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      categoryName: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      maintenanceCode: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      maintenanceName: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      model: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      attribute: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      unit: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      warningProductionQuantity: <span class="number">0</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &#123; formData &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="错误原因"><a href="#错误原因" class="headerlink" title="错误原因"></a>错误原因</h3><blockquote>
+<p><code>ref</code>绑定的内容和<code>model</code>绑定的内容重复了，vue3中<code>ref</code>绑定的内容也是通过在<code>setup</code>中定义变量进行获取。具体原因还没仔细看，估计是ref的优先级更高？</p>
+</blockquote>
+<h2 id="proxy多个路由代理"><a href="#proxy多个路由代理" class="headerlink" title="proxy多个路由代理"></a>proxy多个路由代理</h2><blockquote>
+<p><span style='color:red'>重写失效、请求路径包含某个 代理名 代理失效。</span></p>
+</blockquote>
+<p>记下 还没解决</p>
+<h2 id="哈希路由引起样式问题"><a href="#哈希路由引起样式问题" class="headerlink" title="哈希路由引起样式问题"></a>哈希路由引起样式问题</h2><blockquote>
+<p>在一个页面引入了样式，并且添加了 <code>scoped</code> ,但是在进行页面跳转的时候，这些引入的样式会影响另一页面。刷新之后就好了</p>
+</blockquote>
+<p>初步猜测是因为路由用的<code>哈希模式</code>的原因</p>
+<blockquote>
+<p><code>hash</code> 值变化不会导致浏览器向服务器发出请求</p>
+</blockquote>
+<p>所以在第一个页面加载的样式，在跳转之后没有刷新，样式就一直会存在，因此影响到了页面的样式</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><ul>
+<li><code>emit</code>父子组件通讯，点击事件触发后、强制刷新</li>
+<li>监听<code>hash</code>值的变化、变化之后、强制刷新</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">setup: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">   <span class="keyword">const</span> route = useRoute();</span><br><span class="line">   watch(</span><br><span class="line">     () =&gt; route.path,</span><br><span class="line">     (to, <span class="keyword">from</span>) =&gt; &#123;</span><br><span class="line">       <span class="keyword">if</span> (<span class="keyword">from</span>.includes(<span class="string">&quot;papercss&quot;</span>) &amp;&amp; <span class="keyword">from</span> !== to) &#123;</span><br><span class="line">         location.reload();</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line">   );</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<h2 id="el-date-picker限制时间选择范围"><a href="#el-date-picker限制时间选择范围" class="headerlink" title="el-date-picker限制时间选择范围"></a>el-date-picker限制时间选择范围</h2><blockquote>
+<p>两个时间选择器、开始时间与结束时间的时间选择范围为<code>24h</code>，并且精确到<code>分</code> (<code>format=&quot;yyyy-MM-dd HH:mm&quot;</code>)</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 基本使用 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">prop</span>=<span class="string">&quot;beginDateStr&quot;</span> <span class="attr">label</span>=<span class="string">&quot;开始时间&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-date-picker</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-model</span>=<span class="string">&quot;formData.beginDateStr&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">&quot;datetime&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">placeholder</span>=<span class="string">&quot;选择日期时间&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">format</span>=<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-date-picker</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">prop</span>=<span class="string">&quot;endDateStr&quot;</span> <span class="attr">label</span>=<span class="string">&quot;结束时间&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-date-picker</span></span></span><br><span class="line"><span class="tag">    <span class="attr">v-model</span>=<span class="string">&quot;formData.endDateStr&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">type</span>=<span class="string">&quot;datetime&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">format</span>=<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">placeholder</span>=<span class="string">&quot;选择日期时间&quot;</span></span></span><br><span class="line"><span class="tag">  &gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">el-date-picker</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Picker-Options-配置"><a href="#Picker-Options-配置" class="headerlink" title="Picker Options 配置"></a>Picker Options 配置</h3><h4 id="开始时间限制"><a href="#开始时间限制" class="headerlink" title="开始时间限制"></a>开始时间限制</h4><blockquote>
+<p>首先对开始时间进行限制 限制在当前日期之前；并且当开始日期改变的时候，结束日期清空</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/datetime-picker">disabledDate 日期禁用范围</a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-date-picker</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">&quot;formData.beginDateStr&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">&quot;datetime&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">placeholder</span>=<span class="string">&quot;选择日期时间&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">format</span>=<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:picker-options</span>=<span class="string">&quot;pickerOptionsStart&quot;</span></span></span><br><span class="line"><span class="tag">  @<span class="attr">change</span>=<span class="string">&quot;handleChangeStart&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">el-date-picker</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> pickerOptionsStart = &#123;</span><br><span class="line">    disabledDate: <span class="function">(<span class="params">time: <span class="built_in">Date</span></span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> time.getTime() &gt; <span class="built_in">Date</span>.now();</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> handleChangeStart() &#123;</span><br><span class="line">    <span class="built_in">this</span>.formData.endDateStr = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="结束时间限制"><a href="#结束时间限制" class="headerlink" title="结束时间限制"></a>结束时间限制</h4><blockquote>
+<p>因为是24h限制、所以 开始时间+24h 和 开始时间-24h 的时间都得禁用；精确到分钟，小时和分钟也得进行限制</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://element.eleme.cn/#/zh-CN/component/time-picker">selectableRange 时间选择范围</a><br>这个属性没有在<code>el-date-picker</code>里面，在<code>el-time-picker</code>里面，个人觉得文档写的不是很人性…<br>因为跨天的话、时间范围是不一样的 比如开始时间是<code>2021-05-31 02:00</code><br>那么结束时间的范围是<code>2021-05-31 02:00 - 2021-06-01 02:00</code><br>如果选的是31号 则 <code>selectableRange = &#39;02:00-23:59&#39;</code><br>如果选的是1号 则 <code>selectableRange = &#39;00:00-02:00&#39;</code><br>所以还得对日期选择进行监听，本来是想通过点击/change事件进行监听的<br>但是无效，然后通过监听<code>input</code>框内数据的变化 来进行监听</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">el-date-picker</span></span></span><br><span class="line"><span class="tag">  <span class="attr">v-model</span>=<span class="string">&quot;formData.endDateStr&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">type</span>=<span class="string">&quot;datetime&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">format</span>=<span class="string">&quot;yyyy-MM-dd HH:mm&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">placeholder</span>=<span class="string">&quot;选择日期时间&quot;</span></span></span><br><span class="line"><span class="tag">  @<span class="attr">input</span>=<span class="string">&quot;handleChangeInputDate($event)&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">:picker-options</span>=<span class="string">&quot;&#123;</span></span></span><br><span class="line"><span class="tag"><span class="string">   disabledDate: (time) =&gt; hanldeDisabledDate(time),</span></span></span><br><span class="line"><span class="tag"><span class="string">    selectableRange: dafaulttime,</span></span></span><br><span class="line"><span class="tag"><span class="string">  &#125;&quot;</span></span></span><br><span class="line"><span class="tag">&gt;</span><span class="tag">&lt;/<span class="name">el-date-picker</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> dafaulttime: <span class="built_in">string</span> = <span class="string">&#x27;00:00:00-23:59:59&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> handleChangeInputDate(e: <span class="built_in">Date</span>) &#123;</span><br><span class="line">    <span class="comment">// 区别 同一天和下一天的时间限制</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.formData.beginDateStr) &#123;</span><br><span class="line">      <span class="keyword">const</span> begin = <span class="keyword">new</span> EasyDate(<span class="built_in">this</span>.formData.beginDateStr).format(<span class="string">&#x27;dd&#x27;</span>);</span><br><span class="line">      <span class="keyword">const</span> end = <span class="keyword">new</span> EasyDate(e).format(<span class="string">&#x27;dd&#x27;</span>);</span><br><span class="line">      <span class="keyword">if</span> (begin === end) &#123;</span><br><span class="line">        <span class="built_in">this</span>.dafaulttime =</span><br><span class="line">          <span class="keyword">new</span> EasyDate(<span class="built_in">this</span>.formData.beginDateStr).format(<span class="string">&#x27;HH:mm:ss&#x27;</span>) +</span><br><span class="line">          <span class="string">&#x27;-23:59:59&#x27;</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.dafaulttime =</span><br><span class="line">          <span class="string">&#x27;00:00:00-&#x27;</span> +</span><br><span class="line">          <span class="keyword">new</span> EasyDate(<span class="built_in">this</span>.formData.beginDateStr).format(<span class="string">&#x27;HH:mm:ss&#x27;</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> hanldeDisabledDate(time: <span class="built_in">Date</span>) &#123;</span><br><span class="line">    <span class="comment">// 24 * 3600 * 1000 == 8.64e7</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.formData.beginDateStr) &#123;</span><br><span class="line">      <span class="keyword">const</span> pickerMinDate = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="built_in">this</span>.formData.beginDateStr).getTime();</span><br><span class="line">      <span class="keyword">const</span> maxTime = pickerMinDate + <span class="number">8.64e7</span>;</span><br><span class="line">      <span class="keyword">const</span> minTime = pickerMinDate - <span class="number">8.64e7</span>;</span><br><span class="line">      <span class="keyword">return</span> time.getTime() &gt;= maxTime || time.getTime() &lt;= minTime;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> time.getTime() &gt; <span class="built_in">Date</span>.now();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="针对daterange和datetimerange类型进行时间限制"><a href="#针对daterange和datetimerange类型进行时间限制" class="headerlink" title="针对daterange和datetimerange类型进行时间限制"></a>针对<code>daterange</code>和<code>datetimerange</code>类型进行时间限制</h4><blockquote>
+<p>不仅仅需要配置<code>disabledDate</code>，还需要配置<code>onPick</code>获取当前点击的日期<br>onPick  Function({ maxDate, minDate }) 选中日期执行的回调，只选择一个的时候返回的minDate</p>
+</blockquote>
+<p>实例：只能选择31天的范围</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>起止时间：<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">el-date-picker</span></span></span><br><span class="line"><span class="tag">          <span class="attr">style</span>=<span class="string">&quot;width: 240px; margin-right: 10px&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">v-model</span>=<span class="string">&quot;dateRange&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">type</span>=<span class="string">&quot;datetimerange&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">range-separator</span>=<span class="string">&quot;至&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">value-format</span>=<span class="string">&quot;yyyy-MM-dd HH:mm:ss&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">start-placeholder</span>=<span class="string">&quot;开始日期&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">end-placeholder</span>=<span class="string">&quot;结束日期&quot;</span></span></span><br><span class="line"><span class="tag">          @<span class="attr">change</span>=<span class="string">&quot;dateChange&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">:picker-options</span>=<span class="string">&quot;&#123;</span></span></span><br><span class="line"><span class="tag"><span class="string">            disabledDate: (time) =&gt; hanldeDisabledDate(time),</span></span></span><br><span class="line"><span class="tag"><span class="string">            onPick: (time) =&gt; hanldeOnPick(time),</span></span></span><br><span class="line"><span class="tag"><span class="string">          &#125;&quot;</span></span></span><br><span class="line"><span class="tag">          <span class="attr">:clearable</span>=<span class="string">&quot;false&quot;</span></span></span><br><span class="line"><span class="tag">        &gt;</span><span class="tag">&lt;/<span class="name">el-date-picker</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">private</span> hanldeOnPick(e: IEmptyObject) &#123;</span><br><span class="line">  <span class="keyword">if</span> (!e.maxDate) &#123;</span><br><span class="line">    <span class="keyword">const</span> timeRange = <span class="number">8.64e7</span> * <span class="number">31</span>;</span><br><span class="line">    <span class="built_in">this</span>.pickDateRange.maxTime = e.minDate.getTime() + timeRange;</span><br><span class="line">    <span class="built_in">this</span>.pickDateRange.minTime = e.minDate.getTime() - timeRange;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.pickDateRange.minTime = <span class="literal">null</span>;</span><br><span class="line">    <span class="built_in">this</span>.pickDateRange.maxTime = <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> hanldeDisabledDate(e: <span class="built_in">Date</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> pickerDate = e.getTime();</span><br><span class="line">  <span class="keyword">if</span> (<span class="built_in">this</span>.pickDateRange.minTime &amp;&amp; <span class="built_in">this</span>.pickDateRange.maxTime) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      e.getTime() &lt;= <span class="built_in">this</span>.pickDateRange.minTime ||</span><br><span class="line">      e.getTime() &gt;= <span class="built_in">Date</span>.now() ||</span><br><span class="line">      e.getTime() &gt;= <span class="built_in">this</span>.pickDateRange.maxTime</span><br><span class="line">    );</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> e.getTime() &gt;= <span class="built_in">Date</span>.now();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="主要问题"><a href="#主要问题" class="headerlink" title="主要问题"></a>主要问题</h3><blockquote>
+<p>结束时间的 <code>picker-options</code> 属性,如果直接通过一个对象传递的话 ，会失效..,不清楚原因。我猜测是双向数据绑定相关的东西的问题</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// √ 生效</span></span><br><span class="line">:picker-options=<span class="string">&quot;&#123;</span></span><br><span class="line"><span class="string">   disabledDate: (time) =&gt; hanldeDisabledDate(time),</span></span><br><span class="line"><span class="string">    selectableRange: dafaulttime,</span></span><br><span class="line"><span class="string">  &#125;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// × 不生效</span></span><br><span class="line">:picker-options=<span class="string">&quot;pickerOption&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> pickerOption = &#123;</span><br><span class="line">   disabledDate: <span class="function">(<span class="params">time</span>) =&gt;</span> hanldeDisabledDate(time),</span><br><span class="line">    selectableRange: dafaulttime,</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="multipart-form-data-文件流请求和参数相关"><a href="#multipart-form-data-文件流请求和参数相关" class="headerlink" title="multipart/form-data 文件流请求和参数相关"></a>multipart/form-data 文件流请求和参数相关</h2><blockquote>
+<p>一般的接口请求都是以json的形式进行传输、这次的表单会有文件上传的情况 所以用formdata的形式进行传输。</p>
+</blockquote>
+<p><code>表单数据存在body内 且content-type需要设置为application/json，文件数据存在file内</code><br><img src="https://i.bmp.ovh/imgs/2022/02/5db690ad15e1531e.png"></p>
+<ol>
+<li>formData请求，参数必须为<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/FormData">FromData</a>类型的</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> params = <span class="keyword">new</span> FormData()</span><br><span class="line"></span><br><span class="line">params.append(<span class="string">&#x27;file&#x27;</span>,value,name)</span><br><span class="line"></span><br><span class="line"><span class="comment">// params.get(&#x27;file&#x27;) 获取file值</span></span><br><span class="line"><span class="comment">// params.set(&#x27;file&#x27;,newValue) 设置file值</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>对于不是文本/二进制类型的数据，还需要使用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Blob">Blob对象</a>进行转换</li>
+</ol>
+<blockquote>
+<p>如上图所示，<code>body</code>内传递的是<code>Object</code>对象，而且，<code>body</code>的<code>content-type</code>需要设置为<code>application/json</code>类型</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> obj = &#123;...&#125;</span><br><span class="line"><span class="keyword">let</span> blob = <span class="keyword">new</span> Blob([<span class="built_in">JSON</span>.stringify(obj)],&#123;<span class="attr">type</span>:<span class="string">&#x27;application/json&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line">params.append(<span class="string">&#x27;body&#x27;</span>,blob)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>axios主要配置</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// http.ts</span></span><br><span class="line"><span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">  timeout: <span class="number">600000</span>, <span class="comment">// by huangrong</span></span><br><span class="line">  headers: &#123; <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span> &#125;,</span><br><span class="line">  baseURL: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">  <span class="comment">// transformResponse: (data: any) =&gt; &#123;</span></span><br><span class="line">  <span class="comment">//   //</span></span><br><span class="line">  <span class="comment">// &#125;</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">instance.upload = <span class="function">(<span class="params">url, data, config = &#123;&#125;, params</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> formData = <span class="keyword">new</span> FormData();</span><br><span class="line">  data.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    formData.append(<span class="string">&#x27;file&#x27;</span>, item.value, item.name || item.filename);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">if</span> (params &amp;&amp; <span class="built_in">Object</span>.keys(params).length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> m <span class="keyword">in</span> params) &#123;</span><br><span class="line">      <span class="keyword">if</span> (params.hasOwnProperty(m)) &#123;</span><br><span class="line">        <span class="keyword">const</span> key = m;</span><br><span class="line">        <span class="keyword">const</span> value = params[m];</span><br><span class="line">        formData.append(key, value);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> instance.request(&#123;</span><br><span class="line">    method: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    ...config,</span><br><span class="line">    url,</span><br><span class="line">    data: formData,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// 请求拦截器</span></span><br><span class="line">instance.interceptors.request.use(<span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; params = &#123;&#125; &#125; = config;</span><br><span class="line">    config.params = &#123; ...params, time: <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() &#125;;</span><br><span class="line">    <span class="comment">// add token if need</span></span><br><span class="line">    config.headers = &#123;</span><br><span class="line">      ...(config.headers || &#123;&#125;),</span><br><span class="line">      <span class="string">&#x27;X-Auth-Token&#x27;</span>: CookieStorage.token,</span><br><span class="line">      <span class="string">&#x27;X-Stargate-AppId&#x27;</span>: <span class="number">25</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;, <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// show err</span></span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// common-api.ts</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">uploadFile</span>(<span class="params">path: <span class="built_in">string</span>, file: IUploadParam[], config?: AxiosRequestConfig, params?: IEmptyObject</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> http.upload(path, file, config, params).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(res.data);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// index.vue</span></span><br><span class="line"> uploadFile(</span><br><span class="line">        <span class="built_in">this</span>.path,</span><br><span class="line">        (<span class="built_in">this</span>.$refs.imageUpload <span class="keyword">as</span> <span class="built_in">any</span>).fileList,</span><br><span class="line">        &#123;&#125;,</span><br><span class="line">        &#123;</span><br><span class="line">          body: <span class="keyword">new</span> Blob(</span><br><span class="line">            [</span><br><span class="line">              <span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">                ...this.formData,</span><br><span class="line">                factory: <span class="built_in">this</span>.factory,</span><br><span class="line">                workshop: <span class="built_in">this</span>.workshop,</span><br><span class="line">              &#125;),</span><br><span class="line">            ],</span><br><span class="line">            &#123; <span class="keyword">type</span>: <span class="string">&#x27;application/json&#x27;</span> &#125;</span><br><span class="line">          ),</span><br><span class="line">        &#125;</span><br><span class="line">      )</span><br></pre></td></tr></table></figure>
+
+<h2 id="axios实现文件导出功能，无法获取response的异常信息"><a href="#axios实现文件导出功能，无法获取response的异常信息" class="headerlink" title="axios实现文件导出功能，无法获取response的异常信息"></a>axios实现文件导出功能，无法获取response的异常信息</h2><p><img src="https://i.bmp.ovh/imgs/2022/02/d7a045921c6cb54e.png"></p>
+<p>如图所示: 上方是调文件导出接口，返回的异常信息。下方是普通请求获取的异常信息。上方的<code>data</code>内没有<code>errorMsg</code></p>
+<h3 id="错误原因-1"><a href="#错误原因-1" class="headerlink" title="错误原因"></a>错误原因</h3><blockquote>
+<p>可以看到上方红圈内的<code>data</code>是<code>Blob</code>类型的（文件存储类型），所以不能直接获取，需要<a href="!https://developer.mozilla.org/zh-CN/docs/Web/API/FileReader"><code>FileReader</code></a>对象进行处理，转换获取blob、file文件的数据。</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 响应拦截器</span></span><br><span class="line">instance.interceptors.response.use(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(response);</span><br><span class="line">&#125;, <span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// show error_msg and reject</span></span><br><span class="line">  <span class="comment">// console.log(&#x27;响应失败信息&#x27;, error.response);</span></span><br><span class="line">  <span class="keyword">if</span> (error &amp;&amp; error.response &amp;&amp; error.response.status) &#123;</span><br><span class="line">    <span class="keyword">let</span> errCode = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">let</span> errMsg = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (!!error.response.data) &#123;</span><br><span class="line">      <span class="comment">// 文件流错误处理</span></span><br><span class="line">      <span class="keyword">if</span> (error.response.config.responseType === <span class="string">&#x27;blob&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">const</span> reader = <span class="keyword">new</span> FileReader();</span><br><span class="line">        reader.readAsText(error.response.data);</span><br><span class="line">        reader.onload = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">const</span> &#123; errorMsg &#125; = <span class="built_in">JSON</span>.parse(reader.result <span class="keyword">as</span> <span class="built_in">string</span>);</span><br><span class="line">            errMsg = errorMsg;</span><br><span class="line">            handleError(error.response.status, errMsg);</span><br><span class="line">          &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&#x27;解析错误&#x27;</span>);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 普通错误处理</span></span><br><span class="line">        <span class="keyword">const</span> &#123; status, errorMsg &#125; = error.response.data;</span><br><span class="line">        errCode = status;</span><br><span class="line">        errMsg = errorMsg;</span><br><span class="line">        handleError(error.response.status, errMsg);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-uniapp"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/11/15/uniapp/"
+    >uni-app</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/11/15/uniapp/" class="article-date">
+  <time datetime="2021-11-15T07:16:00.000Z" itemprop="datePublished">2021-11-15</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/uni-app/">uni-app</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="文件目录结构"><a href="#文件目录结构" class="headerlink" title="文件目录结构"></a>文件目录结构</h2><p><img src="https://s3.bmp.ovh/imgs/2021/11/06f4e01c368b5249.png"></p>
+<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><h3 id="应用生命周期-App-vue"><a href="#应用生命周期-App-vue" class="headerlink" title="应用生命周期  - App.vue"></a>应用生命周期  - App.vue</h3><table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>onLaunch</td>
+<td>当<code>uni-app</code> 初始化完成时触发（全局只触发一次）</td>
+</tr>
+<tr>
+<td>onShow</td>
+<td>当 <code>uni-app</code> 启动，或从后台进入前台显示</td>
+</tr>
+<tr>
+<td>onHide</td>
+<td>当 <code>uni-app</code> 从前台进入后台</td>
+</tr>
+<tr>
+<td>onError</td>
+<td>当 <code>uni-app</code> 报错时触发</td>
+</tr>
+<tr>
+<td>onUniNViewMessage</td>
+<td>对 <code>nvue</code> 页面发送的数据进行监听，可参考 nvue 向 vue 通讯</td>
+</tr>
+<tr>
+<td>onUnhandledRejection</td>
+<td>对未处理的 Promise 拒绝事件监听函数（2.8.1+）</td>
+</tr>
+<tr>
+<td>onPageNotFound</td>
+<td>页面不存在监听函数</td>
+</tr>
+<tr>
+<td>onThemeChange</td>
+<td>监听系统主题变化</td>
+</tr>
+</tbody></table>
+<h3 id="页面生命周期"><a href="#页面生命周期" class="headerlink" title="页面生命周期"></a>页面生命周期</h3><table>
+<thead>
+<tr>
+<th>函数名</th>
+<th>说明</th>
+<th>平台差异说明</th>
+<th>最低版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>onInit</td>
+<td>监听页面初始化，其参数同 onLoad 参数，为上个页面传递的数据，参数类型为 Object（用于页面传参），触发时机早于 onLoad</td>
+<td>百度小程序</td>
+<td>3.1.0+</td>
+</tr>
+<tr>
+<td>onLoad</td>
+<td>监听页面加载，其参数为上个页面传递的数据，参数类型为 Object（用于页面传参），参考示例</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>onShow</td>
+<td>监听页面显示。页面每次出现在屏幕上都触发，包括从下级页面点返回露出当前页面</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>onReady</td>
+<td>监听页面初次渲染完成。注意如果渲染速度快，会在页面进入动画完成前触发</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>onHide</td>
+<td>监听页面隐藏</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>onUnload</td>
+<td>监听页面卸载</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>onResize</td>
+<td>监听窗口尺寸变化</td>
+<td>App、微信小程序</td>
+<td></td>
+</tr>
+<tr>
+<td>onPullDownRefresh</td>
+<td>监听用户下拉动作，一般用于下拉刷新</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>onReachBottom</td>
+<td>页面滚动到底部的事件（不是scroll-view滚到底），常用于下拉下一页数据。具体见下方注意事项</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>onTabItemTap</td>
+<td>点击 tab 时触发，参数为Object，具体见下方注意事项</td>
+<td>微信小程序、QQ小程序、支付宝小程序、百度小程序、H5、App</td>
+<td></td>
+</tr>
+<tr>
+<td>onShareAppMessage</td>
+<td>用户点击右上角分享    微信小程序、QQ小程序、支付宝小程序、字节小程序、飞书小程序、快手小程序</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>onPageScroll</td>
+<td>监听页面滚动，参数为Object</td>
+<td>nvue暂不支持</td>
+<td></td>
+</tr>
+<tr>
+<td>onNavigationBarButtonTap</td>
+<td>监听原生标题栏按钮点击事件，参数为Object</td>
+<td>App、H5</td>
+<td></td>
+</tr>
+<tr>
+<td>onBackPress</td>
+<td>监听页面返回，返回 event = {from:backbutton、 navigateBack} ，backbutton 表示来源是左上角返回按钮或 android 返回键；navigateBack表示来源是 uni.navigateBack ；详细说明及使用：onBackPress 详解。支付宝小程序只有真机能触发，只能监听非navigateBack引起的返回，不可阻止默认行为。</td>
+<td>app、H5、支付宝小程序</td>
+<td></td>
+</tr>
+<tr>
+<td>onNavigationBarSearchInputChanged</td>
+<td>监听原生标题栏搜索输入框输入内容变化事件</td>
+<td>App、H5</td>
+<td>1.6.0</td>
+</tr>
+<tr>
+<td>onNavigationBarSearchInputConfirmed</td>
+<td>监听原生标题栏搜索输入框搜索事件，用户点击软键盘上的“搜索”按钮时触发。</td>
+<td>App、H5    1.6.0</td>
+<td></td>
+</tr>
+<tr>
+<td>onNavigationBarSearchInputClicked</td>
+<td>监听原生标题栏搜索输入框点击事件（pages.json 中的 searchInput 配置 disabled 为 true 时才会触发）</td>
+<td>App、H5</td>
+<td>1.6.0</td>
+</tr>
+<tr>
+<td>onShareTimeline</td>
+<td>监听用户点击右上角转发到朋友圈</td>
+<td>微信小程序</td>
+<td>2.8.1+</td>
+</tr>
+<tr>
+<td>onAddToFavorites</td>
+<td>监听用户点击右上角收藏</td>
+<td>微信小程序</td>
+<td>2.8.1+</td>
+</tr>
+</tbody></table>
+<h2 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h2><blockquote>
+<p>跳转方式：<code>navigator</code>组件跳转(<code>声明式</code>)、调用<code>API</code>跳转(<code>编程式</code>)</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">navigator</span> <span class="attr">url</span>=<span class="string">&quot;/pages/404/index&quot;</span>&gt;</span>404<span class="tag">&lt;/<span class="name">navigator</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">uni.navigateTo(&#123; <span class="attr">url</span>: <span class="string">&quot;/pages/index/index&quot;</span> &#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * open-type属性 </span></span><br><span class="line"><span class="comment"> * 值：</span></span><br><span class="line"><span class="comment"> *  navigate - 打卡新页面</span></span><br><span class="line"><span class="comment"> *  redirectTo - 页面重定向</span></span><br><span class="line"><span class="comment"> *  navigateBack - 页面返回</span></span><br><span class="line"><span class="comment"> *  switchTab - tab切换</span></span><br><span class="line"><span class="comment"> *  reLaunch - 重加载</span></span><br><span class="line"><span class="comment"> **/</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>tab切换 - 调用API<code>uni.switchTab</code>、使用组件<code>&lt;navigator open-type=&quot;switchTab&quot;/&gt;</code></p>
+</blockquote>
+<h3 id="路由传参与接收"><a href="#路由传参与接收" class="headerlink" title="路由传参与接收"></a>路由传参与接收</h3><blockquote>
+<p>传参</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uni.navigateTo(url:<span class="string">&#x27;page?name=doreen&amp;age=18&#x27;</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>接收</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">onLoad:<span class="function"><span class="keyword">function</span>(<span class="params">option</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(option.name,option.age)    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="页面配置"><a href="#页面配置" class="headerlink" title="页面配置"></a><a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/collocation/pages?id=%E9%85%8D%E7%BD%AE%E9%A1%B9%E5%88%97%E8%A1%A8">页面配置</a></h2><blockquote>
+<p>在<code>pages.json</code>内配置页面路由</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&quot;pages&quot;: [ </span><br><span class="line">    <span class="comment">//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">&quot;path&quot;</span>: <span class="string">&quot;pages/index/index&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;style&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;navigationBarTitleText&quot;</span>: <span class="string">&quot;uni-app&quot;</span></span><br><span class="line">            &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">&quot;path&quot;</span>: <span class="string">&quot;pages/404/index&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;style&quot;</span>: &#123;</span><br><span class="line">            <span class="attr">&quot;navigationBarTitleText&quot;</span>: <span class="string">&quot;页面不存在&quot;</span>,</span><br><span class="line">            <span class="attr">&quot;enablePullDownRefresh&quot;</span>: <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">    &#125;</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+
+<h4 id="pages配置项"><a href="#pages配置项" class="headerlink" title="pages配置项"></a>pages配置项</h4><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>子属性</th>
+<th>子类型</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>path</td>
+<td>string</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/collocation/pages?id=style">style</a></td>
+<td>Object</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>navigationBarBackgroundColor</td>
+<td>HexColor</td>
+<td>#000000</td>
+<td>导航栏背景颜色</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>navigationBarTextStyle</td>
+<td>String</td>
+<td>white</td>
+<td>导航栏标题颜色及状态栏前景颜色，仅支持 black/white</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>navigationBarTitleText</td>
+<td>String</td>
+<td></td>
+<td>导航栏标题文字内容</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>navigationBarBackgroundColor</td>
+<td>HexColor</td>
+<td>#000000</td>
+<td>导航栏背景颜色</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>……</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h4 id="tabBar配置项"><a href="#tabBar配置项" class="headerlink" title="tabBar配置项"></a>tabBar配置项</h4><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>必填</th>
+<th>默认值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>color</td>
+<td>HexColor</td>
+<td>是</td>
+<td></td>
+<td>tab上文字默认颜色</td>
+</tr>
+<tr>
+<td>selectedColor</td>
+<td>HexColor</td>
+<td>是</td>
+<td></td>
+<td>tab上文字选中时的默认颜色</td>
+</tr>
+<tr>
+<td>backgroundColor</td>
+<td>HexColor</td>
+<td>是</td>
+<td></td>
+<td>tab的背景色</td>
+</tr>
+<tr>
+<td>list</td>
+<td>Array</td>
+<td>是</td>
+<td></td>
+<td>tab的列表，2-5个</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>list对象属性如下：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>类型</th>
+<th>必填</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>pagePath</td>
+<td>String</td>
+<td>是</td>
+<td>页面路径，必须在pages中先定义</td>
+</tr>
+<tr>
+<td>text</td>
+<td>String</td>
+<td>是</td>
+<td>tab上按钮文字</td>
+</tr>
+<tr>
+<td>iconPath</td>
+<td>String</td>
+<td>否</td>
+<td>图片路径</td>
+</tr>
+<tr>
+<td>selectedIconPath</td>
+<td>String</td>
+<td>否</td>
+<td>选中时的图片路径</td>
+</tr>
+<tr>
+<td>visible</td>
+<td>Boolean</td>
+<td>否</td>
+<td>该项是否展示，默认展示</td>
+</tr>
+</tbody></table>
+<p><code>配置了tabBar之后list内的页面不能使用uni.navigateTo进行跳转，需要改成uni.switchTab</code><br><code>对于在list内的页面，使用&lt;navigator url=&#39;&#39;&gt;进行跳转时要加上 open-type=&quot;switchTab&quot; 属性</code></p>
+<h4 id="subPackages分包配置"><a href="#subPackages分包配置" class="headerlink" title="subPackages分包配置"></a><a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/collocation/pages?id=subpackages">subPackages分包配置</a></h4><blockquote>
+<p>主包: 即放置默认启动页面/TabBar 页面，以及一些所有分包都需用到公共资源/JS 脚本 <code>(公共资源)</code><br>分包: 则是根据pages.json的配置进行划分。<code>(按需加载的资源)</code>  </p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;pages&quot;</span>: [&#123;</span><br><span class="line">        <span class="attr">&quot;path&quot;</span>: <span class="string">&quot;pages/index/index&quot;</span>,</span><br><span class="line">        &quot;style&quot;: &#123; ... &#125;</span><br><span class="line">    &#125;],</span><br><span class="line">    <span class="comment">// .....</span></span><br><span class="line">    &quot;subPackages&quot;: [&#123;</span><br><span class="line">        &quot;root&quot;: &quot;pagesA&quot;,  // 分包文件夹名称（与pages文件夹同级）</span><br><span class="line">        &quot;pages&quot;: [&#123;</span><br><span class="line">            &quot;path&quot;: &quot;list/list&quot;,  // 路径</span><br><span class="line">            &quot;style&quot;: &#123; ... &#125;</span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;, &#123;</span><br><span class="line">        &quot;root&quot;: &quot;pagesB&quot;,</span><br><span class="line">        &quot;pages&quot;: [&#123;</span><br><span class="line">            &quot;path&quot;: &quot;detail/detail&quot;,</span><br><span class="line">            &quot;style&quot;: &#123; ... &#125;</span><br><span class="line">        &#125;]</span><br><span class="line">    &#125;],</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用API"><a href="#常用API" class="headerlink" title="常用API"></a><a href="!https://uniapp.dcloud.io/api/README">常用API</a></h2><h2 id="组件通信"><a href="#组件通信" class="headerlink" title="组件通信"></a>组件通信</h2><h3 id="父子组件通信"><a href="#父子组件通信" class="headerlink" title="父子组件通信"></a>父子组件通信</h3><blockquote>
+<p>和Vue一样</p>
+<ol>
+<li>父组件通过绑定属性将数据传递给子组件，子组件通过props进行接收</li>
+<li>子组件通过<code>$emit</code>进行广播，父组件通过@xx进行接收</li>
+</ol>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--  child.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">text</span>&gt;</span>子组件<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line">        &#123;&#123;msg&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;default&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;getChild&quot;</span>&gt;</span>子传父<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line"><span class="javascript">    props:[<span class="string">&#x27;msg&#x27;</span>],  <span class="comment">// 接收父组件传递的数据，只读</span></span></span><br><span class="line">    methods: &#123;</span><br><span class="line">        getChild()&#123;</span><br><span class="line"><span class="javascript">            <span class="built_in">this</span>.$emit(<span class="string">&#x27;getChild&#x27;</span>,<span class="string">&#x27;aaaa&#x27;</span>) <span class="comment">// 传递给父组件的数据</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--  parent.vue --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 传递&amp;获取数据 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">child</span> <span class="attr">:msg</span>=<span class="string">&#x27;title&#x27;</span> @<span class="attr">getChild</span>=<span class="string">&#x27;say&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">child</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> Child <span class="keyword">from</span> <span class="string">&#x27;@/componets/child.vue&#x27;</span>  <span class="comment">// 引入子组件</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">    data() &#123;</span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">            title: <span class="string">&quot;Hello&quot;</span>,</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;,</span><br><span class="line">    components:&#123;</span><br><span class="line"><span class="javascript">        Child  <span class="comment">// 声明</span></span></span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        say(info)&#123;</span><br><span class="line"><span class="javascript">            <span class="built_in">this</span>.title = info <span class="comment">// 获取子组件的数据</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="全局通信"><a href="#全局通信" class="headerlink" title="全局通信"></a>全局通信</h3><blockquote>
+<p>uniapp提供了 <code>uni.$emit</code> 和 <code>uni.$on</code> 两个api进行全局的通信 (和vue兄弟组件通信的方式差不多,这里不限于兄弟组件)</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- pages1 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">view</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">text</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">  data() &#123;</span><br><span class="line"><span class="javascript">      <span class="keyword">return</span> &#123;</span></span><br><span class="line"><span class="javascript">          name:<span class="string">&#x27;me&#x27;</span></span></span><br><span class="line">        &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  onLoad() &#123;</span><br><span class="line"><span class="javascript">    <span class="comment">//   发布广播</span></span></span><br><span class="line"><span class="javascript">      uni.$on(<span class="string">&#x27;getMeFun&#x27;</span>,<span class="function">(<span class="params">str</span>)=&gt;</span>&#123;</span></span><br><span class="line"><span class="javascript">          <span class="built_in">this</span>.name = str</span></span><br><span class="line"><span class="javascript">          <span class="built_in">console</span>.log(<span class="string">&#x27;me 页面的全局事件被触发&#x27;</span>)</span></span><br><span class="line">        &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- pages2 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 点击事件触发后打印文字、并将pages1的数据修改为 a-me --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">view</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;default&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;hanldeClick&quot;</span>&gt;</span>点击<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">    methods: &#123;</span><br><span class="line">        hanldeClick()&#123;</span><br><span class="line"><span class="javascript">            uni.$emit(<span class="string">&#x27;getMeFun&#x27;</span>,<span class="string">&#x27;a-me&#x27;</span>)</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a><a href="!https://uniapp.dcloud.io/vue-vuex?id=%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86vuex">Vuex</a></h3> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-axios封装&amp;proxyTable代理配置"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2021/09/10/axios%E5%B0%81%E8%A3%85&proxyTable%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/"
+    >axios封装&amp;proxyTable代理配置</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2021/09/10/axios%E5%B0%81%E8%A3%85&proxyTable%E4%BB%A3%E7%90%86%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2021-09-10T02:21:42.000Z" itemprop="datePublished">2021-09-10</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h3 style='color:red'>只在开发环境有效、打包之后代理配置就不生效了</h3>
+
+<h2 id="vite-config-ts-内进行代理配置"><a href="#vite-config-ts-内进行代理配置" class="headerlink" title="vite.config.ts 内进行代理配置"></a>vite.config.ts 内进行代理配置</h2><blockquote>
+<p>多代理配置</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">server: &#123;</span><br><span class="line">    open: <span class="literal">true</span>,</span><br><span class="line">    proxy: &#123;</span><br><span class="line">      <span class="string">&#x27;/api&#x27;</span>: &#123;</span><br><span class="line">        target: <span class="string">&#x27;http://rap2api.taobao.org/app/mock/data&#x27;</span>,</span><br><span class="line">        changeOrigin: <span class="literal">true</span>,</span><br><span class="line">        rewrite: <span class="function">(<span class="params">path</span>) =&gt;</span> path.replace(<span class="regexp">/^\/api/</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="string">&#x27;/music-api&#x27;</span>: &#123;</span><br><span class="line">        target: <span class="string">&#x27;https://api.uomg.com/api/rand.music?format=json&amp;sort=%E7%83%AD%E6%AD%8C%E6%A6%9C&#x27;</span>,</span><br><span class="line">        changeOrigin: <span class="literal">true</span>,</span><br><span class="line">        rewrite: <span class="function">(<span class="params">path</span>) =&gt;</span> path.replace(<span class="regexp">/^\/music-api/</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="string">&#x27;/music-lyric&#x27;</span>: &#123;</span><br><span class="line">        <span class="comment">// target:&#x27;https://api.imjad.cn/cloudmusic/?type=lyric&amp;id=1479526505&#x27;</span></span><br><span class="line">        target: <span class="string">&#x27;https://api.imjad.cn/cloudmusic/&#x27;</span>,</span><br><span class="line">        changeOrigin: <span class="literal">true</span>,</span><br><span class="line">        rewrite: <span class="function">(<span class="params">path</span>) =&gt;</span> path.replace(<span class="regexp">/^\/music-lyric/</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="string">&#x27;/one-api&#x27;</span>: &#123;</span><br><span class="line">        target: <span class="string">&#x27;https://api.tianapi.com/txapi/one/index?key=7764228bedff0b2310879d47173c4603&amp;rand=1&#x27;</span>,</span><br><span class="line">        changeOrigin: <span class="literal">true</span>,</span><br><span class="line">        rewrite: <span class="function">(<span class="params">path</span>) =&gt;</span> path.replace(<span class="regexp">/^\/one-api/</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="string">&#x27;/diary-api&#x27;</span>: &#123;</span><br><span class="line">        target: <span class="string">&#x27;http://api.tianapi.com/txapi/tiangou/index?key=7764228bedff0b2310879d47173c4603&#x27;</span>,</span><br><span class="line">        changeOrigin: <span class="literal">true</span>,</span><br><span class="line">        rewrite: <span class="function">(<span class="params">path</span>) =&gt;</span> path.replace(<span class="regexp">/^\/diary-api/</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">      &#125;,</span><br><span class="line"></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="新建一个http-ts文件对axios封装"><a href="#新建一个http-ts文件对axios封装" class="headerlink" title="新建一个http.ts文件对axios封装"></a>新建一个http.ts文件对axios封装</h2><blockquote>
+<p>最基础的配置只需要实例化<code>axios</code>对象,配置<code>baseUrl</code>就行了</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; CookieStorage &#125; <span class="keyword">from</span> <span class="string">&#x27;@/utils/cookies&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> axios, &#123; AxiosRequestConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> qs <span class="keyword">from</span> <span class="string">&#x27;qs&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> instance = axios.create(&#123;</span><br><span class="line">  timeout: <span class="number">600000</span>,</span><br><span class="line">  headers: &#123; <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/json&#x27;</span> &#125;,</span><br><span class="line">  baseURL: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 保存下载文件</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">saveFile</span>(<span class="params">binaryData: <span class="built_in">string</span>, fileName: <span class="built_in">string</span>, mime?: <span class="built_in">string</span></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> fileDownload = <span class="built_in">require</span>(<span class="string">&#x27;js-file-download&#x27;</span>);</span><br><span class="line">  fileDownload(binaryData, fileName, mime);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">instance.download = &#123;</span><br><span class="line">  get(url, config) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; filename = <span class="string">&#x27;temp&#x27;</span>, mime = <span class="string">&#x27;&#x27;</span> &#125; = config || &#123;&#125;;</span><br><span class="line">    <span class="keyword">return</span> instance.get(url, &#123; ...config, responseType: <span class="string">&#x27;blob&#x27;</span> &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      saveFile(res.data, filename, mime);</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(res);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  post: <span class="function">(<span class="params">url, data, config</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; filename = <span class="string">&#x27;temp&#x27;</span>, mime = <span class="string">&#x27;&#x27;</span> &#125; = config || &#123;&#125;;</span><br><span class="line">    <span class="keyword">return</span> instance.post(url, data, &#123; ...config, responseType: <span class="string">&#x27;blob&#x27;</span> &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      saveFile(res.data, filename, mime);</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(res);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ne-upload</span></span><br><span class="line">instance.upload = <span class="function">(<span class="params">url, data, config = &#123;&#125;, params</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> formData = <span class="keyword">new</span> FormData();</span><br><span class="line">  data.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">    formData.append(<span class="string">&#x27;file&#x27;</span>, item.value, item.name || item.filename);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">if</span> (params &amp;&amp; <span class="built_in">Object</span>.keys(params).length &gt; <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> m <span class="keyword">in</span> params) &#123;</span><br><span class="line">      <span class="keyword">if</span> (params.hasOwnProperty(m)) &#123;</span><br><span class="line">        <span class="keyword">const</span> key = m;</span><br><span class="line">        <span class="keyword">const</span> value = params[m];</span><br><span class="line">        formData.append(key, value);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> instance.request(&#123;</span><br><span class="line">    method: <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    ...config,</span><br><span class="line">    url,</span><br><span class="line">    data: formData,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">instance.formdata = <span class="function">(<span class="params">url, data, config = &#123;&#125;</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> formData = qs.stringify(data); <span class="comment">// 会将汉字encode</span></span><br><span class="line">  <span class="keyword">return</span> instance.request(&#123;</span><br><span class="line">    ...config,</span><br><span class="line">    url,</span><br><span class="line">    data: formData,</span><br><span class="line">    method: config.method || <span class="string">&#x27;post&#x27;</span>,</span><br><span class="line">    headers: &#123; ...config.headers, <span class="string">&#x27;Content-Type&#x27;</span>: <span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span> &#125;,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 请求拦截器</span></span><br><span class="line">instance.interceptors.request.use(<span class="function"><span class="params">config</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; params = &#123;&#125; &#125; = config;</span><br><span class="line">    config.params = &#123; ...params, time: <span class="keyword">new</span> <span class="built_in">Date</span>().getTime() &#125;;</span><br><span class="line">    <span class="comment">// add token if need</span></span><br><span class="line">    config.headers = &#123;</span><br><span class="line">      ...(config.headers || &#123;&#125;),</span><br><span class="line">      <span class="string">&#x27;X-Auth-Token&#x27;</span>: CookieStorage.token,</span><br><span class="line">      <span class="string">&#x27;X-Stargate-AppId&#x27;</span>: <span class="number">25</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> config;</span><br><span class="line">  &#125;, <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// show err</span></span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 响应拦截器</span></span><br><span class="line">instance.interceptors.response.use(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(response);</span><br><span class="line">  &#125;, <span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// show error_msg and reject</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;响应失败信息&#x27;</span>, error.response);</span><br><span class="line">    <span class="keyword">if</span> (error &amp;&amp; error.response &amp;&amp; error.response.status) &#123;</span><br><span class="line">      <span class="keyword">let</span> errCode = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">let</span> errMsg = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">      <span class="keyword">if</span> (!!error.response.data) &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; status, errorMsg &#125; = error.response.data;</span><br><span class="line">        errCode = status;</span><br><span class="line">        errMsg = errorMsg;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">switch</span> (error.response.status) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">400</span>:</span><br><span class="line">          <span class="built_in">window</span>._vm.$messageSelf.error(errMsg);</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">401</span>:</span><br><span class="line">          <span class="comment">// to login or authorize</span></span><br><span class="line">          <span class="built_in">window</span>._vm.$messageSelf.error(errMsg);</span><br><span class="line">          CookieStorage.clear();</span><br><span class="line">          <span class="comment">// window.location.href = &#x27;&#x27;;</span></span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">403</span>:</span><br><span class="line">          <span class="comment">// to login or authorize</span></span><br><span class="line">          <span class="built_in">window</span>._vm.$messageSelf.error(errMsg);</span><br><span class="line">          CookieStorage.clear();</span><br><span class="line">          <span class="built_in">window</span>.location.href = <span class="string">&#x27;/&#x27;</span>;</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">404</span>:</span><br><span class="line">          <span class="comment">// request failed, no res on server</span></span><br><span class="line">          <span class="built_in">window</span>._vm.$messageSelf.error(<span class="string">&#x27;系统错误，请稍候再试&#x27;</span>);</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">500</span>:</span><br><span class="line">          <span class="comment">// server error</span></span><br><span class="line">          <span class="built_in">window</span>._vm.$messageSelf.error(errMsg);</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Promise</span>.reject(error);</span><br><span class="line">  &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> instance;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="新建一个common-api-ts对公共请求进行封装"><a href="#新建一个common-api-ts对公共请求进行封装" class="headerlink" title="新建一个common-api.ts对公共请求进行封装"></a>新建一个common-api.ts对公共请求进行封装</h2><blockquote>
+<p>引入<code>http.ts</code>文件，并根据业务类型进程处理</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> http <span class="keyword">from</span> <span class="string">&#x27;@/utils/http&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">commonRequest</span>(<span class="params">path: <span class="built_in">string</span>, params: <span class="built_in">any</span> = &#123;&#125;, method: <span class="built_in">string</span> = &#x27;get&#x27;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (method === <span class="string">&#x27;post&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> http.post(path, params).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(res.data);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> http.get(path, &#123; params &#125;).then(<span class="function"><span class="params">res</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Promise</span>.resolve(res.data);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h2><blockquote>
+<p>按照<code>commonRequest</code>方法要求进行传参，并使用。根据不同的接口名，匹配不同的接口地址。</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;handleRequest(&#x27;/music-api&#x27;)&quot;</span>&gt;</span>/music-api<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;handleRequest(&#x27;/music-lyric&#x27;)&quot;</span>&gt;</span>/music-lyric<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;handleRequest(&#x27;/one-api&#x27;)&quot;</span>&gt;</span>/one-api<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">&quot;handleRequest(&#x27;/diary-api&#x27;)&quot;</span>&gt;</span>/diary-api<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>&#123;&#123; showData &#125;&#125;<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">lang</span>=<span class="string">&#x27;ts&#x27;</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123; defineComponent &#125; <span class="keyword">from</span> <span class="string">&quot;@vue/runtime-core&quot;</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123; ref &#125; <span class="keyword">from</span> <span class="string">&quot;vue&quot;</span>;</span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123; commonRequest &#125; <span class="keyword">from</span> <span class="string">&quot;../api/http&quot;</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> defineComponent(&#123;</span></span><br><span class="line"><span class="javascript">  setup: <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> showData = ref(<span class="string">&quot;e&quot;</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">handleRequest</span>(<span class="params">api: string</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">      commonRequest(api, &#123;&#125;).then(<span class="function">(<span class="params">res</span>) =&gt;</span> (showData.value = res));</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123; showData, handleRequest &#125;;</span></span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-旅行"
   class="article article-type-post"
   itemscope
@@ -913,234 +1567,6 @@
 </article>
 
     
-    <article
-  id="post-vue-router导航守卫"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/02/24/vue-router%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB/"
-    >vue-router导航守卫</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/02/24/vue-router%E5%AF%BC%E8%88%AA%E5%AE%88%E5%8D%AB/" class="article-date">
-  <time datetime="2021-02-24T04:20:42.000Z" itemprop="datePublished">2021-02-24</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/vue/">vue</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p><a target="_blank" rel="noopener" href="https://router.vuejs.org/zh/guide/advanced/navigation-guards.html#%E5%85%A8%E5%B1%80%E5%89%8D%E7%BD%AE%E5%AE%88%E5%8D%AB">官方文档</a></p>
-<ul>
-<li><p><code>导航</code> 表示路由正在发生改变  </p>
-</li>
-<li><p><code>守卫方法的三个参数</code>： to: Route(目标的路由) ; from: Route(离开的路由) ; next: Function() (是否执行目标路由)</p>
-<ul>
-<li><code>next()</code>: 执行下一个钩子 </li>
-<li><code>next(false)</code>: 中断<code>当前</code>导航。如果url改变重置到<code>from</code></li>
-<li><code>next(&#39;/&#39;) / next(&#123;path:&#39;/&#39;&#125;)</code>: 跳转到不同地址 </li>
-<li><code>next(error)</code>: 导航终止&amp;将错误传递给<code>router.onError()</code> <h3 id="全局前置守卫"><a href="#全局前置守卫" class="headerlink" title="全局前置守卫"></a>全局前置守卫</h3><blockquote>
-<p><code>router.beforeEach</code> </p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123; ... &#125;)</span><br><span class="line"></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h3 id="路由独享的守卫"><a href="#路由独享的守卫" class="headerlink" title="路由独享的守卫"></a>路由独享的守卫</h3><blockquote>
-<p>在路由配置的守卫 <code>beforeEnter</code> , (对于进入该路由进行控制)</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</span><br><span class="line">    routes: [</span><br><span class="line">        &#123;</span><br><span class="line">            path: <span class="string">&#x27;/foo&#x27;</span>,</span><br><span class="line">            component: Foo,</span><br><span class="line">            beforeEnter: <span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">                <span class="comment">// ...</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h3 id="组件内部守卫"><a href="#组件内部守卫" class="headerlink" title="组件内部守卫"></a>组件内部守卫</h3><blockquote>
-<p>对出入该组件路由进行控制</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">beforeRouteEnter (to, <span class="keyword">from</span>, next) &#123;</span><br><span class="line">  <span class="comment">// 在渲染该组件的对应路由被 confirm 前调用</span></span><br><span class="line">  <span class="comment">// 不！能！获取组件实例 `this`</span></span><br><span class="line">  <span class="comment">// 因为当守卫执行前，组件实例还没被创建</span></span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">beforeRouteUpdate (to, <span class="keyword">from</span>, next) &#123;</span><br><span class="line">  <span class="comment">// 在当前路由改变，但是该组件被复用时调用</span></span><br><span class="line">  <span class="comment">// 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，</span></span><br><span class="line">  <span class="comment">// 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。</span></span><br><span class="line">  <span class="comment">// 可以访问组件实例 `this`</span></span><br><span class="line">&#125;,</span><br><span class="line">beforeRouteLeave (to, <span class="keyword">from</span>, next) &#123;</span><br><span class="line">  <span class="comment">// 导航离开该组件的对应路由时调用</span></span><br><span class="line">  <span class="comment">// 可以访问组件实例 `this`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="完整生命周期"><a href="#完整生命周期" class="headerlink" title="完整生命周期"></a>完整生命周期</h3><ol>
-<li>导航被触发。</li>
-<li>在<code>失活</code>的组件里调用 <code>beforeRouteLeave</code> 守卫。</li>
-<li>调用<code>全局</code>的 <code>beforeEach</code> 守卫。</li>
-<li>在重用的组件里调用 <code>beforeRouteUpdate</code> 守卫。</li>
-<li>在路由配置里调用 <code>beforeEnter</code>。</li>
-<li>解析异步路由组件。</li>
-<li>在被<code>激活</code>的组件里调用 <code>beforeRouteEnter。</code></li>
-<li>调用<code>全局</code>的 <code>beforeResolve</code> 守卫。</li>
-<li>导航被确认。</li>
-<li>调用全局的 <code>afterEach</code> 钩子。</li>
-<li>触发 <code>DOM</code> 更新。</li>
-<li>调用 <code>beforeRouteEnter</code> 守卫中传给 <code>next</code> 的回调函数，创建好的组件实例会作为回调函数的参数传入。</li>
-</ol>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-纽约时间比加州时间早三个小时"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/02/19/%E7%BA%BD%E7%BA%A6%E6%97%B6%E9%97%B4%E6%AF%94%E5%8A%A0%E5%B7%9E%E6%97%B6%E9%97%B4%E6%97%A9%E4%B8%89%E4%B8%AA%E5%B0%8F%E6%97%B6/"
-    >纽约时间比加州时间早三个小时</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/02/19/%E7%BA%BD%E7%BA%A6%E6%97%B6%E9%97%B4%E6%AF%94%E5%8A%A0%E5%B7%9E%E6%97%B6%E9%97%B4%E6%97%A9%E4%B8%89%E4%B8%AA%E5%B0%8F%E6%97%B6/" class="article-date">
-  <time datetime="2021-02-19T07:16:00.000Z" itemprop="datePublished">2021-02-19</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%96%87%E7%AB%A0/">文章</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <p>纽约时间比加州时间早三个小时，<br>New York is 3 hours ahead of California,</p>
-<p>但加州时间并没有变慢。<br>but it does not make California slow.</p>
-<p>有人22岁就毕业了，<br>Someone graduated at the age of 22,</p>
-<p>但等了五年才找到稳定的工作！<br>but waited 5 years before securing a good job!</p>
-<p>有人25岁就当上CEO，<br>Someone became a CEO at 25,</p>
-<p>却在50岁去世。<br>and died at 50.</p>
-<p>也有人迟到50岁才当上CEO，<br>While another became a CEO at 50,</p>
-<p>然后活到90岁。<br>and lived to 90 years.</p>
-<p>有人单身，<br>Someone is still single,</p>
-<p>同时也有人已婚。<br>while someone else got married.</p>
-<p>欧巴马55岁就退休，<br>Obama retires at 55,</p>
-<p>川普70岁才开始当总统。<br>but Trump starts at 70.</p>
-<p>世上每个人本来就有自己的发展时区。<br>Absolutely everyone in this world works based on their Time Zone.</p>
-<p>身边有些人看似走在你前面，<br>People around you might seem to go ahead of you,</p>
-<p>也有人看似走在你后面。<br>some might seem to be behind you.</p>
-<p>但其实每个人在自己的时区有自己的步程。<br>But everyone is running their own RACE, in their own TIME.</p>
-<p>不用嫉妒或嘲笑他们。<br>Don’t envy them or mock them.</p>
-<p>他们都在自己的时区里，你也是！<br>They are in their TIME ZONE, and you are in yours!</p>
-<p>生命就是等待正确的行动时机。<br>Life is about waiting for the right moment to act.</p>
-<p>所以，放轻松。<br>So, RELAX.</p>
-<p>你没有落后。<br>You’re not LATE.</p>
-<p>你没有领先。<br>You’re not EARLY.</p>
-<p>在你自己的时区里，一切安排都准时。<br>You are very much ON TIME, and in your TIME ZONE.</p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-日报周报模板"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2021/01/29/%E6%97%A5%E6%8A%A5%E5%91%A8%E6%8A%A5%E6%A8%A1%E6%9D%BF/"
-    >周报日报模板</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2021/01/29/%E6%97%A5%E6%8A%A5%E5%91%A8%E6%8A%A5%E6%A8%A1%E6%9D%BF/" class="article-date">
-  <time datetime="2021-01-29T02:21:42.000Z" itemprop="datePublished">2021-01-29</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <ol>
-<li>持续优化<code>xxx</code></li>
-<li>重构了<code>xxx</code></li>
-<li>梳理<code>xxx</code>，总结<code>xxx</code></li>
-<li>排查<code>xxx</code>的问题</li>
-<li>改进了<code>xxx</code>逻辑，性能得到提升</li>
-<li>通过<code>xxx</code>降低了<code>xxx</code>至<code>xxx</code></li>
-<li>为了<code>xxx</code>重新设计了<code>xxx</code></li>
-<li>为了<code>xxx</code>通过<code>xxx</code>完成了<code>xxx</code></li>
-<li>通过<code>xxx</code>持续优化了<code>xxx</code>为<code>xxx</code></li>
-<li>为了<code>xxx</code>将<code>xxx</code>应用到了<code>xxx</code></li>
-<li>通过<code>xxx</code>提高了<code>xxx</code>至<code>xxx</code></li>
-<li>为了<code>xxx</code>通过<code>xxx</code>将<code>xxx</code>集成</li>
-<li>为了<code>xxx</code>通过<code>xxx</code>成立了<code>xxx</code></li>
-</ol>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
   </article>
   
 
@@ -1158,7 +1584,7 @@
     <ul>
       <li>
         Copyrights &copy;
-        2019-2022
+        2019-2023
         <i class="ri-heart-fill heart_icon"></i> John Doe
       </li>
     </ul>
