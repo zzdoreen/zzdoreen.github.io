@@ -142,6 +142,79 @@
     
     
     <article
+  id="post-第五章__策略模式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/28/%E7%AC%AC%E4%BA%94%E7%AB%A0__%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/"
+    >【第五章】策略模式</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/28/%E7%AC%AC%E4%BA%94%E7%AB%A0__%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time datetime="2019-12-28T02:21:42.000Z" itemprop="datePublished">2019-12-28</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><p>比如要实现某一个功能有多种方案可以选择。比如压缩文件的程序，既可以选择zip算法，也可以选择gzip算法</p>
+<blockquote>
+<p>定义： 定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换</p>
+</blockquote>
+<ul>
+<li><p>策略模式的优缺点<br>  <b style='color:Red'>优点：</b></p>
+<pre><code>  1. 策略模式利用组合、委托和多态等技术和思想，可以有效地避免多重条件选择语句。
+  2. 策略模式提供了对开放—封闭原则的完美支持，将算法封装在独立的 strategy 中，使得它们易于切换，易于理解，易于扩展。
+  3. 策略模式中的算法也可以复用在系统的其他地方，从而避免许多重复的复制粘贴工作。
+  4. 在策略模式中利用组合和委托来让 Context 拥有执行算法的能力，这也是继承的一种更轻便的替代方案。</code></pre>
+<p>  <b style='color:Red'>缺点：</b></p>
+<pre><code>  1. 使用策略模式会在程序中增加许多策略类或者策略对象，但实际上这比把它们负责的逻辑堆砌在 Context 中要好
+  2. 要使用策略模式，必须了解所有的 strategy，必须了解各个 strategy 之间的不同点，这样才能选择一个合适的 strategy。</code></pre>
+<ul>
+<li><p>使用策略模式计算奖金</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">绩效为 S 的人年终奖有 4 倍工资，绩效为 A 的人年终奖有 3 倍工资，而绩效为 B 的人年终奖是 2 倍工资。假设财务部要求我们提供一段代码，来方便他们计算员工的年终奖</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//最初代码实现</span></span><br><span class="line"><span class="keyword">var</span> calculateBonus = <span class="function"><span class="keyword">function</span>(<span class="params">performanceLevel,salary</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(performanceLevel === <span class="string">&#x27;S&#x27;</span>)<span class="keyword">return</span> salary*<span class="number">4</span></span><br><span class="line">    <span class="keyword">if</span>(performanceLevel === <span class="string">&#x27;A&#x27;</span>)<span class="keyword">return</span> salary*<span class="number">3</span></span><br><span class="line">    <span class="keyword">if</span>(performanceLevel === <span class="string">&#x27;B&#x27;</span>)<span class="keyword">return</span> salary*<span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line">caculateBonus(<span class="string">&#x27;B&#x27;</span>,<span class="number">2000</span>) <span class="comment">//输出 4000</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">缺点：</span></span><br><span class="line"><span class="comment">1. calculateBonus 函数比较庞大，包含了很多 if-else 语句，这些语句需要覆盖所有的逻辑分支。</span></span><br><span class="line"><span class="comment">2. calculateBonus 函数缺乏弹性，如果增加了一种新的绩效等级 C，或者想把绩效 S 的奖金系数改为 5，那我们必须深入 calculateBonus 函数的内部实现，这是违反开放-封闭原则的。</span></span><br><span class="line"><span class="comment">3. 算法的复用性差，如果在程序的其他地方需要重用这些计算奖金的算法呢？我们的选择只有复制和粘贴。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用策略模式重构代码</span></span><br><span class="line"><span class="comment">//目的： 算法的使用与算法的实现分离</span></span><br><span class="line"><span class="keyword">var</span> perfromanceS = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">perfromanceS.prototype.calculate = <span class="function"><span class="keyword">function</span>(<span class="params"> salary </span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> salary*<span class="number">4</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> perfromanceA = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">perfromanceA.prototype.calculate = <span class="function"><span class="keyword">function</span>(<span class="params"> salary </span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> salary*<span class="number">3</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> perfromanceB = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">perfromanceB.prototype.calculate = <span class="function"><span class="keyword">function</span>(<span class="params"> salary </span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> salary*<span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//奖金类</span></span><br><span class="line"><span class="keyword">var</span> Bonus = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.salary = <span class="literal">null</span>      <span class="comment">//原始工资</span></span><br><span class="line">    <span class="built_in">this</span>.strategy = <span class="literal">null</span>       <span class="comment">//绩效等级对应的策略对象</span></span><br><span class="line">&#125;</span><br><span class="line">Bonus.prototype.setSalary = <span class="function"><span class="keyword">function</span>(<span class="params">salary</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.salary = salary    <span class="comment">//设置员工的原始工资</span></span><br><span class="line">&#125;</span><br><span class="line">Bonus.prototype.setStrategy = <span class="function"><span class="keyword">function</span>(<span class="params">strategy</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.strategy = strategy</span><br><span class="line">&#125;</span><br><span class="line">Bonus.prototype.getBonus = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.strategy.calculate(<span class="built_in">this</span>.salary)     <span class="comment">//把计算奖金的操作委托给对应的策略对象</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> bonus = <span class="keyword">new</span> Bonus(); </span><br><span class="line">bonus.setSalary( <span class="number">10000</span> ); </span><br><span class="line">bonus.setStrategy( <span class="keyword">new</span> performanceS() ); <span class="comment">// 设置策略对象</span></span><br><span class="line"><span class="built_in">console</span>.log( bonus.getBonus() ); <span class="comment">// 输出：40000 </span></span><br><span class="line">bonus.setStrategy( <span class="keyword">new</span> performanceA() ); <span class="comment">// 设置策略对象</span></span><br><span class="line"><span class="built_in">console</span>.log( bonus.getBonus() ); <span class="comment">// 输出：30000</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>JavaScript版本的策略模式</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">我们让 strategy 对象从各个策略类中创建而来，这是模拟一些传统面向对象语言的实现。实际上在 JavaScript 语言中，函数也是对象，所以更简单和直接的做法是把 strategy直接定义为函数：</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//策略对象</span></span><br><span class="line"><span class="keyword">var</span> strategies = &#123;</span><br><span class="line">    <span class="string">&quot;S&quot;</span>: <span class="function"><span class="keyword">function</span>(<span class="params"> salary </span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> salary*<span class="number">4</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;A&quot;</span>: <span class="function"><span class="keyword">function</span>(<span class="params"> salary </span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> salary*<span class="number">3</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;B&quot;</span>: <span class="function"><span class="keyword">function</span>(<span class="params"> salary </span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> salary*<span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//操作类</span></span><br><span class="line"><span class="keyword">var</span> calculateBonus = <span class="function"><span class="keyword">function</span>(<span class="params">level,salary</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> strategies[level](salary)</span><br><span class="line">&#125;</span><br><span class="line">calculateBonus(<span class="string">&#x27;S&#x27;</span>,<span class="number">200</span>)  <span class="comment">//800</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-第四章__单例模式"
   class="article article-type-post"
   itemscope

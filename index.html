@@ -142,6 +142,144 @@
     
     
     <article
+  id="post-fiber &amp; diff &amp; HOC"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/21/fiber%20&%20diff%20&%20HOC/"
+    >【react】Fiber &amp; Diff &amp; HOC</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/21/fiber%20&%20diff%20&%20HOC/" class="article-date">
+  <time datetime="2023-10-20T23:21:42.000Z" itemprop="datePublished">2023-10-21</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/react/">react</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/gaASCIVTuUfsM-cVP2teGw">原文</a> | <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1y94y1v7TL?p=10&vd_source=a56b31fb136d9787929c44f3b4e80c4f">视频</a></p>
+<h1 id="fiber架构"><a href="#fiber架构" class="headerlink" title="fiber架构"></a>fiber架构</h1><blockquote>
+<p>jsx -&gt; babel （转换成虚拟dom） -&gt; render (渲染到页面上，将vDom挂载到真实的dom)</p>
+</blockquote>
+<h2 id="为什么需要fiber"><a href="#为什么需要fiber" class="headerlink" title="为什么需要fiber"></a>为什么需要fiber</h2><p>vdom -&gt; dom （renderer 渲染器</p>
+<p>reconciler diff vdom进行对比更新 （vdom-&gt;dom 是同步的过程</p>
+<p>在 16 之前，<code>React</code> 是直接递归渲染 <code>vdom</code> 的，<code>setState</code> 会触发重新渲染，对比渲染出的新旧 <code>vdom</code>，对差异部分进行 <code>dom</code> 操作。</p>
+<p>在 16 之后，为了优化性能，会先把 <code>vdom</code> 转换成 <code>fiber</code>，也就是从<code>树转换成链表</code>，然后再渲染。整体渲染流程分成了两个阶段：</p>
+<ul>
+<li><p><code>render</code> 阶段：从 <code>vdom</code> 转换成 <code>fiber</code>，并且对需要 <code>dom</code> 操作的节点打上 <code>effectTag</code> 的标记</p>
+</li>
+<li><p><code>commit</code> 阶段：对有 <code>effectTag</code> 标记的 <code>fiber</code> 节点进行 <code>dom</code> 操作，并执行所有的 <code>effect</code> 副作用函数。</p>
+</li>
+</ul>
+<p>从 <code>vdom</code> 转成 <code>fiber</code> 的过程叫做 <code>reconcile</code>（调和），这个过程是<code>可以打断</code>的，由 <code>scheduler</code> 调度执行</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/YprkEU0TtGia49G3hLkgib7WZRTknfVcHxFVjTaCtiarwdPICicZXgttRTkbEYyuJup25qz6x6A29Phd2m0ltzWzLQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p><strong>fiber就是解决同步更新耗时长的问题的</strong></p>
+<h3 id="同步更新存在的问题-gt-怎么该进"><a href="#同步更新存在的问题-gt-怎么该进" class="headerlink" title="同步更新存在的问题 -&gt; 怎么该进"></a>同步更新存在的问题 -&gt; 怎么该进</h3><ol>
+<li>同步不可中断 -&gt; 异步可中断</li>
+<li>scheduler 中存在任务优先级</li>
+</ol>
+<p>fiber -&gt; <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestIdleCallback">window.requestIdleCallback()</a>  解决该方法兼容性问题</p>
+<blockquote>
+<p><code>window.requestIdleCallback(callack,option)</code> 方法插入一个函数，这个函数将在浏览器空闲时期被调用。这使开发者能够在主事件循环上执行后台和低优先级工作，而不会影响延迟关键事件，如动画和输入响应。函数一般会按先进先调用的顺序执行，然而，如果回调函数指定了执行超时时间timeout，则有可能为了在超时前执行函数而打乱执行顺序。</p>
+</blockquote>
+<h3 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h3><ol>
+<li>新的任务调度，有高优先级任务的时候将浏览器让出来，等浏览器空了在执行</li>
+<li>新的数据结构，可以随时中断，下次进来可以接着执行</li>
+</ol>
+<p>节点 -&gt; 子节点 -&gt; 子节点 -&gt; 兄弟节点 -&gt; return父节点</p>
+<h1 id="diff算法"><a href="#diff算法" class="headerlink" title="diff算法"></a>diff算法</h1><p><code>diff</code> 算法作用在 <code>reconcile</code> 阶段：</p>
+<ul>
+<li>第一次渲染不需要 <code>diff</code>，直接 <code>vdom</code> 转 <code>fiber</code>。</li>
+<li>再次渲染的时候，会产生新的 <code>vdom</code>，这时候要和之前的 <code>fiber</code> 做下对比，决定怎么产生新的 <code>fiber</code>，<code>对可复用</code>的节点打上<code>修改的标记</code>，剩余的<code>旧节点</code>打上<code>删除标记</code>，<code>新节点</code>打上<code>新增标记</code>。</li>
+</ul>
+<h2 id="那为什么浏览器里要做-diff"><a href="#那为什么浏览器里要做-diff" class="headerlink" title="那为什么浏览器里要做 diff"></a>那为什么浏览器里要做 diff</h2><blockquote>
+<p>因为 dom 创建的性能成本很高，如果不做 dom 的复用，那前端框架的性能就太差了。</p>
+</blockquote>
+<p>diff 算法的目的就是对比两次渲染结果，找到可复用的部分，然后剩下的该删除删除，该新增新增。</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p><img src="https://mmbiz.qpic.cn/mmbiz_png/YprkEU0TtGia49G3hLkgib7WZRTknfVcHxQVZNePSrAlibFAPiaqyZJ1Vc9FBF8K6bYHFXvhbFjZrgZZTMl2NjxzbA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p>经过 reconcile 之后，会变成这样的 fiber 结构：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/YprkEU0TtGia49G3hLkgib7WZRTknfVcHxVOqy9MaicwQVg5EHOuia4DWPfAwfDHR5omhiaEPvLMgqiclNfDG7JzAkMA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p>再次渲染出 vdom 的时候，也要进行 vdom 转 fiber 的 reconcile 阶段，但是要尽量能复用之前的节点。</p>
+<p>那怎么复用呢？</p>
+<p>一一对比下不就行了？</p>
+<p>先把之前的 fiber 节点放到一个 map 里，key 就是节点的 key：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/YprkEU0TtGia49G3hLkgib7WZRTknfVcHxlXT4A3AJ0tLwzyj0A9Z59icYq7t3ghOaQRpAkZf6bVDqiaDWbOdeicd4Q/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p>然后每个新的 vdom 都去这个 map 里查找下有没有可以复用的，找到了的话就移动过来，打上更新的 effectTag：<br>**( Q: 为什么标记的是更新 A: 不重新创建 dom，但是属性什么的还是要更新 )**<br><img src="https://mmbiz.qpic.cn/mmbiz_png/YprkEU0TtGia49G3hLkgib7WZRTknfVcHxgkuiadXV8hibicEF8WRL6ucwjSz1Pzsk543umgneibB3AKrq3X9ZdQcv7Q/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p>这样遍历完 vdom 节点之后，map 里剩下一些，这些是不可复用的，那就删掉，打上删除的 effectTag；如果 vdom 中还有一些没找到复用节点的，就直接创建，打上新增的 effectTag</p>
+<p><strong>核心就是找到可复用的节点，删掉剩下的旧节点，新节点新增。</strong></p>
+<h1 id="技术总结"><a href="#技术总结" class="headerlink" title="技术总结"></a>技术总结</h1><p>浏览器下使用 <code>react-dom</code> 的渲染器，会先把 <code>vdom</code> 转成 <code>fiber</code>，找到需要更新 <code>dom</code> 的部分，打上增删改的 <code>effectTag</code> 标记，这个过程叫做 <code>reconcile</code>，可以打断，由 <code>scheducler</code> 调度执行。<code>reconcile</code> 结束之后一次性根据 <code>effectTag</code> 更新 <code>dom</code>，叫做 <code>commit</code>。</p>
+<p>这就是 react 的基于 fiber 的渲染流程，分成 <code>render（reconcile + schedule）</code>、<code>commit</code> 两个阶段。</p>
+<p>当渲染完一次，产生了 <code>fiber</code> 之后，再次渲染的 <code>vdom</code> 要和之前的 <code>fiber</code> 对比下，再决定如何产生新的 <code>fiber</code>，目标是尽可能复用已有的 <code>fiber</code> 节点，这叫做 <code>diff 算法</code>。</p>
+<h2 id="所以-React-的-diff-算法是分成两次遍历的："><a href="#所以-React-的-diff-算法是分成两次遍历的：" class="headerlink" title="所以 React 的 diff 算法是分成两次遍历的："></a>所以 React 的 diff 算法是分成两次遍历的：</h2><ul>
+<li><p>第一轮遍历，一一对比 <code>vdom</code> 和老的 <code>fiber</code>，如果可以复用就处理下一个节点，否则就结束遍历。</p>
+<ul>
+<li><p>如果所有的新的 <code>vdom</code> 处理完了，那就把剩下的老 <code>fiber</code> 节点删掉就行。</p>
+</li>
+<li><p>如果还有 <code>vdom</code> 没处理，那就进行第二次遍历：</p>
+</li>
+</ul>
+</li>
+<li><p>第二轮遍历，把剩下的老 <code>fiber</code> 放到 <code>map</code> 里，遍历剩下的 <code>vdom</code>，从 <code>map</code> 里查找，如果找到了，就移动过来。 </p>
+<ul>
+<li><p>第二轮遍历完了之后，把剩余的老 <code>fiber</code> 删掉，剩余的 <code>vdom</code> 新增。</p>
+</li>
+<li><p>这样就完成了新的 <code>fiber</code> 结构的创建，也就是 <code>reconcile</code> 的过程。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="HOC"><a href="#HOC" class="headerlink" title="HOC"></a>HOC</h1><blockquote>
+<p>以组件做为入参并且返回一个新的组件</p>
+</blockquote>
+<h2 id="使用原因："><a href="#使用原因：" class="headerlink" title="使用原因："></a>使用原因：</h2><ol>
+<li>抽离重复代码，实现组件复用</li>
+<li>条件渲染渲染拦截</li>
+<li>拦截组件的生命周期</li>
+</ol>
+<h2 id="使用场景："><a href="#使用场景：" class="headerlink" title="使用场景："></a>使用场景：</h2><ol>
+<li>属性代理 （模拟修改/操作传入的值）<br>props<br>state  </li>
+</ol>
+<ol start="2">
+<li><p>条件渲染，外部逻辑的封装</p>
+</li>
+<li><p>反向继承(组件复制类组件)</p>
+</li>
+<li><p>生命周期的拦截(通过原型链获取生命周期 并绑定this指向)</p>
+</li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-improve"
   class="article article-type-post"
   itemscope
@@ -1007,208 +1145,6 @@
 
 23年的目标是当周末特种兵、把四川以及周边地区都走一遍！
 </pre> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-JEPaaS"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2022/03/08/JEPaaS/"
-    >JEPaaS</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2022/03/08/JEPaaS/" class="article-date">
-  <time datetime="2022-03-08T04:21:42.000Z" itemprop="datePublished">2022-03-08</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/JEPaaS/">JEPaaS</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="相关文档"><a href="#相关文档" class="headerlink" title="相关文档"></a>相关文档</h2><p>· <a target="_blank" rel="noopener" href="https://doc.jepaas.com/docs/je_doc_jepaas">JEPaaS 帮助文档</a><br>· <a target="_blank" rel="noopener" href="https://doc.jepaas.com/docs/je-doc-api">JEPaaS API文档</a><br>· <a target="_blank" rel="noopener" href="http://extjs-doc-cn.github.io/ext4api/">Ext 中文文档</a>  </p>
-<h2 id="前端目录结构"><a href="#前端目录结构" class="headerlink" title="前端目录结构"></a>前端目录结构</h2><h3 id="je-paas-frontend-PC端平台源码目录结构"><a href="#je-paas-frontend-PC端平台源码目录结构" class="headerlink" title="je-paas-frontend (PC端平台源码目录结构)"></a>je-paas-frontend (PC端平台源码目录结构)</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br></pre></td><td class="code"><pre><span class="line">├── config                    // 调试打包运行脚本</span><br><span class="line">│   ├── config.js             // 配置文件入口</span><br><span class="line">│   ├── gulp                  // 打包程序配置文件</span><br><span class="line">│   │   ├── gulp-build.js     // 打包文件--构建文件</span><br><span class="line">│   │   ├── gulp-config.json  // 打包程序配置文件，每次发布新包，请同步更新version属性</span><br><span class="line">│   │   ├── gulp-copy.js      // 打包文件--复制文件</span><br><span class="line">│   │   └── gulp-rev.js       // 打包文件--加MD5版本</span><br><span class="line">│   ├── pro</span><br><span class="line">│   │   └── jepaas.json       // 环境配置</span><br><span class="line">│   └── resourse</span><br><span class="line">│       └── holiday           // 登录页面背景图，主题色配置</span><br><span class="line">├── dev.js                    // 代理服务程序--开发环境</span><br><span class="line">├── doc</span><br><span class="line">│   └── Framework.MD          // 帮组文档</span><br><span class="line">├── gulpfile.js               // 打包程序</span><br><span class="line">├── package.json              // node配置文件，通过 npm install 安装项目所需要的依赖</span><br><span class="line">├── product.cdn.js            // cdn代理服务脚本</span><br><span class="line">├── product.js                // 代理服务</span><br><span class="line">├── src                       // 业务代码 </span><br><span class="line">│   ├── config</span><br><span class="line">│   │   ├── i18n              // 国际化配置，中英文</span><br><span class="line">│   │   ├── incloud           // 初始化项目时候引入的资源（css &amp;&amp; js）</span><br><span class="line">│   │   ├── static            // 平台用到的图片进行封装，JE.static</span><br><span class="line">│   │   └── urls              // 平台所有接口路径封装 体验：JE.getUrlMaps(&#x27;method.doUpdateList&#x27;)</span><br><span class="line">│   ├── extjs</span><br><span class="line">│   │   ├── app               // 平台页面的主入口</span><br><span class="line">│   │   ├── app.js            // 系统主应用程序  一切应用的入口程序</span><br><span class="line">│   │   ├── app4single        // 单功能挂接（http://doc.jepaas.com/docs/je-doc-repository-know/je-doc-repository-know-1cgeaq631gblt）</span><br><span class="line">│   │   ├── core              // 核心包（核心组件 &amp;&amp; 核心面板 等）</span><br><span class="line">│   │   │   ├── action        // 操作方法</span><br><span class="line">│   │   │   ├── controller    // 控制器</span><br><span class="line">│   │   │   ├── store         // 数据存储</span><br><span class="line">│   │   │   ├── ux            // 核心组件</span><br><span class="line">│   │   │   ├── view          // 核心面板</span><br><span class="line">│   │   ├── sys               // 业务代码</span><br><span class="line">│   │   │   ├── busflow       // 文档管理(已经废弃)</span><br><span class="line">│   │   │   ├── calendar      // 日历</span><br><span class="line">│   │   │   ├── chart         // 图表</span><br><span class="line">│   │   │   ├── companyinfo   // 公司信息编辑</span><br><span class="line">│   │   │   ├── configuration // 系统设置面板(已经废弃)</span><br><span class="line">│   │   │   ├── dataimpl      // 未知</span><br><span class="line">│   │   │   ├── dd            // 数据字典</span><br><span class="line">│   │   │   ├── documentation // (已经废弃)</span><br><span class="line">│   │   │   ├── email         // 邮件(已经废弃)</span><br><span class="line">│   │   │   ├── exam          // 考试(已经废弃)</span><br><span class="line">│   │   │   ├── file          // 文档管理(已经废弃)</span><br><span class="line">│   │   │   ├── flowchart     // 流程图</span><br><span class="line">│   │   │   ├── formdesigner  // 表单设计器</span><br><span class="line">│   │   │   ├── funccfg       // 功能配置</span><br><span class="line">│   │   │   ├── icon          // 图标</span><br><span class="line">│   │   │   ├── im            // 即时通讯(已经废弃)</span><br><span class="line">│   │   │   ├── menu          // 菜单管理</span><br><span class="line">│   │   │   ├── phone         // JEAPP配置</span><br><span class="line">│   │   │   ├── plantform     // (已经废弃)</span><br><span class="line">│   │   │   ├── portal        // 门户引擎</span><br><span class="line">│   │   │   ├── processinfo   // (已经废弃)</span><br><span class="line">│   │   │   ├── qrcode        // 二维码</span><br><span class="line">│   │   │   ├── rbac          // 权限</span><br><span class="line">│   │   │   ├── roster        // 花名册</span><br><span class="line">│   │   │   ├── sass          // sass</span><br><span class="line">│   │   │   ├── shop          // 商城 已废弃</span><br><span class="line">│   │   │   ├── singleton     // js&amp;&amp;css代码编辑器</span><br><span class="line">│   │   │   ├── survey        // 问卷调查(已经废弃)</span><br><span class="line">│   │   │   ├── svg           // 工业图</span><br><span class="line">│   │   │   ├── table         // 资源表</span><br><span class="line">│   │   │   ├── transaction   // 事务交办(已经废弃)</span><br><span class="line">│   │   │   ├── upgrade       // 系统设置表单(已经废弃)</span><br><span class="line">│   │   │   ├── workflow      // 工作流编辑器</span><br><span class="line">│   │   │   ├── workflowfunc  // 工作流</span><br><span class="line">│   │   ├── tool              // 加载系统类和和核心化组件</span><br><span class="line">│   │   ├── util              // 封装的类</span><br><span class="line">│   │   └── vue               // vue工具类</span><br><span class="line">│   ├── main                  // html模板页</span><br><span class="line">│   └── static                // 静态资源</span><br><span class="line">├── static                    // 静态资源目录</span><br><span class="line">├── CHANGELOG.md              // 帮助文档</span><br><span class="line">├── README.MD                 // 帮助文档</span><br><span class="line">├── README2.md                // 帮助文档</span><br><span class="line">├── commitlint.config.js      // 代码提交规则</span><br></pre></td></tr></table></figure>
-
-<h3 id="je-paas-frontend-plugin-PC插件源码目录结构"><a href="#je-paas-frontend-plugin-PC插件源码目录结构" class="headerlink" title="je-paas-frontend-plugin (PC插件源码目录结构)"></a>je-paas-frontend-plugin (PC插件源码目录结构)</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">├── config                    // 打包程序配置目录</span><br><span class="line">│   ├── config                </span><br><span class="line">│   │   ├── components.js     // 配置打包平台的业务组件</span><br><span class="line">│   │   └── jepaas.js         // 配置文件</span><br><span class="line">│   ├── config.js             // 基础配置文件</span><br><span class="line">│   ├── package               // 打包配置文件</span><br><span class="line">│   │   ├── gulp              // gulp打包</span><br><span class="line">│   │   ├── tpl               // webpack打包模板页</span><br><span class="line">│   │   └── webpack           // webpack打包vue</span><br><span class="line">│   ├── resourse              // 项目资源文件</span><br><span class="line">│   │   ├── holiday           // 修改登录页面的配置信息</span><br><span class="line">│   │   └── project           </span><br><span class="line">│   └── server</span><br><span class="line">│       └── dev.js            // express服务文件</span><br><span class="line">├── dist                      // 打包之后的资源</span><br><span class="line">├── docs                      // home和im插件说明文档  </span><br><span class="line">│   ├── assets</span><br><span class="line">│   │   └── images</span><br><span class="line">│   └── plugin</span><br><span class="line">│       ├── home</span><br><span class="line">│       └── im</span><br><span class="line">├── gulpfile.js               // 项目打包配置</span><br><span class="line">├── index.html                // html</span><br><span class="line">├── jsconfig.json             // 指定根目录和JavaScript服务提供的功能选项</span><br><span class="line">├── package.json              // 项目脚本和所需依赖</span><br><span class="line">└── src                       // 业务功能</span><br><span class="line">    ├── tpl                   // 模板</span><br><span class="line">    │   ├── formPreview       // 表单规划器模板</span><br><span class="line">    │   ├── login             // 登录模板</span><br><span class="line">    │   └── priceSheet        // 报价单模板</span><br><span class="line">    └── vue                   // vue插件</span><br><span class="line">        ├── components        // 组件</span><br><span class="line">        ├── install.js        // 安装插件所需的方法</span><br><span class="line">        ├── modules           // 业务插件</span><br><span class="line">        ├── plugins             </span><br><span class="line">        └── static</span><br><span class="line">├── commitlint.config.js       // 代码提交规则</span><br><span class="line">├── CHANGELOG.md               // 帮助文档</span><br><span class="line">├── README.MD                  // 帮助文档</span><br><span class="line">├── README1.md                 // 帮助文档</span><br></pre></td></tr></table></figure>
-
-<h2 id="二次开发"><a href="#二次开发" class="headerlink" title="二次开发"></a>二次开发</h2><h3 id="全局插件"><a href="#全局插件" class="headerlink" title="全局插件"></a><a target="_blank" rel="noopener" href="https://doc.jepaas.com/docs/je_doc_jepaas//1713">全局插件</a></h3><h4 id="创建-插件项目"><a href="#创建-插件项目" class="headerlink" title="创建(插件项目)"></a>创建(插件项目)</h4><ol>
-<li>创建<code>index.vue</code>文件 (src/vue/components/<code>name</code>/index.vue) ; 写入组件页面内容</li>
-</ol>
-<blockquote>
-<p>name好像不能使用驼峰命名</p>
-</blockquote>
-<ol start="2">
-<li><p>创建<code>index.js</code>文件 (src/vue/components/<code>name</code>/index.js) ; 安装组件</p>
-</li>
-<li><p>插件写入<code>components.js</code>配置文件中进行编译 (config/config/components.js)</p>
-</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    ...</span><br><span class="line">  entry: [...,<span class="string">&#x27;name&#x27;</span>], <span class="comment">// 打包的入口</span></span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>代码运行的时候 就会自动编译该插件 并在 (dist/static/vue/components/<code>name</code>)中输出编译完成的文件</li>
-</ol>
-<h4 id="使用-源码项目"><a href="#使用-源码项目" class="headerlink" title="使用(源码项目)"></a>使用(源码项目)</h4><ol>
-<li>在JE的vue工具类中添加自定义扩展方法  (src/extjs/vue/util.js)</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">Ext.define(<span class="string">&#x27;JE.vue.util&#x27;</span>, &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * vue弹框,统一调用</span></span><br><span class="line"><span class="comment">   * element: 元素属性，&#123;id: 组件id，name: 组件名称&#125;</span></span><br><span class="line"><span class="comment">   * 建议命名规则：</span></span><br><span class="line"><span class="comment">     组件name=&#123;子系统名&#125;-&#123;头部/左侧菜单名&#125;-&#123;功能名&#125;-&#123;操作名&#125;；</span></span><br><span class="line"><span class="comment">     组件id=id-&#123;组件name&#125;</span></span><br><span class="line"><span class="comment">   * options: 业务属性</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  showVueDialog: <span class="function"><span class="keyword">function</span>(<span class="params">element, options</span>) </span>&#123;</span><br><span class="line">    JE.loadScript(</span><br><span class="line">      [<span class="string">&#x27;/static/vue/components/&#x27;</span> + element.name + <span class="string">&#x27;/index.js&#x27;</span>, <span class="string">&#x27;/static/vue/components/&#x27;</span> + element.name + <span class="string">&#x27;/index.css&#x27;</span>],</span><br><span class="line">      <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="comment">//插件模板</span></span><br><span class="line">        <span class="keyword">var</span> tpl =</span><br><span class="line">          <span class="string">&#x27;&lt;&#x27;</span> +</span><br><span class="line">          element.name +</span><br><span class="line">          <span class="string">&#x27; @confirm=&quot;handleConfrim&quot; @callback=&quot;callback&quot; :params=&quot;params&quot;&gt;&lt;/&#x27;</span> +</span><br><span class="line">          element.name +</span><br><span class="line">          <span class="string">&#x27;&gt;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果存在 弹窗  先清除掉</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">document</span>.getElementById(element.id)) &#123;</span><br><span class="line">          JE.removeElement(<span class="built_in">document</span>.getElementById(element.id));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//装载容器</span></span><br><span class="line">        <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line">        div.setAttribute(<span class="string">&#x27;id&#x27;</span>, element.id);</span><br><span class="line">        div.innerHTML = tpl;</span><br><span class="line">        <span class="keyword">var</span> el = Ext.getBody().appendChild(div);</span><br><span class="line">        <span class="keyword">var</span> params = options;</span><br><span class="line">        <span class="comment">//显示</span></span><br><span class="line">        params.visible = <span class="literal">true</span>;</span><br><span class="line">        <span class="comment">//载入页面</span></span><br><span class="line">        <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">          el: el.dom,</span><br><span class="line">          data: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">              params: params</span><br><span class="line">            &#125;;</span><br><span class="line">          &#125;,</span><br><span class="line">          methods: &#123;</span><br><span class="line">            callback: <span class="function"><span class="keyword">function</span>(<span class="params">num</span>) </span>&#123;</span><br><span class="line">              <span class="keyword">return</span> options.callback &amp;&amp; options.callback(num);</span><br><span class="line">            &#125;,</span><br><span class="line">            handleConfrim() &#123;</span><br><span class="line">              <span class="comment">// 发送请求，刷新</span></span><br><span class="line">              <span class="built_in">console</span>.log(<span class="string">&#x27;确认&#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="literal">true</span></span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>在系统中进行配置,使用<code>JE.vue.xxx()</code></li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 在按钮点击事件中进行配置</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">btn,model,</span>)</span>&#123;</span><br><span class="line">    JE.vue.showVueDialog(</span><br><span class="line">        &#123; <span class="attr">name</span>:<span class="string">&#x27;transfer&#x27;</span>,<span class="attr">id</span>:<span class="string">&#x27;jevue-transfer&#x27;</span> &#125;,</span><br><span class="line">        &#123; <span class="attr">info</span>:model.data &#125;</span><br><span class="line">        )</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="Vue插件开发"><a href="#Vue插件开发" class="headerlink" title="Vue插件开发"></a><a target="_blank" rel="noopener" href="https://doc.jepaas.com/docs/je_doc_jepaas/je_doc_jepaas-1d7js8b082ko0">Vue插件开发</a></h3><h4 id="一、Vue插件编写"><a href="#一、Vue插件编写" class="headerlink" title="一、Vue插件编写"></a>一、Vue插件编写</h4><ol>
-<li><p>创建<code>index.vue</code>文件 (src/vue/modules/<code>name</code>/index.vue) ; 写入插件页面内容</p>
-</li>
-<li><p>创建<code>index.js</code>文件 (src/vue/modules/<code>name</code>/index.js) ; 安装组件</p>
-</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; install &#125; <span class="keyword">from</span> <span class="string">&#x27;../../install.js&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> index <span class="keyword">from</span> <span class="string">&#x27;./index.vue&#x27;</span>;</span><br><span class="line"><span class="comment">// 加载echarts依赖</span></span><br><span class="line">JE.loadChartScript(<span class="literal">true</span>);</span><br><span class="line"><span class="comment">// 安装组件</span></span><br><span class="line">install(<span class="string">&#x27;Name&#x27;</span>, index);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>插件写入<code>jepaas.js</code>配置文件中进行编译 (config/config/jepaas.js)</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    ...</span><br><span class="line">    entry:[</span><br><span class="line">        ...</span><br><span class="line">        <span class="string">&#x27;name&#x27;</span></span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>代码运行的时候 就会自动编译该插件 并在 (dist/pro/<code>name</code>/View.js)中输出编译完成的文件</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PRO.name.View 为插件的名字 使用的时候直接通过这个名字使用</span></span><br><span class="line">Ext.define(<span class="string">&quot;PRO.name.View&quot;</span>, &#123;</span><br><span class="line">  extend: <span class="string">&#x27;Ext.panel.Panel&#x27;</span>,</span><br><span class="line">  alias:<span class="string">&#x27;widget.pro.name&#x27;</span>,</span><br><span class="line">  border: <span class="number">0</span>,</span><br><span class="line">  layout: <span class="string">&#x27;fit&#x27;</span></span><br><span class="line">  ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="二、平台渲染Vue插件"><a href="#二、平台渲染Vue插件" class="headerlink" title="二、平台渲染Vue插件"></a>二、平台渲染Vue插件</h4><ol>
-<li>通过插件的形式挂载（只有插件内容）</li>
-</ol>
-<ul>
-<li>新建菜单功能的时候，类型选择<code>插件</code></li>
-<li>信息 为 <code>JE_PLUGIN_NAME,PRO.name.View</code></li>
-<li>点击授权给开发人员</li>
-</ul>
-<p><img src="https://i.bmp.ovh/imgs/2022/03/027ba136be193704.png"></p>
-<ol start="2">
-<li>通过表单方法渲染的时候挂载（有别的内容）</li>
-</ol>
-<ul>
-<li>不管之前的菜单的类型为什么</li>
-<li>在表单渲染后<code>afterrender</code> 在面板中插入该插件的内容</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">self</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// ------直接覆盖以前的内容，放在顶部</span></span><br><span class="line">    <span class="keyword">var</span> panel = Ext.create(<span class="string">&#x27;PRO.name.View&#x27;</span>,&#123;</span><br><span class="line">        height:<span class="number">300</span>,</span><br><span class="line">        dock:<span class="string">&#x27;top&#x27;</span>,</span><br><span class="line">        vueInfo:&#123;</span><br><span class="line">            params:&#123;</span><br><span class="line">                formValue:self.getValues()</span><br><span class="line">            &#125;,</span><br><span class="line">            callback:<span class="function"><span class="keyword">function</span>(<span class="params">formValue</span>)</span>&#123;</span><br><span class="line">                self.getFields(<span class="string">&#x27;SCHOOL_XX&#x27;</span>).setValue(formValue.aaa);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    self.addDocked(panel);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">// ------在以前的内容后添加</span></span><br><span class="line">    <span class="keyword">var</span> grid = self;</span><br><span class="line">    <span class="comment">//创建组件</span></span><br><span class="line">    <span class="keyword">var</span> demoGrid = Ext.create(<span class="string">&#x27;PRO.name.view&#x27;</span>,&#123;</span><br><span class="line">        region:<span class="string">&#x27;south&#x27;</span>,</span><br><span class="line">        height:<span class="number">300</span>,</span><br><span class="line">        mainGrid:grid</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">//加载到列表的父容器下方，父容器布局是border</span></span><br><span class="line">    grid.demoGrid = grid.ownerCt.add(demoGrid);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="Vue与平台通信"><a href="#Vue与平台通信" class="headerlink" title="Vue与平台通信"></a>Vue与平台通信</h4><ul>
-<li>数据传递</li>
-</ul>
-<ol>
-<li>平台通过 <code>vueInfo.params</code> 传递数据给vue</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vueInfo:&#123;</span><br><span class="line">    params:&#123;</span><br><span class="line">        value1:<span class="string">&#x27;&#x27;</span>,</span><br><span class="line">        value2:<span class="string">&#x27;&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>Vue通过props接收传递过来的数据</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> defualt&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    props:&#123;</span><br><span class="line">        params:&#123;</span><br><span class="line">            type:<span class="built_in">Object</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>Vue实时展示</li>
-</ul>
-<blockquote>
-<p>给获取的字段添加<code>change</code>事件</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">filed,value,eOpts</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> domeView = field.up(<span class="string">&#x27;jeeditview&#x27;</span>).down(<span class="string">&#x27;[xtype=pro.name]&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span>(domeView &amp;&amp; domeView.vm)&#123;</span><br><span class="line">        domeView.vm.params.formValue.SCHOOL_XXLS = value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>方法传递</li>
-</ul>
-<ol>
-<li>平台通过 <code>vueInfo.callback</code> 改变数据库的值</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vueInfo:&#123;</span><br><span class="line">    callback:<span class="function"><span class="keyword">function</span>(<span class="params">formValue</span>)</span>&#123;</span><br><span class="line">        self.getFields(<span class="string">&#x27;SCHOOL_XX&#x27;</span>).setValue(formValue.aaa);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>Vue通过<code>props</code>接入传入的方法</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">    callback: &#123;</span><br><span class="line">      type: <span class="built_in">Function</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>挂载事件执行方法</li>
-</ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;button @click=<span class="string">&quot;showContent&quot;</span>&gt;点击&lt;/button&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">methods:&#123;</span><br><span class="line">    showContent()&#123;</span><br><span class="line">        <span class="built_in">this</span>.callback(&#123;<span class="attr">aaa</span>:<span class="built_in">this</span>.formValue.SCHOOL_XXLS&#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="Ext-js二次开发"><a href="#Ext-js二次开发" class="headerlink" title="Ext.js二次开发"></a><a target="_blank" rel="noopener" href="https://doc.jepaas.com/docs/je_doc_jepaas/je_doc_jepaas-1d6c2afottsi1">Ext.js二次开发</a></h3><blockquote>
-<p>下了gitee里面的开源项目 按文档流程配置了一边，是可以运行的 效果如下：</p>
-</blockquote>
-<p><img src="https://i.bmp.ovh/imgs/2022/03/86b568c92ae0c4dd.png"></p>
-<ol>
-<li>创建自定义功能视图</li>
-</ol>
-<blockquote>
-<p>src/pc/ext/demo/view/GridView.js</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PRO.demo.view.GridView 这个面板的名称，唯一性指向（按项目路径命名 应该）</span></span><br><span class="line"><span class="comment">// 并且需要通过在工具类中挂载 才能使用 </span></span><br><span class="line"><span class="comment">// 用ext创建一个Panel一个容器 存放数据列表</span></span><br><span class="line"><span class="comment">// me.store.loadData 和 loadData 应该不是一个方法，me.store.loadData估计是Ext的内置方法，用来展示动态数据</span></span><br><span class="line"><span class="comment">// 模板中的html变量需要用 &#123;html:&#x27;xxx&#x27;&#125; 这种结构来展示</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义功能的视图</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Ext.define(<span class="string">&quot;PRO.demo.view.GridView&quot;</span>, &#123;</span><br><span class="line">    extend: <span class="string">&#x27;Ext.panel.Panel&#x27;</span>,</span><br><span class="line">    alias: <span class="string">&#x27;widget.demo.gridview&#x27;</span>,</span><br><span class="line">    layout: <span class="string">&#x27;fit&#x27;</span>,</span><br><span class="line">    initComponent: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> me = <span class="built_in">this</span>;</span><br><span class="line">        me.store = Ext.create(<span class="string">&#x27;Ext.data.Store&#x27;</span>, &#123; <span class="attr">fields</span>: [<span class="string">&#x27;html&#x27;</span>], <span class="attr">data</span>: [] &#125;)</span><br><span class="line">        <span class="comment">//数据视图</span></span><br><span class="line">        me.items = [</span><br><span class="line">            &#123;</span><br><span class="line">                xtype: <span class="string">&#x27;dataview&#x27;</span>,</span><br><span class="line">                itemId: <span class="string">&#x27;view&#x27;</span>,</span><br><span class="line">                store: me.store,</span><br><span class="line">                autoScroll: <span class="literal">true</span>,</span><br><span class="line">                itemSelector: <span class="string">&#x27;div.demo-list-item-wrap&#x27;</span>,</span><br><span class="line">                emptyText: <span class="string">&#x27;&lt;div style=&quot;padding:20px;text-align:center;color:#444;font-size:20px;&quot;&gt;没有数据&lt;/div&gt;&#x27;</span>,</span><br><span class="line">                tpl: [</span><br><span class="line">                    <span class="string">&#x27;&lt;tpl for=&quot;.&quot;&gt;&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;&lt;div class=&quot;demo-list-item-wrap&quot; style=&quot;padding:10px;&quot;&gt;&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;&#123;html&#125;&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;&lt;/div&gt;&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;&lt;/tpl&gt;&#x27;</span></span><br><span class="line">                ]</span><br><span class="line">            &#125;];</span><br><span class="line">        <span class="comment">//功能按钮</span></span><br><span class="line">        <span class="comment">/* me.tbar = &#123;</span></span><br><span class="line"><span class="comment">            cls: &#x27;je-button-bar&#x27;,</span></span><br><span class="line"><span class="comment">            items: [&#123;</span></span><br><span class="line"><span class="comment">                text: &#x27;获取选中的数据&#x27;,</span></span><br><span class="line"><span class="comment">                handler: function (btn) &#123;</span></span><br><span class="line"><span class="comment">                    //主功能列表</span></span><br><span class="line"><span class="comment">                    var grid = me.mainGrid;</span></span><br><span class="line"><span class="comment">                    //获取选中的数据</span></span><br><span class="line"><span class="comment">                    var sels = grid.getSelectionModel().getSelection();</span></span><br><span class="line"><span class="comment">                    if (JE.isEmpty(sels)) &#123;</span></span><br><span class="line"><span class="comment">                        JE.alert(&#x27;请选择数据！&#x27;);</span></span><br><span class="line"><span class="comment">                    &#125; else &#123;</span></span><br><span class="line"><span class="comment">                        JE.alert(&#x27;选中了&#x27; + sels.length + &#x27;条数据!&#x27;);</span></span><br><span class="line"><span class="comment">                        console.log(&#x27;选中的主表数据&#x27;, sels)</span></span><br><span class="line"><span class="comment">                    &#125;</span></span><br><span class="line"><span class="comment">                &#125;</span></span><br><span class="line"><span class="comment">            &#125;]</span></span><br><span class="line"><span class="comment">        &#125;; */</span></span><br><span class="line">        me.callParent(<span class="built_in">arguments</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 加载数据</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param <span class="type">&#123;jegridview&#125;</span> </span>grid 主功能列表</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    loadData: <span class="function"><span class="keyword">function</span> (<span class="params">grid</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> me = <span class="built_in">this</span>, data = [];</span><br><span class="line"></span><br><span class="line">        <span class="comment">//循环列表数据</span></span><br><span class="line">        grid.store.each(<span class="function"><span class="keyword">function</span> (<span class="params">rec</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">var</span> html = [];</span><br><span class="line">            <span class="comment">//读取列表的数据，进行展示</span></span><br><span class="line">            Ext.each(<span class="built_in">Object</span>.keys(rec.data), <span class="function"><span class="keyword">function</span> (<span class="params">key, i</span>) </span>&#123;</span><br><span class="line">                <span class="comment">// html.push(key + &#x27;：&#x27; + rec.get(key));</span></span><br><span class="line">                html.push(rec.get(key))</span><br><span class="line">                <span class="comment">// if (i &gt; 3) return;</span></span><br><span class="line">            &#125;)</span><br><span class="line">            data.push(&#123; <span class="attr">html</span>: html.join(<span class="string">&#x27;,&#x27;</span>) + <span class="string">&#x27;&lt;hr&gt;&lt;br/&gt;&#x27;</span> &#125;);</span><br><span class="line">        &#125;);</span><br><span class="line">        me.store.loadData(data);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;展示所有列表数据&#x27;</span>)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 单击主列表 获取数据 </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>view </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>record </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    handleClick(view, record) &#123;</span><br><span class="line">        <span class="keyword">var</span> itemData = <span class="built_in">Object</span>.values(record.raw).join(<span class="string">&#x27;,&#x27;</span>)</span><br><span class="line">        <span class="keyword">var</span> me = <span class="built_in">this</span></span><br><span class="line">        me.store.loadData([&#123; <span class="attr">html</span>: itemData &#125;]);</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;展示点击的那一条数据&#x27;</span>, itemData)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="2">
-<li>自定义插件挂接到MainController中</li>
-</ol>
-<blockquote>
-<p>src/pc/ext/demo/contoller/MainController.js</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// PRO.demo.controller.MainController 工具类的名称 很重要需要在表格功能内配置</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 自定义功能主控制器</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Ext.define(<span class="string">&quot;PRO.demo.controller.MainController&quot;</span>, &#123;</span><br><span class="line">  extend: <span class="string">&#x27;Ext.app.Controller&#x27;</span>,</span><br><span class="line">  init: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> self = <span class="built_in">this</span>;</span><br><span class="line">    <span class="keyword">var</span> ctr = &#123;&#125;</span><br><span class="line">    self.control(&#123;ctr&#125;);</span><br><span class="line">  &#125;,</span><br><span class="line">  views: [</span><br><span class="line">    <span class="comment">//加载引用的面板</span></span><br><span class="line">    <span class="string">&#x27;PRO.demo.view.GridView&#x27;</span>, <span class="comment">//列表</span></span><br><span class="line">  ]</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<ol start="3">
-<li>在页面进行配置，把MainController挂载到页面上</li>
-</ol>
-<p><img src="https://doc.jepaas.com/uploads/je-train-data/images/m_ed1e78778df3c6732b3c0eeac9923ae3_r.png"></p>
-<ol start="4">
-<li>配置相应的事件</li>
-</ol>
-<ul>
-<li>渲染后创建组件，并添加在父组件的下方</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ext相关语法 我也不清楚..</span></span><br><span class="line"><span class="comment">// PRO.demo.view.GridView 自定义面板创建完成，并配置相应内容</span></span><br><span class="line"><span class="comment">// 添加在页面上,并且self对象添加了一个demoGrid属性，里面是自定义面板的相关内容</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">self</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> grid = self;</span><br><span class="line">    <span class="comment">//创建组件</span></span><br><span class="line">    <span class="keyword">var</span> demoGrid = Ext.create(<span class="string">&#x27;PRO.demo.view.GridView&#x27;</span>,&#123;<span class="attr">region</span>:<span class="string">&#x27;south&#x27;</span>,<span class="attr">height</span>:<span class="number">400</span>,<span class="attr">mainGrid</span>:grid&#125;);</span><br><span class="line">    <span class="comment">//加载到列表的父容器下方，父容器布局是border</span></span><br><span class="line">    grid.demoGrid = grid.ownerCt.add(demoGrid);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://doc.jepaas.com/uploads/je-train-data/images/m_ab302b6ac877684e65a1449abf9e44c2_r.png"></p>
-<ul>
-<li>添加load监听事件、获取主数据</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取到自定义面板的对象grid.demoGrid后</span></span><br><span class="line"><span class="comment">// 执行他的自定义方法loadData获取全部的主数据</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">store,records</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> grid = store.gridObj</span><br><span class="line">    <span class="comment">//执行demo插件的方法</span></span><br><span class="line">    grid.demoGrid.loadData(grid);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://doc.jepaas.com/uploads/je-train-data/images/m_db2b6054f689960bcc3beea9a5827df3_r.png"></p>
-<ul>
-<li>然后照葫芦画瓢、添加单击事件、获取点击的数据</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 前两段是系统默认的，应该是获取到列表对象</span></span><br><span class="line"><span class="comment">// 通过grid.demoGrid获取到自定义面板的内容</span></span><br><span class="line"><span class="comment">// 并触发点击事件的方法</span></span><br><span class="line"><span class="comment">// me.store.loadData([&#123; html: xxx &#125;]); 重新传递html变量的数据</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span>(<span class="params">view,record</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> grid = view.panel;</span><br><span class="line"> grid = view.lockingPartner?grid.ownerCt:grid;</span><br><span class="line">    </span><br><span class="line">    grid.demoGrid.handleClick(view,record);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://i.bmp.ovh/imgs/2022/03/2751fe1e58e73140.png"></p>
- 
       <!-- reward -->
       
     </div>

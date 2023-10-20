@@ -9,7 +9,7 @@
     
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    提升 |  
+    【react】Fiber &amp; Diff &amp; HOC |  
   </title>
   <meta name="generator" content="hexo-theme-ayer">
   
@@ -47,7 +47,7 @@
     <main class="content on">
       <section class="outer">
   <article
-  id="post-improve"
+  id="post-fiber &amp; diff &amp; HOC"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -58,18 +58,18 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  提升
+  【react】Fiber &amp; Diff &amp; HOC
 </h1>
  
 
     </header>
      
     <div class="article-meta">
-      <a href="/2023/04/08/improve/" class="article-date">
-  <time datetime="2023-04-08T10:16:00.000Z" itemprop="datePublished">2023-04-08</time>
+      <a href="/2023/10/21/fiber%20&%20diff%20&%20HOC/" class="article-date">
+  <time datetime="2023-10-20T23:21:42.000Z" itemprop="datePublished">2023-10-21</time>
 </a> 
   <div class="article-category">
-    <a class="article-category-link" href="/categories/%E5%85%B6%E4%BB%96/">其他</a>
+    <a class="article-category-link" href="/categories/react/">react</a>
   </div>
   
 <div class="word_count">
@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">891</span>
+            <span class="post-count">1.4k</span>
         </span>
     </span>
 
@@ -86,7 +86,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">3 min</span>
+            <span class="post-count">4 min</span>
         </span>
     </span>
 </div>
@@ -101,59 +101,92 @@
   
     <div class="article-entry" itemprop="articleBody">
        
-  <blockquote>
-<p>答案源于chatgpt</p>
+  <p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/gaASCIVTuUfsM-cVP2teGw">原文</a> | <a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1y94y1v7TL?p=10&vd_source=a56b31fb136d9787929c44f3b4e80c4f">视频</a></p>
+<h1 id="fiber架构"><a href="#fiber架构" class="headerlink" title="fiber架构"></a>fiber架构</h1><blockquote>
+<p>jsx -&gt; babel （转换成虚拟dom） -&gt; render (渲染到页面上，将vDom挂载到真实的dom)</p>
 </blockquote>
-<h3 id="前端开发怎么提升"><a href="#前端开发怎么提升" class="headerlink" title="前端开发怎么提升"></a>前端开发怎么提升</h3><ol>
-<li><p>深入学习HTML、CSS和JavaScript的基础知识：掌握HTML、CSS和JavaScript的基础知识，包括标签、属性、样式、语法、变量、函数、对象等。</p>
+<h2 id="为什么需要fiber"><a href="#为什么需要fiber" class="headerlink" title="为什么需要fiber"></a>为什么需要fiber</h2><p>vdom -&gt; dom （renderer 渲染器</p>
+<p>reconciler diff vdom进行对比更新 （vdom-&gt;dom 是同步的过程</p>
+<p>在 16 之前，<code>React</code> 是直接递归渲染 <code>vdom</code> 的，<code>setState</code> 会触发重新渲染，对比渲染出的新旧 <code>vdom</code>，对差异部分进行 <code>dom</code> 操作。</p>
+<p>在 16 之后，为了优化性能，会先把 <code>vdom</code> 转换成 <code>fiber</code>，也就是从<code>树转换成链表</code>，然后再渲染。整体渲染流程分成了两个阶段：</p>
+<ul>
+<li><p><code>render</code> 阶段：从 <code>vdom</code> 转换成 <code>fiber</code>，并且对需要 <code>dom</code> 操作的节点打上 <code>effectTag</code> 的标记</p>
 </li>
-<li><p>学习JS框架和库：学习一些流行的JS框架和库，如jQuery、React、Vue等，掌握它们的使用方法和原理。</p>
+<li><p><code>commit</code> 阶段：对有 <code>effectTag</code> 标记的 <code>fiber</code> 节点进行 <code>dom</code> 操作，并执行所有的 <code>effect</code> 副作用函数。</p>
 </li>
-<li><p>学习CSS框架和预处理器：学习一些流行的CSS框架和预处理器，如Bootstrap、SASS、LESS等，能够快速开发符合标准的响应式网站。</p>
-</li>
-<li><p>掌握响应式设计：能够使用媒体查询和弹性布局等技术，实现响应式设计，让网站在不同设备上都能够良好展示。</p>
-</li>
-<li><p>学习前端工具：学习一些前端工具，如Gulp、Webpack、Babel等，能够提高开发效率和代码质量。</p>
-</li>
-<li><p>学习前端调试和优化：学习前端调试和优化技术，能够快速定位和解决问题，提高网站性能。</p>
-</li>
-<li><p>参与开源项目：参与一些开源项目，贡献代码，和其他开发者交流，提高自己的技术水平。</p>
-</li>
-<li><p>不断学习和实践：前端技术更新很快，需要不断学习和实践，掌握最新的技术和工具。</p>
-</li>
+</ul>
+<p>从 <code>vdom</code> 转成 <code>fiber</code> 的过程叫做 <code>reconcile</code>（调和），这个过程是<code>可以打断</code>的，由 <code>scheduler</code> 调度执行</p>
+<p><img src="https://mmbiz.qpic.cn/mmbiz_png/YprkEU0TtGia49G3hLkgib7WZRTknfVcHxFVjTaCtiarwdPICicZXgttRTkbEYyuJup25qz6x6A29Phd2m0ltzWzLQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p><strong>fiber就是解决同步更新耗时长的问题的</strong></p>
+<h3 id="同步更新存在的问题-gt-怎么该进"><a href="#同步更新存在的问题-gt-怎么该进" class="headerlink" title="同步更新存在的问题 -&gt; 怎么该进"></a>同步更新存在的问题 -&gt; 怎么该进</h3><ol>
+<li>同步不可中断 -&gt; 异步可中断</li>
+<li>scheduler 中存在任务优先级</li>
 </ol>
-<h3 id="前端调试和优化方法有以下几种："><a href="#前端调试和优化方法有以下几种：" class="headerlink" title="前端调试和优化方法有以下几种："></a>前端调试和优化方法有以下几种：</h3><ol>
-<li><p>浏览器控制台：使用浏览器控制台检查网页元素、调试JavaScript代码、查看网络请求和性能分析等。</p>
-</li>
-<li><p>调试工具：使用一些调试工具，如Fiddler、Charles、Firebug等，能够监控网络请求、查看HTTP请求和响应头、调试JavaScript代码等。</p>
-</li>
-<li><p>性能优化：优化网站的加载速度、缓存策略、压缩代码、合并文件、使用CDN等，提高网站的性能和用户体验。</p>
-</li>
-<li><p>代码优化：优化代码结构、减少HTTP请求、避免重复代码、使用异步加载等，提高代码的质量和可维护性。</p>
-</li>
-<li><p>错误监控：使用一些错误监控工具，如Sentry、Bugsnag、Rollbar等，能够自动监控网站的错误和异常，及时发现和解决问题。</p>
-</li>
-<li><p>移动端调试：使用一些移动端调试工具，如Weinre、Eruda、VConsole等，能够在移动设备上调试JavaScript代码和CSS样式。</p>
-</li>
-<li><p>A/B测试：进行A/B测试，对比不同版本的网站，分析用户行为和反馈，优化网站设计和功能。</p>
-</li>
-<li><p>用户反馈：收集用户反馈，了解用户需求和痛点，及时改进网站设计和功能。</p>
-</li>
+<p>fiber -&gt; <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Window/requestIdleCallback">window.requestIdleCallback()</a>  解决该方法兼容性问题</p>
+<blockquote>
+<p><code>window.requestIdleCallback(callack,option)</code> 方法插入一个函数，这个函数将在浏览器空闲时期被调用。这使开发者能够在主事件循环上执行后台和低优先级工作，而不会影响延迟关键事件，如动画和输入响应。函数一般会按先进先调用的顺序执行，然而，如果回调函数指定了执行超时时间timeout，则有可能为了在超时前执行函数而打乱执行顺序。</p>
+</blockquote>
+<h3 id="解决的问题"><a href="#解决的问题" class="headerlink" title="解决的问题"></a>解决的问题</h3><ol>
+<li>新的任务调度，有高优先级任务的时候将浏览器让出来，等浏览器空了在执行</li>
+<li>新的数据结构，可以随时中断，下次进来可以接着执行</li>
 </ol>
-<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><ol>
-<li><p>响应式设计：使用媒体查询、弹性布局等技术，实现响应式设计，让网站在不同设备上都能够良好展示。</p>
+<p>节点 -&gt; 子节点 -&gt; 子节点 -&gt; 兄弟节点 -&gt; return父节点</p>
+<h1 id="diff算法"><a href="#diff算法" class="headerlink" title="diff算法"></a>diff算法</h1><p><code>diff</code> 算法作用在 <code>reconcile</code> 阶段：</p>
+<ul>
+<li>第一次渲染不需要 <code>diff</code>，直接 <code>vdom</code> 转 <code>fiber</code>。</li>
+<li>再次渲染的时候，会产生新的 <code>vdom</code>，这时候要和之前的 <code>fiber</code> 做下对比，决定怎么产生新的 <code>fiber</code>，<code>对可复用</code>的节点打上<code>修改的标记</code>，剩余的<code>旧节点</code>打上<code>删除标记</code>，<code>新节点</code>打上<code>新增标记</code>。</li>
+</ul>
+<h2 id="那为什么浏览器里要做-diff"><a href="#那为什么浏览器里要做-diff" class="headerlink" title="那为什么浏览器里要做 diff"></a>那为什么浏览器里要做 diff</h2><blockquote>
+<p>因为 dom 创建的性能成本很高，如果不做 dom 的复用，那前端框架的性能就太差了。</p>
+</blockquote>
+<p>diff 算法的目的就是对比两次渲染结果，找到可复用的部分，然后剩下的该删除删除，该新增新增。</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p><img src="https://mmbiz.qpic.cn/mmbiz_png/YprkEU0TtGia49G3hLkgib7WZRTknfVcHxQVZNePSrAlibFAPiaqyZJ1Vc9FBF8K6bYHFXvhbFjZrgZZTMl2NjxzbA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p>经过 reconcile 之后，会变成这样的 fiber 结构：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/YprkEU0TtGia49G3hLkgib7WZRTknfVcHxVOqy9MaicwQVg5EHOuia4DWPfAwfDHR5omhiaEPvLMgqiclNfDG7JzAkMA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p>再次渲染出 vdom 的时候，也要进行 vdom 转 fiber 的 reconcile 阶段，但是要尽量能复用之前的节点。</p>
+<p>那怎么复用呢？</p>
+<p>一一对比下不就行了？</p>
+<p>先把之前的 fiber 节点放到一个 map 里，key 就是节点的 key：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/YprkEU0TtGia49G3hLkgib7WZRTknfVcHxlXT4A3AJ0tLwzyj0A9Z59icYq7t3ghOaQRpAkZf6bVDqiaDWbOdeicd4Q/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p>然后每个新的 vdom 都去这个 map 里查找下有没有可以复用的，找到了的话就移动过来，打上更新的 effectTag：<br>**( Q: 为什么标记的是更新 A: 不重新创建 dom，但是属性什么的还是要更新 )**<br><img src="https://mmbiz.qpic.cn/mmbiz_png/YprkEU0TtGia49G3hLkgib7WZRTknfVcHxgkuiadXV8hibicEF8WRL6ucwjSz1Pzsk543umgneibB3AKrq3X9ZdQcv7Q/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p>这样遍历完 vdom 节点之后，map 里剩下一些，这些是不可复用的，那就删掉，打上删除的 effectTag；如果 vdom 中还有一些没找到复用节点的，就直接创建，打上新增的 effectTag</p>
+<p><strong>核心就是找到可复用的节点，删掉剩下的旧节点，新节点新增。</strong></p>
+<h1 id="技术总结"><a href="#技术总结" class="headerlink" title="技术总结"></a>技术总结</h1><p>浏览器下使用 <code>react-dom</code> 的渲染器，会先把 <code>vdom</code> 转成 <code>fiber</code>，找到需要更新 <code>dom</code> 的部分，打上增删改的 <code>effectTag</code> 标记，这个过程叫做 <code>reconcile</code>，可以打断，由 <code>scheducler</code> 调度执行。<code>reconcile</code> 结束之后一次性根据 <code>effectTag</code> 更新 <code>dom</code>，叫做 <code>commit</code>。</p>
+<p>这就是 react 的基于 fiber 的渲染流程，分成 <code>render（reconcile + schedule）</code>、<code>commit</code> 两个阶段。</p>
+<p>当渲染完一次，产生了 <code>fiber</code> 之后，再次渲染的 <code>vdom</code> 要和之前的 <code>fiber</code> 对比下，再决定如何产生新的 <code>fiber</code>，目标是尽可能复用已有的 <code>fiber</code> 节点，这叫做 <code>diff 算法</code>。</p>
+<h2 id="所以-React-的-diff-算法是分成两次遍历的："><a href="#所以-React-的-diff-算法是分成两次遍历的：" class="headerlink" title="所以 React 的 diff 算法是分成两次遍历的："></a>所以 React 的 diff 算法是分成两次遍历的：</h2><ul>
+<li><p>第一轮遍历，一一对比 <code>vdom</code> 和老的 <code>fiber</code>，如果可以复用就处理下一个节点，否则就结束遍历。</p>
+<ul>
+<li><p>如果所有的新的 <code>vdom</code> 处理完了，那就把剩下的老 <code>fiber</code> 节点删掉就行。</p>
 </li>
-<li><p>SEO优化：优化网页标题、描述、关键词等，提高网站在搜索引擎上的排名和曝光率。</p>
+<li><p>如果还有 <code>vdom</code> 没处理，那就进行第二次遍历：</p>
 </li>
-<li><p>网络安全：保障网站的安全性，防止XSS、CSRF、SQL注入等攻击，保护用户数据和隐私。</p>
+</ul>
 </li>
-<li><p>代码规范：遵循良好的代码规范，如命名规范、注释规范、代码风格规范等，提高代码的可读性和可维护性。</p>
+<li><p>第二轮遍历，把剩下的老 <code>fiber</code> 放到 <code>map</code> 里，遍历剩下的 <code>vdom</code>，从 <code>map</code> 里查找，如果找到了，就移动过来。 </p>
+<ul>
+<li><p>第二轮遍历完了之后，把剩余的老 <code>fiber</code> 删掉，剩余的 <code>vdom</code> 新增。</p>
 </li>
-<li><p>代码审查：进行代码审查，发现和纠正错误、不合理的代码，提高代码的质量和可靠性。</p>
+<li><p>这样就完成了新的 <code>fiber</code> 结构的创建，也就是 <code>reconcile</code> 的过程。</p>
 </li>
-<li><p>团队协作：与其他开发者、设计师、产品经理等进行有效的沟通和协作，共同推进项目的进展和质量。</p>
+</ul>
 </li>
-<li><p>学习新技术：不断学习和了解新技术、新工具，保持更新，提高自己的技能和竞争力。</p>
+</ul>
+<h1 id="HOC"><a href="#HOC" class="headerlink" title="HOC"></a>HOC</h1><blockquote>
+<p>以组件做为入参并且返回一个新的组件</p>
+</blockquote>
+<h2 id="使用原因："><a href="#使用原因：" class="headerlink" title="使用原因："></a>使用原因：</h2><ol>
+<li>抽离重复代码，实现组件复用</li>
+<li>条件渲染渲染拦截</li>
+<li>拦截组件的生命周期</li>
+</ol>
+<h2 id="使用场景："><a href="#使用场景：" class="headerlink" title="使用场景："></a>使用场景：</h2><ol>
+<li>属性代理 （模拟修改/操作传入的值）<br>props<br>state  </li>
+</ol>
+<ol start="2">
+<li><p>条件渲染，外部逻辑的封装</p>
+</li>
+<li><p>反向继承(组件复制类组件)</p>
+</li>
+<li><p>生命周期的拦截(通过原型链获取生命周期 并绑定this指向)</p>
 </li>
 </ol>
  
@@ -208,7 +241,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2023/04/08/improve/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2023/10/21/fiber%20&%20diff%20&%20HOC/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -219,19 +252,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2023/10/21/fiber%20&%20diff%20&%20HOC/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            【react】Fiber &amp; Diff &amp; HOC
-          
-        </div>
-      </a>
     
-    
-      <a href="/2023/04/08/reactQ&A/" class="article-nav-link">
+      <a href="/2023/04/08/improve/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">Q&amp;A</div>
+        <div class="article-nav-title">提升</div>
       </a>
     
   </nav>
