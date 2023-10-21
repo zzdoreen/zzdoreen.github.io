@@ -187,7 +187,7 @@
 </li>
 </ul>
 <p>从 <code>vdom</code> 转成 <code>fiber</code> 的过程叫做 <code>reconcile</code>（调和），这个过程是<code>可以打断</code>的，由 <code>scheduler</code> 调度执行</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/YprkEU0TtGia49G3hLkgib7WZRTknfVcHxFVjTaCtiarwdPICicZXgttRTkbEYyuJup25qz6x6A29Phd2m0ltzWzLQ/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e3976e170f634ab4a8a79583b47236c1~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp"></p>
 <p><strong>fiber就是解决同步更新耗时长的问题的</strong></p>
 <h3 id="同步更新存在的问题-gt-怎么该进"><a href="#同步更新存在的问题-gt-怎么该进" class="headerlink" title="同步更新存在的问题 -&gt; 怎么该进"></a>同步更新存在的问题 -&gt; 怎么该进</h3><ol>
 <li>同步不可中断 -&gt; 异步可中断</li>
@@ -211,13 +211,13 @@
 <p>因为 dom 创建的性能成本很高，如果不做 dom 的复用，那前端框架的性能就太差了。</p>
 </blockquote>
 <p>diff 算法的目的就是对比两次渲染结果，找到可复用的部分，然后剩下的该删除删除，该新增新增。</p>
-<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p><img src="https://mmbiz.qpic.cn/mmbiz_png/YprkEU0TtGia49G3hLkgib7WZRTknfVcHxQVZNePSrAlibFAPiaqyZJ1Vc9FBF8K6bYHFXvhbFjZrgZZTMl2NjxzbA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
-<p>经过 reconcile 之后，会变成这样的 fiber 结构：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/YprkEU0TtGia49G3hLkgib7WZRTknfVcHxVOqy9MaicwQVg5EHOuia4DWPfAwfDHR5omhiaEPvLMgqiclNfDG7JzAkMA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><p><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5e84df8ff27e4d62821d33ddb5da70bf~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp"></p>
+<p>经过 reconcile 之后，会变成这样的 fiber 结构：<br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bc7234f1527c4f87824d61c370acc3b3~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp"></p>
 <p>再次渲染出 vdom 的时候，也要进行 vdom 转 fiber 的 reconcile 阶段，但是要尽量能复用之前的节点。</p>
 <p>那怎么复用呢？</p>
 <p>一一对比下不就行了？</p>
-<p>先把之前的 fiber 节点放到一个 map 里，key 就是节点的 key：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/YprkEU0TtGia49G3hLkgib7WZRTknfVcHxlXT4A3AJ0tLwzyj0A9Z59icYq7t3ghOaQRpAkZf6bVDqiaDWbOdeicd4Q/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
-<p>然后每个新的 vdom 都去这个 map 里查找下有没有可以复用的，找到了的话就移动过来，打上更新的 effectTag：<br>**( Q: 为什么标记的是更新 A: 不重新创建 dom，但是属性什么的还是要更新 )**<br><img src="https://mmbiz.qpic.cn/mmbiz_png/YprkEU0TtGia49G3hLkgib7WZRTknfVcHxgkuiadXV8hibicEF8WRL6ucwjSz1Pzsk543umgneibB3AKrq3X9ZdQcv7Q/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"></p>
+<p>先把之前的 fiber 节点放到一个 map 里，key 就是节点的 key：<br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c05c69856a97458fa2152f7d0490d566~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp"></p>
+<p>然后每个新的 vdom 都去这个 map 里查找下有没有可以复用的，找到了的话就移动过来，打上更新的 effectTag：<br>**( Q: 为什么标记的是更新 A: 不重新创建 dom，但是属性什么的还是要更新 )**<br><img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f03c4886363642178b7fd39504a35e7b~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp"></p>
 <p>这样遍历完 vdom 节点之后，map 里剩下一些，这些是不可复用的，那就删掉，打上删除的 effectTag；如果 vdom 中还有一些没找到复用节点的，就直接创建，打上新增的 effectTag</p>
 <p><strong>核心就是找到可复用的节点，删掉剩下的旧节点，新节点新增。</strong></p>
 <h1 id="技术总结"><a href="#技术总结" class="headerlink" title="技术总结"></a>技术总结</h1><p>浏览器下使用 <code>react-dom</code> 的渲染器，会先把 <code>vdom</code> 转成 <code>fiber</code>，找到需要更新 <code>dom</code> 的部分，打上增删改的 <code>effectTag</code> 标记，这个过程叫做 <code>reconcile</code>，可以打断，由 <code>scheducler</code> 调度执行。<code>reconcile</code> 结束之后一次性根据 <code>effectTag</code> 更新 <code>dom</code>，叫做 <code>commit</code>。</p>
