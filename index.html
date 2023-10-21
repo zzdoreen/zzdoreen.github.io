@@ -142,6 +142,117 @@
     
     
     <article
+  id="post-flvjs"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2023/10/21/flvjs/"
+    >Flvjs</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2023/10/21/flvjs/" class="article-date">
+  <time datetime="2023-10-21T04:21:42.000Z" itemprop="datePublished">2023-10-21</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%A7%86%E9%A2%91%E7%9B%B8%E5%85%B3/">视频相关</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="flv-js"><a href="#flv-js" class="headerlink" title="flv.js"></a><a target="_blank" rel="noopener" href="http://bilibili.github.io/flv.js">flv.js</a></h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b58356b465c4">中文文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/TurtleOrange/article/details/119147481">实用的文档</a></p>
+<p><a target="_blank" rel="noopener" href="http://events.jianshu.io/p/681239401c7e">解决跳帧、断流问题文档</a></p>
+<blockquote>
+<p>一个可以在HTML5视频中播放.flv视频格式的JavaScript库</p>
+</blockquote>
+<h3 id="API"><a href="#API" class="headerlink" title="API"></a><a target="_blank" rel="noopener" href="http://bilibili.github.io/flv.js/docs/api.html">API</a></h3><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
+<li>安装依赖</li>
+</ol>
+<blockquote>
+<p>npm i –save flv.js</p>
+</blockquote>
+<ol start="2">
+<li>在文件中引入依赖</li>
+</ol>
+<blockquote>
+<p>import flvjs from ‘flv.js’</p>
+</blockquote>
+<ol start="3">
+<li>初始化播放器实例，并播放</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">id</span>=<span class="string">&#x27;video&#x27;</span> <span class="attr">controls</span>&gt;</span><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> videoDom = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;video&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (flvjs.isSupported()) &#123; <span class="comment">// 判断浏览器是否支持flvjs</span></span><br><span class="line">  <span class="keyword">const</span> flvPlayer = flvjs.createPlayer(&#123;</span><br><span class="line">      type: <span class="string">&#x27;flv&#x27;</span>,</span><br><span class="line">      url: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      isLive: <span class="literal">true</span>,</span><br><span class="line">      hasAudio: <span class="literal">false</span>,</span><br><span class="line">      hasVideo: <span class="literal">true</span>,</span><br><span class="line">      duration: <span class="number">0</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">      enableWorker: <span class="literal">false</span>,</span><br><span class="line">      autoCleanupSourceBuffer: <span class="literal">true</span>, <span class="comment">// 对SourceBuffer进行自动清理</span></span><br><span class="line">      autoCleanupMaxBackwardDuration: <span class="number">12</span>, <span class="comment">// 当向后缓冲区持续时间超过此值（以秒为单位）时，请对SourceBuffer进行自动清理</span></span><br><span class="line">      autoCleanupMinBackwardDuration: <span class="number">8</span>, <span class="comment">// 指示进行自动清除时为反向缓冲区保留的持续时间（以秒为单位）。</span></span><br><span class="line">      enableStashBuffer: <span class="literal">false</span>, <span class="comment">// 关闭IO隐藏缓冲区</span></span><br><span class="line">      isLive: <span class="literal">true</span>,</span><br><span class="line">      lazyLoad: <span class="literal">false</span>,</span><br><span class="line">      reuseRedirectedURL: <span class="literal">true</span>     </span><br><span class="line">      &#125;)</span><br><span class="line">      flvPlayer.attachMediaElement(videoDom)</span><br><span class="line">      flvPlayer.load()</span><br><span class="line">      flvPlayer.play()</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 监听数据源是否加载完成</span></span><br><span class="line">      flvPlayer.on(flvjs.Events.LOADING_COMPLETE, <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (!flvPlayer._receivedCanPlay) &#123;</span><br><span class="line">            <span class="comment">// 不能播放 销毁</span></span><br><span class="line">            flvPlayer.pause()</span><br><span class="line">            flvPlayer.unload()</span><br><span class="line">            flvPlayer.detachMediaElement();</span><br><span class="line">            flvPlayer.destroy();</span><br><span class="line">            <span class="comment">// message.error(&#x27;视频资源获取失败&#x27;)</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 所有异常捕获（播放途中断流、网络错误等）</span></span><br><span class="line">      flvPlayer.on(flvjs.Events.ERROR, <span class="function">(<span class="params">errorType, errorDetail, errorInfo</span>) =&gt;</span> &#123;</span><br><span class="line">          flvPlayer.pause()</span><br><span class="line">          flvPlayer.unload()</span><br><span class="line">          flvPlayer.detachMediaElement();</span><br><span class="line">          flvPlayer.destroy();</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 关闭异常</span></span><br><span class="line">      flvPlayer.off(flvjs.Events.ERROR, <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&#x27;--off异常&#x27;</span>, err)</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 监听数据流请求 只要流在请求就一直监听 （追针应该就是通过定时器写在这里实现的）</span></span><br><span class="line">      flvPlayer.on(flvjs.Events.STATISTICS_INFO, <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&#x27;请求数据信息&#x27;</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>跳帧处理</li>
+</ol>
+<blockquote>
+<p>通过改变视频的当前时间来实现<br><code>buffered</code> 属性返回 <code>TimeRanges</code> 对象,表示音频/视频的已缓冲部分</p>
+</blockquote>
+<p><em><code>TimeRanges</code> 对象的属性：</em></p>
+<ul>
+<li><code>length</code> - 获得音频/视频中已缓冲范围的数量</li>
+<li><code>start(index)</code> - 获得某个已缓冲范围的开始位置</li>
+<li><code>end(index)</code> - 获得某个已缓冲范围的结束位置</li>
+<li>注释：第一个缓冲范围的下标是 0</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> clearBufferToPlay = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (flvPlayer &amp;&amp; flvPlayer.buffered &amp;&amp; flvPlayer.buffered.length) &#123;</span><br><span class="line">        <span class="keyword">const</span> end = flvPlayer.buffered.end(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">const</span> diff = end - flvPlayer.currentTime;</span><br><span class="line">        <span class="keyword">if</span> (diff &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            flvPlayer.currentTime = end - <span class="number">0.00001</span> <span class="comment">// 直接等于end会加载不出来</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>追针处理</li>
+</ol>
+<blockquote>
+<p>改变视频播放的速率来实现</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> changeSpeadToPlay = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (flvPlayer &amp;&amp; flvPlayer.buffered &amp;&amp; flvPlayer.buffered.length) &#123;</span><br><span class="line">        <span class="keyword">const</span> end = flvPlayer.buffered.end(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">const</span> diff = end - flvPlayer.currentTime;</span><br><span class="line">        <span class="keyword">if</span> (diff &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">// 大于一秒开始倍速播放</span></span><br><span class="line">            videoElement.playbackRate = <span class="number">1.1</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (diff &lt;= <span class="number">0.5</span>) &#123;</span><br><span class="line">            videoElement.playbackRate = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>异常处理</li>
+</ol>
+<blockquote>
+<p>后端转流后会出现第一帧卡帧的情况、追针和跳帧在流不稳定的情况下容易出问题</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  flvPlayerList[index].on(flvjs.Events.STATISTICS_INFO, <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (res.decodedFrames === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">// TODO 画面卡顿重连</span></span><br><span class="line">      stuckCount.value[index] = stuckCount.value[index] ? stuckCount.value[index] + <span class="number">1</span> : <span class="number">1</span></span><br><span class="line">      <span class="keyword">if</span> (stuckCount.value[index] &gt;= <span class="number">30</span>) &#123;</span><br><span class="line">        setAllPlayFlag(<span class="literal">false</span>)</span><br><span class="line">        <span class="comment">// TODO 是否需要重连</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          stuckCount.value[index] = <span class="number">0</span></span><br><span class="line">          handleVideoStatusChange(index, <span class="literal">true</span>)</span><br><span class="line">          playerList[index].addEventListener(<span class="string">&#x27;loadedmetadata&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            setAllPlayFlag(isAllPlayStatus(currentPage, defaultSize))</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&#x27;---画面卡顿重连&#x27;</span>)</span><br><span class="line">            &#125;, <span class="number">1000</span>);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">`%c STATISTICS_INFO loading  <span class="subst">$&#123;index&#125;</span> , count:<span class="subst">$&#123;stuckCount.value[index]&#125;</span> <span class="subst">$&#123;playerList[index]?.paused&#125;</span>`</span>, <span class="string">&#x27;color:red&#x27;</span>)</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            stuckCount.value[index] = <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;拉流异常捕获&#x27;</span>, err)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> handleProgress = <span class="function">(<span class="params">index: number</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 数据在请求但是画面不动</span></span><br><span class="line">  <span class="keyword">if</span> (playSt.value[index]) &#123;</span><br><span class="line">    <span class="keyword">if</span> (currentTimeCount.value[index] &amp;&amp; currentTimeCount.value[index].key == playerList[index].currentTime) &#123;</span><br><span class="line">      currentTimeCount.value[index].count++</span><br><span class="line">      <span class="keyword">if</span> (currentTimeCount.value[index].count &gt;= <span class="number">10</span>) &#123;</span><br><span class="line"></span><br><span class="line">        currentTimeCount.value[index] = <span class="literal">null</span></span><br><span class="line">        handleVideoStatusChange(index, <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line">        playerList[index].addEventListener(<span class="string">&#x27;loadedmetadata&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">          setAllPlayFlag(isAllPlayStatus(currentPage, defaultSize))</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;%c 画面卡顿重连&#x27;</span>, <span class="string">&#x27;color:red&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      currentTimeCount.value[index] = &#123; <span class="attr">key</span>: playerList[index].currentTime ? playerList[index].currentTime : <span class="number">0</span> + <span class="string">&#x27;&#x27;</span>, <span class="attr">count</span>: <span class="number">1</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h2><blockquote>
+<p>文档提供的配置项设置了之后还是会内存泄漏，目前解决方法是 <code>reload()</code> 可以清除缓存、但是切换标签的时候会清空所有状态，只有在路由跳转的时候用一下</p>
+</blockquote>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
   id="post-fiber &amp; diff &amp; HOC"
   class="article article-type-post"
   itemscope
@@ -680,7 +791,14 @@
 <h2 id="xAxis-x轴"><a href="#xAxis-x轴" class="headerlink" title="xAxis x轴"></a><a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/option.html#xAxis">xAxis x轴</a></h2><ul>
 <li>和y轴类似</li>
 </ul>
-<h2 id="dataZoom-区域缩放"><a href="#dataZoom-区域缩放" class="headerlink" title="dataZoom 区域缩放"></a><a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/option.html#dataZoom">dataZoom 区域缩放</a></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dataZoom: [</span><br><span class="line">       &#123;</span><br><span class="line">         type: <span class="string">&#x27;inside&#x27;</span>, <span class="comment">// 内置</span></span><br><span class="line">         yAxisIndex: <span class="number">0</span>,</span><br><span class="line">         startValue: data.length,</span><br><span class="line">         endValue: data.length - <span class="number">12</span>,</span><br><span class="line">         filterMode: <span class="string">&#x27;filter&#x27;</span>, <span class="comment">// 主轴 &#x27;filter&#x27;，辅轴 &#x27;empty&#x27;</span></span><br><span class="line">         zoomOnMouseWheel: <span class="literal">false</span>,</span><br><span class="line">         moveOnMouseWheel: <span class="literal">true</span>,</span><br><span class="line">         moveOnMouseMove: <span class="literal">false</span></span><br><span class="line">       &#125;,</span><br><span class="line">       &#123;</span><br><span class="line">        type: <span class="string">&#x27;slider&#x27;</span>, <span class="comment">// 滚动条</span></span><br><span class="line">        ...</span><br><span class="line">       &#125;</span><br><span class="line">     ],</span><br></pre></td></tr></table></figure> 
+<h2 id="dataZoom-区域缩放"><a href="#dataZoom-区域缩放" class="headerlink" title="dataZoom 区域缩放"></a><a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/option.html#dataZoom">dataZoom 区域缩放</a></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">dataZoom: [</span><br><span class="line">       &#123;</span><br><span class="line">         type: <span class="string">&#x27;inside&#x27;</span>, <span class="comment">// 内置</span></span><br><span class="line">         yAxisIndex: <span class="number">0</span>,</span><br><span class="line">         startValue: data.length,</span><br><span class="line">         endValue: data.length - <span class="number">12</span>,</span><br><span class="line">         filterMode: <span class="string">&#x27;filter&#x27;</span>, <span class="comment">// 主轴 &#x27;filter&#x27;，辅轴 &#x27;empty&#x27;</span></span><br><span class="line">         zoomOnMouseWheel: <span class="literal">false</span>,</span><br><span class="line">         moveOnMouseWheel: <span class="literal">true</span>,</span><br><span class="line">         moveOnMouseMove: <span class="literal">false</span></span><br><span class="line">       &#125;,</span><br><span class="line">       &#123;</span><br><span class="line">        type: <span class="string">&#x27;slider&#x27;</span>, <span class="comment">// 滚动条</span></span><br><span class="line">        ...</span><br><span class="line">       &#125;</span><br><span class="line">     ],</span><br></pre></td></tr></table></figure>
+
+
+<iframe id="cp_embed_dyQXdmX" src="//codepen.io/曾zZ/embed/dyQXdmX?height=600]&theme-id=dark&slug-hash=dyQXdmX&default-tab=[" scrolling="no" frameborder="no" height="600]" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
+
+<iframe id="cp_embed_PoxzoYa" src="//codepen.io/曾zZ/embed/PoxzoYa?height=600]&theme-id=dark&slug-hash=PoxzoYa&default-tab=[" scrolling="no" frameborder="no" height="600]" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe>
+
+<iframe id="cp_embed_BaGyOwP" src="//codepen.io/曾zZ/embed/BaGyOwP?height=600]&theme-id=dark&slug-hash=BaGyOwP&default-tab=[" scrolling="no" frameborder="no" height="600]" allowTransparency="true" allowfullscreen="true" class="cp_embed_iframe" style="width: 100%; overflow: hidden;"></iframe> 
       <!-- reward -->
       
     </div>
@@ -700,7 +818,7 @@
 
     
     <article
-  id="post-procomoinents"
+  id="post-procomponents"
   class="article article-type-post"
   itemscope
   itemprop="blogPost"
@@ -711,7 +829,7 @@
     <header class="article-header">
        
 <h2 itemprop="name">
-  <a class="article-title" href="/2022/10/01/procomoinents/"
+  <a class="article-title" href="/2022/10/01/procomponents/"
     >ProComponents</a> 
 </h2>
  
@@ -719,7 +837,7 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2022/10/01/procomoinents/" class="article-date">
+      <a href="/2022/10/01/procomponents/" class="article-date">
   <time datetime="2022-10-01T04:21:42.000Z" itemprop="datePublished">2022-10-01</time>
 </a> 
   <div class="article-category">
@@ -982,103 +1100,6 @@
 <h2 id="video画中画"><a href="#video画中画" class="headerlink" title="video画中画"></a>video画中画</h2><blockquote>
 <p>正常切换标签页画中画状态是可以切换回去的<br>但是路由切换的话，组件被卸载了，就回不去了<br>就需要对画中画进行禁用 给<code>video</code>加上<code>disablePictureInPicture</code>属性</p>
 </blockquote>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-flvjs"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2022/07/16/flvjs/"
-    >Flvjs</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2022/07/16/flvjs/" class="article-date">
-  <time datetime="2022-07-16T04:21:42.000Z" itemprop="datePublished">2022-07-16</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%A7%86%E9%A2%91%E7%9B%B8%E5%85%B3/">视频相关</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="flv-js"><a href="#flv-js" class="headerlink" title="flv.js"></a><a target="_blank" rel="noopener" href="http://bilibili.github.io/flv.js">flv.js</a></h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b58356b465c4">中文文档</a></p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/TurtleOrange/article/details/119147481">实用的文档</a></p>
-<p><a target="_blank" rel="noopener" href="http://events.jianshu.io/p/681239401c7e">解决跳帧、断流问题文档</a></p>
-<blockquote>
-<p>一个可以在HTML5视频中播放.flv视频格式的JavaScript库</p>
-</blockquote>
-<h3 id="API"><a href="#API" class="headerlink" title="API"></a><a target="_blank" rel="noopener" href="http://bilibili.github.io/flv.js/docs/api.html">API</a></h3><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
-<li>安装依赖</li>
-</ol>
-<blockquote>
-<p>npm i –save flv.js</p>
-</blockquote>
-<ol start="2">
-<li>在文件中引入依赖</li>
-</ol>
-<blockquote>
-<p>import flvjs from ‘flv.js’</p>
-</blockquote>
-<ol start="3">
-<li>初始化播放器实例，并播放</li>
-</ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">id</span>=<span class="string">&#x27;video&#x27;</span> <span class="attr">controls</span>&gt;</span><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> videoDom = <span class="built_in">document</span>.getElementById(<span class="string">&#x27;video&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (flvjs.isSupported()) &#123; <span class="comment">// 判断浏览器是否支持flvjs</span></span><br><span class="line">  <span class="keyword">const</span> flvPlayer = flvjs.createPlayer(&#123;</span><br><span class="line">      type: <span class="string">&#x27;flv&#x27;</span>,</span><br><span class="line">      url: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">      isLive: <span class="literal">true</span>,</span><br><span class="line">      hasAudio: <span class="literal">false</span>,</span><br><span class="line">      hasVideo: <span class="literal">true</span>,</span><br><span class="line">      duration: <span class="number">0</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">      enableWorker: <span class="literal">false</span>,</span><br><span class="line">      autoCleanupSourceBuffer: <span class="literal">true</span>, <span class="comment">// 对SourceBuffer进行自动清理</span></span><br><span class="line">      autoCleanupMaxBackwardDuration: <span class="number">12</span>, <span class="comment">// 当向后缓冲区持续时间超过此值（以秒为单位）时，请对SourceBuffer进行自动清理</span></span><br><span class="line">      autoCleanupMinBackwardDuration: <span class="number">8</span>, <span class="comment">// 指示进行自动清除时为反向缓冲区保留的持续时间（以秒为单位）。</span></span><br><span class="line">      enableStashBuffer: <span class="literal">false</span>, <span class="comment">// 关闭IO隐藏缓冲区</span></span><br><span class="line">      isLive: <span class="literal">true</span>,</span><br><span class="line">      lazyLoad: <span class="literal">false</span>,</span><br><span class="line">      reuseRedirectedURL: <span class="literal">true</span>     </span><br><span class="line">      &#125;)</span><br><span class="line">      flvPlayer.attachMediaElement(videoDom)</span><br><span class="line">      flvPlayer.load()</span><br><span class="line">      flvPlayer.play()</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 监听数据源是否加载完成</span></span><br><span class="line">      flvPlayer.on(flvjs.Events.LOADING_COMPLETE, <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="keyword">if</span> (!flvPlayer._receivedCanPlay) &#123;</span><br><span class="line">            <span class="comment">// 不能播放 销毁</span></span><br><span class="line">            flvPlayer.pause()</span><br><span class="line">            flvPlayer.unload()</span><br><span class="line">            flvPlayer.detachMediaElement();</span><br><span class="line">            flvPlayer.destroy();</span><br><span class="line">            <span class="comment">// message.error(&#x27;视频资源获取失败&#x27;)</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 所有异常捕获（播放途中断流、网络错误等）</span></span><br><span class="line">      flvPlayer.on(flvjs.Events.ERROR, <span class="function">(<span class="params">errorType, errorDetail, errorInfo</span>) =&gt;</span> &#123;</span><br><span class="line">          flvPlayer.pause()</span><br><span class="line">          flvPlayer.unload()</span><br><span class="line">          flvPlayer.detachMediaElement();</span><br><span class="line">          flvPlayer.destroy();</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 关闭异常</span></span><br><span class="line">      flvPlayer.off(flvjs.Events.ERROR, <span class="function"><span class="params">err</span> =&gt;</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&#x27;--off异常&#x27;</span>, err)</span><br><span class="line">      &#125;)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 监听数据流请求 只要流在请求就一直监听 （追针应该就是通过定时器写在这里实现的）</span></span><br><span class="line">      flvPlayer.on(flvjs.Events.STATISTICS_INFO, <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">&#x27;请求数据信息&#x27;</span>)</span><br><span class="line">      &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
-
-<ol start="4">
-<li>跳帧处理</li>
-</ol>
-<blockquote>
-<p>通过改变视频的当前时间来实现<br><code>buffered</code> 属性返回 <code>TimeRanges</code> 对象,表示音频/视频的已缓冲部分</p>
-</blockquote>
-<p><em><code>TimeRanges</code> 对象的属性：</em></p>
-<ul>
-<li><code>length</code> - 获得音频/视频中已缓冲范围的数量</li>
-<li><code>start(index)</code> - 获得某个已缓冲范围的开始位置</li>
-<li><code>end(index)</code> - 获得某个已缓冲范围的结束位置</li>
-<li>注释：第一个缓冲范围的下标是 0</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> clearBufferToPlay = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (flvPlayer &amp;&amp; flvPlayer.buffered &amp;&amp; flvPlayer.buffered.length) &#123;</span><br><span class="line">        <span class="keyword">const</span> end = flvPlayer.buffered.end(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">const</span> diff = end - flvPlayer.currentTime;</span><br><span class="line">        <span class="keyword">if</span> (diff &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            flvPlayer.currentTime = end - <span class="number">0.00001</span> <span class="comment">// 直接等于end会加载不出来</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol start="5">
-<li>追针处理</li>
-</ol>
-<blockquote>
-<p>改变视频播放的速率来实现</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> changeSpeadToPlay = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (flvPlayer &amp;&amp; flvPlayer.buffered &amp;&amp; flvPlayer.buffered.length) &#123;</span><br><span class="line">        <span class="keyword">const</span> end = flvPlayer.buffered.end(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">const</span> diff = end - flvPlayer.currentTime;</span><br><span class="line">        <span class="keyword">if</span> (diff &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">// 大于一秒开始倍速播放</span></span><br><span class="line">            videoElement.playbackRate = <span class="number">1.1</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (diff &lt;= <span class="number">0.5</span>) &#123;</span><br><span class="line">            videoElement.playbackRate = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
  
       <!-- reward -->
       

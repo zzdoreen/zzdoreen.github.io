@@ -65,8 +65,8 @@
     </header>
      
     <div class="article-meta">
-      <a href="/2022/07/16/flvjs/" class="article-date">
-  <time datetime="2022-07-16T04:21:42.000Z" itemprop="datePublished">2022-07-16</time>
+      <a href="/2023/10/21/flvjs/" class="article-date">
+  <time datetime="2023-10-21T04:21:42.000Z" itemprop="datePublished">2023-10-21</time>
 </a> 
   <div class="article-category">
     <a class="article-category-link" href="/categories/%E8%A7%86%E9%A2%91%E7%9B%B8%E5%85%B3/">视频相关</a>
@@ -77,7 +77,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> Word count:</span>
-            <span class="post-count">622</span>
+            <span class="post-count">969</span>
         </span>
     </span>
 
@@ -86,7 +86,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> Reading time≈</span>
-            <span class="post-count">2 min</span>
+            <span class="post-count">4 min</span>
         </span>
     </span>
 </div>
@@ -148,6 +148,20 @@
 <p>改变视频播放的速率来实现</p>
 </blockquote>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> changeSpeadToPlay = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (flvPlayer &amp;&amp; flvPlayer.buffered &amp;&amp; flvPlayer.buffered.length) &#123;</span><br><span class="line">        <span class="keyword">const</span> end = flvPlayer.buffered.end(<span class="number">0</span>)</span><br><span class="line">        <span class="keyword">const</span> diff = end - flvPlayer.currentTime;</span><br><span class="line">        <span class="keyword">if</span> (diff &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="comment">// 大于一秒开始倍速播放</span></span><br><span class="line">            videoElement.playbackRate = <span class="number">1.1</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (diff &lt;= <span class="number">0.5</span>) &#123;</span><br><span class="line">            videoElement.playbackRate = <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="6">
+<li>异常处理</li>
+</ol>
+<blockquote>
+<p>后端转流后会出现第一帧卡帧的情况、追针和跳帧在流不稳定的情况下容易出问题</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">  flvPlayerList[index].on(flvjs.Events.STATISTICS_INFO, <span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (res.decodedFrames === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">// TODO 画面卡顿重连</span></span><br><span class="line">      stuckCount.value[index] = stuckCount.value[index] ? stuckCount.value[index] + <span class="number">1</span> : <span class="number">1</span></span><br><span class="line">      <span class="keyword">if</span> (stuckCount.value[index] &gt;= <span class="number">30</span>) &#123;</span><br><span class="line">        setAllPlayFlag(<span class="literal">false</span>)</span><br><span class="line">        <span class="comment">// TODO 是否需要重连</span></span><br><span class="line">        <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">          stuckCount.value[index] = <span class="number">0</span></span><br><span class="line">          handleVideoStatusChange(index, <span class="literal">true</span>)</span><br><span class="line">          playerList[index].addEventListener(<span class="string">&#x27;loadedmetadata&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            setAllPlayFlag(isAllPlayStatus(currentPage, defaultSize))</span><br><span class="line">            &#125;)</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&#x27;---画面卡顿重连&#x27;</span>)</span><br><span class="line">            &#125;, <span class="number">1000</span>);</span><br><span class="line">          &#125;</span><br><span class="line">          <span class="built_in">console</span>.log(<span class="string">`%c STATISTICS_INFO loading  <span class="subst">$&#123;index&#125;</span> , count:<span class="subst">$&#123;stuckCount.value[index]&#125;</span> <span class="subst">$&#123;playerList[index]?.paused&#125;</span>`</span>, <span class="string">&#x27;color:red&#x27;</span>)</span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            stuckCount.value[index] = <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">&#x27;拉流异常捕获&#x27;</span>, err)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> handleProgress = <span class="function">(<span class="params">index: number</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 数据在请求但是画面不动</span></span><br><span class="line">  <span class="keyword">if</span> (playSt.value[index]) &#123;</span><br><span class="line">    <span class="keyword">if</span> (currentTimeCount.value[index] &amp;&amp; currentTimeCount.value[index].key == playerList[index].currentTime) &#123;</span><br><span class="line">      currentTimeCount.value[index].count++</span><br><span class="line">      <span class="keyword">if</span> (currentTimeCount.value[index].count &gt;= <span class="number">10</span>) &#123;</span><br><span class="line"></span><br><span class="line">        currentTimeCount.value[index] = <span class="literal">null</span></span><br><span class="line">        handleVideoStatusChange(index, <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line">        playerList[index].addEventListener(<span class="string">&#x27;loadedmetadata&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">          setAllPlayFlag(isAllPlayStatus(currentPage, defaultSize))</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;%c 画面卡顿重连&#x27;</span>, <span class="string">&#x27;color:red&#x27;</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      currentTimeCount.value[index] = &#123; <span class="attr">key</span>: playerList[index].currentTime ? playerList[index].currentTime : <span class="number">0</span> + <span class="string">&#x27;&#x27;</span>, <span class="attr">count</span>: <span class="number">1</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="内存泄漏"><a href="#内存泄漏" class="headerlink" title="内存泄漏"></a>内存泄漏</h2><blockquote>
+<p>文档提供的配置项设置了之后还是会内存泄漏，目前解决方法是 <code>reload()</code> 可以清除缓存、但是切换标签的时候会清空所有状态，只有在路由跳转的时候用一下</p>
+</blockquote>
  
       <!-- reward -->
       
@@ -200,7 +214,7 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2022/07/16/flvjs/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://example.com/2023/10/21/flvjs/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -211,19 +225,10 @@
    
   <nav class="article-nav">
     
-      <a href="/2022/07/23/video/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            Video标签
-          
-        </div>
-      </a>
     
-    
-      <a href="/2022/04/08/2022%E5%B9%B4%E6%80%BB%E7%BB%93/" class="article-nav-link">
+      <a href="/2023/10/21/fiber%20&%20diff%20&%20HOC/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">2022年度总结</div>
+        <div class="article-nav-title">【react】Fiber &amp; Diff &amp; HOC</div>
       </a>
     
   </nav>

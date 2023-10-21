@@ -142,170 +142,6 @@
     
     
     <article
-  id="post-clip-path"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/01/15/clip-path/"
-    >clip-path</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/01/15/clip-path/" class="article-date">
-  <time datetime="2020-01-15T07:16:00.000Z" itemprop="datePublished">2020-01-15</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/CSS/">CSS</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="发现了一个有意思的CSS属性"><a href="#发现了一个有意思的CSS属性" class="headerlink" title="发现了一个有意思的CSS属性"></a>发现了一个有意思的CSS属性</h2><p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/clip-path">属性详情</a><br><a target="_blank" rel="noopener" href="https://www.html.cn/tool/css-clip-path/">clip-path生成器</a></p>
-<blockquote>
-<p>clip-path ： 创建一个只有元素的部分区域可以显示的剪切区域</p>
-</blockquote>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 我没有接触过svg 所以只写了几个我觉得能常用的属性*/</span></span><br><span class="line"><span class="selector-tag">clip-path</span>: <span class="selector-tag">circle</span>( 50% <span class="selector-tag">at</span> 50% 50%);     <span class="comment">/* 剪裁成 【圆形】 第一个参数是 圆半径 at 圆心坐标*/</span></span><br><span class="line"><span class="selector-tag">clip-path</span>: <span class="selector-tag">ellipse</span>( 50% 25% <span class="selector-tag">at</span> 50% 50%);    <span class="comment">/*剪裁成 【椭圆】 第一个参数是 横向半径 第二个是 纵向半径 at 圆心坐标  当半径一致 相当于圆*/</span></span><br><span class="line"><span class="selector-tag">clip-path</span>: <span class="selector-tag">polygon</span>( 50% 0,0 100%,100% 100%);    <span class="comment">/* 剪裁成任意形状 后跟每个点坐标  这是个三角形 注意点连接的顺序！ 如下：*/</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<img src='/images/clippath.png' width='400px'/>  
-
-<h2 id="可以实现的效果"><a href="#可以实现的效果" class="headerlink" title="可以实现的效果"></a>可以实现的效果</h2><blockquote>
-<p>我感觉比伪类方便  可以代替圆角之类的  也可以结合动画之类的</p>
-</blockquote>
-<style>
-.clipPath{
-    width:150px;
-    height: 150px;
-    background-image: url('/images/avatar.jpg'); 
-    background-size:100% 100%;
-    display:inline-block;  
-}
-.clipPath.dv1{
-    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);
-}
-.clipPath.dv2{
-    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-}
-.clipPath.dv3{
-    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);
-}
-.clipPath.dv4{
-    /* clip-path: ellipse(100% 100% at 0% 0%); */
-    clip-path: circle(100% at 0% 0%);
-}
-.clipPath.dv5{
-  clip-path: polygon(0% 0%, 0% 100%, 25% 100%, 25% 25%, 75% 25%, 75% 75%, 25% 75%, 25% 100%, 100% 100%, 100% 0%);
-}
-</style>
-<div class="clipPath dv1"></div>
-<div class="clipPath dv2"></div>
-<div class="clipPath dv3"></div>
-<div class="clipPath dv4"></div>
-<div class="clipPath dv5"></div>
-
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">width</span><span class="selector-pseudo">:150px</span>;</span></span><br><span class="line">    height: 150px;</span><br><span class="line">    background-image: url(&#x27;/images/avatar.jpg&#x27;); </span><br><span class="line"><span class="css">    <span class="selector-tag">background-size</span><span class="selector-pseudo">:100</span>% 100%;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">display</span><span class="selector-pseudo">:inline-block</span>;  </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv1</span>&#123;</span></span><br><span class="line">    clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv2</span>&#123;</span></span><br><span class="line">    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv3</span>&#123;</span></span><br><span class="line">    clip-path: polygon(0% 0%, 100% 0%, 100% 75%, 75% 75%, 75% 100%, 50% 75%, 0% 75%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv4</span>&#123;</span></span><br><span class="line"><span class="css">    <span class="comment">/* clip-path: ellipse(100% 100% at 0% 0%); 效果一致*/</span></span></span><br><span class="line">    clip-path: circle(100% at 0% 0%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="css"><span class="selector-class">.clipPath</span><span class="selector-class">.dv5</span>&#123;</span></span><br><span class="line">  clip-path: polygon(0% 0%, 0% 100%, 25% 100%, 25% 25%, 75% 25%, 75% 75%, 25% 75%, 25% 100%, 100% 100%, 100% 0%);</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv3&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv4&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clipPath dv5&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-发布订阅者模式"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/01/14/%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E8%80%85%E6%A8%A1%E5%BC%8F/"
-    >【第八章】 发布-订阅模式</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/01/14/%E5%8F%91%E5%B8%83%E8%AE%A2%E9%98%85%E8%80%85%E6%A8%A1%E5%BC%8F/" class="article-date">
-  <time datetime="2020-01-14T10:16:00.000Z" itemprop="datePublished">2020-01-14</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <blockquote>
-<p>优点： </p>
-<ol>
-<li>时间上的解耦</li>
-<li>对象之间的解耦</li>
-</ol>
-</blockquote>
-<blockquote>
-<p>缺点:   消耗时间和内存</p>
-</blockquote>
-<h2 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h2><blockquote>
-<p>如何实现发布-订阅模式:</p>
-<ol>
-<li>指定发布者</li>
-<li>给发布者添加一个缓存列表，用于存放回调函数 以便通知 订阅者</li>
-<li>发布消息的时候，发布者会遍历这个缓存列表，依次触发存放的订阅者回调函数<br>(还可以在回调函数中填入一些参数，订阅者可以接收这些参数。eg：售楼处可以在给订阅者短信内加上房子的单价、面积等信息)</li>
-</ol>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> salesOffices = &#123;&#125;   <span class="comment">// 售楼处</span></span><br><span class="line">salesOffices.clientList = []    <span class="comment">// 缓存列表，存放订阅者的回调函数</span></span><br><span class="line">salesOffices.listen = <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>)</span>&#123;     <span class="comment">// 增加订阅者</span></span><br><span class="line">    <span class="built_in">this</span>.clientList.push(fn)</span><br><span class="line">&#125;</span><br><span class="line">salesOffices.trigger = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;      <span class="comment">// 发布消息</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;<span class="built_in">this</span>.clientList.length;i++)&#123;</span><br><span class="line">        <span class="keyword">var</span> fn = <span class="built_in">this</span>.clientList[i]</span><br><span class="line">        fn.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">salesOffices.listen(<span class="function"><span class="keyword">function</span>(<span class="params">price,squareMeter</span>)</span>&#123;    <span class="comment">// 小明订阅消息</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;m 价格= &#x27;</span>+price)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;m 平方= &#x27;</span>+squareMeter)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">salesOffices.listen(<span class="function"><span class="keyword">function</span>(<span class="params">price,squareMeter</span>)</span>&#123;    <span class="comment">// 小红订阅消息</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;h 价格= &#x27;</span>+price)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;h 平方= &#x27;</span>+squareMeter)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">salesOffices.trigger(<span class="number">20000</span>,<span class="number">22</span>)      <span class="comment">// m/h 价格= 20000  m/h 平方= 22</span></span><br></pre></td></tr></table></figure>
-<p>我们看到订阅者接收到了发布者发布的每个消息，虽然小明只想买 88 平方米的房子，但是发布者把 122 平方米的信息也推送给了小明，这对小明来说是不必要的困扰。所以我们有必要增加一个标示 key，让订阅者只订阅自己感兴趣的消息。改写后的代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> salesOffices = &#123;&#125;   <span class="comment">// 售楼处</span></span><br><span class="line">salesOffices.clientList = []    <span class="comment">// 缓存列表，存放订阅者的回调函数</span></span><br><span class="line">salesOffices.listen = <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;     <span class="comment">// 增加订阅者</span></span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">this</span>.clientList[key])&#123;      <span class="comment">// 如果没有订阅此类消息，给该类创建一个缓存列表</span></span><br><span class="line">        <span class="built_in">this</span>.clientList[key] = []</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">this</span>.clientList[key].push(fn)</span><br><span class="line">&#125;</span><br><span class="line">salesOffices.trigger = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;      <span class="comment">// 发布消息</span></span><br><span class="line">    <span class="keyword">var</span> key = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>)     <span class="comment">// 取出消息类型 &lt;=&gt; arguments[0]</span></span><br><span class="line">    <span class="keyword">var</span> fns = <span class="built_in">this</span>.clientList[key]      <span class="comment">// 取出该消息对应的回调函数集合</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;fns.length;i++)&#123;</span><br><span class="line">        <span class="keyword">var</span> fn = fns[i]</span><br><span class="line">        fn.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;m 价格= &#x27;</span>+price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;w 价格= &#x27;</span>+price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter122&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;h 价格= &#x27;</span>+price)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">salesOffices.trigger(<span class="string">&#x27;squareMeter88&#x27;</span>,<span class="number">2200</span>)  <span class="comment">// m/w 价格= 2200</span></span><br><span class="line">salesOffices.trigger(<span class="string">&#x27;squareMeter122&#x27;</span>,<span class="number">122000</span>)   <span class="comment">// h 价格= 122000</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="发布-订阅模式的通用实现"><a href="#发布-订阅模式的通用实现" class="headerlink" title="发布-订阅模式的通用实现"></a>发布-订阅模式的通用实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把发布-订阅功能提取出来，放在一个单独的对象内</span></span><br><span class="line"><span class="keyword">var</span> event = &#123;</span><br><span class="line">    clientList : [],</span><br><span class="line">    listen : <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!<span class="built_in">this</span>.clientList[key])&#123;</span><br><span class="line">            <span class="built_in">this</span>.clientList[key] = []</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.clientList[key].push(fn)</span><br><span class="line">    &#125;,</span><br><span class="line">    trigger: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> key = <span class="built_in">Array</span>.prototype.shift.call(<span class="built_in">arguments</span>)</span><br><span class="line">        <span class="keyword">var</span> fns = <span class="built_in">this</span>.clientList[key]</span><br><span class="line">        <span class="keyword">if</span>(!fns || fns.length===<span class="number">0</span>)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;fns.length;i++)&#123;</span><br><span class="line">            <span class="keyword">var</span> fn = fns[i]</span><br><span class="line">            fn.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// installEvent 函数，给所有对象动态安装 发布-订阅功能：</span></span><br><span class="line"><span class="comment">// 浅拷贝 (我感觉 没什么用。。)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">installEvent</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i <span class="keyword">in</span> event)&#123;</span><br><span class="line">        obj[i] = event[i]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> salesOffices = &#123;&#125;</span><br><span class="line">installEvent(salesOffices)</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;price= &#x27;</span>+ price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.trigger(<span class="string">&#x27;squareMeter88&#x27;</span>,<span class="number">122</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="取消订阅事件"><a href="#取消订阅事件" class="headerlink" title="取消订阅事件"></a>取消订阅事件</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> event = &#123;</span><br><span class="line">    ...</span><br><span class="line">    remove: <span class="function"><span class="keyword">function</span>(<span class="params">key,fn</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> fns = <span class="built_in">this</span>.clientList[key]</span><br><span class="line">        <span class="keyword">if</span>(!fns)&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(!fn)&#123;  <span class="comment">// 如果没有传入具体的回调函数，表示需要取消 key 对应消息的所有订阅</span></span><br><span class="line">            fns &amp;&amp; (fns.length = <span class="number">0</span>)</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">var</span> i=fns.length<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)&#123;   <span class="comment">// 倒序删除</span></span><br><span class="line">                <span class="keyword">var</span> _fn = fns[i]</span><br><span class="line">                <span class="keyword">if</span>(_fn===fn)&#123;</span><br><span class="line">                    fns.splice(i,<span class="number">1</span>)</span><br><span class="line">                &#125; </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,fn1 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;f1 price= &#x27;</span>+ price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,fn2 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;f2 price= &#x27;</span>+ price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.listen(<span class="string">&#x27;squareMeter88&#x27;</span>,fn1 = <span class="function"><span class="keyword">function</span>(<span class="params">price</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;f3 price= &#x27;</span>+ price)</span><br><span class="line">&#125;)</span><br><span class="line">salesOffices.remove(<span class="string">&#x27;squareMeter88&#x27;</span>,fn1)  <span class="comment">// 删除的是最后一个叫f1的订阅者</span></span><br><span class="line">salesOffices.trigger(<span class="string">&#x27;squareMeter88&#x27;</span>,<span class="number">122</span>) <span class="comment">// f1/f2 price= 122</span></span><br><span class="line"></span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
   id="post-3d效果"
   class="article article-type-post"
   itemscope
@@ -1080,6 +916,165 @@
 <ol>
 <li>用户可以放心地请求代理，他只关心是否能得到想要的结构</li>
 <li>在任何使用本体的地方都可以替换成使用代理<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myImage = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> imgNode = <span class="built_in">document</span>.createElement(<span class="string">&#x27;img&#x27;</span>)</span><br><span class="line">    <span class="built_in">document</span>.appendChild(imgNode)</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">src</span>)</span>&#123;</span><br><span class="line">        imgNode.src = src</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> proxyImage = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> img = <span class="keyword">new</span> Image</span><br><span class="line">    img.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        myImage( <span class="built_in">this</span>.src )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">src</span>)</span>&#123;</span><br><span class="line">        myImage(<span class="string">&#x27;./timg.jpg&#x27;</span>)</span><br><span class="line">        img.src = src</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line">proxyImage(<span class="string">&#x27;https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=629448732,2965351611&amp;fm=15&amp;gp=0.jpg&#x27;</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-第五章__策略模式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/28/%E7%AC%AC%E4%BA%94%E7%AB%A0__%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/"
+    >【第五章】策略模式</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/28/%E7%AC%AC%E4%BA%94%E7%AB%A0__%E7%AD%96%E7%95%A5%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time datetime="2019-12-28T02:21:42.000Z" itemprop="datePublished">2019-12-28</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="策略模式"><a href="#策略模式" class="headerlink" title="策略模式"></a>策略模式</h2><p>比如要实现某一个功能有多种方案可以选择。比如压缩文件的程序，既可以选择zip算法，也可以选择gzip算法</p>
+<blockquote>
+<p>定义： 定义一系列的算法，把它们一个个封装起来，并且使它们可以相互替换</p>
+</blockquote>
+<ul>
+<li><p>策略模式的优缺点<br>  <b style='color:Red'>优点：</b></p>
+<pre><code>  1. 策略模式利用组合、委托和多态等技术和思想，可以有效地避免多重条件选择语句。
+  2. 策略模式提供了对开放—封闭原则的完美支持，将算法封装在独立的 strategy 中，使得它们易于切换，易于理解，易于扩展。
+  3. 策略模式中的算法也可以复用在系统的其他地方，从而避免许多重复的复制粘贴工作。
+  4. 在策略模式中利用组合和委托来让 Context 拥有执行算法的能力，这也是继承的一种更轻便的替代方案。</code></pre>
+<p>  <b style='color:Red'>缺点：</b></p>
+<pre><code>  1. 使用策略模式会在程序中增加许多策略类或者策略对象，但实际上这比把它们负责的逻辑堆砌在 Context 中要好
+  2. 要使用策略模式，必须了解所有的 strategy，必须了解各个 strategy 之间的不同点，这样才能选择一个合适的 strategy。</code></pre>
+<ul>
+<li><p>使用策略模式计算奖金</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">绩效为 S 的人年终奖有 4 倍工资，绩效为 A 的人年终奖有 3 倍工资，而绩效为 B 的人年终奖是 2 倍工资。假设财务部要求我们提供一段代码，来方便他们计算员工的年终奖</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//最初代码实现</span></span><br><span class="line"><span class="keyword">var</span> calculateBonus = <span class="function"><span class="keyword">function</span>(<span class="params">performanceLevel,salary</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(performanceLevel === <span class="string">&#x27;S&#x27;</span>)<span class="keyword">return</span> salary*<span class="number">4</span></span><br><span class="line">    <span class="keyword">if</span>(performanceLevel === <span class="string">&#x27;A&#x27;</span>)<span class="keyword">return</span> salary*<span class="number">3</span></span><br><span class="line">    <span class="keyword">if</span>(performanceLevel === <span class="string">&#x27;B&#x27;</span>)<span class="keyword">return</span> salary*<span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line">caculateBonus(<span class="string">&#x27;B&#x27;</span>,<span class="number">2000</span>) <span class="comment">//输出 4000</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">缺点：</span></span><br><span class="line"><span class="comment">1. calculateBonus 函数比较庞大，包含了很多 if-else 语句，这些语句需要覆盖所有的逻辑分支。</span></span><br><span class="line"><span class="comment">2. calculateBonus 函数缺乏弹性，如果增加了一种新的绩效等级 C，或者想把绩效 S 的奖金系数改为 5，那我们必须深入 calculateBonus 函数的内部实现，这是违反开放-封闭原则的。</span></span><br><span class="line"><span class="comment">3. 算法的复用性差，如果在程序的其他地方需要重用这些计算奖金的算法呢？我们的选择只有复制和粘贴。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//使用策略模式重构代码</span></span><br><span class="line"><span class="comment">//目的： 算法的使用与算法的实现分离</span></span><br><span class="line"><span class="keyword">var</span> perfromanceS = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">perfromanceS.prototype.calculate = <span class="function"><span class="keyword">function</span>(<span class="params"> salary </span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> salary*<span class="number">4</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> perfromanceA = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">perfromanceA.prototype.calculate = <span class="function"><span class="keyword">function</span>(<span class="params"> salary </span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> salary*<span class="number">3</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> perfromanceB = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;</span><br><span class="line">perfromanceB.prototype.calculate = <span class="function"><span class="keyword">function</span>(<span class="params"> salary </span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> salary*<span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//奖金类</span></span><br><span class="line"><span class="keyword">var</span> Bonus = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.salary = <span class="literal">null</span>      <span class="comment">//原始工资</span></span><br><span class="line">    <span class="built_in">this</span>.strategy = <span class="literal">null</span>       <span class="comment">//绩效等级对应的策略对象</span></span><br><span class="line">&#125;</span><br><span class="line">Bonus.prototype.setSalary = <span class="function"><span class="keyword">function</span>(<span class="params">salary</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.salary = salary    <span class="comment">//设置员工的原始工资</span></span><br><span class="line">&#125;</span><br><span class="line">Bonus.prototype.setStrategy = <span class="function"><span class="keyword">function</span>(<span class="params">strategy</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.strategy = strategy</span><br><span class="line">&#125;</span><br><span class="line">Bonus.prototype.getBonus = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.strategy.calculate(<span class="built_in">this</span>.salary)     <span class="comment">//把计算奖金的操作委托给对应的策略对象</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> bonus = <span class="keyword">new</span> Bonus(); </span><br><span class="line">bonus.setSalary( <span class="number">10000</span> ); </span><br><span class="line">bonus.setStrategy( <span class="keyword">new</span> performanceS() ); <span class="comment">// 设置策略对象</span></span><br><span class="line"><span class="built_in">console</span>.log( bonus.getBonus() ); <span class="comment">// 输出：40000 </span></span><br><span class="line">bonus.setStrategy( <span class="keyword">new</span> performanceA() ); <span class="comment">// 设置策略对象</span></span><br><span class="line"><span class="built_in">console</span>.log( bonus.getBonus() ); <span class="comment">// 输出：30000</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>JavaScript版本的策略模式</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">我们让 strategy 对象从各个策略类中创建而来，这是模拟一些传统面向对象语言的实现。实际上在 JavaScript 语言中，函数也是对象，所以更简单和直接的做法是把 strategy直接定义为函数：</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">//策略对象</span></span><br><span class="line"><span class="keyword">var</span> strategies = &#123;</span><br><span class="line">    <span class="string">&quot;S&quot;</span>: <span class="function"><span class="keyword">function</span>(<span class="params"> salary </span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> salary*<span class="number">4</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;A&quot;</span>: <span class="function"><span class="keyword">function</span>(<span class="params"> salary </span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> salary*<span class="number">3</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">&quot;B&quot;</span>: <span class="function"><span class="keyword">function</span>(<span class="params"> salary </span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> salary*<span class="number">2</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//操作类</span></span><br><span class="line"><span class="keyword">var</span> calculateBonus = <span class="function"><span class="keyword">function</span>(<span class="params">level,salary</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> strategies[level](salary)</span><br><span class="line">&#125;</span><br><span class="line">calculateBonus(<span class="string">&#x27;S&#x27;</span>,<span class="number">200</span>)  <span class="comment">//800</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-第四章__单例模式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/12/25/%E7%AC%AC%E5%9B%9B%E7%AB%A0__%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"
+    >【第四章】单例模式</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2019/12/25/%E7%AC%AC%E5%9B%9B%E7%AB%A0__%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time datetime="2019-12-25T02:21:42.000Z" itemprop="datePublished">2019-12-25</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <blockquote>
+<p>定义： 保证一个类仅有一个实例，并提供一个访问它的全局访问点。在 JavaScript 开发中，单例模式的用途同样非常广泛。试想一下，当我们单击登录按钮的时候，页面中会出现一个登录浮窗，而这个登录浮窗是唯一的，无论单击多少次登录按钮，这个浮窗都只会被创建一次，那么这个登录浮窗就适合用单例模式来创建。</p>
+</blockquote>
+<p><b style="color:Red">核心：确保只有一个实例，并提供全局访问</b></p>
+<ol>
+<li><p>实现单例模式</p>
+<blockquote>
+<p>用一个变量来标志当前是否已经为某个类创建过对象，如果是，则在下一次获取该类的实例时，直接返回之前创建的对象</p>
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Singleton = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.name = name</span><br><span class="line">    <span class="built_in">this</span>.instance = <span class="literal">null</span>    <span class="comment">//存放已经生成的实例对象</span></span><br><span class="line">&#125;</span><br><span class="line">Singleton.prototype.getName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="built_in">this</span>.name)</span><br><span class="line">&#125;</span><br><span class="line">Singleton.getInstance = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!<span class="built_in">this</span>.instance)&#123;</span><br><span class="line">        <span class="built_in">this</span>.instance = <span class="keyword">new</span> Singleton(name)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.instance</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = Singleton.getInstance(<span class="string">&#x27;doreen&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> b = Singleton.getInstance(<span class="string">&#x27;sherry&#x27;</span>)</span><br><span class="line">a.getName()     <span class="comment">//doreen</span></span><br><span class="line">b.getName()     <span class="comment">//doreen</span></span><br><span class="line"><span class="built_in">console</span>.log(a === b)     <span class="comment">//true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
+</li>
+<li><p>透明的单例模式</p>
+<blockquote>
+<p>使用的时候要和普通类一样通过new去创建实例</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 利用闭包的方式 让变量存在局部</span></span><br><span class="line"><span class="keyword">var</span> CreateDiv = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> instance </span><br><span class="line">    <span class="keyword">var</span> CreateDiv = <span class="function"><span class="keyword">function</span>(<span class="params">html</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(instance)&#123;</span><br><span class="line">            <span class="keyword">return</span> instance</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">this</span>.html = html</span><br><span class="line">        <span class="built_in">this</span>.init()</span><br><span class="line">        <span class="keyword">return</span> instance = <span class="built_in">this</span></span><br><span class="line">    &#125;</span><br><span class="line">    CreateDiv.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">        div.innerHTML = <span class="built_in">this</span>.html</span><br><span class="line">        <span class="built_in">document</span>.body.appendChild(div)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> CreateDiv;</span><br><span class="line">&#125;)()</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> CreateDiv(<span class="string">&#x27;doreen&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> CreateDiv(<span class="string">&#x27;sherry&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(a === b)    <span class="comment">// true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></blockquote>
+</li>
+<li><p>用代理实现单例模式</p>
+<blockquote>
+<p>CreateDiv变成普通类，它跟proxySingletonCreateDiv组合起来可以达到单例模式的效果</p>
+</blockquote>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> CreateDiv = <span class="function"><span class="keyword">function</span>(<span class="params">html</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">this</span>.html = html</span><br><span class="line">    <span class="built_in">this</span>.init()</span><br><span class="line">&#125;</span><br><span class="line">CreateDiv.prototype.init = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">    div.innerHTML = <span class="built_in">this</span>.html</span><br><span class="line">    <span class="built_in">document</span>.body.appendChild(div)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//代理类 proxySingletonCreateDiv</span></span><br><span class="line"><span class="keyword">var</span> proxySingletonCreateDiv = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> instance</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params">html</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!instance)&#123;</span><br><span class="line">            instance = <span class="keyword">new</span> CreateDiv(html)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> instance</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> proxySingletonCreateDiv(<span class="string">&#x27;doreen&#x27;</span>)</span><br><span class="line"><span class="keyword">var</span> b = <span class="keyword">new</span> proxySingletonCreateDiv(<span class="string">&#x27;sherry&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(a===b)  <span class="comment">// true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>惰性单例</p>
+<blockquote>
+<p>是在需要的时候才创建对象实例</p>
+</blockquote>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 创建一个登录框  需要登录的时候才动态创建登录框*/</span></span><br><span class="line"><span class="keyword">var</span> createLoginLayer = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> div</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!div) &#123;</span><br><span class="line">            div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">            div.innerHTML = <span class="string">&#x27;登录框&#x27;</span></span><br><span class="line">            div.style.display = <span class="string">&#x27;none&#x27;</span></span><br><span class="line">            <span class="built_in">document</span>.body.appendChild(div)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> div</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> loginLayer = createLoginLayer()</span><br></pre></td></tr></table></figure></li>
+<li><p>通用的惰性单例</p>
+<blockquote>
+<p>惰性单例存在的问题  </p>
+<ol>
+<li>违反单一职责原则，创建对象和管理单例的逻辑都放在createLoginLayer对象内部</li>
+<li>如果下次需要创建页面中唯一的iframe，或者script标签，用来跨域请求数据，就必须如法炮制，把createLoginLayer函数几乎照抄一遍  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> createIframe = (<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> iframe</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!iframe)&#123;</span><br><span class="line">            iframe = <span class="built_in">document</span>.createElement(<span class="string">&#x27;iframe&#x27;</span>)</span><br><span class="line">            iframe.style.display = <span class="string">&#x27;none&#x27;</span></span><br><span class="line">            <span class="built_in">document</span>.body.appendChild(iframe)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> iframe</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)()</span><br><span class="line"></span><br><span class="line"><span class="comment">//  把代码抽离出来</span></span><br><span class="line"><span class="comment">//  公用的部分 单例逻辑</span></span><br><span class="line"><span class="keyword">var</span> getSingle = <span class="function"><span class="keyword">function</span>(<span class="params">fn</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> result</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> result || (result = fn.apply(<span class="built_in">this</span>,<span class="built_in">arguments</span>))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//  创建对象的方法</span></span><br><span class="line"><span class="keyword">var</span> createLoginLayer = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> div = <span class="built_in">document</span>.createElement(<span class="string">&#x27;div&#x27;</span>)</span><br><span class="line">    div.innerHTML = <span class="string">&#x27;登录框&#x27;</span></span><br><span class="line">    div.style.display = <span class="string">&#x27;none&#x27;</span></span><br><span class="line">    <span class="built_in">document</span>.body.appendChil(div)</span><br><span class="line">    <span class="keyword">return</span> div</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> createSingleLoginLayer = getSingle(createLoginLayer)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+</blockquote>
 </li>
 </ol>
  
