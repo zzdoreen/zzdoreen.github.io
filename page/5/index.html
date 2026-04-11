@@ -79,7 +79,7 @@
   <script>
     try {
       var typed = new Typed("#subtitle", {
-        strings: ['一切都会好的，城南的花都开了', '今晚的月色真美', '注重过程，别在乎结果'],
+        strings: ['都选C', '', ''],
         startDelay: 0,
         typeSpeed: 200,
         loop: true,
@@ -140,275 +140,6 @@
     
     
     
-    
-    <article
-  id="post-redux"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/04/16/redux/"
-    >redux配合react的简单使用</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/04/16/redux/" class="article-date">
-  <time datetime="2020-04-16T04:21:42.000Z" itemprop="datePublished">2020-04-16</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/react/">react</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><blockquote>
-<p>javascript状态容器，提供可预测化的状态管理。（类似于vuex）</p>
-</blockquote>
-<h2 id="redux的工作流程"><a href="#redux的工作流程" class="headerlink" title="redux的工作流程"></a>redux的工作流程</h2><p><img src="http://www.ruanyifeng.com/blogimg/asset/2016/bg2016091802.jpg"></p>
-<blockquote>
-<p>store 是数据的存放地，组件从store中获取数据<br>action 存放着组件(view)对数据(data)的操作<br>reducer 根据传来的action的类型来更新state</p>
-</blockquote>
-<h3 id="流程详解"><a href="#流程详解" class="headerlink" title="流程详解"></a>流程详解</h3><ol>
-<li><p>用户操作视图数据发出action</p>
-<blockquote>
-<p>store.dispatch(action)</p>
-</blockquote>
-</li>
-<li><p>store自动调用reducer，并传入两个参数state和action。reducer根据action返回新的state</p>
-<blockquote>
-<p>(state=defaultState,action)=&gt;{ if(action.type===’…’){ return newState}… }</p>
-</blockquote>
-</li>
-<li><p>state发生变化，store调用监听函数</p>
-<blockquote>
-<p>store.subscribe(listener)</p>
-</blockquote>
-</li>
-<li><p>listener可以通过store.getState()得到当前状态，重新渲染页面</p>
-<blockquote>
-<p>function(){<br>   let newState = store.getState()<br>   component.setState(newState)<br>}</p>
-</blockquote>
-<h2 id="三大原则"><a href="#三大原则" class="headerlink" title="三大原则"></a>三大原则</h2></li>
-<li><p>单一数据源<br>整个应用的 state 被储存在一棵 object tree 中，并且这个 object tree 只存在于唯一一个 store 中。</p>
-</li>
-<li><p>state是只读的<br>唯一改变 state 的方法就是触发 action，action 是一个用于描述已发生事件的普通对象。</p>
-</li>
-<li><p>使用纯函数来执行修改<br>为了描述 action 如何改变 state tree ，需要编写 reducers。它接收先前的 state 和 action，并返回新的 state。</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
-<p>npm i redux –save</p>
-</blockquote>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>一般会创建一个单独的文件夹来存放这些数据</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line"> └── store</span><br><span class="line">       ├── index.js</span><br><span class="line">       ├── reducer.js</span><br><span class="line">       └── actions.js</span><br></pre></td></tr></table></figure>
-<h3 id="index-state"><a href="#index-state" class="headerlink" title="index (state)"></a>index (state)</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">createStore()：</span></span><br><span class="line"><span class="comment">创建一个store来存放所有的state</span></span><br><span class="line"><span class="comment">应用中有且仅有一个store</span></span><br><span class="line"><span class="comment">参数</span></span><br><span class="line"><span class="comment">1：reducer(Function)</span></span><br><span class="line"><span class="comment">2：[preloadeState](any): 初始的state</span></span><br><span class="line"><span class="comment">3：enhancer(Function): 强化的store creator ？？</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> &#123; createStore &#125; <span class="keyword">from</span> <span class="string">&#x27;redux&#x27;</span> <span class="comment">// 引入方法</span></span><br><span class="line"><span class="keyword">import</span> reducer <span class="keyword">from</span> <span class="string">&#x27;./reducer&#x27;</span>     <span class="comment">// 引入reducer</span></span><br><span class="line"><span class="keyword">const</span> store = createStore(          <span class="comment">// 创建存储仓库</span></span><br><span class="line">    reducer, </span><br><span class="line">    <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION__ &amp;&amp; <span class="built_in">window</span>.__REDUX_DEVTOOLS_EXTENSION__()</span><br><span class="line">)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> store        <span class="comment">// 把创建好的数据仓库暴露出去</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<p>在组件中获取数据</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;./store&#x27;</span>;</span><br><span class="line">...</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props)&#123;</span><br><span class="line">        <span class="built_in">super</span>(props)</span><br><span class="line">        <span class="built_in">this</span>.state = store.getState()   <span class="comment">//获取state</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br></pre></td></tr></table></figure>
-<h3 id="actions"><a href="#actions" class="headerlink" title="actions"></a>actions</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// actions.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">addAction</span> = (<span class="params"></span>)=&gt; (<span class="params">&#123;</span></span></span><br><span class="line"><span class="function"><span class="params">    type: <span class="string">&#x27;add&#x27;</span></span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span>)</span></span><br><span class="line"><span class="function"><span class="title">export</span> <span class="title">function</span> <span class="title">changeInputAction</span> = (<span class="params">value</span>)=&gt;(<span class="params">&#123;</span></span></span><br><span class="line"><span class="function"><span class="params">    type: <span class="string">&#x27;changeInput&#x27;</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">    value</span></span></span><br><span class="line"><span class="function"><span class="params">&#125;</span>)</span></span><br></pre></td></tr></table></figure>
-
-<p>在组件内使用action</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;changeInputAction,addAction&#125; <span class="keyword">from</span> <span class="string">&#x27;./store/actions&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 触发事件就会触发action</span></span><br><span class="line">  changeInputValue(e)&#123;</span><br><span class="line">    <span class="keyword">const</span> action = changeInputAction(e.target.value)</span><br><span class="line">    store.dispatch(action)  <span class="comment">// 更新state</span></span><br><span class="line">  &#125;</span><br><span class="line">  add()&#123;</span><br><span class="line">    <span class="keyword">const</span> action = addAction()</span><br><span class="line">    store.dispatch(action)</span><br><span class="line">  &#125;</span><br><span class="line">  storeChange()&#123;</span><br><span class="line">    <span class="built_in">this</span>.setState(store.getState())</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> App;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="reducer"><a href="#reducer" class="headerlink" title="reducer"></a>reducer</h3><p>它没有直接改变state的数据，而是返回新的对象</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建初始的state数据</span></span><br><span class="line"><span class="keyword">const</span> defaultState = &#123;</span><br><span class="line">    list:[<span class="string">&#x27;hehe&#x27;</span>,<span class="string">&#x27;enen&#x27;</span>],</span><br><span class="line">    inputValue:<span class="string">&#x27;write somthing&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (state=defaultState,action)=&gt;&#123;</span><br><span class="line">    <span class="keyword">if</span>(action.type===<span class="string">&#x27;changeInput&#x27;</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> newState = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(state))    <span class="comment">// 深拷贝</span></span><br><span class="line">        newState.inputValue = action.value  <span class="comment">// 更新数据</span></span><br><span class="line">        <span class="keyword">return</span> newState <span class="comment">// 返回新的state</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(action.type===<span class="string">&#x27;add&#x27;</span>)&#123;</span><br><span class="line">        <span class="keyword">let</span> newState = <span class="built_in">JSON</span>.parse(<span class="built_in">JSON</span>.stringify(state))</span><br><span class="line">        newState.list.push(newState.inputValue)</span><br><span class="line">        newState.inputValue = <span class="string">&#x27;&#x27;</span></span><br><span class="line">        <span class="keyword">return</span> newState</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> state</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 官方文档给出的代码段 是用switch-case进行对action类型的判断，assign进行拷贝和更新：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">todoApp</span>(<span class="params">state = defaultState, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> SET_VISIBILITY_FILTER:</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Object</span>.assign(&#123;&#125;, state, &#123;</span><br><span class="line">        visibilityFilter: action.filter</span><br><span class="line">      &#125;)</span><br><span class="line">    <span class="keyword">case</span> ADD_TODO:</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">Object</span>.assign(&#123;&#125;, state, &#123;</span><br><span class="line">        todos: [</span><br><span class="line">          ...state.todos,</span><br><span class="line">          &#123;</span><br><span class="line">            text: action.text,</span><br><span class="line">            completed: <span class="literal">false</span></span><br><span class="line">          &#125;</span><br><span class="line">        ]</span><br><span class="line">      &#125;)</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">return</span> state</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.redux.org.cn/">redux中文文档</a><br><a target="_blank" rel="noopener" href="https://jspang.com/detailed?id=48#toc218">技术胖博客</a></p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-react01"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/04/10/react01/"
-    >【react】开发环境搭建</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/04/10/react01/" class="article-date">
-  <time datetime="2020-04-10T04:21:42.000Z" itemprop="datePublished">2020-04-10</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/react/">react</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <h2 id="首先安装-Node-和-npm"><a href="#首先安装-Node-和-npm" class="headerlink" title="首先安装 Node 和 npm"></a>首先安装 Node 和 npm</h2><p>我的版本 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">node v10.15</span><br><span class="line">npm v6.4.1</span><br></pre></td></tr></table></figure>
-<h2 id="创建应用程序"><a href="#创建应用程序" class="headerlink" title="创建应用程序"></a>创建应用程序</h2><ol>
-<li>针对于npm 5.2+<blockquote>
-<p>npx create-react-app xxx</p>
-</blockquote>
-</li>
-<li>针对于npm 6+<blockquote>
-<p>npm init react-app xxx</p>
-</blockquote>
-</li>
-<li>针对于yarn 0.25+<blockquote>
-<p>yarn create react-app xxx</p>
-</blockquote>
-</li>
-</ol>
-<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>进入到xxx目录中，应该生成的目录格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">xxx</span><br><span class="line">├── README.md</span><br><span class="line">├── node_modules</span><br><span class="line">├── package.json</span><br><span class="line">├── .gitignore</span><br><span class="line">├── public</span><br><span class="line">│   ├── favicon.ico</span><br><span class="line">│   ├── index.html</span><br><span class="line">│   └── manifest.json</span><br><span class="line">└── src</span><br><span class="line">    ├── App.css</span><br><span class="line">    ├── App.js</span><br><span class="line">    ├── App.test.js</span><br><span class="line">    ├── index.css</span><br><span class="line">    ├── index.js</span><br><span class="line">    ├── logo.svg</span><br><span class="line">    └── serviceWorker.js</span><br></pre></td></tr></table></figure>
-<p>安装完成后，即可进入到项目目录：</p>
-<blockquote>
-<p>cd xxx</p>
-</blockquote>
-<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><ol>
-<li>运行：<blockquote>
-<p>npm start</p>
-</blockquote>
-</li>
-<li>打包：<blockquote>
-<p>npm run build</p>
-</blockquote>
-</li>
-</ol>
-<h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>按照文档的方式安装运行脚手架工具报错,并且生成的文件缺失<br>报错信息如下：</p>
-<blockquote>
-<p>A template was not provided. This is likely because you’re using an outdated version of create-react-app.<br>Please note that global installs of create-react-app are no longer supported.  </p>
-</blockquote>
-<p>（大概意思是 官方不支持 create-react-app 这个 cli 脚手架，版本已经过时，不支持全局安装）<br>因为我之前也有看过react的相关视频 可能安装的有之前的脚手架版本</p>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>卸载全局安装的脚手架</p>
-<blockquote>
-<p>npm uninstall -g create-react-app<br>然后在重新按照之前的步骤在运行一次</p>
-</blockquote>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-ES2020新特性"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/04/09/ES2020%E6%96%B0%E7%89%B9%E6%80%A7/"
-    >ES2020新特性</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/04/09/ES2020%E6%96%B0%E7%89%B9%E6%80%A7/" class="article-date">
-  <time datetime="2020-04-09T04:21:42.000Z" itemprop="datePublished">2020-04-09</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <blockquote>
-<p>不是所有的都会记录 只记录一些我目前能理解的和我觉得比较有用的</p>
-</blockquote>
-<h2 id="类的私有变量和方法"><a href="#类的私有变量和方法" class="headerlink" title="类的私有变量和方法"></a>类的私有变量和方法</h2><blockquote>
-<p>通过 # 代表私有变量和方法，在class外部无法访问 （相当于private）</p>
-</blockquote>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Num</span></span>&#123;</span><br><span class="line">    #privateNum = 0     //私有变量</span><br><span class="line">    static #privateStaticNum = 0        //静态私有变量</span><br><span class="line">    add()&#123;</span><br><span class="line">        this.#privateNum++</span><br><span class="line">        Num.#privateStaticNum++</span><br><span class="line">    &#125;</span><br><span class="line">    print()&#123;</span><br><span class="line">        console.log(this.#privateNum,Num.#privateStaticNum)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> Num()</span><br><span class="line">a.add()</span><br><span class="line">a.print()   <span class="comment">// 1 1</span></span><br><span class="line">console.log(a.#privateNum)     // SyntaxError</span><br><span class="line">console.log(Num.#privateStaticNum)       // SyntaxError</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在MDN和其他的一些大佬的总结里面也写了可以定义私有方法</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">  类似于以这种形式</span></span><br><span class="line"><span class="comment">  不知道是什么原因会报错 unexpected token</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Method</span>()</span>&#123;</span><br><span class="line">    #privateStaticMethod()&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;hello world&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    publicStaticMethod()&#123;</span><br><span class="line">        return #privateStaticMethod()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* </span></span><br><span class="line"><span class="comment">       另外看到有人总结是用这种形式</span></span><br><span class="line"><span class="comment">       可以正常运行 但是我感觉这种形式就是私有变量的定义赋给一个函数而已？</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    #privateStaticMethod = ()=&gt;&#123; ... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="空值合并运算符（Nullish-coalescing-Operator）"><a href="#空值合并运算符（Nullish-coalescing-Operator）" class="headerlink" title="空值合并运算符（Nullish coalescing Operator）"></a>空值合并运算符（Nullish coalescing Operator）</h2><blockquote>
-<p>和 || 的作用类似，但是 || 会将空字符串、0、false等直接覆盖，可能会造成一些问题，<br>?? 运算符只针对 null、undefined 进行覆盖</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> b = <span class="string">&#x27;&#x27;</span> || <span class="number">123</span>     <span class="comment">// 123</span></span><br><span class="line"><span class="keyword">const</span> a = <span class="string">&#x27;&#x27;</span> ?? <span class="number">123</span>     <span class="comment">// &#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
-<h2 id="可选链（Optional-chaining）"><a href="#可选链（Optional-chaining）" class="headerlink" title="可选链（Optional chaining）"></a>可选链（Optional chaining）</h2><blockquote>
-<p>简化繁琐重复的前置校验操作</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> user = &#123;</span><br><span class="line">    info: &#123;</span><br><span class="line">        name: &#123;</span><br><span class="line">            getName: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&#x27;doreen&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> names = user &amp;&amp; user.info &amp;&amp; user.info.name &amp;&amp; user.info.name.getName &amp;&amp;  user.info.name.getName()</span><br><span class="line"><span class="keyword">let</span> name = user?.info?.name?.getName?.()    <span class="comment">// =&gt;  user?.info?.name?.getName()</span></span><br></pre></td></tr></table></figure>
-<h2 id="dynamic-import"><a href="#dynamic-import" class="headerlink" title="dynamic-import"></a>dynamic-import</h2><blockquote>
-<p>之前的按需引入是静态import、目前更新的是动态的import()  </p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 用法区别：static import没有括号，dynamic import() 带有括号</span></span><br><span class="line"><span class="comment">// static import : 有声明提升、一般放在头部位置</span></span><br><span class="line"><span class="keyword">import</span> name <span class="keyword">from</span> <span class="string">&#x27;url&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// dynamic import : 放在任意位置</span></span><br><span class="line"><span class="keyword">const</span> name = <span class="keyword">import</span>(<span class="string">&#x27;url&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> test.js:</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">export &#123;xxx&#125;    引入的时候 import &#123;xxx&#125; from &#x27;xxx&#x27; 可以有多个</span></span><br><span class="line"><span class="comment">export default function()&#123;...&#125;  / export default &#123; a()&#123;...&#125;,b()&#123;...&#125; &#125;  </span></span><br><span class="line"><span class="comment">引入的时候 import xxx from &#x27;xxx&#x27;  只能写一次</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">const</span> add = <span class="function">(<span class="params">n,m</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> n+m</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> &#123; add &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// a.js:</span></span><br><span class="line"><span class="comment">// import()相当于一个promise的实例对象</span></span><br><span class="line"><span class="keyword">const</span> doAdd = <span class="keyword">async</span> (n,m)=&gt;&#123;</span><br><span class="line">    <span class="keyword">const</span> foo = <span class="keyword">await</span> <span class="keyword">import</span>(<span class="string">&#x27;./test.js&#x27;</span>)</span><br><span class="line">    <span class="built_in">console</span>.log(foo.add(n,m))</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">const</span> doAdd = <span class="function">(<span class="params">n,m</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">import</span>(<span class="string">&#x27;./test.js&#x27;</span>).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(res.add(n,m))</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line">doAdd(<span class="number">1</span>,<span class="number">2</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="globalThis"><a href="#globalThis" class="headerlink" title="globalThis"></a>globalThis</h2><blockquote>
-<p>提供了一个标准的方式去获取不同环境下的全局对象(gloabl、window)<br>在web下能正常打印，但是在node下还是不能正常输出？</p>
-</blockquote>
-<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/duyujian706709149/article/details/104014127">https://blog.csdn.net/duyujian706709149/article/details/104014127</a><br><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000022006869">https://segmentfault.com/a/1190000022006869</a><br><a target="_blank" rel="noopener" href="https://www.jb51.net/article/178289.htm">https://www.jb51.net/article/178289.htm</a><br><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Classes/Class_elements">MDN</a></p>
- 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
     
     <article
   id="post-table"
@@ -556,130 +287,6 @@
 <p>有bug  </p>
 </blockquote>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-command</span>=<span class="string">&quot;b&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(dataset)&quot;</span>&gt;</span> B <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-command</span>=<span class="string">&quot;i&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(dataset)&quot;</span>&gt;</span> I <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-command</span>=<span class="string">&quot;h1&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(dataset)&quot;</span>&gt;</span> h1 <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-value</span>=<span class="string">&quot;textAlign:center&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(dataset)&quot;</span>&gt;</span> 居中<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-value</span>=<span class="string">&quot;textAlign:right&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(dataset)&quot;</span>&gt;</span> 居右<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">data-value</span>=<span class="string">&quot;textAlign:left&quot;</span> <span class="attr">onclick</span>=<span class="string">&quot;changeStyle(dataset)&quot;</span>&gt;</span> 居左<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">id</span>=<span class="string">&#x27;btn&#x27;</span>&gt;</span></span><br><span class="line">        测试按钮</span><br><span class="line">    <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">contentEditable</span>=<span class="string">&#x27;true&#x27;</span>&gt;</span>犹豫<span class="tag">&lt;<span class="name">b</span>&gt;</span>就会败北<span class="tag">&lt;<span class="name">i</span>&gt;</span>52<span class="tag">&lt;/<span class="name">i</span>&gt;</span>墨菲<span class="tag">&lt;/<span class="name">b</span>&gt;</span>定律<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">contentEditable</span>=<span class="string">&#x27;true&#x27;</span>&gt;</span>薛定谔的猫🐱<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="comment">// 1.surrounContents(Node) 在原有内容 的基础上包裹一层node节点</span></span></span><br><span class="line"><span class="javascript">        <span class="comment">// 不能判断是否已经有该元素</span></span></span><br><span class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">changeStyle</span>(<span class="params">data</span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> tagName = data.command || <span class="literal">null</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> value = data.value || <span class="literal">null</span></span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> selobj = <span class="built_in">document</span>.getSelection()</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> Node = <span class="built_in">document</span>.createElement(tagName)</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> range = selobj.getRangeAt(<span class="number">0</span>)</span></span><br><span class="line">            if(value)&#123;</span><br><span class="line"><span class="javascript">                <span class="keyword">var</span> attr = value.split(<span class="string">&#x27;:&#x27;</span>)[<span class="number">0</span>].trim(),</span></span><br><span class="line"><span class="javascript">                 cssStyle = value.split(<span class="string">&#x27;:&#x27;</span>)[<span class="number">1</span>].trim() </span></span><br><span class="line">                 range.commonAncestorContainer.parentElement.style[attr] = cssStyle</span><br><span class="line"><span class="javascript">            &#125;<span class="keyword">else</span>&#123;</span></span><br><span class="line">                range.surroundContents(Node)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="javascript">        <span class="comment">// 2.把选择的范围节点删除 在字符串外重新添加标签，只能一种标签存在</span></span></span><br><span class="line"><span class="javascript">        btn.onclick = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> range =  <span class="built_in">document</span>.getSelection().getRangeAt(<span class="number">0</span>)</span></span><br><span class="line"><span class="javascript">            <span class="keyword">var</span> oB = <span class="built_in">document</span>.createElement(<span class="string">&#x27;b&#x27;</span>)</span></span><br><span class="line">            oB.innerHTML = range.toString()</span><br><span class="line">            range.deleteContents()</span><br><span class="line">            range.insertNode(oB)</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure> 
-      <!-- reward -->
-      
-    </div>
-    
-
-    <!-- copyright -->
-    
-    <footer class="article-footer">
-       
-    </footer>
-  </div>
-
-    
- 
-   
-</article>
-
-    
-    <article
-  id="post-一些废话"
-  class="article article-type-post"
-  itemscope
-  itemprop="blogPost"
-  data-scroll-reveal
->
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2020/01/31/%E4%B8%80%E4%BA%9B%E5%BA%9F%E8%AF%9D/"
-    >一些废话</a> 
-</h2>
- 
-
-    </header>
-     
-    <div class="article-meta">
-      <a href="/2020/01/31/%E4%B8%80%E4%BA%9B%E5%BA%9F%E8%AF%9D/" class="article-date">
-  <time datetime="2020-01-31T02:21:42.000Z" itemprop="datePublished">2020-01-31</time>
-</a> 
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E6%97%A5%E5%B8%B8/">日常</a>
-  </div>
-   
-    </div>
-      
-    <div class="article-entry" itemprop="articleBody">
-       
-  <pre>
-虽然2020才过了一个多月，但已经充分展示出他的不平凡
-这还得从一只🦇说起。。。
-资本家犯下的罪恶买单的还是广大群众
-1.22 我从长沙回凤凰的时候湖南还没有一例
-到现在 2.13 一个月还没到累积病例已经900多了
-从回家到现在我就出过两次门 
-本来和朋友约的电影、饭局也泡汤
-现在靠我一月底买的50个口罩苟活
-（虽然没有这次肺炎我放假的状态也差不太多）
-但还是闹得人心惶惶的 交通也瘫痪 娱乐场所被迫关门
-很多企业应该是损失惨重 人也被迫"禁足"
-整天无所事事 刷微博、微信、QQ等沙雕网友的新段子
-
-实习的公司也响应号召实施远程办公，换了一个正常的项目组长，美滋滋
-因为前期没有接触过项目 现在远程也说不清楚 这两个星期基本没我什么事
-就把源码看了下，给了份报告，把自己简单实现效果的源码提交过去 
-组长也没找过我了 换做之前那个 没事也会专门给我找点不归我做的事情做
-
-刚好借疫情的原因给老板说了辞职 也算是给了我一个充分的借口
-但就是月底之前怎么赶回去还不清楚 说是下周一复工的 目前还没确定
-昨天跟合租的说我可能下周一会回去 他可能不想我在3月之前回去（好继续分担租金？）
-还骗我说我们小区感染了几个？
-然后我就去看了下，周边五公里都没有被感染案例 也是醉了
-
-现在的人为了自己的利益什么谎都能撒 什么事都敢做 脑子都不动
-
-翻篇---------
-
-可能是因为闲的 在B站首页看到塔罗牌测试的，进去了两个测试看了下
-第一个是关于未来的
-第二个是关于学业事业的
-两个都说到了未来会朝着好的方向发展 （不是很信这些 但也希望能实现）
-
-没怎么了解过塔罗牌 唯一一次是在初二同学给测过一次
-说来也巧 那次也是和这次说的差不多
-原话大概是 
-“
-    虽然之前做了很多努力 但是都没有什么收获
-    但在后期 关键时候的都会朝着一个好的方向发展 有个好的运势
-”
-还算被预言到了
-初三那年的考试排名都还靠前
-高中招提前批 本来说给分到B班的
-后面因为竞赛成绩比较高又给调到A班了 我都不知道我怎么考的
-我当时的状态就是 我何德何能？ 后面班级比我优秀的太多了
-
-从小到大 我一直的成绩都是中等 或者中等偏下
-也不知道为什么 到初三 、 高三的时候成绩总会慢慢提上来 稳定到10几
-但是我自己没有觉得我突然奋发图强 然后变强了
-我一直没怎么变啊？ 我也没觉得自己学会了什么
-自己也想过原因 可能是我比较有韧性 能一直坚持
-所以会慢慢累积 然后提升
-但是我自己真的没有觉得我的知识丰富了QAQ
-特别是高中除了数学外的科目
-我都没什么把握 分数听天由命的那种
-
-我真的不是聪明的人 要加倍的努力才能和别人到一个水平线
-
-刚去文科班那会儿 历史基本是30-40分 倒数行列的
-我的几个同班同学都跟我说过我不适合文科
-好在没有放弃 在努力之后到达了平均线、超过了平均线
-可能效果不是显而易见的以至于我自己有没有感觉到变化
-直到高三我才意识到，我的成绩慢慢稳定在水平线以内
-
-现在又将面临一个人生的转折点
-从一个文科生 转为一个程序员
-我们的专业课 就是杂而不精 老师基本都是混子
-只能靠自己自学 学的时候也感觉到了自己对于代码逻辑底层的东西真的看不进去
-真的很羡慕天赋型的人 我花了很长的时间去看、学这些东西
-好像没有什么用 就是记不住 理解不了 没有能交流的人 
-我不知道自己还有没有足够的运气让我能朝着好的方向继续走
-
-说到这里 我也不知道自己想要表达什么 也大概是闲的
-</pre> 
       <!-- reward -->
       
     </div>
@@ -1106,13 +713,363 @@
 </article>
 
     
+    <article
+  id="post-3d效果"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/01/14/3d%E6%95%88%E6%9E%9C/"
+    >CSS实现3D效果</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/01/14/3d%E6%95%88%E6%9E%9C/" class="article-date">
+  <time datetime="2020-01-14T07:16:00.000Z" itemprop="datePublished">2020-01-14</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/CSS/">CSS</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="transform相关属性实现3D效果"><a href="#transform相关属性实现3D效果" class="headerlink" title="transform相关属性实现3D效果"></a>transform相关属性实现3D效果</h2><style>
+    ._3Dbox{
+        width: 200px;
+        margin: 200px auto;
+        perspective: 2000px;    /* 视距 */
+    }
+    ._3Dbox .cube{
+        position: relative;
+        width: 200px;
+        height: 200px;
+        transform-style: preserve-3d;   /* 以3d的形式展示 ！！！ */
+        animation: _3dmove 10s linear infinite;
+    }
+    ._3Dbox .cube div{
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        border: 2px solid lightblue;
+        line-height: 200px;
+        font-size: 30px;
+        opacity: 0.9;
+        text-align: center;
+        background: url('/images/avatar.jpg');
+        background-size: contain;
+    }
+    ._3Dbox .cube div:nth-child(1){ /* 上 */
+        transform:rotateX(90deg) translateZ(102px);
+    }
+    ._3Dbox .cube div:nth-child(2){ /* 下 */
+        transform:rotateX(-90deg) translateZ(102px);
+    }
+    ._3Dbox .cube div:nth-child(3){ /* 前 */
+        transform:translateZ(102px);
+    }
+    ._3Dbox .cube div:nth-child(4){ /* 后 */
+        transform: translateZ(-102px);
+    }
+    ._3Dbox .cube div:nth-child(5){ /* 左 */
+        transform: translateX(-102px) rotateY(90deg);
+    }
+    ._3Dbox .cube div:nth-child(6){ /* 右 */
+        transform: translateX(102px) rotateY(-90deg);
+    }
+    @keyframes _3dmove {
+        to{
+            transform: rotateX(360deg) rotateY(360deg) ;
+        }
+    }
+
+</style>
+<div class="_3Dbox">
+    <div class="cube">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+</div>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span>&#123;</span></span><br><span class="line">        width: 200px;</span><br><span class="line">        margin: 200px auto;</span><br><span class="line"><span class="css">        <span class="selector-tag">perspective</span>: 2000<span class="selector-tag">px</span>;    <span class="comment">/* 视距 */</span></span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span>&#123;</span></span><br><span class="line">        position: relative;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line"><span class="css">        <span class="selector-tag">transform-style</span>: <span class="selector-tag">preserve-3d</span>;   <span class="comment">/* 以3d的形式展示 ！！！ */</span></span></span><br><span class="line">        animation: _3dmove 10s linear infinite;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span>&#123;</span></span><br><span class="line">        position: absolute;</span><br><span class="line">        width: 200px;</span><br><span class="line">        height: 200px;</span><br><span class="line">        border: 2px solid lightblue;</span><br><span class="line">        line-height: 200px;</span><br><span class="line">        font-size: 30px;</span><br><span class="line"><span class="css">        <span class="selector-tag">opacity</span>: 0<span class="selector-class">.9</span>;</span></span><br><span class="line">        text-align: center;</span><br><span class="line">        background: url(&#x27;/images/avatar.jpg&#x27;);</span><br><span class="line">        background-size: contain;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(1)</span>&#123; <span class="comment">/* 上 */</span></span></span><br><span class="line"><span class="css">        <span class="selector-tag">transform</span><span class="selector-pseudo">:rotateX(90deg)</span> <span class="selector-tag">translateZ</span>(102<span class="selector-tag">px</span>);</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(2)</span>&#123; <span class="comment">/* 下 */</span></span></span><br><span class="line"><span class="css">        <span class="selector-tag">transform</span><span class="selector-pseudo">:rotateX(-90deg)</span> <span class="selector-tag">translateZ</span>(102<span class="selector-tag">px</span>);</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(3)</span>&#123; <span class="comment">/* 前 */</span></span></span><br><span class="line"><span class="css">        <span class="selector-tag">transform</span><span class="selector-pseudo">:translateZ(102px)</span>;</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(4)</span>&#123; <span class="comment">/* 后 */</span></span></span><br><span class="line">        transform: translateZ(-102px);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(5)</span>&#123; <span class="comment">/* 左 */</span></span></span><br><span class="line">        transform: translateX(-102px) rotateY(90deg);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="selector-class">._3Dbox</span> <span class="selector-class">.cube</span> <span class="selector-tag">div</span><span class="selector-pseudo">:nth-child(6)</span>&#123; <span class="comment">/* 右 */</span></span></span><br><span class="line">        transform: translateX(102px) rotateY(-90deg);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="css">    <span class="keyword">@keyframes</span> _3dmove &#123;</span></span><br><span class="line">        to&#123;</span><br><span class="line">            transform: rotateX(360deg) rotateY(360deg) ;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;_3Dbox&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;cube&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="CSS中的3D坐标轴"><a href="#CSS中的3D坐标轴" class="headerlink" title="CSS中的3D坐标轴"></a>CSS中的3D坐标轴</h2><blockquote>
+<p>rotateX/Y/Z() 相当于绕X/Y/Z轴旋转 多少度<br>translateX/Y/Z() 相当于沿着X/Y/Z轴的方向移动多少像素  </p>
+</blockquote>
+<img src='/images/3d.webp' /> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-迭代器模式"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/01/13/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/"
+    >【第七章】 迭代器模式</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/01/13/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F/" class="article-date">
+  <time datetime="2020-01-13T07:16:00.000Z" itemprop="datePublished">2020-01-13</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="迭代器模式"><a href="#迭代器模式" class="headerlink" title="迭代器模式"></a>迭代器模式</h2><blockquote>
+<p>提供一种 “顺序访问” 一个聚合对象中的各个元素，而又不需要暴露该对象的内部表示。<br>迭代模式可以把迭代的过程从业务逻辑中分离出来，在使用迭代器模式之后，即使不关心对象的内部构造，也可以按顺序方位其中的每个元素。</p>
+</blockquote>
+<p>自己实现一个迭代器：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> each = <span class="function"><span class="keyword">function</span>(<span class="params">ary,callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;ary.length;i++)&#123;</span><br><span class="line">        callback.call(<span class="literal">null</span>,i,ary[i])   <span class="comment">// 把下标和元素当作参数传给callback函数</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">each([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],<span class="function"><span class="keyword">function</span>(<span class="params">i,n</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log([i,n])</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="内部迭代器"><a href="#内部迭代器" class="headerlink" title="内部迭代器"></a>内部迭代器</h2><blockquote>
+<p>上面编写的 each 函数属于内部迭代器，each 函数的内部已经定义好了迭代规则，它完全接手整个迭代过程，外部只需要一次初始调用。  </p>
+</blockquote>
+<p>内部迭代器在调用的时候非常方便，外界不用关心迭代器内部的实现，跟迭代器的交互也仅仅是一次初始调用，但这也刚好是内部迭代器的缺点。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 内部迭代器实现 比较两个数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">ary1,ary2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(ary1.length != ary2.length)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&#x27;不相等&#x27;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    each(ary1,<span class="function"><span class="keyword">function</span>(<span class="params">i,n</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(ary2[i]!=n)&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;不相等&#x27;</span>) <span class="comment">// console.log(&#x27;不相等&#x27;)</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;相等&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line">compare([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) <span class="comment">// 相等</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="外部迭代器"><a href="#外部迭代器" class="headerlink" title="外部迭代器"></a>外部迭代器</h2><blockquote>
+<p>外部迭代器必须显式地请求迭代下一个元素。<br>外部迭代器增加了一些调用的复杂度，但相对也增强了迭代器的灵活性，我们可以手工控制迭代的过程或者顺序。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Iterator = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> current = <span class="number">0</span></span><br><span class="line">    <span class="keyword">var</span> next = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        current +=<span class="number">1</span>     </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> isDone = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> current &gt;= obj.length</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> getCurrentItem = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> obj[current]</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        next: next,</span><br><span class="line">        isDone: isDone,</span><br><span class="line">        getCurrentItem: getCurrentItem</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 外部迭代器实现 比较两个数组</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">compare</span>(<span class="params">Iterator1,Iterator2</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(!Iterator1.isDone()&amp;&amp;!Iterator2.isDone())&#123;</span><br><span class="line">        <span class="keyword">if</span>(Iterator1.getCurrentItem() !== Iterator2.getCurrentItem())&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;不相等&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        Iterator1.next()</span><br><span class="line">        Iterator2.next()</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;相等&#x27;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> Iterator1 = Iterator([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line"><span class="keyword">var</span> Iterator2 = Iterator([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line">compare(Iterator1,Iterator2)   <span class="comment">// 相等</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="迭代类数组对象和字面量对象"><a href="#迭代类数组对象和字面量对象" class="headerlink" title="迭代类数组对象和字面量对象"></a>迭代类数组对象和字面量对象</h2><blockquote>
+<p>类数组：arguments<br>字面量对象：{‘0’:’a’,’1’:’b’}</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">each</span>(<span class="params">obj,callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> value,</span><br><span class="line">    i=<span class="number">0</span>,</span><br><span class="line">    length = obj.length,</span><br><span class="line">    isArray = isArraylike(obj); <span class="comment">//假装封装好了一个判断是否是类数组的方法</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(isArray)&#123;    <span class="comment">// 迭代类数组</span></span><br><span class="line">        <span class="keyword">for</span>(;i&lt;length;i++)&#123;</span><br><span class="line">            value = callback.call(<span class="literal">null</span>,i,obj[i])</span><br><span class="line">            <span class="keyword">if</span>(value === <span class="literal">false</span>)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">for</span>(i <span class="keyword">in</span> obj)&#123;</span><br><span class="line">            value = callback.call(<span class="literal">null</span>,i,obj[i])</span><br><span class="line">            <span class="keyword">if</span>(value === <span class="literal">false</span>)&#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> obj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="中止迭代器"><a href="#中止迭代器" class="headerlink" title="中止迭代器"></a>中止迭代器</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> each = <span class="function"><span class="keyword">function</span>(<span class="params">ary,callback</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;ary.length;i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(callback(i,ary[i]) === <span class="literal">false</span>)&#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">each([<span class="number">11</span>,<span class="number">21</span>,<span class="number">31</span>,<span class="number">41</span>,<span class="number">51</span>],<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n&gt;<span class="number">30</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(n)</span><br><span class="line">&#125;) <span class="comment">// 11 21</span></span><br></pre></td></tr></table></figure> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-vue-element-admin权限管理&amp;动态路由配置"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/01/08/vue-element-admin%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86&%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/"
+    >vue-element-admin权限管理&amp;动态路由配置</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/01/08/vue-element-admin%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86&%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E9%85%8D%E7%BD%AE/" class="article-date">
+  <time datetime="2020-01-08T12:00:00.000Z" itemprop="datePublished">2020-01-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/vue/">vue</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <p><a target="_blank" rel="noopener" href="https://panjiachen.gitee.io/vue-element-admin-site/zh/guide/">vue-element-admin模板地址</a></p>
+<blockquote>
+<p>需求: 调用登陆接口之后 后台传递路由数据给前端 进行动态创建和显示  </p>
+</blockquote>
+<blockquote>
+<p>问题: 各种问题 主要是不清楚这个模板的默认权限动态传递的配置</p>
+</blockquote>
+<h3 id="用到的核心文件地址"><a href="#用到的核心文件地址" class="headerlink" title="用到的核心文件地址"></a>用到的核心文件地址</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">src&#x2F;router&#x2F;index.js                     路由</span><br><span class="line">src&#x2F;store&#x2F;modules&#x2F;user.js               用户登录，用户信息、路由信息传递</span><br><span class="line">src&#x2F;permission.js                       信息传递（user -&gt; permission 的中间商）  之前就是一直没注意到这个 导致一直弄不好</span><br><span class="line">src&#x2F;store&#x2F;modules&#x2F;permission.js         权限获取&amp;配置</span><br></pre></td></tr></table></figure>
+<h3 id="src-router-index-js-路由配置"><a href="#src-router-index-js-路由配置" class="headerlink" title="src/router/index.js 路由配置"></a>src/router/index.js 路由配置</h3><blockquote>
+<p>constantRoutes: 不需要动态判断权限的路由 eg：登陆、404等通用页面<br>asyncRoutes：需要动态判断权限并通过addRoutes动态添加的页面  </p>
+</blockquote>
+<p>需要把动态路由先配置好 ‘permission’ 权限要写好<br>到时候才能正确的获取和显示相应的权限</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> constantRoutes = [</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">&#x27;/login&#x27;</span>,</span><br><span class="line">    component: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;@/views/login/index&#x27;</span>),</span><br><span class="line">    hidden: <span class="literal">true</span></span><br><span class="line">  &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">&#x27;/&#x27;</span>,</span><br><span class="line">    component: Layout,</span><br><span class="line">    redirect: <span class="string">&#x27;/dashboard&#x27;</span>,</span><br><span class="line">    children: [&#123;</span><br><span class="line">      path: <span class="string">&#x27;/dashboard&#x27;</span>,</span><br><span class="line">      name: <span class="string">&#x27;Dashboard&#x27;</span>,</span><br><span class="line">      component: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;@/views/dashboard/index&#x27;</span>),</span><br><span class="line">      meta: &#123; <span class="attr">title</span>: <span class="string">&#x27;首页&#x27;</span>, <span class="attr">icon</span>: <span class="string">&#x27;dashboard&#x27;</span>, <span class="attr">affix</span>: <span class="literal">true</span> &#125;</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> asyncRoutes = [</span><br><span class="line">  <span class="comment">//  待审核</span></span><br><span class="line">  &#123;</span><br><span class="line">    path: <span class="string">&#x27;/toPend&#x27;</span>,</span><br><span class="line">    component: Layout,</span><br><span class="line">    redirect: <span class="string">&#x27;/toPend&#x27;</span>,</span><br><span class="line">    permission: <span class="string">&#x27;toPend&#x27;</span>,</span><br><span class="line">    title: <span class="string">&#x27;待审核&#x27;</span>,</span><br><span class="line">    children: [</span><br><span class="line">      &#123;</span><br><span class="line">        permission: <span class="string">&#x27;toPend&#x27;</span>,</span><br><span class="line">        path: <span class="string">&#x27;/toPendIndex&#x27;</span>,</span><br><span class="line">        component: <span class="function">() =&gt;</span> <span class="keyword">import</span>(<span class="string">&#x27;@/views/toPendManagement/toPendIndex&#x27;</span>),</span><br><span class="line">        name: <span class="string">&#x27;toPend&#x27;</span>,</span><br><span class="line">        meta: &#123;</span><br><span class="line">          title: <span class="string">&#x27;待审核&#x27;</span>,</span><br><span class="line">          icon: <span class="string">&#x27;form&#x27;</span>,</span><br><span class="line">          noCache: <span class="literal">false</span> <span class="comment">// 如果设置为true，则不会被 &lt;keep-alive&gt; 缓存(默认 false)</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br><span class="line">  ....</span><br><span class="line">  <span class="comment">// 404 page must be placed at the end !!!</span></span><br><span class="line">  &#123; <span class="attr">path</span>: <span class="string">&#x27;*&#x27;</span>, <span class="attr">redirect</span>: <span class="string">&#x27;/404&#x27;</span>, <span class="attr">hidden</span>: <span class="literal">true</span> &#125;</span><br><span class="line">]</span><br><span class="line"><span class="keyword">const</span> createRouter = <span class="function">() =&gt;</span> <span class="keyword">new</span> Router(&#123;</span><br><span class="line">  mode: <span class="string">&#x27;history&#x27;</span>, <span class="comment">// require service support</span></span><br><span class="line">  scrollBehavior: <span class="function">() =&gt;</span> (&#123; <span class="attr">y</span>: <span class="number">0</span> &#125;),</span><br><span class="line">  routes: constantRoutes</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> router = createRouter()</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">resetRouter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> newRouter = createRouter()</span><br><span class="line">  router.matcher = newRouter.matcher <span class="comment">// reset router</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> router</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="src-store-modules-user-js-用户登陆获取数据"><a href="#src-store-modules-user-js-用户登陆获取数据" class="headerlink" title="src/store/modules/user.js 用户登陆获取数据"></a>src/store/modules/user.js 用户登陆获取数据</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  正常流程是在login接口获取到 token，存在vuex中 供登陆</span></span><br><span class="line"><span class="comment">  然后在getInfo接口获取到 路由和用户信息 存储并发送出去 供路由的动态配置</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">  但是 我们这个项目把getInfo接口取消了 在login接口就直接获取到路由信息</span></span><br><span class="line"><span class="comment">  本来是不需要自己封装info数据的</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">const</span> actions = &#123;</span><br><span class="line">  <span class="comment">// user login</span></span><br><span class="line">  login(&#123;commit&#125;, userInfo) &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; username,password &#125; = userInfo</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</span><br><span class="line">      login(&#123; <span class="attr">account</span>: username.trim(), <span class="attr">password</span>: password &#125;).then(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123;</span><br><span class="line">          data</span><br><span class="line">        &#125; = response</span><br><span class="line">        <span class="comment">// 存储到cookie中 ！很重要 不然登陆不了 接口在 src/utils/auth.js</span></span><br><span class="line">        setToken(&#123; <span class="attr">username</span>: <span class="string">&#x27;admin&#x27;</span>, <span class="attr">password</span>: <span class="string">&#x27;admin&#x27;</span> &#125;)  </span><br><span class="line">        <span class="keyword">var</span> info = &#123; <span class="attr">username</span>: <span class="string">&#x27;admin&#x27;</span>, <span class="attr">password</span>: <span class="string">&#x27;admin&#x27;</span>, <span class="attr">roles</span>: [<span class="string">&#x27;admin&#x27;</span>], <span class="attr">routes</span>: data.permission &#125; </span><br><span class="line">         commit(<span class="string">&#x27;SET_TOKEN&#x27;</span>, info)  <span class="comment">// 存储到 vuex 中 数据格式如上 ↑ </span></span><br><span class="line">        resolve()</span><br><span class="line">      &#125;).catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span><br><span class="line">        reject(error)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  getInfo(&#123; commit,state &#125;) &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 可以把这三个写在 info 中 从info里获取</span></span><br><span class="line">      <span class="keyword">const</span> roles = <span class="string">&#x27;admin&#x27;</span></span><br><span class="line">      <span class="keyword">const</span> name = <span class="string">&#x27;Super Admin&#x27;</span></span><br><span class="line">      <span class="keyword">const</span> avatar = <span class="string">&#x27;http://pic.51yuansu.com/pic3/cover/03/47/85/5badd30d6526d_610.jpg&#x27;</span></span><br><span class="line">      commit(<span class="string">&#x27;SET_ROLES&#x27;</span>, roles)</span><br><span class="line">      commit(<span class="string">&#x27;SET_NAME&#x27;</span>, name)</span><br><span class="line">      commit(<span class="string">&#x27;SET_AVATAR&#x27;</span>, avatar) <span class="comment">// 存储在cookie中</span></span><br><span class="line">      resolve(state.token)  <span class="comment">// 发送 info 值 ，传递给 permission</span></span><br><span class="line">     &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// get user info 如果是有info接口的传递方法</span></span><br><span class="line">  <span class="comment">/* getInfo(&#123; commit, state &#125;) &#123;</span></span><br><span class="line"><span class="comment">    return new Promise((resolve, reject) =&gt; &#123;</span></span><br><span class="line"><span class="comment">      getInfo(state.token).then(response =&gt; &#123;</span></span><br><span class="line"><span class="comment">        const &#123; data &#125; = response</span></span><br><span class="line"><span class="comment">        if (!data) &#123;</span></span><br><span class="line"><span class="comment">          reject(&#x27;Verification failed, please Login again.&#x27;)</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        const &#123; roles, name, avatar &#125; = data</span></span><br><span class="line"><span class="comment">        // roles must be a non-empty array</span></span><br><span class="line"><span class="comment">        if (!roles || roles.length &lt;= 0) &#123;</span></span><br><span class="line"><span class="comment">          reject(&#x27;getInfo: roles must be a non-null array!&#x27;)</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        commit(&#x27;SET_ROLES&#x27;, roles)</span></span><br><span class="line"><span class="comment">        commit(&#x27;SET_NAME&#x27;, name)</span></span><br><span class="line"><span class="comment">        commit(&#x27;SET_AVATAR&#x27;, avatar)</span></span><br><span class="line"><span class="comment">        console.log(data)</span></span><br><span class="line"><span class="comment">        resolve(data)</span></span><br><span class="line"><span class="comment">      &#125;).catch(error =&gt; &#123;</span></span><br><span class="line"><span class="comment">        reject(error)</span></span><br><span class="line"><span class="comment">      &#125;)</span></span><br><span class="line"><span class="comment">    &#125;)</span></span><br><span class="line"><span class="comment">  &#125;, */</span></span><br><span class="line">  ......</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  namespaced: <span class="literal">true</span>,</span><br><span class="line">  state,</span><br><span class="line">  mutations,</span><br><span class="line">  actions</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="src-store-modules-permission-js-权限获取"><a href="#src-store-modules-permission-js-权限获取" class="headerlink" title="src/store/modules/permission.js 权限获取"></a>src/store/modules/permission.js 权限获取</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">  本来是根据角色roles权限过滤路由,并显示到侧边栏</span></span><br><span class="line"><span class="comment">  roles.</span></span><br><span class="line"><span class="comment">  但是现在是不根据权限 而是后台传递的路由信息 所以不用判断权限 修改为</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="keyword">const</span> actions = &#123;</span><br><span class="line">  generateRoutes(&#123; commit &#125;, userinfo) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span> =&gt;</span> &#123;</span><br><span class="line">       <span class="keyword">const</span> strRoutes = <span class="built_in">JSON</span>.stringify(userinfo.routes)</span><br><span class="line">       <span class="keyword">const</span> accessedRoutes = filterAsyncRoutes(asyncRoutes, strRoutes) <span class="comment">//路由的过滤器 获取相同的路由</span></span><br><span class="line">      commit(<span class="string">&#x27;SET_ROUTES&#x27;</span>, accessedRoutes)</span><br><span class="line">      resolve(accessedRoutes)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="src-permission-js-用户信息传递-amp-配置路由"><a href="#src-permission-js-用户信息传递-amp-配置路由" class="headerlink" title="src/permission.js 用户信息传递&amp;配置路由"></a>src/permission.js 用户信息传递&amp;配置路由</h3><blockquote>
+<p>首先确定userinfo需要的格式  就是getInfo函数传递过来的 resolve(state.token)</p>
+</blockquote>
+<p>path对应的是路由中的permission<br><img src='/images/数据格式.png' >  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">router.beforeEach(<span class="keyword">async</span>(to, <span class="keyword">from</span>, next) =&gt; &#123;</span><br><span class="line">  <span class="keyword">if</span> (hasToken) &#123;</span><br><span class="line">    <span class="keyword">if</span> (to.path === <span class="string">&#x27;/login&#x27;</span>) &#123;</span><br><span class="line">     ...</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="comment">// determine whether the user has obtained his permission roles through getInfo</span></span><br><span class="line">      <span class="keyword">const</span> hasRoles = store.getters.roles &amp;&amp; store.getters.roles.length &gt; <span class="number">0</span></span><br><span class="line">      <span class="keyword">if</span> (hasRoles) &#123;</span><br><span class="line">        next()</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 登录后会走这里获取roles</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">          <span class="comment">// get user info</span></span><br><span class="line">          <span class="comment">// note: roles must be a object array! such as: [&#x27;admin&#x27;] or ,[&#x27;developer&#x27;,&#x27;editor&#x27;]</span></span><br><span class="line">          <span class="keyword">const</span> userinfo = <span class="keyword">await</span> store.dispatch(<span class="string">&#x27;user/getInfo&#x27;</span>) <span class="comment">//获取用户信息</span></span><br><span class="line">          <span class="comment">// 调用store下module下的permission文件中的generateRoutes方法</span></span><br><span class="line">          <span class="keyword">const</span> accessRoutes = <span class="keyword">await</span> store.dispatch(<span class="string">&#x27;permission/generateRoutes&#x27;</span>, userinfo) <span class="comment">// 获取动态路由</span></span><br><span class="line">          <span class="comment">// dynamically add accessible routes 显示获取到的侧边栏</span></span><br><span class="line">          router.addRoutes(accessRoutes)  <span class="comment">//创建路由</span></span><br><span class="line"></span><br><span class="line">          next(&#123; ...to, <span class="attr">replace</span>: <span class="literal">true</span> &#125;)</span><br><span class="line">        &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">          ...</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="被遗漏的BUG"><a href="#被遗漏的BUG" class="headerlink" title="被遗漏的BUG"></a>被遗漏的BUG</h3><blockquote>
+<p>描述： 登录完成之后，进入操作页面 刷新 又需要重新登录  </p>
+</blockquote>
+<p>原因： 之前这个模板是调用的getInfo接口获取、存储路由信息<br>页面刷新之后 再次调用接口即可获取到路由等信息  </p>
+<p>但是我们把getInfo接口废弃了 路由信息是登陆的时候获取<br>存在vuex中 在getInfo函数内直接使用的vuex存储的数据 并发布出去  </p>
+<p><b style='color:red'>原因就在于 vuex刷新之后 数据就清空了！所以又需要重新登录 获取路由等信息。 </b>   </p>
+<blockquote>
+<p>解决:<br>在login登陆接口之后获取到路由数据<br>通过sessionStorage / localStorage 存放在本地<br>然后在使用 getInfo 函数的时候 不从vuex内获取 从 sessionStorage / localStorage 获取并发送    </p>
+</blockquote>
+<p>注意：在退出登陆的时候 即调用logout接口之前要通过.removeItem()进行删除操作 不然不能正常退出登陆</p>
+ 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
+    <article
+  id="post-await相关题目"
+  class="article article-type-post"
+  itemscope
+  itemprop="blogPost"
+  data-scroll-reveal
+>
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2020/01/08/await%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/"
+    >事件循环相关-异步输出顺序问题</a> 
+</h2>
+ 
+
+    </header>
+     
+    <div class="article-meta">
+      <a href="/2020/01/08/await%E7%9B%B8%E5%85%B3%E9%A2%98%E7%9B%AE/" class="article-date">
+  <time datetime="2020-01-08T07:16:00.000Z" itemprop="datePublished">2020-01-08</time>
+</a> 
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/JavaScript/">JavaScript</a>
+  </div>
+   
+    </div>
+      
+    <div class="article-entry" itemprop="articleBody">
+       
+  <h2 id="题目出处"><a href="#题目出处" class="headerlink" title="题目出处"></a><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000016329715">题目出处</a></h2><blockquote>
+<p>通过这个题目 大概搞懂了 async/await 的实际意义<br>也可以复习下事件循环机制</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async1</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;async1 start&quot;</span>);</span><br><span class="line">    <span class="keyword">await</span> async2();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;async1 end&quot;</span>);  <span class="comment">// 相当于async2这个promise对象的一个 .then()</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">async2</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(<span class="string">&quot;async2&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;script start&quot;</span>);  </span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;settimeout&quot;</span>);</span><br><span class="line">&#125;,<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">async1();   </span><br><span class="line"></span><br><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;promise1&quot;</span>);   </span><br><span class="line">    resolve();</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;promise2&quot;</span>);</span><br><span class="line">&#125;); </span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">&quot;script end&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 整体同步的执行顺序</span></span><br><span class="line"><span class="comment"> * 1. console.log(&quot;script start&quot;)   -&gt; 输出 “ script start ”</span></span><br><span class="line"><span class="comment"> *  </span></span><br><span class="line"><span class="comment"> *  * setTimeout() 进入异步队列 *</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 2. async1()  </span></span><br><span class="line"><span class="comment"> *      -&gt; 输出 “ async1 start ” </span></span><br><span class="line"><span class="comment"> *      -&gt; 进入 async2() 输出 “ async2 ”</span></span><br><span class="line"><span class="comment"> *      -&gt; await等待async2()函数返回一个promise实例 将 console.log(&#x27;async1 end&#x27;) 放入异步队列</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 3. promise()</span></span><br><span class="line"><span class="comment"> *      -&gt; 输出 “ promise1 ” </span></span><br><span class="line"><span class="comment"> *      -&gt; resolve() 进入异步队列</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 4. console.log(&quot;script end&quot;)   -&gt; 输出 “ script end ”</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 异步队列：</span></span><br><span class="line"><span class="comment"> * setTimeout()               </span></span><br><span class="line"><span class="comment"> * console.log(&#x27;async1 end&#x27;)  </span></span><br><span class="line"><span class="comment"> * resolve()                  </span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * 按宏 / 微任务 顺序输出</span></span><br><span class="line"><span class="comment"> * console.log(&#x27;async1 end&#x27;)  // 微任务 1  -&gt;   async1 end</span></span><br><span class="line"><span class="comment"> * resolve()                  // 微任务 2  -&gt;  promise2</span></span><br><span class="line"><span class="comment"> * setTimeout()               // 宏任务 1  -&gt;   settimeout</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="async-await"><a href="#async-await" class="headerlink" title="async / await"></a>async / await</h2><blockquote>
+<p>通过看起来是同步的代码来执行 async(异步) 操作。<br>await阻塞功能，相当于一个 .then()的功能，await后一般是跟的异步操作，加上之后 只有等他执行完之后，后面的代码才能进行<br>本质还是promise 属于微任务</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">asyncFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> result = <span class="keyword">await</span> otherAsyncFunc();</span><br><span class="line">    <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">// 等价于:</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">asyncFunc</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> otherAsyncFunc().then(<span class="function"><span class="params">result</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(result);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="事件循环机制-EventLoop"><a href="#事件循环机制-EventLoop" class="headerlink" title="事件循环机制 (EventLoop)"></a>事件循环机制 (EventLoop)</h2><blockquote>
+<p>JavaScript是单线程的 ( 所有在主线程执行 )<br>事件轮询机制：同步任务完成后，执行异步队列  </p>
+</blockquote>
+<p><b style='color:red'>单线程特点:</b>   </p>
+<ol>
+<li>代码从上至下以此执行  </li>
+<li>同步（ 会阻塞后面代码的执行 ） &amp; 异步 ( 主线程同步任务之后触发执行 )  </li>
+<li>同步代表：alert()  console.log()  赋值语句  </li>
+<li>异步代表：定时器  事件的回调(  xx.onclick=function(){}  ) promise</li>
+</ol>
+<img src='/images/eventLoop.png'>
+
+<p><b style='color:red'>事件循环:</b>  </p>
+<ol>
+<li>所有同步任务都在主线程上执行，形成一个执行栈</li>
+<li>主线程之外，还存在一个”消息队列”。只要异步操作执行完成，就到消息队列中排队</li>
+<li>一旦执行栈中的所有同步任务执行完毕，系统就会按次序读取消息队列中的异步任务，于是被读取的异步任务结束等待状态，进入执行栈，开始执行</li>
+<li>主线程不断重复上面的第三步</li>
+</ol>
+<h2 id="宏任务和微任务"><a href="#宏任务和微任务" class="headerlink" title="宏任务和微任务"></a>宏任务和微任务</h2><blockquote>
+<p>微任务和宏任务皆为异步任务，但是微任务的优先级高于宏任务。</p>
+</blockquote>
+<img src='/images/task.png'>
+<img src='/images/tasks.png'> 
+      <!-- reward -->
+      
+    </div>
+    
+
+    <!-- copyright -->
+    
+    <footer class="article-footer">
+       
+    </footer>
+  </div>
+
+    
+ 
+   
+</article>
+
+    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/4/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/4/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">下一页</a>
   </nav>
   
 </section>
@@ -1123,7 +1080,7 @@
     <ul>
       <li>
         Copyrights &copy;
-        2019-2023
+        2019-2026
         <i class="ri-heart-fill heart_icon"></i> John Doe
       </li>
     </ul>
